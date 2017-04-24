@@ -1,6 +1,5 @@
 package com.rabtman.common.di.module;
 
-import android.app.Application;
 import android.text.TextUtils;
 import com.rabtman.common.http.GlobeHttpHandler;
 import dagger.Module;
@@ -12,9 +11,6 @@ import javax.inject.Singleton;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 
-/**
- * Created by jessyan on 2016/3/14.
- */
 @Module
 public class GlobeConfigModule {
 
@@ -22,19 +18,14 @@ public class GlobeConfigModule {
   private GlobeHttpHandler mHandler;
   private List<Interceptor> mInterceptors;
 
-  /**
-   * @author: jess
-   * @date 8/5/16 11:03 AM
-   * @description: 设置baseurl
-   */
-  private GlobeConfigModule(Buidler buidler) {
-    this.mApiUrl = buidler.apiUrl;
-    this.mHandler = buidler.handler;
-    this.mInterceptors = buidler.interceptors;
+  private GlobeConfigModule(Builder builder) {
+    this.mApiUrl = builder.apiUrl;
+    this.mHandler = builder.handler;
+    this.mInterceptors = builder.interceptors;
   }
 
-  public static Buidler buidler() {
-    return new Buidler();
+  public static Builder builder() {
+    return new Builder();
   }
 
 
@@ -58,17 +49,17 @@ public class GlobeConfigModule {
     return mHandler == null ? GlobeHttpHandler.EMPTY : mHandler;//打印请求信息
   }
 
-  public static final class Buidler {
+  public static final class Builder {
 
     private HttpUrl apiUrl = HttpUrl.parse("https://api.github.com/");
     private GlobeHttpHandler handler;
     private List<Interceptor> interceptors = new ArrayList<>();
     private File cacheFile;
 
-    private Buidler() {
+    private Builder() {
     }
 
-    public Buidler baseurl(String baseurl) {//基础url
+    public Builder baseurl(String baseurl) {//基础url
       if (TextUtils.isEmpty(baseurl)) {
         throw new IllegalArgumentException("baseurl can not be empty");
       }
@@ -76,26 +67,19 @@ public class GlobeConfigModule {
       return this;
     }
 
-    public Buidler globeHttpHandler(GlobeHttpHandler handler) {//用来处理http响应结果
+    public Builder globeHttpHandler(GlobeHttpHandler handler) {//用来处理http响应结果
       this.handler = handler;
       return this;
     }
 
-    public Buidler addInterceptor(Interceptor interceptor) {//动态添加任意个interceptor
+    public Builder addInterceptor(Interceptor interceptor) {//动态添加任意个interceptor
       this.interceptors.add(interceptor);
       return this;
     }
 
-    public Buidler cacheFile(File cacheFile) {
-      this.cacheFile = cacheFile;
-      return this;
-    }
-
-
     public GlobeConfigModule build() {
       return new GlobeConfigModule(this);
     }
-
 
   }
 

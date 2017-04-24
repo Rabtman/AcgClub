@@ -48,7 +48,10 @@ dependencies {
     //rx
     compile rootProject.ext.dependencies["rxjava"]
     compile rootProject.ext.dependencies["rxandroid"]
+    compile rootProject.ext.dependencies["rxcache"]
+    compile rootProject.ext.dependencies["rxcache-jolyglot"]
     //di
     compile rootProject.ext.dependencies["dagger2"]
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     compile rootProject.ext.dependencies["butterknife"]
 }

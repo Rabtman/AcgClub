@@ -10,7 +10,7 @@ public class LogUtil {
   private static final String TAG = "com.rabtman.acgclub";
   private static boolean mIsDebug = true;
 
-  public static void init(Boolean isDebug){
+  public static void init(Boolean isDebug) {
     mIsDebug = isDebug;
   }
 

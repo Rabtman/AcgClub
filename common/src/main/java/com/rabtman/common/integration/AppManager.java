@@ -1,5 +1,6 @@
-package com.rabtman.common.base;
+package com.rabtman.common.integration;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
@@ -20,18 +21,18 @@ import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import me.yokeyword.fragmentation.SupportActivity;
 
 
 @Singleton
 public class AppManager {
 
+  public static final String IS_NOT_ADD_ACTIVITY_LIST = "is_add_activity_list";//是否加入到activity的list，管理
   //管理所有activity
-  public List<SupportActivity> mActivityList;
+  public List<Activity> mActivityList;
   private Application mApplication;
   private Flowable<AppManagerEvent> mAppManagerEventFlowable;
   //当前在前台的activity
-  private SupportActivity mCurrentActivity;
+  private Activity mCurrentActivity;
 
   @Inject
   public AppManager(Application application) {
@@ -53,10 +54,10 @@ public class AppManager {
                 dispatchStart(appManagerEvent.msg);
                 break;
               case AppManagerEvent.SHOW_SNACKBAR:
-                  if (appManagerEvent.msg instanceof String && TextUtils
-                      .isEmpty((String) appManagerEvent.msg)) {
-                      showSnackbar((String) appManagerEvent.msg);
-                  }
+                if (appManagerEvent.msg instanceof String && TextUtils
+                    .isEmpty((String) appManagerEvent.msg)) {
+                  showSnackbar((String) appManagerEvent.msg);
+                }
                 break;
               case AppManagerEvent.KILL_ALL:
                 killAll();
@@ -80,11 +81,11 @@ public class AppManager {
   }
 
   private void dispatchStart(Object msg) {
-      if (msg instanceof Intent) {
-          startActivity((Intent) msg);
-      } else if (msg instanceof Class) {
-          startActivity((Class) msg);
-      }
+    if (msg instanceof Intent) {
+      startActivity((Intent) msg);
+    } else if (msg instanceof Class) {
+      startActivity((Class) msg);
+    }
     return;
   }
 
@@ -139,21 +140,21 @@ public class AppManager {
   /**
    * 获得当前在前台的activity
    */
-  public SupportActivity getCurrentActivity() {
+  public Activity getCurrentActivity() {
     return mCurrentActivity;
   }
 
   /**
    * 将在前台的activity保存
    */
-  public void setCurrentActivity(SupportActivity currentActivity) {
+  public void setCurrentActivity(Activity currentActivity) {
     this.mCurrentActivity = currentActivity;
   }
 
   /**
    * 返回一个存储所有未销毁的activity的集合
    */
-  public List<SupportActivity> getActivityList() {
+  public List<Activity> getActivityList() {
     if (mActivityList == null) {
       mActivityList = new LinkedList<>();
     }
@@ -164,7 +165,7 @@ public class AppManager {
   /**
    * 添加Activity到集合
    */
-  public void addActivity(SupportActivity activity) {
+  public void addActivity(Activity activity) {
     if (mActivityList == null) {
       mActivityList = new LinkedList<>();
     }
@@ -178,9 +179,9 @@ public class AppManager {
   /**
    * 删除集合里的指定activity
    */
-  public void removeActivity(SupportActivity activity) {
+  public void removeActivity(Activity activity) {
     if (mActivityList == null) {
-      LogUtil.w("mActivityList == null when removeActivity(SupportActivity)");
+      LogUtil.w("mActivityList == null when removeActivity(Activity)");
       return;
     }
     synchronized (AppManager.class) {
@@ -193,7 +194,7 @@ public class AppManager {
   /**
    * 删除集合里的指定位置的activity
    */
-  public SupportActivity removeActivity(int location) {
+  public Activity removeActivity(int location) {
     if (mActivityList == null) {
       LogUtil.w("mActivityList == null when removeActivity(int)");
       return null;
@@ -214,7 +215,7 @@ public class AppManager {
       LogUtil.w("mActivityList == null when killActivity");
       return;
     }
-    for (SupportActivity activity : mActivityList) {
+    for (Activity activity : mActivityList) {
       if (activity.getClass().equals(activityClass)) {
         activity.finish();
       }
@@ -225,7 +226,7 @@ public class AppManager {
   /**
    * 指定的activity实例是否存活
    */
-  public boolean activityInstanceIsLive(SupportActivity activity) {
+  public boolean activityInstanceIsLive(Activity activity) {
     if (mActivityList == null) {
       LogUtil.w("mActivityList == null when activityInstanceIsLive");
       return false;
@@ -242,7 +243,7 @@ public class AppManager {
       LogUtil.w("mActivityList == null when activityClassIsLive");
       return false;
     }
-    for (SupportActivity activity : mActivityList) {
+    for (Activity activity : mActivityList) {
       if (activity.getClass().equals(activityClass)) {
         return true;
       }
@@ -256,7 +257,7 @@ public class AppManager {
    * 关闭所有activity
    */
   public void killAll() {
-    Iterator<SupportActivity> iterator = getActivityList().iterator();
+    Iterator<Activity> iterator = getActivityList().iterator();
     while (iterator.hasNext()) {
       iterator.next().finish();
       iterator.remove();
@@ -271,9 +272,9 @@ public class AppManager {
   public void AppExit() {
     try {
       killAll();
-        if (mActivityList != null) {
-            mActivityList = null;
-        }
+      if (mActivityList != null) {
+        mActivityList = null;
+      }
       ActivityManager activityMgr =
           (ActivityManager) mApplication.getSystemService(Context.ACTIVITY_SERVICE);
       activityMgr.killBackgroundProcesses(mApplication.getPackageName());

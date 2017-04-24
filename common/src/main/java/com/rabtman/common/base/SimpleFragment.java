@@ -46,12 +46,12 @@ public abstract class SimpleFragment extends SupportFragment {
     if (savedInstanceState == null) {
       if (!isHidden()) {
         isInited = true;
-        initEventAndData();
+        initData();
       }
     } else {
       if (!isSupportHidden()) {
         isInited = true;
-        initEventAndData();
+        initData();
       }
     }
   }
@@ -61,7 +61,7 @@ public abstract class SimpleFragment extends SupportFragment {
     super.onHiddenChanged(hidden);
     if (!isInited && !hidden) {
       isInited = true;
-      initEventAndData();
+      initData();
     }
   }
 
@@ -73,5 +73,5 @@ public abstract class SimpleFragment extends SupportFragment {
 
   protected abstract int getLayoutId();
 
-  protected abstract void initEventAndData();
+  protected abstract void initData();
 }

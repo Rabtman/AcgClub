@@ -12,77 +12,82 @@ import com.rabtman.common.imageloader.ImageConfig;
  * 其他操作同理
  */
 public class GlideImageConfig extends ImageConfig {
+
+  private int cacheStrategy;//0对应DiskCacheStrategy.all,1对应DiskCacheStrategy.NONE,2对应DiskCacheStrategy.SOURCE,3对应DiskCacheStrategy.RESULT
+  private BitmapTransformation transformation;//glide用它来改变图形的形状
+
+  private GlideImageConfig(Buidler builder) {
+    this.url = builder.url;
+    this.imageView = builder.imageView;
+    this.placeholder = builder.placeholder;
+    this.errorPic = builder.errorPic;
+    this.cacheStrategy = builder.cacheStrategy;
+    this.transformation = builder.transformation;
+  }
+
+  public static Buidler builder() {
+    return new Buidler();
+  }
+
+  public int getCacheStrategy() {
+    return cacheStrategy;
+  }
+
+  public BitmapTransformation getTransformation() {
+    return transformation;
+  }
+
+  public static final class Buidler {
+
+    private String url;
+    private ImageView imageView;
+    private int placeholder;
+    private int errorPic;
     private int cacheStrategy;//0对应DiskCacheStrategy.all,1对应DiskCacheStrategy.NONE,2对应DiskCacheStrategy.SOURCE,3对应DiskCacheStrategy.RESULT
     private BitmapTransformation transformation;//glide用它来改变图形的形状
 
-    private GlideImageConfig(Buidler builder) {
-        this.url = builder.url;
-        this.imageView = builder.imageView;
-        this.placeholder = builder.placeholder;
-        this.errorPic = builder.errorPic;
-        this.cacheStrategy = builder.cacheStrategy;
-        this.transformation = builder.transformation;
+    private Buidler() {
     }
 
-    public int getCacheStrategy() {
-        return cacheStrategy;
+    public Buidler url(String url) {
+      this.url = url;
+      return this;
     }
 
-    public BitmapTransformation getTransformation() {
-        return transformation;
+    public Buidler placeholder(int placeholder) {
+      this.placeholder = placeholder;
+      return this;
     }
 
-    public static Buidler builder() {
-        return new Buidler();
+    public Buidler errorPic(int errorPic) {
+      this.errorPic = errorPic;
+      return this;
+    }
+
+    public Buidler imagerView(ImageView imageView) {
+      this.imageView = imageView;
+      return this;
+    }
+
+    public Buidler cacheStrategy(int cacheStrategy) {
+      this.cacheStrategy = cacheStrategy;
+      return this;
+    }
+
+    public Buidler transformation(BitmapTransformation transformation) {
+      this.transformation = transformation;
+      return this;
     }
 
 
-    public static final class Buidler {
-        private String url;
-        private ImageView imageView;
-        private int placeholder;
-        private int errorPic;
-        private int cacheStrategy;//0对应DiskCacheStrategy.all,1对应DiskCacheStrategy.NONE,2对应DiskCacheStrategy.SOURCE,3对应DiskCacheStrategy.RESULT
-        private BitmapTransformation transformation;//glide用它来改变图形的形状
-
-        private Buidler() {
-        }
-
-        public Buidler url(String url) {
-            this.url = url;
-            return this;
-        }
-
-        public Buidler placeholder(int placeholder) {
-            this.placeholder = placeholder;
-            return this;
-        }
-
-        public Buidler errorPic(int errorPic){
-            this.errorPic = errorPic;
-            return this;
-        }
-
-        public Buidler imagerView(ImageView imageView) {
-            this.imageView = imageView;
-            return this;
-        }
-
-        public Buidler cacheStrategy(int cacheStrategy) {
-            this.cacheStrategy = cacheStrategy;
-            return this;
-        }
-
-        public Buidler transformation(BitmapTransformation transformation) {
-            this.transformation = transformation;
-            return this;
-        }
-
-
-        public GlideImageConfig build() {
-            if (url == null) throw new IllegalStateException("url is required");
-            if (imageView == null) throw new IllegalStateException("imageview is required");
-            return new GlideImageConfig(this);
-        }
+    public GlideImageConfig build() {
+      if (url == null) {
+        throw new IllegalStateException("url is required");
+      }
+      if (imageView == null) {
+        throw new IllegalStateException("imageview is required");
+      }
+      return new GlideImageConfig(this);
     }
+  }
 }

@@ -1,6 +1,5 @@
 package com.rabtman.common.base;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
@@ -8,51 +7,26 @@ import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.rabtman.common.base.mvp.BasePresenter;
+import com.rabtman.common.di.component.AppComponent;
 import javax.inject.Inject;
 import me.yokeyword.fragmentation.SupportActivity;
 
 
 public abstract class BaseActivity<P extends BasePresenter> extends SupportActivity {
 
-  public static final String IS_NOT_ADD_ACTIVITY_LIST = "is_add_activity_list";//是否加入到activity的list，管理
   protected BaseApplication mApplication;
   @Inject
   protected P mPresenter;
-  protected Activity mContext;
   private Unbinder mUnBinder;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(getLayout());
-    //如果intent包含了此字段,并且为true说明不加入到list
-    // 默认为false,如果不需要管理(比如不需要在退出所有activity(killAll)时，退出此activity就在intent加此字段为true)
-    boolean isNotAdd = false;
-    if (getIntent() != null) {
-      isNotAdd = getIntent().getBooleanExtra(IS_NOT_ADD_ACTIVITY_LIST, false);
-    }
-
-    if (!isNotAdd) {
-      mApplication.getAppManager().addActivity(this);
-    }
     mUnBinder = ButterKnife.bind(this);
-    mContext = this;
-    initInject();
-    initEventAndData();
-  }
-
-  @Override
-  protected void onResume() {
-    super.onResume();
-    mApplication.getAppManager().setCurrentActivity(this);
-  }
-
-  @Override
-  protected void onPause() {
-    super.onPause();
-    if (mApplication.getAppManager().getCurrentActivity() == this) {
-      mApplication.getAppManager().setCurrentActivity(null);
-    }
+    mApplication = (BaseApplication) getApplication();
+    setupActivityComponent(mApplication.getAppComponent());//依赖注入
+    initData();
   }
 
   protected void setToolBar(Toolbar toolbar, String title) {
@@ -71,7 +45,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends SupportActiv
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    mApplication.getAppManager().removeActivity(this);
     if (mPresenter != null) {
       mPresenter.onDestroy();
     }
@@ -83,9 +56,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends SupportActiv
     this.mApplication = null;
   }
 
-  protected abstract void initInject();
+  /**
+   * 提供AppComponent(提供所有的单例对象)给子类，进行Component依赖
+   */
+  protected abstract void setupActivityComponent(AppComponent appComponent);
 
   protected abstract int getLayout();
 
-  protected abstract void initEventAndData();
+  protected abstract void initData();
+
 }

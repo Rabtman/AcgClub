@@ -7,5 +7,5 @@ package com.rabtman.common.base.mvp;
 
 public interface IModel {
 
-  void onDestory();
+  void onDestroy();
 }

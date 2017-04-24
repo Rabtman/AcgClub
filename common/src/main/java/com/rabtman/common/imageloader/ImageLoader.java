@@ -6,21 +6,22 @@ import javax.inject.Singleton;
 
 @Singleton
 public final class ImageLoader {
-    private BaseImageLoaderStrategy mStrategy;
 
-    @Inject
-    public ImageLoader(BaseImageLoaderStrategy strategy) {
-        setLoadImgStrategy(strategy);
-    }
+  private BaseImageLoaderStrategy mStrategy;
 
-
-    public <T extends ImageConfig> void loadImage(Context context, T config) {
-        this.mStrategy.loadImage(context, config);
-    }
+  @Inject
+  public ImageLoader(BaseImageLoaderStrategy strategy) {
+    setLoadImgStrategy(strategy);
+  }
 
 
-    public void setLoadImgStrategy(BaseImageLoaderStrategy strategy) {
-        this.mStrategy = strategy;
-    }
+  public <T extends ImageConfig> void loadImage(Context context, T config) {
+    this.mStrategy.loadImage(context, config);
+  }
+
+
+  public void setLoadImgStrategy(BaseImageLoaderStrategy strategy) {
+    this.mStrategy = strategy;
+  }
 
 }
