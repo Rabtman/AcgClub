@@ -1,7 +1,11 @@
 package com.rabtman.common.di.module;
 
+import static dagger.internal.Preconditions.checkNotNull;
+
+import android.app.Application;
 import android.text.TextUtils;
 import com.rabtman.common.http.GlobeHttpHandler;
+import com.rabtman.common.utils.FileUtils;
 import dagger.Module;
 import dagger.Provides;
 import java.io.File;
@@ -11,17 +15,25 @@ import javax.inject.Singleton;
 import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 
+
 @Module
 public class GlobeConfigModule {
 
   private HttpUrl mApiUrl;
   private GlobeHttpHandler mHandler;
   private List<Interceptor> mInterceptors;
+  private File mCacheFile;
 
+  /**
+   * @author: jess
+   * @date 8/5/16 11:03 AM
+   * @description: 设置baseurl
+   */
   private GlobeConfigModule(Builder builder) {
     this.mApiUrl = builder.apiUrl;
     this.mHandler = builder.handler;
     this.mInterceptors = builder.interceptors;
+    this.mCacheFile = builder.cacheFile;
   }
 
   public static Builder builder() {
@@ -48,6 +60,17 @@ public class GlobeConfigModule {
   GlobeHttpHandler provideGlobeHttpHandler() {
     return mHandler == null ? GlobeHttpHandler.EMPTY : mHandler;//打印请求信息
   }
+
+
+  /**
+   * 提供缓存文件
+   */
+  @Singleton
+  @Provides
+  File provideCacheFile(Application application) {
+    return mCacheFile == null ? FileUtils.getCacheFile(application) : mCacheFile;
+  }
+
 
   public static final class Builder {
 
@@ -77,9 +100,18 @@ public class GlobeConfigModule {
       return this;
     }
 
+
+    public Builder cacheFile(File cacheFile) {
+      this.cacheFile = cacheFile;
+      return this;
+    }
+
+
     public GlobeConfigModule build() {
+      checkNotNull(apiUrl, "baseurl is required");
       return new GlobeConfigModule(this);
     }
+
 
   }
 

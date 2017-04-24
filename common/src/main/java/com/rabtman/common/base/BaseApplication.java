@@ -3,6 +3,7 @@ package com.rabtman.common.base;
 import android.app.Application;
 import android.content.Context;
 import com.rabtman.common.di.component.AppComponent;
+import com.rabtman.common.di.component.DaggerAppComponent;
 import com.rabtman.common.di.module.AppModule;
 import com.rabtman.common.di.module.ClientModule;
 import com.rabtman.common.di.module.GlobeConfigModule;
@@ -24,8 +25,6 @@ public abstract class BaseApplication extends Application {
 
   /**
    * 返回上下文
-   *
-   * @return
    */
   public static Context getContext() {
     return mApplication;
@@ -71,8 +70,6 @@ public abstract class BaseApplication extends Application {
   /**
    * 将app的全局配置信息封装进module(使用Dagger注入到需要配置信息的地方)
    * 需要在AndroidManifest中声明{@link ConfigModule}的实现类,和Glide的配置方式相似
-   *
-   * @return
    */
   private GlobeConfigModule getGlobeConfigModule(Application context, List<ConfigModule> modules) {
 
