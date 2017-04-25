@@ -28,6 +28,9 @@ dependencies {
     compile rootProject.ext.dependencies["design"]
     compile rootProject.ext.dependencies["cardview-v7"]
     compile rootProject.ext.dependencies["recyclerview-v7"]
+    //ui
+    compile rootProject.ext.dependencies["dialog"]
+    //compile rootProject.ext.dependencies["toast"]
     //other
     compile rootProject.ext.dependencies["multidex"]
     compile rootProject.ext.dependencies["logger"]

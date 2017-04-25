@@ -7,12 +7,14 @@ import android.view.View;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.rabtman.common.base.mvp.BasePresenter;
+import com.rabtman.common.base.mvp.IView;
 import com.rabtman.common.di.component.AppComponent;
 import javax.inject.Inject;
 import me.yokeyword.fragmentation.SupportActivity;
 
 
-public abstract class BaseActivity<P extends BasePresenter> extends SupportActivity {
+public abstract class BaseActivity<P extends BasePresenter> extends SupportActivity implements
+    IView {
 
   protected BaseApplication mApplication;
   @Inject

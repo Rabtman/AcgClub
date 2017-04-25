@@ -1,0 +1,24 @@
+<resources>
+  <!-- Default screen margins, per the Android Design guidelines. -->
+  <dimen name="nav_header_vertical_spacing">16dp</dimen>
+  <dimen name="content_padding">8dp</dimen>
+  <dimen name="nav_header_height">160dp</dimen>
+
+  <dimen name="activity_horizontal_margin">16dp</dimen>
+  <dimen name="activity_horizontal_padding">16dp</dimen>
+  <dimen name="activity_vertical_margin">16dp</dimen>
+  <dimen name="activity_vertical_padding">16dp</dimen>
+  <dimen name="fab_margin">16dp</dimen>
+
+  <dimen name="menu">16sp</dimen>
+  <dimen name="button">14sp</dimen> <!--给（图片、照片等）加说明文字-->
+  <dimen name="caption">12sp</dimen>
+  <dimen name="body">16sp</dimen>
+  <dimen name="subheading">14sp</dimen> <!--副标题-->
+  <dimen name="title">20sp</dimen>
+  <dimen name="headline">24sp</dimen>
+  <dimen name="display1">34sp</dimen>
+  <dimen name="display2">45sp</dimen>
+  <dimen name="display3">56sp</dimen>
+  <dimen name="display4">112sp</dimen>
+</resources>

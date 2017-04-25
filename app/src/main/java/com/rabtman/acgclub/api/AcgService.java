@@ -1,4 +1,4 @@
-package com.rabtman.acgclub.base.model.api.service;
+package com.rabtman.acgclub.api;
 
 /**
  * @author Rabtman

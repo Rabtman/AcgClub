@@ -2,7 +2,7 @@ package com.rabtman.common.di.component;
 
 import android.app.Application;
 import com.google.gson.Gson;
-import com.rabtman.common.base.BaseApplication;
+import com.rabtman.common.base.delegate.AppDelegate;
 import com.rabtman.common.di.module.AppModule;
 import com.rabtman.common.di.module.ClientModule;
 import com.rabtman.common.di.module.GlobeConfigModule;
@@ -41,5 +41,5 @@ public interface AppComponent {
   //用于管理所有activity
   AppManager appManager();
 
-  void inject(BaseApplication application);
+  void inject(AppDelegate delegate);
 }
