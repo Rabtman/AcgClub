@@ -21,4 +21,13 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+  <android.support.design.widget.BottomNavigationView
+    android:id="@+id/view_navigation"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:layout_gravity="bottom"
+    app:itemBackground="@color/colorPrimary"
+    app:itemIconTint="@android:color/white"
+    app:itemTextColor="@android:color/white"
+    app:menu="@menu/activity_main_navigation" />
 </android.support.design.widget.CoordinatorLayout>

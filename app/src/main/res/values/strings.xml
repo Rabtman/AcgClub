@@ -1,5 +1,7 @@
 <resources>
   <string name="app_name">宅社</string>
   <string name="nav_main">首页</string>
+  <string name="nav_schedule">番剧</string>
+  <string name="nav_setting">设置</string>
   <string name="nav_group_two">选项</string>
 </resources>
