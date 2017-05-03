@@ -26,7 +26,20 @@ public class App extends BaseApplication {
   public void onCreate() {
     super.onCreate();
 
+    initToastyConfig();
     installLeakCanary();//leakCanary内存泄露检查
+  }
+
+  private void initToastyConfig() {
+    /*Toasty.Config.getInstance()
+        .setErrorColor( @ColorInt int errorColor) // optional
+    .setInfoColor( @ColorInt int infoColor) // optional
+    .setSuccessColor( @ColorInt int successColor) // optional
+    .setWarningColor( @ColorInt int warningColor) // optional
+    .setTextColor( @ColorInt int textColor) // optional
+    .tintIcon( boolean tintIcon) // optional (apply textColor also to the icon)
+    .setToastTypeface(@NonNull Typeface typeface) // optional
+        .apply(); */
   }
 
   @Override

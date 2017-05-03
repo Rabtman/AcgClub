@@ -6,15 +6,19 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.rabtman.common.base.mvp.BasePresenter;
+import com.rabtman.common.base.mvp.IView;
 import com.rabtman.common.di.component.AppComponent;
+import es.dmoral.toasty.Toasty;
 import javax.inject.Inject;
 import me.yokeyword.fragmentation.SupportFragment;
 
 
-public abstract class BaseFragment<T extends BasePresenter> extends SupportFragment {
+public abstract class BaseFragment<T extends BasePresenter> extends SupportFragment implements
+    IView {
 
   @Inject
   protected T mPresenter;
@@ -73,6 +77,22 @@ public abstract class BaseFragment<T extends BasePresenter> extends SupportFragm
       mPresenter.onDestroy();
     }
     mUnBinder.unbind();
+  }
+
+
+  @Override
+  public void showLoading() {
+
+  }
+
+  @Override
+  public void hideLoading() {
+
+  }
+
+  @Override
+  public void showError(String message) {
+    Toasty.error(mContext, message, Toast.LENGTH_SHORT).show();
   }
 
   /**
