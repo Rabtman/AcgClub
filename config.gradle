@@ -19,22 +19,22 @@ ext {
     ]
     dependencies = [
             //base
-            "appcompat-v7"   : "com.android.support:appcompat-v7:${dependVersion.support}",
-            "design"         : "com.android.support:design:${dependVersion.support}",
-            "cardview-v7"    : "com.android.support:cardview-v7:${dependVersion.support}",
-            "recyclerview-v7": "com.android.support:recyclerview-v7:${dependVersion.support}",
+            "appcompat-v7"              : "com.android.support:appcompat-v7:${dependVersion.support}",
+            "design"                    : "com.android.support:design:${dependVersion.support}",
+            "cardview-v7"               : "com.android.support:cardview-v7:${dependVersion.support}",
+            "recyclerview-v7"           : "com.android.support:recyclerview-v7:${dependVersion.support}",
             //ui
-            "dialog"         : "com.github.hss01248:DialogUtil:1.0.9",
-            "toast"          : "com.github.GrenderG:Toasty:1.2.3",
+            "dialog"                    : "com.github.hss01248:DialogUtil:1.0.9",
+            "toast"                     : "com.github.GrenderG:Toasty:1.2.3",
             //other
-            "multidex"       : "com.android.support:multidex:1.0.1",
-            "logger"         : "com.orhanobut:logger:1.15",
-            "fragmentation"  : "me.yokeyword:fragmentation:0.7.9",
-            "crashreport"    : "com.tencent.bugly:crashreport:latest.release",
+            "multidex"                  : "com.android.support:multidex:1.0.1",
+            "logger"                    : "com.orhanobut:logger:1.15",
+            "fragmentation"             : "me.yokeyword:fragmentation:0.10.4",
+            "crashreport"               : "com.tencent.bugly:crashreport:latest.release",
             //json
-            "gson"           : "com.google.code.gson:gson:2.8.0",
+            "gson"                      : "com.google.code.gson:gson:2.8.0",
             //network
-            "retrofit"       : "com.squareup.retrofit2:retrofit:${dependVersion.retrofit}",
+            "retrofit"                  : "com.squareup.retrofit2:retrofit:${dependVersion.retrofit}",
             "retrofit-converter-gson"   : "com.squareup.retrofit2:converter-gson:${dependVersion.retrofit}",
             "retrofit-adapter-rxjava2"  : "com.squareup.retrofit2:adapter-rxjava2:${dependVersion.retrofit}",
             "okhttp"                    : "com.squareup.okhttp3:okhttp:${dependVersion.okhttp}",
