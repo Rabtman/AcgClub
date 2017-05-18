@@ -21,6 +21,7 @@
     <meta-data
       android:name="com.rabtman.common.imageloader.glide.GlideConfiguration"
       android:value="GlideModule" />
+
   </application>
 
 </manifest>

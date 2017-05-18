@@ -45,4 +45,5 @@ dependencies {
     releaseCompile rootProject.ext.dependencies["blockcanary-no-op"]
     debugCompile rootProject.ext.dependencies["leakcanary-android"]
     releaseCompile rootProject.ext.dependencies["leakcanary-no-op"]
+    compile 'me.ghui:Fruit:0.1.1'
 }
