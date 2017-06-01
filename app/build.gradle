@@ -37,6 +37,8 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':common')
     testCompile rootProject.ext.dependencies["junit"]
+    //ui
+    compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.2@aar'
     //di
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
@@ -45,5 +47,6 @@ dependencies {
     releaseCompile rootProject.ext.dependencies["blockcanary-no-op"]
     debugCompile rootProject.ext.dependencies["leakcanary-android"]
     releaseCompile rootProject.ext.dependencies["leakcanary-no-op"]
+    //jsoup
     compile 'me.ghui:Fruit:0.1.1'
 }
