@@ -24,8 +24,8 @@ public abstract class SimpleActivity extends SupportActivity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(getLayout());
-
     mUnBinder = ButterKnife.bind(this);
+    mApplication = (BaseApplication) getApplication();
     mContext = this;
     initData();
   }

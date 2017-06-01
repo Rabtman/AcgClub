@@ -1,6 +1,5 @@
 package com.rabtman.common.base;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,14 +18,14 @@ import me.yokeyword.fragmentation.SupportFragment;
 public abstract class SimpleFragment extends SupportFragment {
 
   protected View mView;
-  protected Activity mActivity;
+  protected BaseActivity mActivity;
   protected Context mContext;
   private Unbinder mUnBinder;
   private boolean isInited = false;
 
   @Override
   public void onAttach(Context context) {
-    mActivity = (Activity) context;
+    mActivity = (BaseActivity) context;
     mContext = context;
     super.onAttach(context);
   }
@@ -43,26 +42,13 @@ public abstract class SimpleFragment extends SupportFragment {
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
     mUnBinder = ButterKnife.bind(this, view);
-    if (savedInstanceState == null) {
-      if (!isHidden()) {
-        isInited = true;
-        initData();
-      }
-    } else {
-      if (!isSupportHidden()) {
-        isInited = true;
-        initData();
-      }
-    }
   }
 
   @Override
-  public void onHiddenChanged(boolean hidden) {
-    super.onHiddenChanged(hidden);
-    if (!isInited && !hidden) {
-      isInited = true;
-      initData();
-    }
+  public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+    super.onLazyInitView(savedInstanceState);
+    isInited = true;
+    initData();
   }
 
   @Override

@@ -1,6 +1,5 @@
 package com.rabtman.acgclub.mvp.ui.fragment;
 
-import android.os.Bundle;
 import com.rabtman.acgclub.di.component.DaggerScheduleComponent;
 import com.rabtman.acgclub.di.module.ScheduleModule;
 import com.rabtman.acgclub.mvp.contract.ScheduleContract;
@@ -14,13 +13,6 @@ import com.rabtman.common.di.component.AppComponent;
 
 public class ScheduleFragment extends BaseFragment<SchedulePresenter> implements
     ScheduleContract.View {
-
-  public static ScheduleFragment newInstance() {
-    Bundle args = new Bundle();
-    ScheduleFragment fragment = new ScheduleFragment();
-    fragment.setArguments(args);
-    return fragment;
-  }
 
   @Override
   protected int getLayoutId() {

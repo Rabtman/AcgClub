@@ -29,8 +29,16 @@ dependencies {
     compile rootProject.ext.dependencies["cardview-v7"]
     compile rootProject.ext.dependencies["recyclerview-v7"]
     //ui
-    compile rootProject.ext.dependencies["dialog"]
-    compile rootProject.ext.dependencies["toast"]
+    compile(rootProject.ext.dependencies["dialog"]) {
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+    }
+    compile(rootProject.ext.dependencies["toast"]) {
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+    }
     //other
     compile rootProject.ext.dependencies["multidex"]
     compile rootProject.ext.dependencies["logger"]

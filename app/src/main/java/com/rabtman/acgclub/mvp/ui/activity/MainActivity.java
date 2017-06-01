@@ -56,7 +56,7 @@ public class MainActivity extends SimpleActivity {
     drawerLayout.addDrawerListener(toggle);
     toggle.syncState();*/
     //fragment
-    scheduleFragment = ScheduleFragment.newInstance();
+    scheduleFragment = new ScheduleFragment();
     loadMultipleRootFragment(R.id.main_content, R.id.nav_main, scheduleFragment);
 
     bottomNavigationView.setOnNavigationItemSelectedListener(

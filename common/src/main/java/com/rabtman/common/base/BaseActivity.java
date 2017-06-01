@@ -4,29 +4,23 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.base.mvp.IView;
 import com.rabtman.common.di.component.AppComponent;
 import javax.inject.Inject;
-import me.yokeyword.fragmentation.SupportActivity;
 
 
-public abstract class BaseActivity<P extends BasePresenter> extends SupportActivity implements
+public abstract class BaseActivity<P extends BasePresenter> extends SimpleActivity implements
     IView {
 
-  protected BaseApplication mApplication;
   @Inject
   protected P mPresenter;
-  private Unbinder mUnBinder;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(getLayout());
-    mUnBinder = ButterKnife.bind(this);
-    mApplication = (BaseApplication) getApplication();
+
     setupActivityComponent(mApplication.getAppComponent());//依赖注入
     initData();
   }
@@ -50,12 +44,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends SupportActiv
     if (mPresenter != null) {
       mPresenter.onDestroy();
     }
-    if (mUnBinder != Unbinder.EMPTY) {
-      mUnBinder.unbind();
-    }
     this.mPresenter = null;
-    this.mUnBinder = null;
-    this.mApplication = null;
   }
 
   /**

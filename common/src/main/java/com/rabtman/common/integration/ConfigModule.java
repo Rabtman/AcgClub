@@ -1,5 +1,6 @@
 package com.rabtman.common.integration;
 
+import android.app.Application;
 import android.content.Context;
 import com.rabtman.common.base.delegate.AppDelegate;
 import com.rabtman.common.base.delegate.AppDelegate.Lifecycle;
@@ -28,4 +29,10 @@ public interface ConfigModule {
    * 使用{@link AppDelegate.Lifecycle}在Application的声明周期中注入一些操作
    */
   void injectAppLifecycle(Context context, List<Lifecycle> lifecycles);
+
+  /**
+   * 使用{@link Application.ActivityLifecycleCallbacks}在Activity的生命周期中注入一些操作
+   */
+  void injectActivityLifecycle(Context context,
+      List<Application.ActivityLifecycleCallbacks> lifecycles);
 }

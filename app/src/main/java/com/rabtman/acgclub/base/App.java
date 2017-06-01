@@ -1,6 +1,7 @@
 package com.rabtman.acgclub.base;
 
 import android.content.Context;
+import com.hss01248.dialog.StyledDialog;
 import com.rabtman.acgclub.BuildConfig;
 import com.rabtman.common.base.BaseApplication;
 import com.squareup.leakcanary.LeakCanary;
@@ -27,6 +28,8 @@ public class App extends BaseApplication {
     super.onCreate();
 
     initToastyConfig();
+    //初始化全局dialog
+    StyledDialog.init(this);
     installLeakCanary();//leakCanary内存泄露检查
   }
 

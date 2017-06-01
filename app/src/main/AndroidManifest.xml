@@ -22,6 +22,9 @@
       android:name="com.rabtman.common.imageloader.glide.GlideConfiguration"
       android:value="GlideModule" />
 
+    <meta-data
+      android:name="com.rabtman.acgclub.base.AppConfig"
+      android:value="ConfigModule" />
   </application>
 
 </manifest>
