@@ -25,3 +25,8 @@
 #-renamesourcefileattribute SourceFile
 -keep class com.lsjwzh.widget.recyclerviewpager.**
 -dontwarn com.lsjwzh.widget.recyclerviewpager.**
+
+#BaseRecyclerviewHelper
+-keep class com.chad.library.adapter.** {
+   *;
+}

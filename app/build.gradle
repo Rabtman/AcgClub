@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.antfortune.freeline'
 apply plugin: 'com.jakewharton.butterknife'
 
 android {
@@ -37,8 +38,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':common')
     testCompile rootProject.ext.dependencies["junit"]
-    //ui
-    compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.2@aar'
     //di
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]

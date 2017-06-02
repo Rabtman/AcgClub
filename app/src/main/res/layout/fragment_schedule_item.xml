@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:layout_margin="@dimen/common_view_margin" >
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/rcv_schedule_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/common_view_padding"/>
+
+</android.support.v7.widget.CardView>

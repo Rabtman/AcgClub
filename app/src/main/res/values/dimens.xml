@@ -8,6 +8,8 @@
   <dimen name="activity_horizontal_padding">16dp</dimen>
   <dimen name="activity_vertical_margin">16dp</dimen>
   <dimen name="activity_vertical_padding">16dp</dimen>
+  <dimen name="common_view_padding">16dp</dimen>
+  <dimen name="common_view_margin">16dp</dimen>
   <dimen name="fab_margin">16dp</dimen>
 
   <dimen name="menu">16sp</dimen>

@@ -8,7 +8,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import butterknife.BindView;
 import com.rabtman.acgclub.R;
-import com.rabtman.acgclub.mvp.ui.fragment.ScheduleFragment;
+import com.rabtman.acgclub.mvp.ui.fragment.ScheduleMainFragment;
 import com.rabtman.common.base.SimpleActivity;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -31,7 +31,7 @@ public class MainActivity extends SimpleActivity {
   DrawerLayout drawerLayout;*/
 
   //ActionBarDrawerToggle toggle;
-  ScheduleFragment scheduleFragment;
+  ScheduleMainFragment scheduleMainFragment;
 
   private int hideFragment = R.id.nav_schedule;
   private int showFragment = R.id.nav_schedule;
@@ -56,8 +56,8 @@ public class MainActivity extends SimpleActivity {
     drawerLayout.addDrawerListener(toggle);
     toggle.syncState();*/
     //fragment
-    scheduleFragment = new ScheduleFragment();
-    loadMultipleRootFragment(R.id.main_content, R.id.nav_main, scheduleFragment);
+    scheduleMainFragment = new ScheduleMainFragment();
+    loadMultipleRootFragment(R.id.main_content, 0, scheduleMainFragment);
 
     bottomNavigationView.setOnNavigationItemSelectedListener(
         new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -105,9 +105,13 @@ public class MainActivity extends SimpleActivity {
   private SupportFragment getTargetFragment(int tag) {
     switch (tag) {
       case R.id.nav_main:
-        return scheduleFragment;
+        return scheduleMainFragment;
+      case R.id.nav_schedule:
+        return scheduleMainFragment;
+      case R.id.nav_setting:
+        return scheduleMainFragment;
     }
-    return scheduleFragment;
+    return scheduleMainFragment;
   }
 
   @Override

@@ -18,14 +18,14 @@ import me.yokeyword.fragmentation.SupportFragment;
 public abstract class SimpleFragment extends SupportFragment {
 
   protected View mView;
-  protected BaseActivity mActivity;
+  protected SimpleActivity mActivity;
   protected Context mContext;
   private Unbinder mUnBinder;
   private boolean isInited = false;
 
   @Override
   public void onAttach(Context context) {
-    mActivity = (BaseActivity) context;
+    mActivity = (SimpleActivity) context;
     mContext = context;
     super.onAttach(context);
   }

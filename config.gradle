@@ -26,6 +26,7 @@ ext {
             //ui
             "dialog"                    : "com.github.hss01248:DialogUtil:1.0.9",
             "toast"                     : "com.github.GrenderG:Toasty:1.2.3",
+            "base-rcv-helper"           : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.18",
             //other
             "multidex"                  : "com.android.support:multidex:1.0.1",
             "logger"                    : "com.orhanobut:logger:1.15",

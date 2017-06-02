@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:padding="@dimen/common_view_padding">
+
+  <TextView
+    android:id="@+id/schedule_name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:text="进击的巨人"
+    style="@style/TextAppearance.AppCompat.Body1"/>
+
+  <TextView
+    android:id="@+id/schedule_episode"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    tools:text="16话"
+    android:layout_alignParentRight="true"
+    style="@style/TextAppearance.AppCompat.Body1"/>
+</RelativeLayout>

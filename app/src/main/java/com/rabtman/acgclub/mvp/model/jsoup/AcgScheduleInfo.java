@@ -1,46 +1,29 @@
 package com.rabtman.acgclub.mvp.model.jsoup;
 
+
 import java.util.List;
 import me.ghui.fruit.annotations.Pick;
 
-/**
- * @author Rabtman 追番信息
- */
 public class AcgScheduleInfo {
 
-  @Pick("div.week_item")
-  private List<ScheduleItem> scheduleItems;
+  @Pick("li[id~=week?]")
+  private List<String> weekName;
+  @Pick("div[id~=weekdiv?]")
+  private List<ScheduleWeek> scheduleWeek;
 
-  public List<ScheduleItem> getScheduleItems() {
-    return scheduleItems;
+  public List<String> getWeekName() {
+    return weekName;
   }
 
-  public void setScheduleItems(List<ScheduleItem> scheduleItems) {
-    this.scheduleItems = scheduleItems;
+  public void setWeekName(List<String> weekName) {
+    this.weekName = weekName;
   }
 
-  public static class ScheduleItem {
-
-    @Pick("li.week_item_left")
-    private String name;
-    @Pick("li.week_item_right")
-    private String episode;
-
-    public String getName() {
-      return name;
-    }
-
-    public void setName(String name) {
-      this.name = name;
-    }
-
-    public String getEpisode() {
-      return episode;
-    }
-
-    public void setEpisode(String episode) {
-      this.episode = episode;
-    }
+  public List<ScheduleWeek> getScheduleWeek() {
+    return scheduleWeek;
   }
 
+  public void setScheduleWeek(List<ScheduleWeek> scheduleWeek) {
+    this.scheduleWeek = scheduleWeek;
+  }
 }

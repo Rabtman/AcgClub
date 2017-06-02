@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Toast;
+import com.hss01248.dialog.StyledDialog;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.base.mvp.IView;
 import com.rabtman.common.di.component.AppComponent;
@@ -19,14 +20,9 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
   protected View mView;
 
   @Override
-  public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-    super.onActivityCreated(savedInstanceState);
-    setupFragmentComponent(mActivity.mApplication.getAppComponent());
-  }
-
-  @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
+    setupFragmentComponent(mActivity.mApplication.getAppComponent());
   }
 
 
@@ -41,12 +37,12 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
 
   @Override
   public void showLoading() {
-
+    StyledDialog.buildMdLoading();
   }
 
   @Override
   public void hideLoading() {
-
+    StyledDialog.dismissLoading();
   }
 
   @Override
