@@ -18,9 +18,9 @@ import java.util.List;
  */
 public class AcgNewsMainFragment extends SimpleFragment {
 
-  @BindView(R.id.tab_layout)
+  @BindView(R.id.tab_news)
   TabLayout mTabLayout;
-  @BindView(R.id.view_pager)
+  @BindView(R.id.vp_news)
   ViewPager mViewPager;
 
   List<Fragment> fragments = new ArrayList<>();
@@ -28,7 +28,7 @@ public class AcgNewsMainFragment extends SimpleFragment {
 
   @Override
   protected int getLayoutId() {
-    return R.layout.common_tab_vp;
+    return R.layout.fragment_news_main;
   }
 
   @Override

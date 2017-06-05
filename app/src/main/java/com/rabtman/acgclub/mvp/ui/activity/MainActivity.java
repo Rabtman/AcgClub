@@ -1,6 +1,5 @@
 package com.rabtman.acgclub.mvp.ui.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import butterknife.BindView;
 import com.rabtman.acgclub.R;
+import com.rabtman.acgclub.mvp.ui.fragment.AcgNewsMainFragment;
 import com.rabtman.acgclub.mvp.ui.fragment.ScheduleMainFragment;
 import com.rabtman.common.base.SimpleActivity;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -32,10 +32,11 @@ public class MainActivity extends SimpleActivity {
   DrawerLayout drawerLayout;*/
 
   //ActionBarDrawerToggle toggle;
+  AcgNewsMainFragment acgNewsMainFragment;
   ScheduleMainFragment scheduleMainFragment;
 
-  private int hideFragment = R.id.nav_schedule;
-  private int showFragment = R.id.nav_schedule;
+  private int hideFragment = R.id.nav_main;
+  private int showFragment = R.id.nav_main;
 
 
   @Override
@@ -57,8 +58,9 @@ public class MainActivity extends SimpleActivity {
     drawerLayout.addDrawerListener(toggle);
     toggle.syncState();*/
     //fragment
+    acgNewsMainFragment = new AcgNewsMainFragment();
     scheduleMainFragment = new ScheduleMainFragment();
-    loadMultipleRootFragment(R.id.main_content, 0, scheduleMainFragment);
+    loadMultipleRootFragment(R.id.main_content, 0, acgNewsMainFragment, scheduleMainFragment);
 
     bottomNavigationView.setOnNavigationItemSelectedListener(
         new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -67,7 +69,6 @@ public class MainActivity extends SimpleActivity {
             switch (item.getItemId()) {
               case R.id.nav_main:
                 showFragment = R.id.nav_main;
-                startActivity(new Intent(getBaseContext(), AcgInfoDetailActivity.class));
                 break;
               case R.id.nav_schedule:
                 showFragment = R.id.nav_schedule;
@@ -107,13 +108,13 @@ public class MainActivity extends SimpleActivity {
   private SupportFragment getTargetFragment(int tag) {
     switch (tag) {
       case R.id.nav_main:
-        return scheduleMainFragment;
+        return acgNewsMainFragment;
       case R.id.nav_schedule:
         return scheduleMainFragment;
       case R.id.nav_setting:
         return scheduleMainFragment;
     }
-    return scheduleMainFragment;
+    return acgNewsMainFragment;
   }
 
   @Override

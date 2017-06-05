@@ -26,9 +26,9 @@ import java.util.List;
 public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> implements
     ScheduleMainContract.View {
 
-  @BindView(R.id.tab_layout)
+  @BindView(R.id.tab_schedule)
   TabLayout mTabLayout;
-  @BindView(R.id.view_pager)
+  @BindView(R.id.vp_schedule)
   ViewPager mViewPager;
 
   List<Fragment> fragments = new ArrayList<>();
@@ -36,7 +36,7 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
 
   @Override
   protected int getLayoutId() {
-    return R.layout.common_tab_vp;
+    return R.layout.fragment_schedule_main;
   }
 
   @Override

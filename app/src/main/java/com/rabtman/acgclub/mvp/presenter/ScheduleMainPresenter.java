@@ -2,13 +2,11 @@ package com.rabtman.acgclub.mvp.presenter;
 
 import com.rabtman.acgclub.mvp.contract.ScheduleMainContract;
 import com.rabtman.acgclub.mvp.model.jsoup.AcgScheduleInfo;
-import com.rabtman.acgclub.mvp.model.jsoup.ScheduleWeek;
-import com.rabtman.acgclub.mvp.model.jsoup.ScheduleWeek.ScheduleItem;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.FragmentScope;
+import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
-import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -31,6 +29,7 @@ public class ScheduleMainPresenter extends
         .subscribeWith(new CommonSubscriber<AcgScheduleInfo>(mView) {
           @Override
           public void onNext(AcgScheduleInfo acgScheduleInfo) {
+            LogUtil.d("getAcgSchedule");
             mView.showAcgScheduleInfo(acgScheduleInfo);
           }
         })

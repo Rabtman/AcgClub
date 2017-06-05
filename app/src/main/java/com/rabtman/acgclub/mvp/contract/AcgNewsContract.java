@@ -1,6 +1,7 @@
 package com.rabtman.acgclub.mvp.contract;
 
 import com.rabtman.acgclub.mvp.model.jsoup.AcgNews;
+import com.rabtman.acgclub.mvp.model.jsoup.AcgNewsPage;
 import com.rabtman.common.base.mvp.IModel;
 import com.rabtman.common.base.mvp.IView;
 import io.reactivex.Flowable;
@@ -13,13 +14,17 @@ public interface AcgNewsContract {
 
   interface View extends IView {
 
+    String getNewsUrl(int pageNo);
+
     void showAcgNews(List<AcgNews> acgNewsList);
 
-    void showMoreAcgNews(List<AcgNews> acgNewsList);
+    void showMoreAcgNews(List<AcgNews> acgNewsList, boolean canLoadMore);
+
+    void onLoadMoreFail();
   }
 
   interface Model extends IModel {
 
-    Flowable<List<AcgNews>> getAcgNews(String typeUrl);
+    Flowable<AcgNewsPage> getAcgNews(String typeUrl);
   }
 }

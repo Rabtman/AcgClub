@@ -2,7 +2,7 @@ package com.rabtman.acgclub.mvp.model;
 
 import com.fcannizzaro.jsoup.annotations.JP;
 import com.rabtman.acgclub.mvp.contract.AcgNewsContract;
-import com.rabtman.acgclub.mvp.model.jsoup.AcgNews;
+import com.rabtman.acgclub.mvp.model.jsoup.AcgNewsPage;
 import com.rabtman.common.base.mvp.BaseModel;
 import com.rabtman.common.di.scope.FragmentScope;
 import com.rabtman.common.integration.IRepositoryManager;
@@ -11,7 +11,6 @@ import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.annotations.NonNull;
-import java.util.List;
 import javax.inject.Inject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -28,13 +27,13 @@ public class AcgNewsModel extends BaseModel implements AcgNewsContract.Model {
   }
 
   @Override
-  public Flowable<List<AcgNews>> getAcgNews(final String typeUrl) {
-    return Flowable.create(new FlowableOnSubscribe<List<AcgNews>>() {
+  public Flowable<AcgNewsPage> getAcgNews(final String typeUrl) {
+    return Flowable.create(new FlowableOnSubscribe<AcgNewsPage>() {
       @Override
-      public void subscribe(@NonNull FlowableEmitter<List<AcgNews>> e) throws Exception {
+      public void subscribe(@NonNull FlowableEmitter<AcgNewsPage> e) throws Exception {
         Element html = Jsoup.connect(typeUrl).get();
-        List<AcgNews> acgNewsList = JP.fromList(html, AcgNews.class);
-        e.onNext(acgNewsList);
+        AcgNewsPage acgNewsPage = JP.from(html, AcgNewsPage.class);
+        e.onNext(acgNewsPage);
         e.onComplete();
       }
     }, BackpressureStrategy.BUFFER);
