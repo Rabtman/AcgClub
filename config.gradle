@@ -27,6 +27,7 @@ ext {
             "dialog"                    : "com.github.hss01248:DialogUtil:1.0.9",
             "toast"                     : "com.github.GrenderG:Toasty:1.2.3",
             "base-rcv-helper"           : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.18",
+            "html-textview"             : "org.sufficientlysecure:html-textview:3.3",
             //other
             "multidex"                  : "com.android.support:multidex:1.0.1",
             "logger"                    : "com.orhanobut:logger:1.15",
@@ -34,6 +35,9 @@ ext {
             "crashreport"               : "com.tencent.bugly:crashreport:latest.release",
             //json
             "gson"                      : "com.google.code.gson:gson:2.8.0",
+            //jsoup
+            "jsoup"                     : "org.jsoup:jsoup:1.10.2",
+            "jsoup-annotations"         : "com.github.fcannizzaro:jsoup-annotations:1.0.3",
             //network
             "retrofit"                  : "com.squareup.retrofit2:retrofit:${dependVersion.retrofit}",
             "retrofit-converter-gson"   : "com.squareup.retrofit2:converter-gson:${dependVersion.retrofit}",

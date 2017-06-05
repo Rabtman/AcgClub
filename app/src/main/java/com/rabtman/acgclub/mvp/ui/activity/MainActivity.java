@@ -1,5 +1,6 @@
 package com.rabtman.acgclub.mvp.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -66,6 +67,7 @@ public class MainActivity extends SimpleActivity {
             switch (item.getItemId()) {
               case R.id.nav_main:
                 showFragment = R.id.nav_main;
+                startActivity(new Intent(getBaseContext(), AcgInfoDetailActivity.class));
                 break;
               case R.id.nav_schedule:
                 showFragment = R.id.nav_schedule;

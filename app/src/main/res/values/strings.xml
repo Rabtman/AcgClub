@@ -4,4 +4,9 @@
   <string name="nav_schedule">番剧</string>
   <string name="nav_setting">设置</string>
   <string name="nav_group_two">选项</string>
+
+  <!-- 动漫资讯-->
+  <string name="acg_news_dmxw">xw/dmxw/list_527_%1$d.html</string>
+  <string name="acg_news_yjdt">xw/yjdt/list_528_%1$d.html</string>
+  <string name="acg_news_qtrd">xw/qtrd/list_529_%1$d.html</string>
 </resources>

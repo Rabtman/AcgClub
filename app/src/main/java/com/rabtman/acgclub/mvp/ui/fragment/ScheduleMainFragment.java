@@ -26,9 +26,9 @@ import java.util.List;
 public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> implements
     ScheduleMainContract.View {
 
-  @BindView(R.id.tab_schedule_main)
+  @BindView(R.id.tab_layout)
   TabLayout mTabLayout;
-  @BindView(R.id.vp_schedule_main)
+  @BindView(R.id.view_pager)
   ViewPager mViewPager;
 
   List<Fragment> fragments = new ArrayList<>();
@@ -36,7 +36,7 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
 
   @Override
   protected int getLayoutId() {
-    return R.layout.fragment_schedule_main;
+    return R.layout.common_tab_vp;
   }
 
   @Override
@@ -56,7 +56,7 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
 
   @Override
   public void showAcgScheduleInfo(AcgScheduleInfo info) {
-    /*for (ScheduleWeek scheduleWeek : info.getScheduleWeek()) {
+    for (ScheduleWeek scheduleWeek : info.getScheduleWeek()) {
       ScheduleItemFragment fragment = new ScheduleItemFragment();
       Bundle bundle = new Bundle();
       bundle.putParcelable(IntentConstant.SCHEDULE_WEEK, scheduleWeek);
@@ -67,6 +67,6 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
         fragments);
     mViewPager.setAdapter(mAdapter);
     mViewPager.setOffscreenPageLimit(1);
-    mTabLayout.setupWithViewPager(mViewPager);*/
+    mTabLayout.setupWithViewPager(mViewPager);
   }
 }

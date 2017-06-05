@@ -9,7 +9,6 @@ import dagger.Component;
 /**
  * @author Rabtman
  */
-
 @FragmentScope
 @Component(modules = ScheduleMainModule.class, dependencies = AppComponent.class)
 public interface ScheduleMainComponent {

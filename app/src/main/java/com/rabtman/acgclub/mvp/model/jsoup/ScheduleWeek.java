@@ -2,16 +2,38 @@ package com.rabtman.acgclub.mvp.model.jsoup;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import com.fcannizzaro.jsoup.annotations.interfaces.Attr;
+import com.fcannizzaro.jsoup.annotations.interfaces.Items;
+import com.fcannizzaro.jsoup.annotations.interfaces.Selector;
+import com.fcannizzaro.jsoup.annotations.interfaces.Text;
 import java.util.List;
-import me.ghui.fruit.annotations.Pick;
 
 /**
  * @author Rabtman 追番信息
  */
-public class ScheduleWeek implements Parcelable{
+@Selector("div[id~=weekdiv?]")
+public class ScheduleWeek implements Parcelable {
 
-  @Pick("div.week_item")
+  public static final Creator<ScheduleWeek> CREATOR = new Creator<ScheduleWeek>() {
+    @Override
+    public ScheduleWeek createFromParcel(Parcel source) {
+      return new ScheduleWeek(source);
+    }
+
+    @Override
+    public ScheduleWeek[] newArray(int size) {
+      return new ScheduleWeek[size];
+    }
+  };
+  @Items
   private List<ScheduleItem> scheduleItems;
+
+  public ScheduleWeek() {
+  }
+
+  protected ScheduleWeek(Parcel in) {
+    this.scheduleItems = in.createTypedArrayList(ScheduleItem.CREATOR);
+  }
 
   public List<ScheduleItem> getScheduleItems() {
     return scheduleItems;
@@ -21,13 +43,48 @@ public class ScheduleWeek implements Parcelable{
     this.scheduleItems = scheduleItems;
   }
 
+  @Override
+  public int describeContents() {
+    return 0;
+  }
 
-  public static class ScheduleItem implements Parcelable{
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    dest.writeTypedList(this.scheduleItems);
+  }
 
-    @Pick("li.week_item_left")
+  @Selector("div.week_item")
+  public static class ScheduleItem implements Parcelable {
+
+    public static final Creator<ScheduleItem> CREATOR = new Creator<ScheduleItem>() {
+      @Override
+      public ScheduleItem createFromParcel(Parcel source) {
+        return new ScheduleItem(source);
+      }
+
+      @Override
+      public ScheduleItem[] newArray(int size) {
+        return new ScheduleItem[size];
+      }
+    };
+    @Text("li.week_item_left")
     private String name;
-    @Pick("li.week_item_right")
+    @Text("li.week_item_right")
     private String episode;
+    @Attr(query = "li.week_item_left a", attr = "href")
+    private String animeLink;
+    @Attr(query = "li.week_item_right a", attr = "href")
+    private String episodeLink;
+
+    public ScheduleItem() {
+    }
+
+    protected ScheduleItem(Parcel in) {
+      this.name = in.readString();
+      this.episode = in.readString();
+      this.animeLink = in.readString();
+      this.episodeLink = in.readString();
+    }
 
     public String getName() {
       return name;
@@ -45,6 +102,21 @@ public class ScheduleWeek implements Parcelable{
       this.episode = episode;
     }
 
+    public String getAnimeLink() {
+      return animeLink;
+    }
+
+    public void setAnimeLink(String animeLink) {
+      this.animeLink = animeLink;
+    }
+
+    public String getEpisodeLink() {
+      return episodeLink;
+    }
+
+    public void setEpisodeLink(String episodeLink) {
+      this.episodeLink = episodeLink;
+    }
 
     @Override
     public int describeContents() {
@@ -55,55 +127,8 @@ public class ScheduleWeek implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
       dest.writeString(this.name);
       dest.writeString(this.episode);
+      dest.writeString(this.animeLink);
+      dest.writeString(this.episodeLink);
     }
-
-    public ScheduleItem() {
-    }
-
-    protected ScheduleItem(Parcel in) {
-      this.name = in.readString();
-      this.episode = in.readString();
-    }
-
-    public static final Creator<ScheduleItem> CREATOR = new Creator<ScheduleItem>() {
-      @Override
-      public ScheduleItem createFromParcel(Parcel source) {
-        return new ScheduleItem(source);
-      }
-
-      @Override
-      public ScheduleItem[] newArray(int size) {
-        return new ScheduleItem[size];
-      }
-    };
   }
-
-  @Override
-  public int describeContents() {
-    return 0;
-  }
-
-  @Override
-  public void writeToParcel(Parcel dest, int flags) {
-    dest.writeTypedList(this.scheduleItems);
-  }
-
-  public ScheduleWeek() {
-  }
-
-  protected ScheduleWeek(Parcel in) {
-    this.scheduleItems = in.createTypedArrayList(ScheduleItem.CREATOR);
-  }
-
-  public static final Creator<ScheduleWeek> CREATOR = new Creator<ScheduleWeek>() {
-    @Override
-    public ScheduleWeek createFromParcel(Parcel source) {
-      return new ScheduleWeek(source);
-    }
-
-    @Override
-    public ScheduleWeek[] newArray(int size) {
-      return new ScheduleWeek[size];
-    }
-  };
 }

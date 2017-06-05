@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <item
     android:id="@+id/nav_main"
+    android:enabled="true"
     android:icon="@mipmap/ic_launcher_round"
-    android:title="@string/nav_main" />
+    android:title="@string/nav_main"
+    app:showAsAction="ifRoom" />
 
   <item
     android:id="@+id/nav_schedule"
+    android:enabled="true"
     android:icon="@mipmap/ic_launcher_round"
-    android:title="@string/nav_schedule" />
+    android:title="@string/nav_schedule"
+    app:showAsAction="ifRoom" />
 
   <item
     android:id="@+id/nav_setting"
+    android:enabled="true"
     android:icon="@mipmap/ic_launcher_round"
-    android:title="@string/nav_setting" />
+    android:title="@string/nav_setting"
+    app:showAsAction="ifRoom" />
 
 </menu>

@@ -10,6 +10,7 @@ import com.rabtman.acgclub.mvp.model.jsoup.ScheduleWeek;
 import com.rabtman.acgclub.mvp.model.jsoup.ScheduleWeek.ScheduleItem;
 import com.rabtman.acgclub.mvp.ui.adapter.ScheduleItemAdapter;
 import com.rabtman.common.base.SimpleFragment;
+import com.rabtman.common.base.widget.CommonItemDecoration;
 import java.util.List;
 
 /**
@@ -35,6 +36,7 @@ public class ScheduleItemFragment extends SimpleFragment {
     ScheduleItemAdapter adapter = new ScheduleItemAdapter(scheduleWeek.getScheduleItems());
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+    rcvScheduleItem.addItemDecoration(new CommonItemDecoration(1, CommonItemDecoration.UNIT_DP));
     rcvScheduleItem.setLayoutManager(layoutManager);
     rcvScheduleItem.setAdapter(adapter);
   }

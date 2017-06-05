@@ -21,6 +21,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -37,6 +41,9 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':common')
+    compile files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100_sharewithdownload_obfs_20170301_182143.jar')
+    compile 'com.zzhoujay.richtext:richtext:2.5.2'
+
     testCompile rootProject.ext.dependencies["junit"]
     //di
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
@@ -47,5 +54,5 @@ dependencies {
     debugCompile rootProject.ext.dependencies["leakcanary-android"]
     releaseCompile rootProject.ext.dependencies["leakcanary-no-op"]
     //jsoup
-    compile 'me.ghui:Fruit:0.1.1'
+    compile project(':jsoup-annotations')
 }

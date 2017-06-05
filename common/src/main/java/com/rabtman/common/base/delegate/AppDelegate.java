@@ -10,6 +10,7 @@ import com.rabtman.common.di.module.ImageModule;
 import com.rabtman.common.integration.ActivityLifecycle;
 import com.rabtman.common.integration.ConfigModule;
 import com.rabtman.common.integration.ManifestParser;
+import com.rabtman.common.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -51,6 +52,9 @@ public class AppDelegate {
         .globeConfigModule(getGlobeConfigModule(mApplication, mModules))//全局配置
         .build();
     mAppComponent.inject(this);
+
+    //init utils
+    Utils.init(mApplication);
 
     mApplication.registerActivityLifecycleCallbacks(mActivityLifecycle);
 

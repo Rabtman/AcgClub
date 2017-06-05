@@ -3,8 +3,7 @@ package com.rabtman.common.integration;
 import android.content.Context;
 
 /**
- * Created by jess on 17/03/2017 11:15
- * Contact with jess.yan.effort@gmail.com
+ * @author Rabtman
  */
 
 public interface IRepositoryManager {
@@ -13,7 +12,6 @@ public interface IRepositoryManager {
    * 注入RetrofitService,在{@link ConfigModule#registerComponents(Context, IRepositoryManager)}中进行注入
    */
   void injectRetrofitService(Class<?>... services);
-
 
   /**
    * 注入CacheService,在{@link ConfigModule#registerComponents(Context, IRepositoryManager)}中进行注入

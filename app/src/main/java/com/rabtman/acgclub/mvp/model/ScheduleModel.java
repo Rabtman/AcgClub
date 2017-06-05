@@ -1,5 +1,7 @@
 package com.rabtman.acgclub.mvp.model;
 
+import com.fcannizzaro.jsoup.annotations.JP;
+import com.rabtman.acgclub.api.AcgService;
 import com.rabtman.acgclub.mvp.contract.ScheduleMainContract;
 import com.rabtman.acgclub.mvp.model.jsoup.AcgScheduleInfo;
 import com.rabtman.common.base.mvp.BaseModel;
@@ -11,7 +13,6 @@ import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.annotations.NonNull;
 import javax.inject.Inject;
-import me.ghui.fruit.Fruit;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
@@ -31,10 +32,10 @@ public class ScheduleModel extends BaseModel implements ScheduleMainContract.Mod
     return Flowable.create(new FlowableOnSubscribe<AcgScheduleInfo>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<AcgScheduleInfo> e) throws Exception {
-        Element html = Jsoup.connect("http://m.dilidili.wang/").get();
-        AcgScheduleInfo acgScheduleInfo = new Fruit().fromHtml(
-            html, AcgScheduleInfo.class);
+        Element html = Jsoup.connect(AcgService.DILIDILI_URL).get();
+        AcgScheduleInfo acgScheduleInfo = JP.from(html, AcgScheduleInfo.class);
         e.onNext(acgScheduleInfo);
+        e.onComplete();
       }
     }, BackpressureStrategy.BUFFER);
   }

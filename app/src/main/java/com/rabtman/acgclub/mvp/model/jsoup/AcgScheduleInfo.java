@@ -1,14 +1,18 @@
 package com.rabtman.acgclub.mvp.model.jsoup;
 
 
+import com.fcannizzaro.jsoup.annotations.interfaces.ForEach;
+import com.fcannizzaro.jsoup.annotations.interfaces.Items;
+import com.fcannizzaro.jsoup.annotations.interfaces.Selector;
+import java.util.ArrayList;
 import java.util.List;
-import me.ghui.fruit.annotations.Pick;
+import org.jsoup.nodes.Element;
 
+@Selector("week_mend")
 public class AcgScheduleInfo {
 
-  @Pick("li[id~=week?]")
-  private List<String> weekName;
-  @Pick("div[id~=weekdiv?]")
+  private List<String> weekName = new ArrayList<>();
+  @Items
   private List<ScheduleWeek> scheduleWeek;
 
   public List<String> getWeekName() {
@@ -25,5 +29,10 @@ public class AcgScheduleInfo {
 
   public void setScheduleWeek(List<ScheduleWeek> scheduleWeek) {
     this.scheduleWeek = scheduleWeek;
+  }
+
+  @ForEach("li[id~=week?]")
+  void iterate(Element element, int index) {
+    weekName.add(index, element.text());
   }
 }

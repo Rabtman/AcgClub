@@ -40,6 +40,8 @@ dependencies {
         exclude module: 'appcompat-v7'
         exclude module: 'support-annotations'
     }
+    compile rootProject.ext.dependencies["html-textview"]
+
     //other
     compile rootProject.ext.dependencies["multidex"]
     compile rootProject.ext.dependencies["logger"]

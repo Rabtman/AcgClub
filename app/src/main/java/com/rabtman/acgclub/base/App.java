@@ -4,8 +4,10 @@ import android.content.Context;
 import com.hss01248.dialog.StyledDialog;
 import com.rabtman.acgclub.BuildConfig;
 import com.rabtman.common.base.BaseApplication;
+import com.rabtman.common.utils.LogUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.tencent.smtt.sdk.QbSdk;
 
 /**
  * @author Rabtman
@@ -27,6 +29,7 @@ public class App extends BaseApplication {
   public void onCreate() {
     super.onCreate();
 
+    initX5Web();
     initToastyConfig();
     //初始化全局dialog
     StyledDialog.init(this);
@@ -43,6 +46,25 @@ public class App extends BaseApplication {
     .tintIcon( boolean tintIcon) // optional (apply textColor also to the icon)
     .setToastTypeface(@NonNull Typeface typeface) // optional
         .apply(); */
+  }
+
+  private void initX5Web() {
+    QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
+
+      @Override
+      public void onViewInitFinished(boolean arg0) {
+        // TODO Auto-generated method stub
+        //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+        LogUtil.d("onViewInitFinished is " + arg0);
+      }
+
+      @Override
+      public void onCoreInitFinished() {
+        // TODO Auto-generated method stub
+      }
+    };
+    //x5内核初始化接口
+    QbSdk.initX5Environment(getApplicationContext(), cb);
   }
 
   @Override
