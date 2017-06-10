@@ -8,7 +8,7 @@ import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.mvp.model.jsoup.ScheduleWeek;
 import com.rabtman.acgclub.mvp.model.jsoup.ScheduleWeek.ScheduleItem;
-import com.rabtman.acgclub.mvp.ui.adapter.ScheduleItemAdapter;
+import com.rabtman.acgclub.mvp.ui.adapter.ScheduleTimeItemAdapter;
 import com.rabtman.common.base.SimpleFragment;
 import com.rabtman.common.base.widget.CommonItemDecoration;
 import java.util.List;
@@ -33,7 +33,7 @@ public class ScheduleItemFragment extends SimpleFragment {
     Bundle bundle = getArguments();
     ScheduleWeek scheduleWeek = bundle.getParcelable(IntentConstant.SCHEDULE_WEEK);
 
-    ScheduleItemAdapter adapter = new ScheduleItemAdapter(scheduleWeek.getScheduleItems());
+    ScheduleTimeItemAdapter adapter = new ScheduleTimeItemAdapter(scheduleWeek.getScheduleItems());
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
     rcvScheduleItem.addItemDecoration(new CommonItemDecoration(1, CommonItemDecoration.UNIT_DP));

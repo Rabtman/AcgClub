@@ -1,6 +1,6 @@
 package com.rabtman.acgclub.di.module;
 
-import com.rabtman.acgclub.mvp.contract.ScheduleMainContract;
+import com.rabtman.acgclub.mvp.contract.ScheduleTimeContract;
 import com.rabtman.acgclub.mvp.model.ScheduleModel;
 import com.rabtman.common.di.scope.FragmentScope;
 import dagger.Module;
@@ -11,23 +11,23 @@ import dagger.Provides;
  */
 
 @Module
-public class ScheduleMainModule {
+public class ScheduleTimeModule {
 
-  private ScheduleMainContract.View view;
+  private ScheduleTimeContract.View view;
 
-  public ScheduleMainModule(ScheduleMainContract.View view) {
+  public ScheduleTimeModule(ScheduleTimeContract.View view) {
     this.view = view;
   }
 
   @FragmentScope
   @Provides
-  ScheduleMainContract.View providerScheduleView() {
+  ScheduleTimeContract.View providerScheduleView() {
     return this.view;
   }
 
   @FragmentScope
   @Provides
-  ScheduleMainContract.Model providerScheduleModel(ScheduleModel model) {
+  ScheduleTimeContract.Model providerScheduleModel(ScheduleModel model) {
     return model;
   }
 }

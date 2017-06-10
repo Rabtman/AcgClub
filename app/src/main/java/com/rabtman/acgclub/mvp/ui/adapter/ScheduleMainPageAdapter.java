@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
+import com.rabtman.acgclub.base.constant.SystemConstant;
 import java.util.List;
 
 /**
@@ -14,13 +15,10 @@ import java.util.List;
 
 public class ScheduleMainPageAdapter extends FragmentPagerAdapter {
 
-  private List<String> weekName;
   private List<Fragment> fragments;
 
-  public ScheduleMainPageAdapter(FragmentManager fragmentManager, List<String> weekName,
-      List<Fragment> fragments) {
+  public ScheduleMainPageAdapter(FragmentManager fragmentManager, List<Fragment> fragments) {
     super(fragmentManager);
-    this.weekName = weekName;
     this.fragments = fragments;
   }
 
@@ -36,7 +34,7 @@ public class ScheduleMainPageAdapter extends FragmentPagerAdapter {
 
   @Override
   public CharSequence getPageTitle(int position) {
-    return weekName.get(position);
+    return SystemConstant.ACG_SCHEDULE_TITLE[position];
   }
 
   @Override

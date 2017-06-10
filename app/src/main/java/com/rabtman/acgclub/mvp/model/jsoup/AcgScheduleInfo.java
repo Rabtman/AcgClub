@@ -35,4 +35,12 @@ public class AcgScheduleInfo {
   void iterate(Element element, int index) {
     weekName.add(index, element.text());
   }
+
+  @Override
+  public String toString() {
+    return "AcgScheduleInfo{" +
+        "weekName=" + weekName +
+        ", scheduleWeek=" + scheduleWeek +
+        '}';
+  }
 }

@@ -38,4 +38,5 @@ public class AcgNewsModel extends BaseModel implements AcgNewsContract.Model {
       }
     }, BackpressureStrategy.BUFFER);
   }
+
 }

@@ -53,6 +53,13 @@ public class ScheduleWeek implements Parcelable {
     dest.writeTypedList(this.scheduleItems);
   }
 
+  @Override
+  public String toString() {
+    return "ScheduleWeek{" +
+        "scheduleItems=" + scheduleItems +
+        '}';
+  }
+
   @Selector("div.week_item")
   public static class ScheduleItem implements Parcelable {
 
@@ -129,6 +136,16 @@ public class ScheduleWeek implements Parcelable {
       dest.writeString(this.episode);
       dest.writeString(this.animeLink);
       dest.writeString(this.episodeLink);
+    }
+
+    @Override
+    public String toString() {
+      return "ScheduleItem{" +
+          "name='" + name + '\'' +
+          ", episode='" + episode + '\'' +
+          ", animeLink='" + animeLink + '\'' +
+          ", episodeLink='" + episodeLink + '\'' +
+          '}';
     }
   }
 }

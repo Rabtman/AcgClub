@@ -16,7 +16,7 @@ public class AcgNews {
   private String title;
   @Text("div div div.p-row")
   private String description;
-  @Text("div div div.label-row clearfix")
+  @Text("div div div span")
   private String dateTime;
   @Attr(query = "a", attr = "href")
   private String contentLink;
@@ -59,5 +59,16 @@ public class AcgNews {
 
   public void setContentLink(String contentLink) {
     this.contentLink = contentLink;
+  }
+
+  @Override
+  public String toString() {
+    return "AcgNews{" +
+        "imgUrl='" + imgUrl + '\'' +
+        ", title='" + title + '\'' +
+        ", description='" + description + '\'' +
+        ", dateTime='" + dateTime + '\'' +
+        ", contentLink='" + contentLink + '\'' +
+        '}';
   }
 }

@@ -1,10 +1,12 @@
 package com.rabtman.acgclub.mvp.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import butterknife.BindView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.chad.library.adapter.base.BaseQuickAdapter.RequestLoadMoreListener;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.base.constant.IntentConstant;
@@ -14,9 +16,9 @@ import com.rabtman.acgclub.di.module.AcgNewsItemModule;
 import com.rabtman.acgclub.mvp.contract.AcgNewsContract.View;
 import com.rabtman.acgclub.mvp.model.jsoup.AcgNews;
 import com.rabtman.acgclub.mvp.presenter.AcgNewsItemPresenter;
+import com.rabtman.acgclub.mvp.ui.activity.AcgInfoDetailActivity;
 import com.rabtman.acgclub.mvp.ui.adapter.AcgNewsItemAdapter;
 import com.rabtman.common.base.BaseFragment;
-import com.rabtman.common.base.widget.CommonItemDecoration;
 import com.rabtman.common.di.component.AppComponent;
 import java.util.List;
 
@@ -28,8 +30,8 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
 
   @BindView(R.id.rcv_news_item)
   RecyclerView rcvNewsItem;
-  @BindView(R.id.swipe_refresh)
-  SwipeRefreshLayout swipeRefresh;
+  //@BindView(R.id.swipe_refresh)
+  //SwipeRefreshLayout swipeRefresh;
   //当前资讯类型地址id
   private int typeUrlId;
   private AcgNewsItemAdapter mAdapter;
@@ -64,11 +66,22 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
         break;
     }
 
-    mAdapter = new AcgNewsItemAdapter(null);
+    mAdapter = new AcgNewsItemAdapter(getAppComponent().imageLoader());
+    mAdapter.setOnItemClickListener(new OnItemClickListener() {
+      @Override
+      public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
+        AcgNews acgNews = (AcgNews) adapter.getData().get(position);
+        Intent intent = new Intent(getContext(), AcgInfoDetailActivity.class);
+        intent.putExtra(IntentConstant.ACG_NEWS_DETAIL_TITLE, acgNews.getTitle());
+        intent.putExtra(IntentConstant.ACG_NEWS_DETAIL_DATETIME, acgNews.getDateTime());
+        intent.putExtra(IntentConstant.ACG_NEWS_DETAIL_URL, acgNews.getContentLink());
+        startActivity(intent);
+      }
+    });
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-    rcvNewsItem.addItemDecoration(new CommonItemDecoration(4, CommonItemDecoration.UNIT_DP));
+    //rcvNewsItem.addItemDecoration(new CommonItemDecoration(1, CommonItemDecoration.UNIT_DP));
     rcvNewsItem.setLayoutManager(layoutManager);
     mAdapter.setOnLoadMoreListener(new RequestLoadMoreListener() {
       @Override

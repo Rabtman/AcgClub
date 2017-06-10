@@ -37,16 +37,15 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
   @Override
   protected void onStart() {
     super.onStart();
-    mView.showLoading();
   }
 
   @Override
   public void onComplete() {
-    mView.hideLoading();
   }
 
   @Override
   public void onError(Throwable e) {
+    e.printStackTrace();
     if (mView == null) {
       return;
     }

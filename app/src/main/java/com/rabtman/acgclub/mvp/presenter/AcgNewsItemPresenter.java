@@ -32,9 +32,19 @@ public class AcgNewsItemPresenter extends
             .compose(RxUtil.<AcgNewsPage>rxSchedulerHelper())
             .subscribeWith(new CommonSubscriber<AcgNewsPage>(mView) {
               @Override
+              protected void onStart() {
+                super.onStart();
+                mView.showLoading();
+              }
+
+              @Override
+              public void onComplete() {
+                mView.hideLoading();
+              }
+
+              @Override
               public void onNext(AcgNewsPage acgNewsPage) {
-                LogUtil.d("getAcgNewsList");
-                LogUtil.d("" + acgNewsPage.toString());
+                LogUtil.d("getAcgNewsList" + acgNewsPage.toString());
                 mView.showAcgNews(acgNewsPage.getAcgNewsList());
               }
             })
@@ -50,8 +60,15 @@ public class AcgNewsItemPresenter extends
               public void onNext(AcgNewsPage acgNewsPage) {
                 LogUtil.d("getMoreAcgNewsList");
                 LogUtil.d("" + acgNewsPage.toString());
+                int pageCount;
+                try {
+                  pageCount = Integer.parseInt(acgNewsPage.getPageCount());
+                } catch (NumberFormatException e) {
+                  e.printStackTrace();
+                  pageCount = 1;
+                }
                 mView.showMoreAcgNews(acgNewsPage.getAcgNewsList(),
-                    pageNo < acgNewsPage.getPageCount());
+                    pageNo < pageCount);
               }
 
               @Override

@@ -10,10 +10,10 @@ import java.util.List;
  * @author Rabtman
  */
 
-public class ScheduleItemAdapter extends BaseQuickAdapter<ScheduleItem, BaseViewHolder> {
+public class ScheduleTimeItemAdapter extends BaseQuickAdapter<ScheduleItem, BaseViewHolder> {
 
-  public ScheduleItemAdapter(List<ScheduleItem> items) {
-    super(R.layout.item_schedule_item, items);
+  public ScheduleTimeItemAdapter(List<ScheduleItem> items) {
+    super(R.layout.item_schedule_time_item, items);
   }
 
 

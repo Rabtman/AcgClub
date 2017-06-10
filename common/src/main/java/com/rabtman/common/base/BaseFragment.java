@@ -1,5 +1,6 @@
 package com.rabtman.common.base;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -18,11 +19,14 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
   @Inject
   protected T mPresenter;
   protected View mView;
+  private Dialog mLoadingDialog;
+  private AppComponent mAppComponent;
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    setupFragmentComponent(mActivity.mApplication.getAppComponent());
+    mAppComponent = mActivity.mApplication.getAppComponent();
+    setupFragmentComponent(mAppComponent);
   }
 
 
@@ -37,17 +41,23 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
 
   @Override
   public void showLoading() {
-    StyledDialog.buildMdLoading();
+    mLoadingDialog = StyledDialog.buildMdLoading().show();
   }
 
   @Override
   public void hideLoading() {
-    StyledDialog.dismissLoading();
+    if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+      StyledDialog.dismiss(mLoadingDialog);
+    }
   }
 
   @Override
   public void showError(String message) {
     Toasty.error(mContext, message, Toast.LENGTH_SHORT).show();
+  }
+
+  public AppComponent getAppComponent() {
+    return mAppComponent;
   }
 
   /**

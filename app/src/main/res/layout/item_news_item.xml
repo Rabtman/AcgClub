@@ -4,9 +4,10 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:layout_margin="8dp"
+  android:layout_marginLeft="4dp"
+  android:layout_marginRight="4dp"
   app:cardCornerRadius="4dp"
-  app:cardElevation="8dp">
+  app:cardElevation="6dp">
   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="80dp"
@@ -14,7 +15,7 @@
 
     <ImageView
       android:id="@+id/news_img"
-      android:layout_width="120dp"
+      android:layout_width="110dp"
       android:layout_height="80dp"
       android:layout_centerVertical="true"
       tools:src="@mipmap/ic_launcher" />
@@ -26,6 +27,7 @@
       android:layout_height="wrap_content"
       android:layout_marginTop="4dp"
       android:layout_marginBottom="4dp"
+      android:layout_marginLeft="8dp"
       android:layout_toRightOf="@id/news_img"
       android:ellipsize="end"
       android:maxLines="2"
@@ -36,8 +38,9 @@
       style="@style/TextAppearance.AppCompat.Caption"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginRight="8dp"
       android:layout_alignParentBottom="true"
-      android:layout_toRightOf="@id/news_img"
+      android:layout_alignParentRight="true"
       tools:text="2017-05-15" />
 
   </RelativeLayout>

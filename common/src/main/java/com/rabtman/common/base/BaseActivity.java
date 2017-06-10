@@ -1,12 +1,14 @@
 package com.rabtman.common.base;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.app.Dialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Toast;
+import com.hss01248.dialog.StyledDialog;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.base.mvp.IView;
 import com.rabtman.common.di.component.AppComponent;
+import es.dmoral.toasty.Toasty;
 import javax.inject.Inject;
 
 
@@ -15,14 +17,12 @@ public abstract class BaseActivity<P extends BasePresenter> extends SimpleActivi
 
   @Inject
   protected P mPresenter;
+  private Dialog mLoadingDialog;
 
   @Override
-  protected void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(getLayout());
-
+  protected void onViewCreated() {
+    super.onViewCreated();
     setupActivityComponent(mApplication.getAppComponent());//依赖注入
-    initData();
   }
 
   protected void setToolBar(Toolbar toolbar, String title) {
@@ -45,6 +45,23 @@ public abstract class BaseActivity<P extends BasePresenter> extends SimpleActivi
       mPresenter.onDestroy();
     }
     this.mPresenter = null;
+  }
+
+  @Override
+  public void showLoading() {
+    mLoadingDialog = StyledDialog.buildMdLoading().show();
+  }
+
+  @Override
+  public void hideLoading() {
+    if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+      StyledDialog.dismiss(mLoadingDialog);
+    }
+  }
+
+  @Override
+  public void showError(String message) {
+    Toasty.error(mContext, message, Toast.LENGTH_SHORT).show();
   }
 
   /**

@@ -2,7 +2,7 @@ package com.rabtman.acgclub.mvp.model;
 
 import com.fcannizzaro.jsoup.annotations.JP;
 import com.rabtman.acgclub.api.AcgService;
-import com.rabtman.acgclub.mvp.contract.ScheduleMainContract;
+import com.rabtman.acgclub.mvp.contract.ScheduleTimeContract;
 import com.rabtman.acgclub.mvp.model.jsoup.AcgScheduleInfo;
 import com.rabtman.common.base.mvp.BaseModel;
 import com.rabtman.common.di.scope.FragmentScope;
@@ -20,7 +20,7 @@ import org.jsoup.nodes.Element;
  * @author Rabtman
  */
 @FragmentScope
-public class ScheduleModel extends BaseModel implements ScheduleMainContract.Model {
+public class ScheduleModel extends BaseModel implements ScheduleTimeContract.Model {
 
   @Inject
   public ScheduleModel(IRepositoryManager repositoryManager) {

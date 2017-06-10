@@ -20,13 +20,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
-    <TextView
-      android:id="@+id/tv_acg_detail_content"
-      style="@style/TextAppearance.AppCompat.Body1"
+    <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
       android:padding="@dimen/common_view_padding"
-      tools:text="TEST" />
+      android:orientation="vertical">
+      <TextView
+        android:id="@+id/tv_acg_detail_title"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        tools:text="还有这种才做！男主角时候转生最终幻想世界" />
+      <TextView
+        android:id="@+id/tv_acg_detail_labels"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        tools:text="来源：羁绊网 作者：XTMMN 编辑：XMTTTN" />
+
+      <TextView
+        android:id="@+id/tv_acg_detail_datetime"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="right"
+        tools:text="2017-06-09" />
+
+      <TextView
+        android:id="@+id/tv_acg_detail_content"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingMultiplier="1.2"
+        tools:text="漫画《最终幻想：失落的陌生人》是由创作过《C3魔方少女》的水濑叶月原作，龟屋树担任作画的作品。作品自然是会在史克威尔艾尼克斯的《少年GANGAN》上连载。目前漫画的详细故事还没有公开，不过看到这个封面，有日本网友吐槽这个社员一定是过劳死。而且死后还要被束缚在最终幻想（公司）里，实在太鬼畜了……
+        漫画将于7月12日发售的《少年GANGAN 8月号》上开始连载。有兴趣的小伙伴们不妨期待一下。" />
+    </LinearLayout>
+
   </android.support.v4.widget.NestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

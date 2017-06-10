@@ -27,6 +27,7 @@ public abstract class SimpleActivity extends SupportActivity {
     mUnBinder = ButterKnife.bind(this);
     mApplication = (BaseApplication) getApplication();
     mContext = this;
+    onViewCreated();
     initData();
   }
 
@@ -51,6 +52,10 @@ public abstract class SimpleActivity extends SupportActivity {
         onBackPressedSupport();
       }
     });
+  }
+
+  protected void onViewCreated() {
+
   }
 
   protected abstract int getLayout();
