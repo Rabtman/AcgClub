@@ -1,8 +1,8 @@
 package com.rabtman.acgclub.mvp.presenter;
 
 import android.text.TextUtils;
-import com.rabtman.acgclub.mvp.contract.AcgNewsDetailContract;
-import com.rabtman.acgclub.mvp.model.jsoup.AcgNewsDetail;
+import com.rabtman.acgclub.mvp.contract.ScheduleDetailContract;
+import com.rabtman.acgclub.mvp.model.jsoup.ScheduleDetail;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.ActivityScope;
@@ -14,24 +14,24 @@ import javax.inject.Inject;
  * @author Rabtman
  */
 @ActivityScope
-public class AcgNewsDetailPresenter extends
-    BasePresenter<AcgNewsDetailContract.Model, AcgNewsDetailContract.View> {
+public class ScheduleDetailPresenter extends
+    BasePresenter<ScheduleDetailContract.Model, ScheduleDetailContract.View> {
 
   @Inject
-  public AcgNewsDetailPresenter(AcgNewsDetailContract.Model model,
-      AcgNewsDetailContract.View rootView) {
+  public ScheduleDetailPresenter(ScheduleDetailContract.Model model,
+      ScheduleDetailContract.View rootView) {
     super(model, rootView);
   }
 
-  public void getNewsDetail(String url) {
+  public void getScheduleDetail(String url) {
     if (TextUtils.isEmpty(url)) {
       mView.showError("大脑一片空白！");
       return;
     }
     addSubscribe(
-        mModel.getAcgNewsDetail(url)
-            .compose(RxUtil.<AcgNewsDetail>rxSchedulerHelper())
-            .subscribeWith(new CommonSubscriber<AcgNewsDetail>(mView) {
+        mModel.getScheduleDetail(url)
+            .compose(RxUtil.<ScheduleDetail>rxSchedulerHelper())
+            .subscribeWith(new CommonSubscriber<ScheduleDetail>(mView) {
               @Override
               protected void onStart() {
                 super.onStart();
@@ -44,9 +44,9 @@ public class AcgNewsDetailPresenter extends
               }
 
               @Override
-              public void onNext(AcgNewsDetail acgNewsDetail) {
-                LogUtil.d("getScheduleDetail" + acgNewsDetail.toString());
-                mView.showNewsDetail(acgNewsDetail);
+              public void onNext(ScheduleDetail scheduleDetail) {
+                LogUtil.d("getScheduleDetail" + scheduleDetail.toString());
+                mView.showScheduleDetail(scheduleDetail);
               }
             })
     );

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/tv_sd_episode_name"
+  android:layout_width="40dp"
+  android:layout_height="20dp"
+  android:background="@drawable/btn_sd_episode"
+  android:gravity="center"
+  android:textColor="@color/colorPrimary"
+  android:textSize="12sp"
+  tools:text="123" />
