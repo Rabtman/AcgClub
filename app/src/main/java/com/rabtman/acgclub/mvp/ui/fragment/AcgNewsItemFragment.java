@@ -19,6 +19,7 @@ import com.rabtman.acgclub.mvp.presenter.AcgNewsItemPresenter;
 import com.rabtman.acgclub.mvp.ui.activity.AcgInfoDetailActivity;
 import com.rabtman.acgclub.mvp.ui.adapter.AcgNewsItemAdapter;
 import com.rabtman.common.base.BaseFragment;
+import com.rabtman.common.base.widget.CommonItemDecoration;
 import com.rabtman.common.di.component.AppComponent;
 import java.util.List;
 
@@ -81,7 +82,7 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-    //rcvNewsItem.addItemDecoration(new CommonItemDecoration(1, CommonItemDecoration.UNIT_DP));
+    rcvNewsItem.addItemDecoration(new CommonItemDecoration(1, CommonItemDecoration.UNIT_DP));
     rcvNewsItem.setLayoutManager(layoutManager);
     mAdapter.setOnLoadMoreListener(new RequestLoadMoreListener() {
       @Override

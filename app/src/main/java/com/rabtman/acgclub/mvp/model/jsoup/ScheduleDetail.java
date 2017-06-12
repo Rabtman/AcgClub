@@ -1,7 +1,6 @@
 package com.rabtman.acgclub.mvp.model.jsoup;
 
 import com.fcannizzaro.jsoup.annotations.interfaces.Attr;
-import com.fcannizzaro.jsoup.annotations.interfaces.Html;
 import com.fcannizzaro.jsoup.annotations.interfaces.Items;
 import com.fcannizzaro.jsoup.annotations.interfaces.Selector;
 import com.fcannizzaro.jsoup.annotations.interfaces.Text;
@@ -16,8 +15,16 @@ public class ScheduleDetail {
 
   @Attr(query = "div div img", attr = "src")
   private String imgUrl;
-  @Html("div.details-hd div dl")
-  private String scheduleInfo;
+  @Text("div.details-hd div dl dt")
+  private String scheduleTitle;
+  @Text("div.details-hd div dl dd p i")
+  private String scheduleProc;
+  @Text("div.details-hd div dl dd p:containsOwn(年代)")
+  private String scheduleTime;
+  @Text("div.details-hd div dl dd p:containsOwn(地区)")
+  private String scheduleAera;
+  @Text("div.details-hd div dl dd p:containsOwn(标签)")
+  private String scheduleLabel;
   @Text("div.details-hd div[class~=details-about?]")
   private String description;
   @Items
@@ -31,12 +38,12 @@ public class ScheduleDetail {
     this.imgUrl = imgUrl;
   }
 
-  public String getScheduleInfo() {
-    return scheduleInfo;
+  public String getScheduleTitle() {
+    return scheduleTitle;
   }
 
-  public void setScheduleInfo(String scheduleInfo) {
-    this.scheduleInfo = scheduleInfo;
+  public void setScheduleTitle(String scheduleTitle) {
+    this.scheduleTitle = scheduleTitle;
   }
 
   public String getDescription() {
@@ -54,6 +61,38 @@ public class ScheduleDetail {
   public void setScheduleEpisodes(
       List<ScheduleEpisode> scheduleEpisodes) {
     this.scheduleEpisodes = scheduleEpisodes;
+  }
+
+  public String getScheduleProc() {
+    return scheduleProc;
+  }
+
+  public void setScheduleProc(String scheduleProc) {
+    this.scheduleProc = scheduleProc;
+  }
+
+  public String getScheduleTime() {
+    return scheduleTime;
+  }
+
+  public void setScheduleTime(String scheduleTime) {
+    this.scheduleTime = scheduleTime;
+  }
+
+  public String getScheduleAera() {
+    return scheduleAera;
+  }
+
+  public void setScheduleAera(String scheduleAera) {
+    this.scheduleAera = scheduleAera;
+  }
+
+  public String getScheduleLabel() {
+    return scheduleLabel;
+  }
+
+  public void setScheduleLabel(String scheduleLabel) {
+    this.scheduleLabel = scheduleLabel;
   }
 
   @Selector("div[class~=episodeWrap?] ul li")

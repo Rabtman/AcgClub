@@ -1,17 +1,28 @@
 package com.rabtman.acgclub.mvp.ui.activity;
 
+import android.content.Intent;
+import android.support.design.widget.AppBarLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter.OnItemChildClickListener;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.di.component.DaggerScheduleDetailComponent;
 import com.rabtman.acgclub.di.module.ScheduleDetailModule;
 import com.rabtman.acgclub.mvp.contract.ScheduleDetailContract.View;
 import com.rabtman.acgclub.mvp.model.jsoup.ScheduleDetail;
+import com.rabtman.acgclub.mvp.model.jsoup.ScheduleDetail.ScheduleEpisode;
 import com.rabtman.acgclub.mvp.presenter.ScheduleDetailPresenter;
+import com.rabtman.acgclub.mvp.ui.adapter.ScheduleDetailEpisodeItemAdapter;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
+import com.rabtman.common.imageloader.glide.GlideImageConfig;
+import java.util.List;
 
 /**
  * @author Rabtman
@@ -21,14 +32,22 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
 
   @BindView(R.id.toolbar)
   Toolbar mToolBar;
-  @BindView(R.id.tv_acg_detail_content)
-  TextView tvAcgDetailContent;
-  @BindView(R.id.tv_acg_detail_title)
-  TextView tvAcgDetailTitle;
-  @BindView(R.id.tv_acg_detail_labels)
-  TextView tvAcgDetailLabels;
-  @BindView(R.id.tv_acg_detail_datetime)
-  TextView tvAcgDetailDatetime;
+  @BindView(R.id.app_bar)
+  AppBarLayout appBar;
+  @BindView(R.id.img_schedule_detail_icon)
+  ImageView imgScheduleDetailIcon;
+  @BindView(R.id.tv_schedule_detail_time)
+  TextView tvScheduleDetailTime;
+  @BindView(R.id.tv_schedule_detail_aera)
+  TextView tvScheduleDetailAera;
+  @BindView(R.id.tv_schedule_detail_proc)
+  TextView tvScheduleDetailProc;
+  @BindView(R.id.tv_schedule_detail_title)
+  TextView tvScheduleDetailTitle;
+  @BindView(R.id.tv_schedule_detail_description)
+  TextView tvScheduleDetailDescription;
+  @BindView(R.id.rcv_schedule_detail)
+  RecyclerView rcvScheduleDetail;
 
   @Override
   protected void setupActivityComponent(AppComponent appComponent) {
@@ -41,7 +60,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
 
   @Override
   protected int getLayout() {
-    return R.layout.activity_acginfo_detail;
+    return R.layout.activity_schedule_detail;
   }
 
   @Override
@@ -53,6 +72,38 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
 
   @Override
   public void showScheduleDetail(ScheduleDetail acgNewsDetail) {
+    mApplication.getAppComponent().imageLoader().loadImage(mContext,
+        GlideImageConfig
+            .builder()
+            .url(acgNewsDetail.getImgUrl())
+            .imagerView(imgScheduleDetailIcon)
+            .build()
+    );
+    tvScheduleDetailTitle.setText(acgNewsDetail.getScheduleTitle());
+    tvScheduleDetailTime.setText(acgNewsDetail.getScheduleTime()
+        .substring(acgNewsDetail.getScheduleTime().indexOf("：") + 1));
+    tvScheduleDetailProc.setText(acgNewsDetail.getScheduleProc());
+    tvScheduleDetailAera.setText(acgNewsDetail.getScheduleAera()
+        .substring(acgNewsDetail.getScheduleAera().indexOf("：") + 1));
+    tvScheduleDetailDescription.setText(acgNewsDetail.getDescription()
+        .substring(acgNewsDetail.getDescription().indexOf("：") + 1));
 
+    List<ScheduleEpisode> data = acgNewsDetail.getScheduleEpisodes()
+        .subList(0, acgNewsDetail.getScheduleEpisodes().size() - 1);
+    ScheduleDetailEpisodeItemAdapter adapter = new ScheduleDetailEpisodeItemAdapter(data);
+    adapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+      @Override
+      public void onItemChildClick(BaseQuickAdapter adapter, android.view.View view, int position) {
+        ScheduleEpisode scheduleEpisode = (ScheduleEpisode) adapter.getData().get(position);
+        Intent intent = new Intent();
+        intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL, scheduleEpisode.getLink());
+        startActivity(intent);
+      }
+    });
+    GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
+    layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+    rcvScheduleDetail.setLayoutManager(layoutManager);
+    rcvScheduleDetail.setAdapter(adapter);
   }
+
 }
