@@ -19,4 +19,5 @@ public class SystemConstant {
     ACG_NEWS_TITLE.add("业界动态");
     ACG_NEWS_TITLE.add("其他热点");
   }
+
 }

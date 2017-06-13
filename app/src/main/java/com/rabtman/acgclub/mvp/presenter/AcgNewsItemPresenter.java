@@ -1,6 +1,6 @@
 package com.rabtman.acgclub.mvp.presenter;
 
-import com.rabtman.acgclub.api.AcgService;
+import com.rabtman.acgclub.base.constant.HtmlConstant;
 import com.rabtman.acgclub.mvp.contract.AcgNewsContract;
 import com.rabtman.acgclub.mvp.model.jsoup.AcgNewsPage;
 import com.rabtman.common.base.CommonSubscriber;
@@ -28,7 +28,7 @@ public class AcgNewsItemPresenter extends
   public void getAcgNewsList() {
     pageNo = 1;
     addSubscribe(
-        mModel.getAcgNews(AcgService.BASE_URL + mView.getNewsUrl(pageNo))
+        mModel.getAcgNews(HtmlConstant.BASE_URL + mView.getNewsUrl(pageNo))
             .compose(RxUtil.<AcgNewsPage>rxSchedulerHelper())
             .subscribeWith(new CommonSubscriber<AcgNewsPage>(mView) {
               @Override
@@ -53,7 +53,7 @@ public class AcgNewsItemPresenter extends
 
   public void getMoreAcgNewsList() {
     addSubscribe(
-        mModel.getAcgNews(AcgService.BASE_URL + mView.getNewsUrl(++pageNo))
+        mModel.getAcgNews(HtmlConstant.BASE_URL + mView.getNewsUrl(++pageNo))
             .compose(RxUtil.<AcgNewsPage>rxSchedulerHelper())
             .subscribeWith(new CommonSubscriber<AcgNewsPage>(mView) {
               @Override

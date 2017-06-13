@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import com.hss01248.dialog.MyActyManager;
 import com.rabtman.acgclub.api.AcgService;
+import com.rabtman.acgclub.base.constant.HtmlConstant;
 import com.rabtman.common.base.delegate.AppDelegate.Lifecycle;
 import com.rabtman.common.di.module.GlobeConfigModule.Builder;
 import com.rabtman.common.integration.ConfigModule;
@@ -20,7 +21,7 @@ public class AppConfig implements ConfigModule {
 
   @Override
   public void applyOptions(Context context, Builder builder) {
-    builder.baseurl(AcgService.BASE_URL);
+    builder.baseurl(HtmlConstant.BASE_URL);
   }
 
   @Override

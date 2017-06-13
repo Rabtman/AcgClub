@@ -1,7 +1,7 @@
 package com.rabtman.acgclub.mvp.model;
 
 import com.fcannizzaro.jsoup.annotations.JP;
-import com.rabtman.acgclub.api.AcgService;
+import com.rabtman.acgclub.base.constant.HtmlConstant;
 import com.rabtman.acgclub.mvp.contract.ScheduleDetailContract;
 import com.rabtman.acgclub.mvp.model.jsoup.ScheduleDetail;
 import com.rabtman.common.base.mvp.BaseModel;
@@ -32,8 +32,7 @@ public class ScheduleDetailModel extends BaseModel implements ScheduleDetailCont
     return Flowable.create(new FlowableOnSubscribe<ScheduleDetail>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<ScheduleDetail> e) throws Exception {
-        String animeUrl = AcgService.DILIDILI_URL + url;
-        Element html = Jsoup.connect(AcgService.DILIDILI_URL + url).get();
+        Element html = Jsoup.connect(HtmlConstant.DILIDILI_URL + url).get();
         ScheduleDetail scheduleDetail = JP.from(html, ScheduleDetail.class);
         e.onNext(scheduleDetail);
         e.onComplete();

@@ -10,6 +10,7 @@ import com.rabtman.common.di.module.ImageModule;
 import com.rabtman.common.imageloader.ImageLoader;
 import com.rabtman.common.integration.AppManager;
 import com.rabtman.common.integration.IRepositoryManager;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import dagger.Component;
 import java.io.File;
 import javax.inject.Singleton;
@@ -40,6 +41,8 @@ public interface AppComponent {
 
   //用于管理所有activity
   AppManager appManager();
+
+  RxPermissions rxPermissions();
 
   void inject(AppDelegate delegate);
 }

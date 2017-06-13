@@ -11,4 +11,7 @@
   <string name="acg_news_qtrd">xw/qtrd/list_529_%1$d.html</string>
 
   <string name="acg_news_update_time">更新于 %1$s</string>
+
+  <!-- 错误信息-->
+  <string name="msg_error_load_video">视频加载失败\u0028\u2299\ufe3f\u2299\u0029</string>
 </resources>

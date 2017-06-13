@@ -1,7 +1,7 @@
 package com.rabtman.acgclub.mvp.model;
 
 import com.fcannizzaro.jsoup.annotations.JP;
-import com.rabtman.acgclub.api.AcgService;
+import com.rabtman.acgclub.base.constant.HtmlConstant;
 import com.rabtman.acgclub.mvp.contract.ScheduleTimeContract;
 import com.rabtman.acgclub.mvp.model.jsoup.AcgScheduleInfo;
 import com.rabtman.common.base.mvp.BaseModel;
@@ -32,7 +32,7 @@ public class ScheduleModel extends BaseModel implements ScheduleTimeContract.Mod
     return Flowable.create(new FlowableOnSubscribe<AcgScheduleInfo>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<AcgScheduleInfo> e) throws Exception {
-        Element html = Jsoup.connect(AcgService.DILIDILI_URL).get();
+        Element html = Jsoup.connect(HtmlConstant.DILIDILI_URL).get();
         AcgScheduleInfo acgScheduleInfo = JP.from(html, AcgScheduleInfo.class);
         e.onNext(acgScheduleInfo);
         e.onComplete();
