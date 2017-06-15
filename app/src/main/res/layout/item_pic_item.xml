@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_margin="2dp"
+  app:cardCornerRadius="4dp"
+  app:cardElevation="2dp"
+  app:cardPreventCornerOverlap="false"
+  app:cardUseCompatPadding="true">
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <FrameLayout
+      android:id="@+id/pic_frame_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <ImageView
+        android:id="@+id/pic_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:src="@mipmap/ic_launcher" />
+
+      <TextView
+        android:id="@+id/pic_title"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pic_img"
+        android:layout_gravity="bottom"
+        android:padding="8dp"
+        android:background="@drawable/shape_gradient_up_bg"
+        android:textColor="@android:color/white"
+        tools:text="《哆啦A梦》最新一集大雄对静香入浴11111111神吐槽" />
+    </FrameLayout>
+
+    <TextView
+      android:id="@+id/pic_date"
+      style="@style/TextAppearance.AppCompat.Caption"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/pic_frame_layout"
+      android:padding="8dp"
+      tools:text="2017-6-4" />
+
+    <TextView
+      android:id="@+id/pic_count"
+      style="@style/TextAppearance.AppCompat.Caption"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentRight="true"
+      android:layout_below="@id/pic_frame_layout"
+      android:padding="8dp"
+      tools:text="2,502阅读" />
+  </RelativeLayout>
+</android.support.v7.widget.CardView>

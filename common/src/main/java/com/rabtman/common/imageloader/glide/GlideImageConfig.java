@@ -5,15 +5,16 @@ import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.rabtman.common.imageloader.ImageConfig;
 
 /**
- * Created by jess on 8/5/16 15:19
- * contact with jess.yan.effort@gmail.com
- * 这里放Glide专属的配置信息,可以一直扩展字段,如果外部调用时想让图片加载框架
- * 做一些操作,比如清除或则切换缓存策略,则可以定义一个int类型的变量,内部根据int做不同过的操作
- * 其他操作同理
+ * Glide配置信息
  */
 public class GlideImageConfig extends ImageConfig {
 
+  //缩放策略
+  public final static int CENTER_CROP = 1;
+  public final static int FIT_CENTER = 2;
+
   private int cacheStrategy;//0对应DiskCacheStrategy.all,1对应DiskCacheStrategy.NONE,2对应DiskCacheStrategy.SOURCE,3对应DiskCacheStrategy.RESULT
+  private int zoomStrategy;
   private BitmapTransformation transformation;//glide用它来改变图形的形状
 
   private GlideImageConfig(Buidler builder) {
@@ -22,6 +23,7 @@ public class GlideImageConfig extends ImageConfig {
     this.placeholder = builder.placeholder;
     this.errorPic = builder.errorPic;
     this.cacheStrategy = builder.cacheStrategy;
+    this.zoomStrategy = builder.zoomStrategy;
     this.transformation = builder.transformation;
   }
 
@@ -31,6 +33,10 @@ public class GlideImageConfig extends ImageConfig {
 
   public int getCacheStrategy() {
     return cacheStrategy;
+  }
+
+  public int getZoomStrategy() {
+    return zoomStrategy;
   }
 
   public BitmapTransformation getTransformation() {
@@ -44,6 +50,7 @@ public class GlideImageConfig extends ImageConfig {
     private int placeholder;
     private int errorPic;
     private int cacheStrategy;//0对应DiskCacheStrategy.all,1对应DiskCacheStrategy.NONE,2对应DiskCacheStrategy.SOURCE,3对应DiskCacheStrategy.RESULT
+    private int zoomStrategy;
     private BitmapTransformation transformation;//glide用它来改变图形的形状
 
     private Buidler() {
@@ -71,6 +78,11 @@ public class GlideImageConfig extends ImageConfig {
 
     public Buidler cacheStrategy(int cacheStrategy) {
       this.cacheStrategy = cacheStrategy;
+      return this;
+    }
+
+    public Buidler zoomStrategy(int zoomStrategy) {
+      this.zoomStrategy = zoomStrategy;
       return this;
     }
 

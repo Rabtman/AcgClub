@@ -32,6 +32,10 @@
       android:screenOrientation="portrait" />
 
     <activity
+      android:name=".mvp.ui.activity.APicDetailActivity"
+      android:screenOrientation="portrait" />
+
+    <activity
       android:configChanges="orientation|screenSize|keyboardHidden"
       android:name=".mvp.ui.activity.ScheduleVideoActivity"
       android:screenOrientation="landscape" />

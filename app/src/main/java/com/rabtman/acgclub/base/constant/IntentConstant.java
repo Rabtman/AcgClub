@@ -15,4 +15,6 @@ public class IntentConstant {
   public static final String ACG_NEWS_DETAIL_TITLE = "acg_news_detail_title";
   public static final String ACG_NEWS_DETAIL_DATETIME = "acg_news_detail_datetime";
   public static final String ACG_NEWS_DETAIL_URL = "acg_news_detail_url";
+  public static final String APIC_DETAIL_TITLE = "apic_detail_title";
+  public static final String APIC_DETAIL_URL = "apic_detail_url";
 }

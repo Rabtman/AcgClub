@@ -47,6 +47,15 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy<GlideIm
         break;
     }
 
+    switch (config.getZoomStrategy()) {
+      case GlideImageConfig.CENTER_CROP:
+        requestBuilder.centerCrop();
+        break;
+      case GlideImageConfig.FIT_CENTER:
+        requestBuilder.fitCenter();
+        break;
+    }
+
     if (config.getTransformation() != null) {//glide用它来改变图形的形状
       requestBuilder.transform(config.getTransformation());
     }

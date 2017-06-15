@@ -17,10 +17,10 @@
     app:showAsAction="ifRoom" />
 
   <item
-    android:id="@+id/nav_setting"
+    android:id="@+id/nav_picture"
     android:enabled="true"
     android:icon="@mipmap/ic_launcher_round"
-    android:title="@string/nav_setting"
+    android:title="@string/nav_picture"
     app:showAsAction="ifRoom" />
 
 </menu>

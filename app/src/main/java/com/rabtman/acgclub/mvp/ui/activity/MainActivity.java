@@ -9,6 +9,7 @@ import android.widget.FrameLayout;
 import butterknife.BindView;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.mvp.ui.fragment.AcgNewsMainFragment;
+import com.rabtman.acgclub.mvp.ui.fragment.AcgPicMainFragment;
 import com.rabtman.acgclub.mvp.ui.fragment.ScheduleMainFragment;
 import com.rabtman.common.base.SimpleActivity;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -34,6 +35,7 @@ public class MainActivity extends SimpleActivity {
   //ActionBarDrawerToggle toggle;
   AcgNewsMainFragment acgNewsMainFragment;
   ScheduleMainFragment scheduleMainFragment;
+  AcgPicMainFragment acgPicMainFragment;
 
   private int hideFragment = R.id.nav_main;
   private int showFragment = R.id.nav_main;
@@ -60,7 +62,9 @@ public class MainActivity extends SimpleActivity {
     //fragment
     acgNewsMainFragment = new AcgNewsMainFragment();
     scheduleMainFragment = new ScheduleMainFragment();
-    loadMultipleRootFragment(R.id.main_content, 0, acgNewsMainFragment, scheduleMainFragment);
+    acgPicMainFragment = new AcgPicMainFragment();
+    loadMultipleRootFragment(R.id.main_content, 0, acgNewsMainFragment, scheduleMainFragment,
+        acgPicMainFragment);
 
     bottomNavigationView.setOnNavigationItemSelectedListener(
         new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -73,8 +77,8 @@ public class MainActivity extends SimpleActivity {
               case R.id.nav_schedule:
                 showFragment = R.id.nav_schedule;
                 break;
-              case R.id.nav_setting:
-                showFragment = R.id.nav_setting;
+              case R.id.nav_picture:
+                showFragment = R.id.nav_picture;
                 break;
             }
             showHideFragment(getTargetFragment(showFragment),
@@ -111,8 +115,8 @@ public class MainActivity extends SimpleActivity {
         return acgNewsMainFragment;
       case R.id.nav_schedule:
         return scheduleMainFragment;
-      case R.id.nav_setting:
-        return scheduleMainFragment;
+      case R.id.nav_picture:
+        return acgPicMainFragment;
     }
     return acgNewsMainFragment;
   }
