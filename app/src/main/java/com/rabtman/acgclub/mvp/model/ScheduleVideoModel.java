@@ -32,16 +32,20 @@ public class ScheduleVideoModel extends BaseModel implements ScheduleVideoContra
     return Flowable.create(new FlowableOnSubscribe<ScheduleVideo>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<ScheduleVideo> e) throws Exception {
-        Element html = Jsoup.connect(url).get();
-        ScheduleVideo scheduleVideo = JP.from(html, ScheduleVideo.class);
-        StringBuilder scheduleVideoHtmlBuilder = new StringBuilder();
-        scheduleVideoHtmlBuilder.append(HtmlConstant.SCHEDULE_VIDEO_CSS);
-        scheduleVideoHtmlBuilder.append("<div id=\"vedio\">");
-        scheduleVideoHtmlBuilder.append(scheduleVideo.getVideoHtml());
-        scheduleVideoHtmlBuilder.append("</div>");
-        scheduleVideo.setVideoHtml(scheduleVideoHtmlBuilder.toString());
-        e.onNext(scheduleVideo);
-        e.onComplete();
+        Element html = Jsoup.connect(url).timeout(10000).get();
+        if(html == null){
+          e.onError(new Throwable("element html is null"));
+        }else {
+          ScheduleVideo scheduleVideo = JP.from(html, ScheduleVideo.class);
+          StringBuilder scheduleVideoHtmlBuilder = new StringBuilder();
+          scheduleVideoHtmlBuilder.append(HtmlConstant.SCHEDULE_VIDEO_CSS);
+          scheduleVideoHtmlBuilder.append("<div id=\"vedio\">");
+          scheduleVideoHtmlBuilder.append(scheduleVideo.getVideoHtml());
+          scheduleVideoHtmlBuilder.append("</div>");
+          scheduleVideo.setVideoHtml(scheduleVideoHtmlBuilder.toString());
+          e.onNext(scheduleVideo);
+          e.onComplete();
+        }
       }
     }, BackpressureStrategy.BUFFER);
   }

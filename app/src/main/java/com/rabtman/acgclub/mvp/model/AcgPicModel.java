@@ -31,10 +31,14 @@ public class AcgPicModel extends BaseModel implements AcgPicContract.Model {
     return Flowable.create(new FlowableOnSubscribe<APic>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<APic> e) throws Exception {
-        Element html = Jsoup.connect(url).get();
-        APic aPic = JP.from(html, APic.class);
-        e.onNext(aPic);
-        e.onComplete();
+        Element html = Jsoup.connect(url).timeout(10000).get();
+        if(html == null){
+          e.onError(new Throwable("element html is null"));
+        }else {
+          APic aPic = JP.from(html, APic.class);
+          e.onNext(aPic);
+          e.onComplete();
+        }
       }
     }, BackpressureStrategy.BUFFER);
   }

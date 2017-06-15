@@ -10,11 +10,11 @@ import org.jsoup.nodes.Element;
 public class JP {
 
 
-  public static <T> T from(Element container, Class<T> clazz) {
+  public static <T> T from(Element container, Class<T> clazz) throws Exception{
     return JsoupProcessor.from(container, clazz);
   }
 
-  public static <T> List<T> fromList(Element container, Class<T> clazz) {
+  public static <T> List<T> fromList(Element container, Class<T> clazz) throws Exception{
     return JsoupProcessor.fromList(container, clazz);
   }
 

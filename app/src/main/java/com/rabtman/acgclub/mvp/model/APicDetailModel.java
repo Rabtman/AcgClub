@@ -32,10 +32,14 @@ public class APicDetailModel extends BaseModel implements APicDetailContract.Mod
     return Flowable.create(new FlowableOnSubscribe<APicDetail>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<APicDetail> e) throws Exception {
-        Element html = Jsoup.connect(url).get();
-        APicDetail aPicDetail = JP.from(html, APicDetail.class);
-        e.onNext(aPicDetail);
-        e.onComplete();
+        Element html = Jsoup.connect(url).timeout(10000).get();
+        if(html == null){
+          e.onError(new Throwable("element html is null"));
+        }else {
+          APicDetail aPicDetail = JP.from(html, APicDetail.class);
+          e.onNext(aPicDetail);
+          e.onComplete();
+        }
       }
     }, BackpressureStrategy.BUFFER);
   }

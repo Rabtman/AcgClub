@@ -37,7 +37,7 @@ public class JsoupProcessor {
     return select.first();
   }
 
-  private static Object valueOf(Element container, AnnotatedElement field) {
+  private static Object valueOf(Element container, AnnotatedElement field) throws Exception{
 
     Selector selector = field.getAnnotation(Selector.class);
     Text text = field.getAnnotation(Text.class);
@@ -119,81 +119,72 @@ public class JsoupProcessor {
    * @param clazz object class
    * @return object instance
    */
-  public static <T> T from(Element container, Class<T> clazz) {
+  public static <T> T from(Element container, Class<T> clazz) throws Exception{
 
-    try {
+    T instance = clazz.newInstance();
 
-      T instance = clazz.newInstance();
+    for (Field field : clazz.getDeclaredFields()) {
 
-      for (Field field : clazz.getDeclaredFields()) {
+      Object value = valueOf(container, field);
 
-        Object value = valueOf(container, field);
-
-        if (value != null) {
-          field.setAccessible(true);
-          field.set(instance, value);
-        }
-
+      if (value != null) {
+        field.setAccessible(true);
+        field.set(instance, value);
       }
 
-      Method afterBindMethod = null;
-
-      for (Method method : clazz.getDeclaredMethods()) {
-
-        ForEach forEach = method.getAnnotation(ForEach.class);
-        AfterBind afterBind = method.getAnnotation(AfterBind.class);
-
-        method.setAccessible(true);
-
-        Object value = valueOf(container, method);
-
-        if (value != null) {
-
-          method.invoke(instance, value);
-
-        } else if (afterBind != null) {
-
-          afterBindMethod = method;
-
-        } else if (forEach != null) {
-
-          Elements elements = container.select(forEach.value());
-
-          for (int i = 0; i < elements.size(); i++) {
-
-            Element element = elements.get(i);
-
-            if (method.getParameterTypes().length > 1) {
-              method.invoke(instance, element, i);
-              continue;
-            }
-
-            method.invoke(instance, element);
-
-          }
-
-        }
-
-      }
-
-      if (afterBindMethod != null) {
-        afterBindMethod.invoke(instance);
-      }
-
-      return instance;
-
-    } catch (Exception e) {
-      e.printStackTrace();
     }
 
-    return null;
+    Method afterBindMethod = null;
 
+    for (Method method : clazz.getDeclaredMethods()) {
+
+      ForEach forEach = method.getAnnotation(ForEach.class);
+      AfterBind afterBind = method.getAnnotation(AfterBind.class);
+
+      method.setAccessible(true);
+
+      Object value = valueOf(container, method);
+
+      if (value != null) {
+
+        method.invoke(instance, value);
+
+      } else if (afterBind != null) {
+
+        afterBindMethod = method;
+
+      } else if (forEach != null) {
+
+        Elements elements = container.select(forEach.value());
+
+        for (int i = 0; i < elements.size(); i++) {
+
+          Element element = elements.get(i);
+
+          if (method.getParameterTypes().length > 1) {
+            method.invoke(instance, element, i);
+            continue;
+          }
+
+          method.invoke(instance, element);
+
+        }
+
+      }
+
+    }
+
+    if (afterBindMethod != null) {
+      afterBindMethod.invoke(instance);
+    }
+
+    return instance;
   }
 
   /**
    * Bind multiple object. (Internally use from)
    */
-  public static <T> List<T> fromList(Element container, Class<T> clazz) {
+  public static <T> List<T> fromList(Element container, Class<T> clazz) throws Exception{
 
     ArrayList<T> items = new ArrayList<>();
 

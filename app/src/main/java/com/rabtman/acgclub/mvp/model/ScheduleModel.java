@@ -32,10 +32,14 @@ public class ScheduleModel extends BaseModel implements ScheduleTimeContract.Mod
     return Flowable.create(new FlowableOnSubscribe<AcgScheduleInfo>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<AcgScheduleInfo> e) throws Exception {
-        Element html = Jsoup.connect(HtmlConstant.DILIDILI_URL).get();
-        AcgScheduleInfo acgScheduleInfo = JP.from(html, AcgScheduleInfo.class);
-        e.onNext(acgScheduleInfo);
-        e.onComplete();
+        Element html = Jsoup.connect(HtmlConstant.DILIDILI_URL).timeout(10000).get();
+        if(html == null){
+          e.onError(new Throwable("element html is null"));
+        }else {
+          AcgScheduleInfo acgScheduleInfo = JP.from(html, AcgScheduleInfo.class);
+          e.onNext(acgScheduleInfo);
+          e.onComplete();
+        }
       }
     }, BackpressureStrategy.BUFFER);
   }

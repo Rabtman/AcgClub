@@ -63,7 +63,7 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
   @Override
   protected void initData() {
     //监听webview控制台日志
-    webView.setOnChromeConsoleListener(new onChromeConsoleListener() {
+    /*webView.setOnChromeConsoleListener(new onChromeConsoleListener() {
       @Override
       public void onConsoleMessage(ConsoleMessage consoleMessage) {
         if (consoleMessage.messageLevel() == MessageLevel.ERROR) {
@@ -71,7 +71,7 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
           //onBackPressedSupport();
         }
       }
-    });
+    });*/
     mPresenter.getScheduleVideo(getIntent().getStringExtra(IntentConstant.SCHEDULE_EPISODE_URL));
   }
 

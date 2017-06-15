@@ -32,10 +32,14 @@ public class ScheduleDetailModel extends BaseModel implements ScheduleDetailCont
     return Flowable.create(new FlowableOnSubscribe<ScheduleDetail>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<ScheduleDetail> e) throws Exception {
-        Element html = Jsoup.connect(HtmlConstant.DILIDILI_URL + url).get();
-        ScheduleDetail scheduleDetail = JP.from(html, ScheduleDetail.class);
-        e.onNext(scheduleDetail);
-        e.onComplete();
+        Element html = Jsoup.connect(HtmlConstant.DILIDILI_URL + url).timeout(10000).get();
+        if(html == null){
+          e.onError(new Throwable("element html is null"));
+        }else {
+          ScheduleDetail scheduleDetail = JP.from(html, ScheduleDetail.class);
+          e.onNext(scheduleDetail);
+          e.onComplete();
+        }
       }
     }, BackpressureStrategy.BUFFER);
   }

@@ -32,10 +32,14 @@ public class AcgNewsDetailModel extends BaseModel implements AcgNewsDetailContra
     return Flowable.create(new FlowableOnSubscribe<AcgNewsDetail>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<AcgNewsDetail> e) throws Exception {
-        Element html = Jsoup.connect(url).get();
-        AcgNewsDetail acgNewsDetail = JP.from(html, AcgNewsDetail.class);
-        e.onNext(acgNewsDetail);
-        e.onComplete();
+        Element html = Jsoup.connect(url).timeout(10000).get();
+        if(html == null){
+          e.onError(new Throwable("element html is null"));
+        }else {
+          AcgNewsDetail acgNewsDetail = JP.from(html, AcgNewsDetail.class);
+          e.onNext(acgNewsDetail);
+          e.onComplete();
+        }
       }
     }, BackpressureStrategy.BUFFER);
   }
