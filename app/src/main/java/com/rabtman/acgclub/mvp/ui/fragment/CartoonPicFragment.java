@@ -1,8 +1,8 @@
 package com.rabtman.acgclub.mvp.ui.fragment;
 
 import android.content.Intent;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
@@ -62,9 +62,8 @@ public class CartoonPicFragment extends BaseFragment<AcgPicItemPresenter> implem
       }
     });
 
-    StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,
-        StaggeredGridLayoutManager.VERTICAL);
-    //rcvCartoonItem.addItemDecoration(new CommonItemDecoration(1, CommonItemDecoration.UNIT_DP));
+    GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+    layoutManager.setOrientation(GridLayoutManager.VERTICAL);
     rcvCartoonItem.setLayoutManager(layoutManager);
     mAdapter.setOnLoadMoreListener(new RequestLoadMoreListener() {
       @Override

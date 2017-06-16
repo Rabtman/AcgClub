@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+  <tab
+    icon="@drawable/nav_main"
+    id="@+id/nav_main"
+    title="@string/nav_main" />
+  <tab
+    icon="@drawable/nav_schedule"
+    id="@+id/nav_schedule"
+    title="@string/nav_schedule" />
+  <tab
+    icon="@drawable/nav_picture"
+    id="@+id/nav_picture"
+    title="@string/nav_picture" />
+</tabs>

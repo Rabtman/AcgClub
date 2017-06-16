@@ -39,6 +39,10 @@ public class APicPagerAdapter extends PagerAdapter {
     return apicList.size();
   }
 
+  public List<String> getApicList() {
+    return apicList;
+  }
+
   @Override
   public boolean isViewFromObject(View view, Object object) {
     return view == object;
@@ -61,6 +65,7 @@ public class APicPagerAdapter extends PagerAdapter {
         }
       });
     }
+
     mImageLoader.loadImage(mContext,
         GlideImageConfig
             .builder()

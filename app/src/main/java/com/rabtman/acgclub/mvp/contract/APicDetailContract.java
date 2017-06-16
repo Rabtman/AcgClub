@@ -14,6 +14,7 @@ public interface APicDetailContract {
 
     void showAPictures(APicDetail aPicDetail);
 
+    void start2Download();
   }
 
   interface Model extends IModel {

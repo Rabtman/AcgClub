@@ -29,8 +29,7 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy<GlideIm
     }
 
     DrawableRequestBuilder<String> requestBuilder = manager.load(config.getUrl())
-        .crossFade()
-        .centerCrop();
+        .crossFade();
 
     switch (config.getCacheStrategy()) {//缓存策略
       case 0:

@@ -1,5 +1,6 @@
 package com.rabtman.acgclub.mvp.model.jsoup;
 
+import android.text.TextUtils;
 import com.fcannizzaro.jsoup.annotations.interfaces.ForEach;
 import com.fcannizzaro.jsoup.annotations.interfaces.Selector;
 import java.util.ArrayList;
@@ -17,7 +18,10 @@ public class APicDetail {
 
   @ForEach("p img")
   void iterate(Element element, int index) {
-    picList.add(element.attr("src"));
+    String src = element.attr("src");
+    if (!TextUtils.isEmpty(src)) {
+      picList.add(src);
+    }
   }
 
   public List<String> getPicList() {

@@ -35,6 +35,11 @@ dependencies {
         exclude module: 'appcompat-v7'
         exclude module: 'support-annotations'
     }
+    compile(rootProject.ext.dependencies["bottom-bar"]) {
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+    }
     compile(rootProject.ext.dependencies["toast"]) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
@@ -61,6 +66,7 @@ dependencies {
     //rx
     compile rootProject.ext.dependencies["rxjava"]
     compile rootProject.ext.dependencies["rxandroid"]
+    compile rootProject.ext.dependencies["rxdownload"]
     compile(rootProject.ext.dependencies["rxpermissions2"]) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'

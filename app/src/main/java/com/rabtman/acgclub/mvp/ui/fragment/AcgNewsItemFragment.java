@@ -82,7 +82,7 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
 
     LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-    rcvNewsItem.addItemDecoration(new CommonItemDecoration(1, CommonItemDecoration.UNIT_DP));
+    rcvNewsItem.addItemDecoration(new CommonItemDecoration(2, CommonItemDecoration.UNIT_DP));
     rcvNewsItem.setLayoutManager(layoutManager);
     mAdapter.setOnLoadMoreListener(new RequestLoadMoreListener() {
       @Override

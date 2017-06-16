@@ -1,10 +1,8 @@
 package com.rabtman.acgclub.mvp.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
+import android.support.annotation.IdRes;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.widget.FrameLayout;
 import butterknife.BindView;
 import com.rabtman.acgclub.R;
@@ -12,6 +10,8 @@ import com.rabtman.acgclub.mvp.ui.fragment.AcgNewsMainFragment;
 import com.rabtman.acgclub.mvp.ui.fragment.AcgPicMainFragment;
 import com.rabtman.acgclub.mvp.ui.fragment.ScheduleMainFragment;
 import com.rabtman.common.base.SimpleActivity;
+import com.roughike.bottombar.BottomBar;
+import com.roughike.bottombar.OnTabSelectListener;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -24,7 +24,7 @@ public class MainActivity extends SimpleActivity {
   @BindView(R.id.toolbar)
   Toolbar mToolBar;
   @BindView(R.id.view_navigation)
-  BottomNavigationView bottomNavigationView;
+  BottomBar bottomBar;
   @BindView(R.id.main_content)
   FrameLayout mainContent;
  /* @BindView(R.id.nav_view)
@@ -55,6 +55,7 @@ public class MainActivity extends SimpleActivity {
   @Override
   protected void initData() {
     setToolBar(mToolBar, getString(R.string.nav_main));
+    getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     /*toggle = new ActionBarDrawerToggle(this, drawerLayout, mToolBar,
         R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawerLayout.addDrawerListener(toggle);
@@ -66,28 +67,30 @@ public class MainActivity extends SimpleActivity {
     loadMultipleRootFragment(R.id.main_content, 0, acgNewsMainFragment, scheduleMainFragment,
         acgPicMainFragment);
 
-    bottomNavigationView.setOnNavigationItemSelectedListener(
-        new BottomNavigationView.OnNavigationItemSelectedListener() {
-          @Override
-          public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-              case R.id.nav_main:
-                showFragment = R.id.nav_main;
-                break;
-              case R.id.nav_schedule:
-                showFragment = R.id.nav_schedule;
-                break;
-              case R.id.nav_picture:
-                showFragment = R.id.nav_picture;
-                break;
-            }
-            showHideFragment(getTargetFragment(showFragment),
-                getTargetFragment(hideFragment));
-            mToolBar.setTitle(item.getTitle());
-            hideFragment = showFragment;
-            return true;
-          }
-        });
+    bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
+      @Override
+      public void onTabSelected(@IdRes int tabId) {
+        String title = null;
+        switch (tabId) {
+          case R.id.nav_main:
+            showFragment = R.id.nav_main;
+            title = getString(R.string.nav_main);
+            break;
+          case R.id.nav_schedule:
+            showFragment = R.id.nav_schedule;
+            title = getString(R.string.nav_schedule);
+            break;
+          case R.id.nav_picture:
+            showFragment = R.id.nav_picture;
+            title = getString(R.string.nav_picture);
+            break;
+        }
+        showHideFragment(getTargetFragment(showFragment),
+            getTargetFragment(hideFragment));
+        mToolBar.setTitle(title);
+        hideFragment = showFragment;
+      }
+    });
     /*navigationView.getMenu().findItem(R.id.nav_main).setChecked(true);
     navigationView.setNavigationItemSelectedListener(
         new OnNavigationItemSelectedListener() {
@@ -126,7 +129,7 @@ public class MainActivity extends SimpleActivity {
     /*if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
       drawerLayout.closeDrawer(GravityCompat.START);
     } else {*/
-      super.onBackPressedSupport();
+    super.onBackPressedSupport();
     //}
   }
 

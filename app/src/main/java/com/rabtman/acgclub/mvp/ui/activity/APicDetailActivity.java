@@ -11,7 +11,9 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import butterknife.BindView;
+import butterknife.OnClick;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.di.component.DaggerAPicDetailComponent;
@@ -23,6 +25,7 @@ import com.rabtman.acgclub.mvp.ui.adapter.APicPagerAdapter;
 import com.rabtman.acgclub.mvp.ui.adapter.APicPagerAdapter.PinchImageViewListener;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
+import es.dmoral.toasty.Toasty;
 import java.util.List;
 
 /**
@@ -47,6 +50,7 @@ public class APicDetailActivity extends BaseActivity<APicDetailPresenter> implem
   RelativeLayout bottomLayout;
 
   private int curPos = 0;
+  private APicPagerAdapter mAdapter;
   private AnimatorSet showAnimator;
   private AnimatorSet hideAnimator;
 
@@ -81,8 +85,8 @@ public class APicDetailActivity extends BaseActivity<APicDetailPresenter> implem
     tvCount.setText(String.valueOf(picList.size()));
     imgDownload.setVisibility(android.view.View.VISIBLE);
 
-    APicPagerAdapter adapter = new APicPagerAdapter(this, picList);
-    adapter.setPinchImageViewListener(new PinchImageViewListener() {
+    mAdapter = new APicPagerAdapter(this, picList);
+    mAdapter.setPinchImageViewListener(new PinchImageViewListener() {
       @Override
       public void onClick(android.view.View v) {
         if (mToolBar.getVisibility() == android.view.View.VISIBLE) {
@@ -96,7 +100,7 @@ public class APicDetailActivity extends BaseActivity<APicDetailPresenter> implem
         }
       }
     });
-    vpApic.setAdapter(adapter);
+    vpApic.setAdapter(mAdapter);
     vpApic.addOnPageChangeListener(new OnPageChangeListener() {
       @Override
       public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -116,6 +120,19 @@ public class APicDetailActivity extends BaseActivity<APicDetailPresenter> implem
     });
     if (hideAnimator != null) {
       hideAnimator.start();
+    }
+  }
+
+  @Override
+  public void start2Download() {
+    Toasty.normal(mContext, getString(R.string.msg_start_download_picture), Toast.LENGTH_SHORT)
+        .show();
+  }
+
+  @OnClick(R.id.img_download)
+  void downloadPicture() {
+    if (mAdapter != null) {
+      mPresenter.downloadPicture(this, mAdapter.getApicList().get(curPos));
     }
   }
 

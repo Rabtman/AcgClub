@@ -15,7 +15,7 @@ public class APic {
 
   @Items
   private List<PicInfo> picInfos;
-  @Attr(query = "div#page a.extend", attr = "href")
+  @Attr(query = "div#page a.extend:containsOwn(尾页)", attr = "href")
   private String pageCount;
 
   public List<PicInfo> getPicInfos() {

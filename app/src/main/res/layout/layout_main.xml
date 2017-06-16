@@ -7,11 +7,10 @@
   <android.support.design.widget.AppBarLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.AppBarOverlay">
+    android:theme="@style/AppTheme.AppBarOverlay"
+    app:elevation="0dp">
 
-    <include
-      layout="@layout/view_toolbar"
-      app:layout_scrollFlags="scroll|enterAlways" />
+    <include layout="@layout/view_toolbar" />
 
   </android.support.design.widget.AppBarLayout>
 
@@ -20,21 +19,23 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <android.support.design.widget.BottomNavigationView
+    <com.roughike.bottombar.BottomBar
       android:id="@+id/view_navigation"
       android:layout_width="match_parent"
       android:layout_height="56dp"
       android:layout_alignParentBottom="true"
-      app:itemBackground="@color/colorPrimary"
-      app:itemIconTint="@android:color/white"
-      app:itemTextColor="@android:color/white"
-      app:menu="@menu/activity_main_navigation" />
+      android:background="@color/colorPrimary"
+      app:bb_activeTabColor="@android:color/white"
+      app:bb_behavior="shifting"
+      app:bb_inActiveTabColor="@color/colorPrimaryDark"
+      app:bb_tabXmlResource="@xml/bottombar_tabs" />
 
     <FrameLayout
       android:id="@+id/main_content"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_above="@id/view_navigation" />
+      android:layout_above="@id/view_navigation"
+      android:background="@color/grey200" />
   </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

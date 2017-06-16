@@ -1,5 +1,8 @@
 package com.rabtman.acgclub.base.constant;
 
+import android.content.Context;
+import android.os.Environment;
+import com.rabtman.common.utils.FileUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,4 +25,11 @@ public class SystemConstant {
     ACG_NEWS_TITLE.add("其他热点");
   }
 
+  //图片保存地址
+  public static String getImgPath(Context context) {
+    if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+      return Environment.getExternalStorageDirectory() + "/acgclub/images";
+    }
+    return FileUtils.getCacheFile(context).getAbsolutePath() + "/images";
+  }
 }
