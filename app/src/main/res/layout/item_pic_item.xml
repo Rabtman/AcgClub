@@ -16,11 +16,12 @@
     <FrameLayout
       android:id="@+id/pic_frame_layout"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="360dp">
       <ImageView
         android:id="@+id/pic_img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         tools:src="@mipmap/ic_launcher" />
 
       <TextView

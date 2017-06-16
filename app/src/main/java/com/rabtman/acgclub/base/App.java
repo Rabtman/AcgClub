@@ -49,7 +49,8 @@ public class App extends BaseApplication {
   }
 
   private void initX5Web() {
-    QbSdk.PreInitCallback cb = new QbSdk.PreInitCallback() {
+    //x5内核初始化接口
+    QbSdk.initX5Environment(getApplicationContext(), new QbSdk.PreInitCallback() {
 
       @Override
       public void onViewInitFinished(boolean arg0) {
@@ -62,9 +63,7 @@ public class App extends BaseApplication {
       public void onCoreInitFinished() {
         // TODO Auto-generated method stub
       }
-    };
-    //x5内核初始化接口
-    QbSdk.initX5Environment(getApplicationContext(), cb);
+    });
   }
 
   @Override

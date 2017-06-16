@@ -100,6 +100,7 @@ public class APicDetailActivity extends BaseActivity<APicDetailPresenter> implem
         }
       }
     });
+    vpApic.setOffscreenPageLimit(3);
     vpApic.setAdapter(mAdapter);
     vpApic.addOnPageChangeListener(new OnPageChangeListener() {
       @Override
@@ -118,9 +119,6 @@ public class APicDetailActivity extends BaseActivity<APicDetailPresenter> implem
 
       }
     });
-    if (hideAnimator != null) {
-      hideAnimator.start();
-    }
   }
 
   @Override

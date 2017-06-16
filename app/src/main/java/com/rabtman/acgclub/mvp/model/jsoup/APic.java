@@ -60,7 +60,7 @@ public class APic {
     private String count;
 
     public String getTitle() {
-      return title.substring(0, title.lastIndexOf("-"));
+      return title;
     }
 
     public void setTitle(String title) {

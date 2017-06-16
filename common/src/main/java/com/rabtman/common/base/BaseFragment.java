@@ -3,6 +3,7 @@ package com.rabtman.common.base;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.Toast;
 import com.hss01248.dialog.StyledDialog;
@@ -19,6 +20,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
   @Inject
   protected T mPresenter;
   protected View mView;
+  private SwipeRefreshLayout mSwipeRefreshLayout;
   private Dialog mLoadingDialog;
   private AppComponent mAppComponent;
 
@@ -38,14 +40,24 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
     super.onDestroyView();
   }
 
+  protected void setSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout) {
+    mSwipeRefreshLayout = swipeRefreshLayout;
+  }
 
   @Override
   public void showLoading() {
-    mLoadingDialog = StyledDialog.buildMdLoading().show();
+    if (mSwipeRefreshLayout != null && !mSwipeRefreshLayout.isRefreshing()) {
+      mSwipeRefreshLayout.setRefreshing(true);
+    } else {
+      mLoadingDialog = StyledDialog.buildMdLoading().show();
+    }
   }
 
   @Override
   public void hideLoading() {
+    if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
+      mSwipeRefreshLayout.setRefreshing(false);
+    }
     if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
       StyledDialog.dismiss(mLoadingDialog);
     }

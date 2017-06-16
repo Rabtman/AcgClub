@@ -2,6 +2,8 @@ package com.rabtman.acgclub.mvp.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import butterknife.BindView;
@@ -31,8 +33,8 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
 
   @BindView(R.id.rcv_news_item)
   RecyclerView rcvNewsItem;
-  //@BindView(R.id.swipe_refresh)
-  //SwipeRefreshLayout swipeRefresh;
+  @BindView(R.id.swipe_refresh_news)
+  SwipeRefreshLayout swipeRefresh;
   //当前资讯类型地址id
   private int typeUrlId;
   private AcgNewsItemAdapter mAdapter;
@@ -92,6 +94,13 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
     }, rcvNewsItem);
     rcvNewsItem.setAdapter(mAdapter);
 
+    swipeRefresh.setOnRefreshListener(new OnRefreshListener() {
+      @Override
+      public void onRefresh() {
+        mPresenter.getAcgNewsList();
+      }
+    });
+    setSwipeRefreshLayout(swipeRefresh);
     mPresenter.getAcgNewsList();
   }
 
@@ -112,6 +121,22 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
     if (!canLoadMore) {
       mAdapter.loadMoreEnd();
     }
+  }
+
+  @Override
+  public void hideLoading() {
+    if (swipeRefresh.isRefreshing()) {
+      swipeRefresh.setRefreshing(false);
+    }
+    super.hideLoading();
+  }
+
+  @Override
+  public void showError(String message) {
+    if (swipeRefresh.isRefreshing()) {
+      swipeRefresh.setRefreshing(false);
+    }
+    super.showError(message);
   }
 
   @Override

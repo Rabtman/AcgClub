@@ -1,6 +1,8 @@
 package com.rabtman.acgclub.mvp.ui.fragment;
 
 import android.content.Intent;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import butterknife.BindView;
@@ -28,8 +30,8 @@ public class CartoonPicFragment extends BaseFragment<AcgPicItemPresenter> implem
 
   @BindView(R.id.rcv_cartoon_item)
   RecyclerView rcvCartoonItem;
-  //@BindView(R.id.swipe_refresh)
-  //SwipeRefreshLayout swipeRefresh;
+  @BindView(R.id.swipe_refresh_cartoon)
+  SwipeRefreshLayout swipeRefresh;
   //当前资讯类型地址id
   private int typeUrlId;
   private AcgPicItemAdapter mAdapter;
@@ -73,6 +75,13 @@ public class CartoonPicFragment extends BaseFragment<AcgPicItemPresenter> implem
     }, rcvCartoonItem);
     rcvCartoonItem.setAdapter(mAdapter);
 
+    swipeRefresh.setOnRefreshListener(new OnRefreshListener() {
+      @Override
+      public void onRefresh() {
+        mPresenter.getAcgPicList();
+      }
+    });
+    setSwipeRefreshLayout(swipeRefresh);
     mPresenter.getAcgPicList();
   }
 

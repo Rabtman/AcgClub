@@ -31,7 +31,7 @@ public class AcgPicItemAdapter extends BaseQuickAdapter<PicInfo, BaseViewHolder>
         GlideImageConfig
             .builder()
             .url(item.getThumbUrl())
-            .zoomStrategy(GlideImageConfig.FIT_CENTER)
+            .zoomStrategy(GlideImageConfig.CENTER_CROP)
             .imagerView((ImageView) helper.getView(R.id.pic_img))
             .build()
     );
