@@ -14,6 +14,7 @@ public interface ScheduleDetailContract {
 
     void showScheduleDetail(ScheduleDetail scheduleDetail);
 
+    void start2ScheduleVideo(String videoUrl);
   }
 
   interface Model extends IModel {

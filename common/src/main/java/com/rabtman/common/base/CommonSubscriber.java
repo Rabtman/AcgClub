@@ -1,6 +1,7 @@
 package com.rabtman.common.base;
 
 import android.text.TextUtils;
+import com.rabtman.common.R;
 import com.rabtman.common.base.mvp.IView;
 import com.rabtman.common.http.ApiException;
 import com.rabtman.common.utils.LogUtil;
@@ -54,9 +55,9 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
     } else if (e instanceof ApiException) {
       mView.showError(e.toString());
     } else if (e instanceof HttpException) {
-      mView.showError("貌似网络不太好使");
+      mView.showError(R.string.msg_error_network);
     } else {
-      mView.showError("出错啦！！！");
+      mView.showError(R.string.msg_error_unknown);
       LogUtil.d(e.toString());
     }
 

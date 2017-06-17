@@ -13,8 +13,6 @@ public interface APicDetailContract {
   interface View extends IView {
 
     void showAPictures(APicDetail aPicDetail);
-
-    void start2Download();
   }
 
   interface Model extends IModel {

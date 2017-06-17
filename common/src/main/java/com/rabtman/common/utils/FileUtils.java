@@ -55,6 +55,19 @@ public final class FileUtils {
   }
 
   /**
+   * 根据文件路径获取文件
+   *
+   * @param filePath 文件路径
+   * @return 文件
+   */
+  public static File getStorageFilePath(String filePath) {
+    if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+      return new File(Environment.getExternalStorageDirectory(), filePath);
+    }
+    return new File(getCacheFile(Utils.getContext()).getAbsolutePath(), filePath);
+  }
+
+  /**
    * 判断文件是否存在
    *
    * @param filePath 文件路径

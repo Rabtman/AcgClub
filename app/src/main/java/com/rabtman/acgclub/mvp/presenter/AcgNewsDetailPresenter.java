@@ -1,6 +1,7 @@
 package com.rabtman.acgclub.mvp.presenter;
 
 import android.text.TextUtils;
+import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.mvp.contract.AcgNewsDetailContract;
 import com.rabtman.acgclub.mvp.model.jsoup.AcgNewsDetail;
 import com.rabtman.common.base.CommonSubscriber;
@@ -25,7 +26,7 @@ public class AcgNewsDetailPresenter extends
 
   public void getNewsDetail(String url) {
     if (TextUtils.isEmpty(url)) {
-      mView.showError("大脑一片空白！");
+      mView.showError(R.string.msg_error_url_null);
       return;
     }
     addSubscribe(

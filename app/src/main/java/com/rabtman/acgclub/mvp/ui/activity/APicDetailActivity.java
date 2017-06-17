@@ -11,7 +11,6 @@ import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.rabtman.acgclub.R;
@@ -25,8 +24,9 @@ import com.rabtman.acgclub.mvp.ui.adapter.APicPagerAdapter;
 import com.rabtman.acgclub.mvp.ui.adapter.APicPagerAdapter.PinchImageViewListener;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
-import es.dmoral.toasty.Toasty;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import java.util.List;
+import zlc.season.rxdownload2.RxDownload;
 
 /**
  * @author Rabtman
@@ -121,16 +121,12 @@ public class APicDetailActivity extends BaseActivity<APicDetailPresenter> implem
     });
   }
 
-  @Override
-  public void start2Download() {
-    Toasty.normal(mContext, getString(R.string.msg_start_download_picture), Toast.LENGTH_SHORT)
-        .show();
-  }
-
   @OnClick(R.id.img_download)
   void downloadPicture() {
     if (mAdapter != null) {
-      mPresenter.downloadPicture(this, mAdapter.getApicList().get(curPos));
+      mPresenter
+          .downloadPicture(new RxPermissions(this), RxDownload.getInstance(this),
+              mAdapter.getApicList().get(curPos));
     }
   }
 

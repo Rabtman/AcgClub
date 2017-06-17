@@ -1,6 +1,5 @@
 package com.rabtman.acgclub.mvp.ui.activity;
 
-import android.Manifest.permission;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.GridLayoutManager;
@@ -24,8 +23,6 @@ import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.imageloader.glide.GlideImageConfig;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Consumer;
 import java.util.List;
 
 /**
@@ -99,27 +96,21 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
       @Override
       public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
         final ScheduleEpisode scheduleEpisode = (ScheduleEpisode) adapter.getData().get(position);
-        new RxPermissions(ScheduleDetailActivity.this)
-            .request(permission.WRITE_EXTERNAL_STORAGE,
-                permission.READ_PHONE_STATE,
-                permission.ACCESS_NETWORK_STATE,
-                permission.ACCESS_WIFI_STATE)
-            .subscribe(new Consumer<Boolean>() {
-              @Override
-              public void accept(@NonNull Boolean aBoolean) throws Exception {
-                if (aBoolean) {
-                  Intent intent = new Intent(getBaseContext(), ScheduleVideoActivity.class);
-                  intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL, scheduleEpisode.getLink());
-                  startActivity(intent);
-                }
-              }
-            });
+        mPresenter.checkPermission2ScheduleVideo(new RxPermissions(ScheduleDetailActivity.this),
+            scheduleEpisode.getLink());
       }
     });
     GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
     layoutManager.setOrientation(GridLayoutManager.VERTICAL);
     rcvScheduleDetail.setLayoutManager(layoutManager);
     rcvScheduleDetail.setAdapter(adapter);
+  }
+
+  @Override
+  public void start2ScheduleVideo(String videoUrl) {
+    Intent intent = new Intent(getBaseContext(), ScheduleVideoActivity.class);
+    intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL, videoUrl);
+    startActivity(intent);
   }
 
 }

@@ -64,6 +64,21 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
   }
 
   @Override
+  public void showMsg(int stringId) {
+    showMsg(getString(stringId));
+  }
+
+  @Override
+  public void showMsg(String message) {
+    Toasty.info(mContext, message, Toast.LENGTH_SHORT).show();
+  }
+
+  @Override
+  public void showError(int stringId) {
+    showError(getString(stringId));
+  }
+
+  @Override
   public void showError(String message) {
     Toasty.error(mContext, message, Toast.LENGTH_SHORT).show();
   }
