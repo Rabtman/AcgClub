@@ -12,8 +12,11 @@
 
   <string name="acg_news_update_time">更新于 %1$s</string>
 
+  <!-- 信息-->
   <string name="msg_start_download_picture">保存图片...</string>
-  <!-- 错误信息-->
+
+  <string name="msg_success_download_picture">已保存到相册中</string>
+
   <string name="msg_error_url_null">大脑一片空白(@\ufe4f@)~</string>
   <string name="msg_error_download_picture">图片保存失败(\u256f\ufe4f\u2570)</string>
   <string name="msg_error_load_video">视频加载失败\u0028\u2299\ufe3f\u2299\u0029</string>

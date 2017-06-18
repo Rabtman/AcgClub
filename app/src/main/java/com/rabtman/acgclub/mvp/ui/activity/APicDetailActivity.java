@@ -4,6 +4,9 @@ import android.animation.Animator;
 import android.animation.Animator.AnimatorListener;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.widget.Toolbar;
@@ -25,6 +28,8 @@ import com.rabtman.acgclub.mvp.ui.adapter.APicPagerAdapter.PinchImageViewListene
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 import zlc.season.rxdownload2.RxDownload;
 
@@ -51,6 +56,7 @@ public class APicDetailActivity extends BaseActivity<APicDetailPresenter> implem
 
   private int curPos = 0;
   private APicPagerAdapter mAdapter;
+  private RxPermissions rxPermissions;
   private AnimatorSet showAnimator;
   private AnimatorSet hideAnimator;
 
@@ -73,6 +79,7 @@ public class APicDetailActivity extends BaseActivity<APicDetailPresenter> implem
   @Override
   protected void initData() {
     setToolBar(mToolBar, getIntent().getStringExtra(IntentConstant.APIC_DETAIL_TITLE));
+    rxPermissions = new RxPermissions(this);
     initAnimator();
     mPresenter.getAPicDetail(getIntent().getStringExtra(IntentConstant.APIC_DETAIL_URL));
   }
@@ -121,11 +128,26 @@ public class APicDetailActivity extends BaseActivity<APicDetailPresenter> implem
     });
   }
 
+  @Override
+  public void savePictureSuccess(File imgFile) {
+    //插入图库
+    try {
+      MediaStore.Images.Media.insertImage(getContentResolver(),
+          imgFile.getAbsolutePath(), imgFile.getName(), null);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    //通知图库更新
+    Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+    intent.setData(Uri.fromFile(imgFile));
+    sendBroadcast(intent);
+  }
+
   @OnClick(R.id.img_download)
   void downloadPicture() {
     if (mAdapter != null) {
       mPresenter
-          .downloadPicture(new RxPermissions(this), RxDownload.getInstance(this),
+          .downloadPicture(rxPermissions, RxDownload.getInstance(this),
               mAdapter.getApicList().get(curPos));
     }
   }

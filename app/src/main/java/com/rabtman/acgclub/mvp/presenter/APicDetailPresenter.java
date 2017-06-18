@@ -15,10 +15,13 @@ import com.rabtman.common.utils.RxUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import java.io.File;
 import javax.inject.Inject;
 import zlc.season.rxdownload2.RxDownload;
+import zlc.season.rxdownload2.entity.DownloadStatus;
 
 /**
  * @author Rabtman
@@ -63,6 +66,18 @@ public class APicDetailPresenter extends
   }
 
   public void downloadPicture(RxPermissions rxPermissions, RxDownload rxDownload, String imgUrl) {
+    File[] files = rxDownload.getRealFiles(imgUrl);
+    if (files != null) {
+      if (FileUtils.isFileExists(files[0])) {
+        mView.showMsg(R.string.msg_success_download_picture);
+        return;
+      } else {
+        rxDownload.deleteServiceDownload(imgUrl, true);
+      }
+    }
+    final String imgName =
+        imgUrl.substring(imgUrl.lastIndexOf("/") + 1, imgUrl.lastIndexOf(".")) + ".jpg";
+    final String dir = FileUtils.getStorageFilePath(SystemConstant.ACG_IMG_PATH).getAbsolutePath();
     rxPermissions
         .request(permission.WRITE_EXTERNAL_STORAGE)
         .doOnNext(new Consumer<Boolean>() {
@@ -74,21 +89,24 @@ public class APicDetailPresenter extends
           }
         })
         .observeOn(Schedulers.io())
-        .compose(rxDownload
-            .transformService(imgUrl, null,
-                FileUtils.getStorageFilePath(SystemConstant.ACG_IMG_PATH).getAbsolutePath()))
+        .compose(rxDownload.transform(imgUrl, imgName, dir))
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Consumer<Object>() {
-
+        .subscribe(new Consumer<DownloadStatus>() {
           @Override
-          public void accept(@NonNull Object o) throws Exception {
-            mView.showMsg(R.string.msg_start_download_picture);
+          public void accept(@NonNull DownloadStatus downloadStatus) throws Exception {
+
           }
         }, new Consumer<Throwable>() {
           @Override
           public void accept(@NonNull Throwable throwable) throws Exception {
             throwable.printStackTrace();
             mView.showError(R.string.msg_error_download_picture);
+          }
+        }, new Action() {
+          @Override
+          public void run() throws Exception {
+            mView.showMsg(R.string.msg_success_download_picture);
+            mView.savePictureSuccess(new File(dir, imgName));
           }
         });
 
