@@ -50,7 +50,7 @@ public class APic {
 
     @Attr(query = "div.content a", attr = "title")
     private String title;
-    @Attr(query = "div.content a img", attr = "data-cfsrc")
+    @Attr(query = "div.content a img", attr = "src")
     private String thumbUrl;
     @Attr(query = "div.content a", attr = "href")
     private String contentLink;

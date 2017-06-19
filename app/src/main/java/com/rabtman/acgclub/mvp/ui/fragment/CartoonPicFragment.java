@@ -100,6 +100,14 @@ public class CartoonPicFragment extends BaseFragment<AcgPicItemPresenter> implem
   }
 
   @Override
+  public void showError(String message) {
+    if (swipeRefresh.isRefreshing()) {
+      swipeRefresh.setRefreshing(false);
+    }
+    super.showError(message);
+  }
+
+  @Override
   public void onLoadMoreFail() {
     mAdapter.loadMoreFail();
   }

@@ -14,9 +14,10 @@ public class SystemConstant {
   public static final String[] ACG_SCHEDULE_TITLE = {"放送表"};
   //图库标题栏
   public static final String[] ACG_PIC_TITLE = {"动漫"};
-  //图片保存地址
+
   public static final String pathRoot = "/AcgClub";
-  public static final String ACG_IMG_PATH = pathRoot + "/images";
+  //图片保存地址
+  public static final String ACG_IMG_PATH = pathRoot;
 
   static {
     ACG_NEWS_TITLE = new ArrayList<>();

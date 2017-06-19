@@ -124,14 +124,6 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
   }
 
   @Override
-  public void hideLoading() {
-    if (swipeRefresh.isRefreshing()) {
-      swipeRefresh.setRefreshing(false);
-    }
-    super.hideLoading();
-  }
-
-  @Override
   public void showError(String message) {
     if (swipeRefresh.isRefreshing()) {
       swipeRefresh.setRefreshing(false);

@@ -46,8 +46,10 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
 
   @Override
   public void showLoading() {
-    if (mSwipeRefreshLayout != null && !mSwipeRefreshLayout.isRefreshing()) {
-      mSwipeRefreshLayout.setRefreshing(true);
+    if (mSwipeRefreshLayout != null) {
+      if (!mSwipeRefreshLayout.isRefreshing()) {
+        mSwipeRefreshLayout.setRefreshing(true);
+      }
     } else {
       mLoadingDialog = StyledDialog.buildMdLoading().show();
     }

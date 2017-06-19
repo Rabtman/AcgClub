@@ -12,15 +12,13 @@ import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.base.constant.HtmlConstant;
 import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.base.view.X5VideoWebView;
-import com.rabtman.acgclub.base.view.X5VideoWebView.onChromeConsoleListener;
 import com.rabtman.acgclub.di.component.DaggerScheduleVideoComponent;
 import com.rabtman.acgclub.di.module.ScheduleVideoModule;
 import com.rabtman.acgclub.mvp.contract.ScheduleVideoContract;
 import com.rabtman.acgclub.mvp.presenter.ScheduleVideoPresenter;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
-import com.tencent.smtt.export.external.interfaces.ConsoleMessage;
-import com.tencent.smtt.export.external.interfaces.ConsoleMessage.MessageLevel;
+import com.tencent.smtt.sdk.QbSdk;
 
 /**
  * @author Rabtman
@@ -62,6 +60,10 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
 
   @Override
   protected void initData() {
+    if (!QbSdk.isTbsCoreInited()) {
+      // preinit只需要调用一次，如果已经完成了初始化，那么就直接构造view
+      QbSdk.preInit(ScheduleVideoActivity.this, null);// 设置X5初始化完成的回调接口
+    }
     //监听webview控制台日志
     /*webView.setOnChromeConsoleListener(new onChromeConsoleListener() {
       @Override

@@ -1,6 +1,7 @@
 package com.rabtman.common.base.delegate;
 
 import android.app.Application;
+import com.hss01248.dialog.StyledDialog;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.di.component.DaggerAppComponent;
 import com.rabtman.common.di.module.AppModule;
@@ -66,8 +67,9 @@ public class AppDelegate {
       lifecycle.onCreate(mApplication);
     }
 
+    //初始化全局dialog
+    StyledDialog.init(mApplication);
   }
-
 
   public void onTerminate() {
     if (mActivityLifecycle != null) {

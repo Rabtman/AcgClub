@@ -60,6 +60,6 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
       mView.showError(R.string.msg_error_unknown);
       LogUtil.d(e.toString());
     }
-
+    mView.hideLoading();
   }
 }

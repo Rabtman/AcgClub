@@ -12,6 +12,8 @@ import com.rabtman.common.di.module.GlobeConfigModule.Builder;
 import com.rabtman.common.integration.ConfigModule;
 import com.rabtman.common.integration.IRepositoryManager;
 import java.util.List;
+import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 /**
  * @author Rabtman
@@ -21,7 +23,8 @@ public class AppConfig implements ConfigModule {
 
   @Override
   public void applyOptions(Context context, Builder builder) {
-    builder.baseurl(HtmlConstant.BASE_URL);
+    builder.baseurl(HtmlConstant.BASE_URL)
+        .addInterceptor(new HttpLoggingInterceptor().setLevel(Level.BODY));
   }
 
   @Override
