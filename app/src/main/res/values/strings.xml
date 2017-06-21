@@ -5,6 +5,8 @@
   <string name="nav_picture">看图</string>
   <string name="nav_group_two">选项</string>
 
+  <string name="menu_download">下载</string>
+
   <!-- 动漫资讯-->
   <string name="acg_news_dmxw">xw/dmxw/list_527_%1$d.html</string>
   <string name="acg_news_yjdt">xw/yjdt/list_528_%1$d.html</string>

@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
 
-  <group android:checkableBehavior="single">
-    <item
-      android:id="@+id/nav_main"
-      android:icon="@mipmap/ic_launcher_round"
-      android:title="@string/nav_main" />
-  </group>
+  <item
+    android:id="@+id/nav_main"
+    android:enabled="true"
+    android:icon="@drawable/nav_main"
+    android:title="@string/nav_main"
+    app:showAsAction="ifRoom" />
 
-  <item android:title="@string/nav_group_two">
-    <menu>
+  <item
+    android:id="@+id/nav_schedule"
+    android:enabled="true"
+    android:icon="@drawable/nav_schedule"
+    android:title="@string/nav_schedule"
+    app:showAsAction="ifRoom" />
 
-    </menu>
-  </item>
-
+  <item
+    android:id="@+id/nav_picture"
+    android:enabled="true"
+    android:icon="@drawable/nav_picture"
+    android:title="@string/nav_picture"
+    app:showAsAction="ifRoom" />
 </menu>

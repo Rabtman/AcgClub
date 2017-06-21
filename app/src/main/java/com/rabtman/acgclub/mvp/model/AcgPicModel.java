@@ -3,7 +3,7 @@ package com.rabtman.acgclub.mvp.model;
 import com.fcannizzaro.jsoup.annotations.JP;
 import com.rabtman.acgclub.api.AcgService;
 import com.rabtman.acgclub.mvp.contract.AcgPicContract;
-import com.rabtman.acgclub.mvp.model.jsoup.APic;
+import com.rabtman.acgclub.mvp.model.jsoup.MoePic;
 import com.rabtman.common.base.mvp.BaseModel;
 import com.rabtman.common.di.scope.FragmentScope;
 import com.rabtman.common.integration.IRepositoryManager;
@@ -26,13 +26,13 @@ public class AcgPicModel extends BaseModel implements AcgPicContract.Model {
   }
 
   @Override
-  public Flowable<APic> getAcgPic(final String url) {
+  public Flowable<MoePic> getMoePictures(final String url) {
     return mRepositoryManager.obtainRetrofitService(AcgService.class)
         .getAcgPic(url)
-        .map(new Function<ResponseBody, APic>() {
+        .map(new Function<ResponseBody, MoePic>() {
           @Override
-          public APic apply(@NonNull ResponseBody body) throws Exception {
-            return JP.from(Jsoup.parse(body.string()), APic.class);
+          public MoePic apply(@NonNull ResponseBody body) throws Exception {
+            return JP.from(Jsoup.parse(body.string()), MoePic.class);
           }
         });
   }

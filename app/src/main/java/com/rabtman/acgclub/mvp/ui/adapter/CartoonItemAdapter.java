@@ -4,7 +4,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.rabtman.acgclub.R;
-import com.rabtman.acgclub.mvp.model.jsoup.APic.PicInfo;
+import com.rabtman.acgclub.mvp.model.jsoup.MoePic.PicInfo;
 import com.rabtman.common.imageloader.ImageLoader;
 import com.rabtman.common.imageloader.glide.GlideImageConfig;
 
@@ -12,21 +12,18 @@ import com.rabtman.common.imageloader.glide.GlideImageConfig;
  * @author Rabtman
  */
 
-public class AcgPicItemAdapter extends BaseQuickAdapter<PicInfo, BaseViewHolder> {
+public class CartoonItemAdapter extends BaseQuickAdapter<PicInfo, BaseViewHolder> {
 
   private ImageLoader mImageLoader;
 
-  public AcgPicItemAdapter(ImageLoader imageLoader) {
-    super(R.layout.item_pic_item, null);
+  public CartoonItemAdapter(ImageLoader imageLoader) {
+    super(R.layout.item_cartoon_item, null);
     mImageLoader = imageLoader;
   }
 
 
   @Override
   protected void convert(BaseViewHolder helper, PicInfo item) {
-    helper.setText(R.id.pic_title, item.getTitle())
-        .setText(R.id.pic_date, item.getDate())
-        .setText(R.id.pic_count, item.getCount());
     mImageLoader.loadImage(mContext,
         GlideImageConfig
             .builder()

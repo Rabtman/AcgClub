@@ -18,11 +18,13 @@ public abstract class BaseActivity<P extends BasePresenter> extends SimpleActivi
   @Inject
   protected P mPresenter;
   private Dialog mLoadingDialog;
+  private AppComponent mAppComponent;
 
   @Override
   protected void onViewCreated() {
     super.onViewCreated();
-    setupActivityComponent(mApplication.getAppComponent());//依赖注入
+    mAppComponent = mApplication.getAppComponent();
+    setupActivityComponent(mAppComponent);//依赖注入
   }
 
   protected void setToolBar(Toolbar toolbar, String title) {
@@ -77,6 +79,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends SimpleActivi
   @Override
   public void showError(String message) {
     Toasty.error(mContext, message, Toast.LENGTH_SHORT).show();
+  }
+
+  public AppComponent getAppComponent() {
+    return mAppComponent;
   }
 
   /**

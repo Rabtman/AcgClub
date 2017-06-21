@@ -33,7 +33,7 @@
       android:screenOrientation="portrait" />
 
     <activity
-      android:name=".mvp.ui.activity.APicDetailActivity"
+      android:name=".mvp.ui.activity.MoePicDetailActivity"
       android:screenOrientation="portrait" />
 
     <activity

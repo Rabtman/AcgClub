@@ -14,10 +14,10 @@ import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.di.component.DaggerAcgPicComponent;
 import com.rabtman.acgclub.di.module.AcgPicItemModule;
 import com.rabtman.acgclub.mvp.contract.AcgPicContract.View;
-import com.rabtman.acgclub.mvp.model.jsoup.APic.PicInfo;
-import com.rabtman.acgclub.mvp.presenter.AcgPicItemPresenter;
-import com.rabtman.acgclub.mvp.ui.activity.APicDetailActivity;
-import com.rabtman.acgclub.mvp.ui.adapter.AcgPicItemAdapter;
+import com.rabtman.acgclub.mvp.model.jsoup.MoePic.PicInfo;
+import com.rabtman.acgclub.mvp.presenter.CartoonPicPresenter;
+import com.rabtman.acgclub.mvp.ui.activity.MoePicDetailActivity;
+import com.rabtman.acgclub.mvp.ui.adapter.CartoonItemAdapter;
 import com.rabtman.common.base.BaseFragment;
 import com.rabtman.common.di.component.AppComponent;
 import java.util.List;
@@ -25,16 +25,14 @@ import java.util.List;
 /**
  * @author Rabtman
  */
-public class CartoonPicFragment extends BaseFragment<AcgPicItemPresenter> implements
-    View {
+public class CartoonPicFragment extends BaseFragment<CartoonPicPresenter> implements
+    View<PicInfo> {
 
   @BindView(R.id.rcv_cartoon_item)
   RecyclerView rcvCartoonItem;
   @BindView(R.id.swipe_refresh_cartoon)
   SwipeRefreshLayout swipeRefresh;
-  //当前资讯类型地址id
-  private int typeUrlId;
-  private AcgPicItemAdapter mAdapter;
+  private CartoonItemAdapter mAdapter;
 
   @Override
   protected void setupFragmentComponent(AppComponent appComponent) {
@@ -52,14 +50,13 @@ public class CartoonPicFragment extends BaseFragment<AcgPicItemPresenter> implem
 
   @Override
   protected void initData() {
-    mAdapter = new AcgPicItemAdapter(getAppComponent().imageLoader());
+    mAdapter = new CartoonItemAdapter(getAppComponent().imageLoader());
     mAdapter.setOnItemClickListener(new OnItemClickListener() {
       @Override
       public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
         PicInfo picInfo = (PicInfo) adapter.getData().get(position);
-        Intent intent = new Intent(getContext(), APicDetailActivity.class);
-        intent.putExtra(IntentConstant.APIC_DETAIL_TITLE, picInfo.getTitle());
-        intent.putExtra(IntentConstant.APIC_DETAIL_URL, picInfo.getContentLink());
+        Intent intent = new Intent(getContext(), MoePicDetailActivity.class);
+        intent.putExtra(IntentConstant.MOE_PIC_URL, picInfo.getThumbUrl());
         startActivity(intent);
       }
     });
@@ -70,7 +67,7 @@ public class CartoonPicFragment extends BaseFragment<AcgPicItemPresenter> implem
     mAdapter.setOnLoadMoreListener(new RequestLoadMoreListener() {
       @Override
       public void onLoadMoreRequested() {
-        mPresenter.getMoreAcgPicList();
+        mPresenter.getMoreCartoonPictures();
       }
     }, rcvCartoonItem);
     rcvCartoonItem.setAdapter(mAdapter);
@@ -78,11 +75,11 @@ public class CartoonPicFragment extends BaseFragment<AcgPicItemPresenter> implem
     swipeRefresh.setOnRefreshListener(new OnRefreshListener() {
       @Override
       public void onRefresh() {
-        mPresenter.getAcgPicList();
+        mPresenter.getCartoonPictures();
       }
     });
     setSwipeRefreshLayout(swipeRefresh);
-    mPresenter.getAcgPicList();
+    mPresenter.getCartoonPictures();
   }
 
   @Override
