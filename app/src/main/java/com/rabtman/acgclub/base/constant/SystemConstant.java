@@ -12,6 +12,8 @@ public class SystemConstant {
   public static final List<String> ACG_NEWS_TITLE;
   //番剧标题栏
   public static final String[] ACG_SCHEDULE_TITLE = {"放送表"};
+  //番剧时间表标题栏
+  public static final String[] SCHEDULE_WEEK_TITLE = {"一", "二", "三", "四", "五", "六", "日"};
   //图库标题栏
   public static final String[] ACG_PIC_TITLE = {"动漫"};
 
