@@ -4,7 +4,7 @@ import android.util.SparseIntArray;
 import com.rabtman.acgclub.base.constant.SystemConstant;
 import com.rabtman.acgclub.mvp.contract.ScheduleTimeContract;
 import com.rabtman.acgclub.mvp.model.entity.ScheduleTimeItem;
-import com.rabtman.acgclub.mvp.model.jsoup.AcgScheduleInfo;
+import com.rabtman.acgclub.mvp.model.jsoup.DilidiliInfo;
 import com.rabtman.acgclub.mvp.model.jsoup.ScheduleWeek;
 import com.rabtman.acgclub.mvp.model.jsoup.ScheduleWeek.ScheduleItem;
 import com.rabtman.common.base.CommonSubscriber;
@@ -41,15 +41,15 @@ public class ScheduleTimePresenter extends
   public void getAcgSchedule() {
     addSubscribe(
         mModel.getScheduleInfo()
-            .map(new Function<AcgScheduleInfo, List<ScheduleTimeItem>>() {
+            .map(new Function<DilidiliInfo, List<ScheduleTimeItem>>() {
               @Override
-              public List<ScheduleTimeItem> apply(@NonNull AcgScheduleInfo acgScheduleInfo)
+              public List<ScheduleTimeItem> apply(@NonNull DilidiliInfo dilidiliInfo)
                   throws Exception {
                 //将数据源转化为列表展示的格式
                 List<ScheduleTimeItem> scheduleTimeItems = new ArrayList<>();
                 int headerPos = 0;
-                for (int i = 0; i < acgScheduleInfo.getScheduleWeek().size(); i++) {
-                  ScheduleWeek schduleWeek = acgScheduleInfo.getScheduleWeek().get(i);
+                for (int i = 0; i < dilidiliInfo.getScheduleWeek().size(); i++) {
+                  ScheduleWeek schduleWeek = dilidiliInfo.getScheduleWeek().get(i);
                   scheduleTimeItems
                       .add(new ScheduleTimeItem(true, SystemConstant.SCHEDULE_WEEK_TITLE[i], i));
                   headerArray.put(i, headerPos);

@@ -3,7 +3,7 @@ package com.rabtman.acgclub.mvp.model;
 import com.fcannizzaro.jsoup.annotations.JP;
 import com.rabtman.acgclub.base.constant.HtmlConstant;
 import com.rabtman.acgclub.mvp.contract.ScheduleTimeContract;
-import com.rabtman.acgclub.mvp.model.jsoup.AcgScheduleInfo;
+import com.rabtman.acgclub.mvp.model.jsoup.DilidiliInfo;
 import com.rabtman.common.base.mvp.BaseModel;
 import com.rabtman.common.di.scope.FragmentScope;
 import com.rabtman.common.integration.IRepositoryManager;
@@ -28,16 +28,16 @@ public class ScheduleModel extends BaseModel implements ScheduleTimeContract.Mod
   }
 
   @Override
-  public Flowable<AcgScheduleInfo> getScheduleInfo() {
-    return Flowable.create(new FlowableOnSubscribe<AcgScheduleInfo>() {
+  public Flowable<DilidiliInfo> getScheduleInfo() {
+    return Flowable.create(new FlowableOnSubscribe<DilidiliInfo>() {
       @Override
-      public void subscribe(@NonNull FlowableEmitter<AcgScheduleInfo> e) throws Exception {
+      public void subscribe(@NonNull FlowableEmitter<DilidiliInfo> e) throws Exception {
         Element html = Jsoup.connect(HtmlConstant.DILIDILI_URL).timeout(10000).get();
         if(html == null){
           e.onError(new Throwable("element html is null"));
         }else {
-          AcgScheduleInfo acgScheduleInfo = JP.from(html, AcgScheduleInfo.class);
-          e.onNext(acgScheduleInfo);
+          DilidiliInfo dilidiliInfo = JP.from(html, DilidiliInfo.class);
+          e.onNext(dilidiliInfo);
           e.onComplete();
         }
       }
