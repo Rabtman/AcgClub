@@ -41,7 +41,7 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
   }
 
   @Override
-  protected int getLayout() {
+  protected int getLayoutId() {
     getWindow().setFormat(PixelFormat.TRANSLUCENT);
     try {
       if (Integer.parseInt(android.os.Build.VERSION.SDK) >= 11) {

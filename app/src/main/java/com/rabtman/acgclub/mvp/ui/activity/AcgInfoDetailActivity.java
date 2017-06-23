@@ -41,7 +41,7 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
   }
 
   @Override
-  protected int getLayout() {
+  protected int getLayoutId() {
     return R.layout.activity_acginfo_detail;
   }
 

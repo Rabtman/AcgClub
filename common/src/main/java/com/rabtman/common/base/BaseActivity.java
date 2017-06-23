@@ -90,7 +90,7 @@ public abstract class BaseActivity<P extends BasePresenter> extends SimpleActivi
    */
   protected abstract void setupActivityComponent(AppComponent appComponent);
 
-  protected abstract int getLayout();
+  protected abstract int getLayoutId();
 
   protected abstract void initData();
 

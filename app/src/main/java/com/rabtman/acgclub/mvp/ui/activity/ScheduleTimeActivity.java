@@ -1,4 +1,4 @@
-package com.rabtman.acgclub.mvp.ui.fragment;
+package com.rabtman.acgclub.mvp.ui.activity;
 
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.OnTabSelectedListener;
@@ -15,7 +15,7 @@ import com.rabtman.acgclub.mvp.contract.ScheduleTimeContract.View;
 import com.rabtman.acgclub.mvp.model.entity.ScheduleTimeItem;
 import com.rabtman.acgclub.mvp.presenter.ScheduleTimePresenter;
 import com.rabtman.acgclub.mvp.ui.adapter.ScheduleTimeAdapter;
-import com.rabtman.common.base.BaseFragment;
+import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
 import java.util.List;
 
@@ -23,7 +23,7 @@ import java.util.List;
  * @author Rabtman
  */
 
-public class ScheduleTimeFragment extends BaseFragment<ScheduleTimePresenter> implements
+public class ScheduleTimeActivity extends BaseActivity<ScheduleTimePresenter> implements
     View {
 
 
@@ -37,7 +37,7 @@ public class ScheduleTimeFragment extends BaseFragment<ScheduleTimePresenter> im
 
   @Override
   protected int getLayoutId() {
-    return R.layout.fragment_schedule_time;
+    return R.layout.activity_schedule_time;
   }
 
   @Override
@@ -95,7 +95,7 @@ public class ScheduleTimeFragment extends BaseFragment<ScheduleTimePresenter> im
   }
 
   @Override
-  protected void setupFragmentComponent(AppComponent appComponent) {
+  protected void setupActivityComponent(AppComponent appComponent) {
     DaggerScheduleTimeComponent
         .builder()
         .appComponent(appComponent)
