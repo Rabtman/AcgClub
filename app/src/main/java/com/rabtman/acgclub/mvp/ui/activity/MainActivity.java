@@ -48,7 +48,7 @@ public class MainActivity extends SimpleActivity {
   }
 
   @Override
-  protected int getLayout() {
+  protected int getLayoutId() {
     return R.layout.layout_main;
   }
 

@@ -45,7 +45,7 @@ public class MoePicDetailActivity extends BaseActivity<APicDetailPresenter> impl
   }
 
   @Override
-  protected int getLayout() {
+  protected int getLayoutId() {
     getWindow().setFlags(LayoutParams.FLAG_FULLSCREEN,
         LayoutParams.FLAG_FULLSCREEN);
     return R.layout.activity_apic_detail;

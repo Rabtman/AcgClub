@@ -31,8 +31,8 @@ public class ScheduleMainFragment extends SimpleFragment {
 
   @Override
   protected void initData() {
-    ScheduleTimeFragment fragment = new ScheduleTimeFragment();
-    fragments.add(fragment);
+    //ScheduleTimeFragment fragment = new ScheduleTimeFragment();
+    //fragments.add(fragment);
 
     mAdapter = new ScheduleMainPageAdapter(getFragmentManager(), fragments);
     mViewPager.setAdapter(mAdapter);

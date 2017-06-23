@@ -60,7 +60,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   }
 
   @Override
-  protected int getLayout() {
+  protected int getLayoutId() {
     return R.layout.activity_schedule_detail;
   }
 

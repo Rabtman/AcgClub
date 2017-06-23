@@ -9,7 +9,7 @@ import com.rabtman.acgclub.mvp.model.jsoup.ScheduleWeek;
 import com.rabtman.acgclub.mvp.model.jsoup.ScheduleWeek.ScheduleItem;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
-import com.rabtman.common.di.scope.FragmentScope;
+import com.rabtman.common.di.scope.ActivityScope;
 import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
 import io.reactivex.annotations.NonNull;
@@ -22,7 +22,7 @@ import javax.inject.Inject;
  * @author Rabtman
  */
 
-@FragmentScope
+@ActivityScope
 public class ScheduleTimePresenter extends
     BasePresenter<ScheduleTimeContract.Model, ScheduleTimeContract.View> {
 
