@@ -91,21 +91,26 @@
         <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="match_parent">
+
+          <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="6dp"
+            android:text="番剧介绍"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
           <View
             android:id="@+id/view_left_line_description"
             android:layout_width="4dp"
-            android:layout_height="18dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/colorPrimary" />
-          <TextView
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="6dp"
-            android:layout_alignBottom="@id/view_left_line_description"
-            android:layout_toRightOf="@id/view_left_line_description"
-            android:text="番剧简介"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_alignBottom="@+id/tv_description"
+            android:layout_alignTop="@id/tv_description"
+            android:background="@color/colorPrimary" />
 
           <TextView
             android:id="@+id/tv_schedule_detail_description"
@@ -126,21 +131,25 @@
         <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="match_parent">
-          <View
-            android:id="@+id/view_left_line_episode"
-            android:layout_width="4dp"
-            android:layout_height="18dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/colorPrimary" />
           <TextView
+            android:id="@+id/tv_episode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="6dp"
-            android:layout_alignBottom="@id/view_left_line_episode"
-            android:layout_toRightOf="@id/view_left_line_episode"
             android:text="选集"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp" />
+
+          <View
+            android:id="@+id/view_left_line_episode"
+            android:layout_width="4dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_alignBottom="@+id/tv_episode"
+            android:layout_alignTop="@id/tv_episode"
+            android:background="@color/colorPrimary" />
 
           <android.support.v7.widget.RecyclerView
             android:id="@+id/rcv_schedule_detail"

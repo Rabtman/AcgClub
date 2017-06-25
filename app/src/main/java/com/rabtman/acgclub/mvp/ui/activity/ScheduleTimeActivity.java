@@ -1,3 +1,4 @@
+/*
 package com.rabtman.acgclub.mvp.ui.activity;
 
 import android.support.design.widget.TabLayout;
@@ -9,21 +10,23 @@ import android.support.v7.widget.RecyclerView.OnScrollListener;
 import butterknife.BindView;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.base.constant.SystemConstant;
-import com.rabtman.acgclub.di.component.DaggerScheduleTimeComponent;
-import com.rabtman.acgclub.di.module.ScheduleTimeModule;
-import com.rabtman.acgclub.mvp.contract.ScheduleTimeContract.View;
+import com.rabtman.acgclub.di.component.DaggerScheduleMainComponent;
+import com.rabtman.acgclub.di.module.ScheduleMainModule;
+import com.rabtman.acgclub.mvp.contract.ScheduleMainContract.View;
 import com.rabtman.acgclub.mvp.model.entity.ScheduleTimeItem;
-import com.rabtman.acgclub.mvp.presenter.ScheduleTimePresenter;
+import com.rabtman.acgclub.mvp.presenter.ScheduleMainPresenter;
 import com.rabtman.acgclub.mvp.ui.adapter.ScheduleTimeAdapter;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
 import java.util.List;
 
+*/
 /**
  * @author Rabtman
- */
+ *//*
 
-public class ScheduleTimeActivity extends BaseActivity<ScheduleTimePresenter> implements
+
+public class ScheduleTimeActivity extends BaseActivity<ScheduleMainPresenter> implements
     View {
 
 
@@ -96,10 +99,10 @@ public class ScheduleTimeActivity extends BaseActivity<ScheduleTimePresenter> im
 
   @Override
   protected void setupActivityComponent(AppComponent appComponent) {
-    DaggerScheduleTimeComponent
+    DaggerScheduleMainComponent
         .builder()
         .appComponent(appComponent)
-        .scheduleTimeModule(new ScheduleTimeModule(this))
+        .scheduleTimeModule(new ScheduleMainModule(this))
         .build()
         .inject(this);
   }
@@ -109,3 +112,4 @@ public class ScheduleTimeActivity extends BaseActivity<ScheduleTimePresenter> im
     mAdapter.setNewData(scheduleTimeItems);
   }
 }
+*/

@@ -11,6 +11,8 @@ import java.util.List;
 public class DilidiliInfo {
 
   @Items
+  private List<ScheudleBanner> scheudleBanners; //轮播栏信息
+  @Items
   private List<ScheduleRecommand> scheduleRecommands; //近期推荐
   @Items
   private List<ScheduleWeek> scheduleWeek;  //追番时间表
@@ -25,13 +27,85 @@ public class DilidiliInfo {
     this.scheduleWeek = scheduleWeek;
   }
 
+  public List<ScheudleBanner> getScheudleBanners() {
+    return scheudleBanners;
+  }
+
+  public void setScheudleBanners(
+      List<ScheudleBanner> scheudleBanners) {
+    this.scheudleBanners = scheudleBanners;
+  }
+
+  public List<ScheduleRecommand> getScheduleRecommands() {
+    return scheduleRecommands;
+  }
+
+  public void setScheduleRecommands(
+      List<ScheduleRecommand> scheduleRecommands) {
+    this.scheduleRecommands = scheduleRecommands;
+  }
+
+  public List<ScheduleRecent> getScheduleRecents() {
+    return scheduleRecents;
+  }
+
+  public void setScheduleRecents(
+      List<ScheduleRecent> scheduleRecents) {
+    this.scheduleRecents = scheduleRecents;
+  }
+
   @Override
   public String toString() {
     return "DilidiliInfo{" +
-        "scheduleRecommands=" + scheduleRecommands +
+        "scheudleBanners=" + scheudleBanners +
+        ", scheduleRecommands=" + scheduleRecommands +
         ", scheduleWeek=" + scheduleWeek +
         ", scheduleRecents=" + scheduleRecents +
         '}';
+  }
+
+  @Selector("div.banner div div div")
+  public static class ScheudleBanner {
+
+    @Attr(query = "a img", attr = "src")
+    private String imgUrl;
+    @Text("a span")
+    private String name;
+    @Attr(query = "a", attr = "href")
+    private String animeLink;
+
+    public String getImgUrl() {
+      return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+      this.imgUrl = imgUrl;
+    }
+
+    public String getName() {
+      return name;
+    }
+
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    public String getAnimeLink() {
+      return animeLink;
+    }
+
+    public void setAnimeLink(String animeLink) {
+      this.animeLink = animeLink;
+    }
+
+    @Override
+    public String toString() {
+      return "ScheudleBanner{" +
+          "imgUrl='" + imgUrl + '\'' +
+          ", name='" + name + '\'' +
+          ", animeLink='" + animeLink + '\'' +
+          '}';
+    }
   }
 
   @Selector("div.focusimg2.pl10.pr10 div ul li")

@@ -1,8 +1,9 @@
+/*
 package com.rabtman.acgclub.mvp.presenter;
 
 import android.util.SparseIntArray;
 import com.rabtman.acgclub.base.constant.SystemConstant;
-import com.rabtman.acgclub.mvp.contract.ScheduleTimeContract;
+import com.rabtman.acgclub.mvp.contract.ScheduleMainContract;
 import com.rabtman.acgclub.mvp.model.entity.ScheduleTimeItem;
 import com.rabtman.acgclub.mvp.model.jsoup.DilidiliInfo;
 import com.rabtman.acgclub.mvp.model.jsoup.ScheduleWeek;
@@ -18,19 +19,21 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
+*/
 /**
  * @author Rabtman
- */
+ *//*
+
 
 @ActivityScope
 public class ScheduleTimePresenter extends
-    BasePresenter<ScheduleTimeContract.Model, ScheduleTimeContract.View> {
+    BasePresenter<ScheduleMainContract.Model, ScheduleMainContract.View> {
 
   private SparseIntArray headerArray = new SparseIntArray();
 
   @Inject
-  public ScheduleTimePresenter(ScheduleTimeContract.Model model,
-      ScheduleTimeContract.View rootView) {
+  public ScheduleTimePresenter(ScheduleMainContract.Model model,
+      ScheduleMainContract.View rootView) {
     super(model, rootView);
   }
 
@@ -38,9 +41,9 @@ public class ScheduleTimePresenter extends
     return headerArray.get(index);
   }
 
-  public void getAcgSchedule() {
+  public void getDilidiliInfo() {
     addSubscribe(
-        mModel.getScheduleInfo()
+        mModel.getDilidiliInfo()
             .map(new Function<DilidiliInfo, List<ScheduleTimeItem>>() {
               @Override
               public List<ScheduleTimeItem> apply(@NonNull DilidiliInfo dilidiliInfo)
@@ -78,10 +81,10 @@ public class ScheduleTimePresenter extends
               @Override
               public void onNext(List<ScheduleTimeItem> acgScheduleInfo) {
                 LogUtil.d("getAcgSchedule");
-                mView.showAcgScheduleInfo(acgScheduleInfo);
               }
             })
     );
   }
 
 }
+*/
