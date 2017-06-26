@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/swipe_refresh_schedule_main"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
@@ -13,7 +14,8 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="vertical"
-      android:visibility="invisible">
+      android:visibility="invisible"
+      tools:visibility="visible">
 
       <com.zhouwei.mzbanner.MZBannerView
         android:id="@+id/banner_schedule"
@@ -34,19 +36,6 @@
           app:divider="@drawable/shape_divider_vertical"
           app:dividerPadding="10dp"
           app:showDividers="middle">
-
-          <TextView
-            android:id="@+id/tv_schedule_search"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:drawablePadding="4dp"
-            android:drawableTop="@drawable/ic_schedule_search"
-            android:gravity="center"
-            android:text="番剧搜索"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
 
           <TextView
             android:id="@+id/tv_schedule_time"

@@ -46,8 +46,6 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
   LinearLayout layoutScheduleMain;
   @BindView(R.id.banner_schedule)
   MZBannerView bannerSchedule;
-  @BindView(R.id.tv_schedule_search)
-  TextView tvScheduleSearch;
   @BindView(R.id.tv_schedule_time)
   TextView tvScheduleTime;
   @BindView(R.id.tv_schedule_new)
@@ -98,12 +96,10 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
     bannerSchedule.pause();
   }
 
-  @OnClick({R.id.tv_schedule_search, R.id.tv_schedule_time, R.id.tv_schedule_new,
+  @OnClick({R.id.tv_schedule_time, R.id.tv_schedule_new,
       R.id.tv_recent_more})
   public void onViewClicked(android.view.View view) {
     switch (view.getId()) {
-      case R.id.tv_schedule_search:
-        break;
       case R.id.tv_schedule_time:
         break;
       case R.id.tv_schedule_new:
