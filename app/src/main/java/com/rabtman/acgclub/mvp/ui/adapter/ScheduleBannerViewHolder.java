@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.base.App;
 import com.rabtman.acgclub.mvp.model.jsoup.DilidiliInfo.ScheudleBanner;
-import com.rabtman.common.imageloader.ImageLoader;
 import com.rabtman.common.imageloader.glide.GlideImageConfig;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
 
@@ -17,7 +16,6 @@ import com.zhouwei.mzbanner.holder.MZViewHolder;
  */
 public class ScheduleBannerViewHolder implements MZViewHolder<ScheudleBanner> {
 
-  private ImageLoader mImageLoader;
   private ImageView bannerImg;
   private TextView bannerTitle;
 

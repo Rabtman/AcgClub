@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:layout_margin="4dp"
+  android:orientation="vertical">
+  <android.support.v7.widget.CardView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="1dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true">
+
+    <ImageView
+      android:id="@+id/img_schedule_recent"
+      android:layout_width="200dp"
+      android:layout_height="140dp" />
+
+  </android.support.v7.widget.CardView>
+  <TextView
+    android:id="@+id/tv_schedule_recent"
+    style="@style/TextAppearance.AppCompat.Body1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="6dp"
+    android:ellipsize="end"
+    android:maxLines="1"
+    tools:text="哈哈哈哈哈哈哈" />
+  <TextView
+    android:id="@+id/tv_schedule_recent_desc"
+    style="@style/TextAppearance.AppCompat.Caption"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="6dp"
+    android:ellipsize="end"
+    android:maxLines="1"
+    tools:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈" />
+</LinearLayout>
