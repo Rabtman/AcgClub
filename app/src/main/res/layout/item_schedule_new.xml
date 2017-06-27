@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="170dp"
+  android:padding="8dp"
+  android:background="@android:color/white">
+
+  <ImageView
+    android:id="@+id/schedule_new_img"
+    android:layout_width="120dp"
+    android:layout_height="170dp"
+    android:layout_centerVertical="true"
+    tools:src="@mipmap/ic_launcher" />
+
+  <TextView
+    android:id="@+id/schedule_new_title"
+    style="@style/TextAppearance.AppCompat.Body1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginLeft="8dp"
+    android:layout_toRightOf="@id/schedule_new_img"
+    android:ellipsize="end"
+    android:maxLines="2"
+    tools:text="《哆啦A梦》最新一集大雄对静香入浴11111111神吐槽" />
+
+  <TextView
+    android:id="@+id/schedule_new_spot"
+    style="@style/TextAppearance.AppCompat.Caption"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginLeft="8dp"
+    android:layout_below="@id/schedule_new_title"
+    android:layout_toRightOf="@id/schedule_new_img"
+    android:ellipsize="end"
+    android:maxLines="2"
+    tools:text="看点：这里是人与神的世界" />
+
+  <TextView
+    android:id="@+id/schedule_new_type"
+    style="@style/TextAppearance.AppCompat.Caption"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginLeft="8dp"
+    android:layout_below="@id/schedule_new_spot"
+    android:layout_toRightOf="@id/schedule_new_img"
+    android:ellipsize="end"
+    android:maxLines="2"
+    tools:text="看点：这里是人与神的世界" />
+
+  <TextView
+    android:id="@+id/schedule_new_desc"
+    style="@style/TextAppearance.AppCompat.Caption"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginLeft="8dp"
+    android:layout_below="@id/schedule_new_type"
+    android:layout_toRightOf="@id/schedule_new_img"
+    android:ellipsize="end"
+    android:maxLines="2"
+    tools:text="看点：这里是人与神的世界" />
+</RelativeLayout>

@@ -6,10 +6,10 @@ import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
-import butterknife.OnClick;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.rabtman.acgclub.R;
@@ -20,8 +20,11 @@ import com.rabtman.acgclub.mvp.contract.ScheduleMainContract.View;
 import com.rabtman.acgclub.mvp.model.jsoup.DilidiliInfo;
 import com.rabtman.acgclub.mvp.model.jsoup.DilidiliInfo.ScheduleRecent;
 import com.rabtman.acgclub.mvp.model.jsoup.DilidiliInfo.ScheduleRecommand;
+import com.rabtman.acgclub.mvp.model.jsoup.ScheduleWeek;
 import com.rabtman.acgclub.mvp.presenter.ScheduleMainPresenter;
 import com.rabtman.acgclub.mvp.ui.activity.ScheduleDetailActivity;
+import com.rabtman.acgclub.mvp.ui.activity.ScheduleNewActivity;
+import com.rabtman.acgclub.mvp.ui.activity.ScheduleTimeActivity;
 import com.rabtman.acgclub.mvp.ui.activity.ScheduleVideoActivity;
 import com.rabtman.acgclub.mvp.ui.adapter.ScheduleBannerViewHolder;
 import com.rabtman.acgclub.mvp.ui.adapter.ScheduleRecentAdapter;
@@ -32,6 +35,7 @@ import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.MZBannerView.BannerPageClickListener;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
+import java.util.ArrayList;
 
 /**
  * @author Rabtman
@@ -52,8 +56,6 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
   TextView tvScheduleNew;
   @BindView(R.id.rcv_schedule_recommand)
   RecyclerView rcvScheduleRecommand;
-  @BindView(R.id.tv_recent_more)
-  TextView tvRecentMore;
   @BindView(R.id.rcv_schedule_recent)
   RecyclerView rcvScheduleRecent;
 
@@ -96,21 +98,28 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
     bannerSchedule.pause();
   }
 
-  @OnClick({R.id.tv_schedule_time, R.id.tv_schedule_new,
-      R.id.tv_recent_more})
-  public void onViewClicked(android.view.View view) {
-    switch (view.getId()) {
-      case R.id.tv_schedule_time:
-        break;
-      case R.id.tv_schedule_new:
-        break;
-      case R.id.tv_recent_more:
-        break;
-    }
-  }
-
   @Override
   public void showDilidiliInfo(final DilidiliInfo dilidiliInfo) {
+    //放送时间表
+    tvScheduleTime.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(android.view.View v) {
+        Intent newIntent = new Intent(getContext(), ScheduleTimeActivity.class);
+        newIntent.putParcelableArrayListExtra(IntentConstant.SCHEDULE_WEEK,
+            (ArrayList<ScheduleWeek>) dilidiliInfo.getScheduleWeek());
+        startActivity(newIntent);
+      }
+    });
+    //本季新番
+    tvScheduleNew.setText(dilidiliInfo.getScheduleNewName());
+    tvScheduleNew.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(android.view.View v) {
+        Intent newIntent = new Intent(getContext(), ScheduleNewActivity.class);
+        newIntent.putExtra(IntentConstant.SCHEDULE_NEW_URL, dilidiliInfo.getScheduleNewLink());
+        startActivity(newIntent);
+      }
+    });
     //轮播栏
     bannerSchedule.setIndicatorVisible(false);
     bannerSchedule.setBannerPageClickListener(new BannerPageClickListener() {

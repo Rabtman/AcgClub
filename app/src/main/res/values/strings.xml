@@ -5,6 +5,8 @@
   <string name="nav_picture">看图</string>
   <string name="nav_group_two">选项</string>
 
+  <string name="title_schedule_new">放送时间表</string>
+
   <string name="menu_download">下载</string>
 
   <!-- 动漫资讯-->
@@ -20,6 +22,7 @@
   <string name="msg_success_download_picture">已保存到相册中</string>
 
   <string name="msg_error_url_null">大脑一片空白(@\ufe4f@)~</string>
+  <string name="msg_error_data_null">数据加载失败(\u256f\ufe4f\u2570)</string>
   <string name="msg_error_download_picture">图片保存失败(\u256f\ufe4f\u2570)</string>
   <string name="msg_error_load_video">视频加载失败\u0028\u2299\ufe3f\u2299\u0029</string>
   <string name="msg_error_check_permission">权限不足！请检查应用权限配置</string>

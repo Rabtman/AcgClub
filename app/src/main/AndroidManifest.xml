@@ -33,6 +33,14 @@
       android:screenOrientation="portrait" />
 
     <activity
+      android:name=".mvp.ui.activity.ScheduleTimeActivity"
+      android:screenOrientation="portrait" />
+
+    <activity
+      android:name=".mvp.ui.activity.ScheduleNewActivity"
+      android:screenOrientation="portrait" />
+
+    <activity
       android:name=".mvp.ui.activity.MoePicDetailActivity"
       android:screenOrientation="portrait" />
 

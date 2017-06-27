@@ -5,6 +5,8 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
+  <include layout="@layout/view_toolbar" />
+
   <android.support.design.widget.TabLayout
     android:id="@+id/tab_schedule_time"
     android:layout_width="match_parent"

@@ -1,13 +1,19 @@
 package com.rabtman.common.base;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import com.hss01248.dialog.StyledDialog;
+import com.rabtman.common.base.mvp.IView;
+import es.dmoral.toasty.Toasty;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -15,11 +21,14 @@ import me.yokeyword.fragmentation.SupportFragment;
  * 无MVP的Fragment基类
  */
 
-public abstract class SimpleFragment extends SupportFragment {
+public abstract class SimpleFragment extends SupportFragment implements
+    IView {
 
   protected View mView;
   protected SimpleActivity mActivity;
   protected Context mContext;
+  private SwipeRefreshLayout mSwipeRefreshLayout;
+  private Dialog mLoadingDialog;
   private Unbinder mUnBinder;
   private boolean isInited = false;
 
@@ -55,6 +64,51 @@ public abstract class SimpleFragment extends SupportFragment {
   public void onDestroyView() {
     super.onDestroyView();
     mUnBinder.unbind();
+  }
+
+  protected void setSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout) {
+    mSwipeRefreshLayout = swipeRefreshLayout;
+  }
+
+  @Override
+  public void showLoading() {
+    if (mSwipeRefreshLayout != null) {
+      if (!mSwipeRefreshLayout.isRefreshing()) {
+        mSwipeRefreshLayout.setRefreshing(true);
+      }
+    } else {
+      mLoadingDialog = StyledDialog.buildMdLoading().show();
+    }
+  }
+
+  @Override
+  public void hideLoading() {
+    if (mSwipeRefreshLayout != null && mSwipeRefreshLayout.isRefreshing()) {
+      mSwipeRefreshLayout.setRefreshing(false);
+    }
+    if (mLoadingDialog != null && mLoadingDialog.isShowing()) {
+      StyledDialog.dismiss(mLoadingDialog);
+    }
+  }
+
+  @Override
+  public void showMsg(int stringId) {
+    showMsg(getString(stringId));
+  }
+
+  @Override
+  public void showMsg(String message) {
+    Toasty.info(mContext, message, Toast.LENGTH_SHORT).show();
+  }
+
+  @Override
+  public void showError(int stringId) {
+    showError(getString(stringId));
+  }
+
+  @Override
+  public void showError(String message) {
+    Toasty.error(mContext, message, Toast.LENGTH_SHORT).show();
   }
 
   protected abstract int getLayoutId();

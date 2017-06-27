@@ -10,6 +10,11 @@ import java.util.List;
 @Selector("div.container")
 public class DilidiliInfo {
 
+  //本季新番
+  @Text("div div div.mainMenu ul li:last-of-type a span")
+  private String scheduleNewName;
+  @Attr(query = "div div div.mainMenu ul li:last-of-type a", attr = "href")
+  private String scheduleNewLink;
   @Items
   private List<ScheudleBanner> scheudleBanners; //轮播栏信息
   @Items
@@ -54,10 +59,28 @@ public class DilidiliInfo {
     this.scheduleRecents = scheduleRecents;
   }
 
+  public String getScheduleNewName() {
+    return scheduleNewName;
+  }
+
+  public void setScheduleNewName(String scheduleNewName) {
+    this.scheduleNewName = scheduleNewName;
+  }
+
+  public String getScheduleNewLink() {
+    return scheduleNewLink;
+  }
+
+  public void setScheduleNewLink(String scheduleNewLink) {
+    this.scheduleNewLink = scheduleNewLink;
+  }
+
   @Override
   public String toString() {
     return "DilidiliInfo{" +
-        "scheudleBanners=" + scheudleBanners +
+        "scheduleNewName='" + scheduleNewName + '\'' +
+        ", scheduleNewLink='" + scheduleNewLink + '\'' +
+        ", scheudleBanners=" + scheudleBanners +
         ", scheduleRecommands=" + scheduleRecommands +
         ", scheduleWeek=" + scheduleWeek +
         ", scheduleRecents=" + scheduleRecents +

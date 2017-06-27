@@ -46,7 +46,7 @@
             android:drawablePadding="4dp"
             android:drawableTop="@drawable/ic_schedule_time"
             android:gravity="center"
-            android:text="放送时间表"
+            android:text="@string/title_schedule_new"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
@@ -59,7 +59,7 @@
             android:drawablePadding="4dp"
             android:drawableTop="@drawable/ic_schedule_new"
             android:gravity="center"
-            android:text="4月新番"
+            android:text="本季新番"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
         </android.support.v7.widget.LinearLayoutCompat>
@@ -132,7 +132,7 @@
             android:layout_alignTop="@id/tv_recent"
             android:background="@color/colorPrimary" />
 
-          <TextView
+          <!--<TextView
             android:id="@+id/tv_recent_more"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -142,7 +142,7 @@
             android:paddingRight="8dp"
             android:gravity="bottom"
             android:text="查看更多"
-            android:textSize="12sp" />
+            android:textSize="12sp" />-->
 
           <android.support.v7.widget.RecyclerView
             android:id="@+id/rcv_schedule_recent"
