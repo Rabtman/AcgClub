@@ -13,4 +13,10 @@ public interface AcgService {
 
   @GET
   Flowable<ResponseBody> getAcgPic(@Url String url);
+
+  @GET
+  Flowable<ResponseBody> getFictionRecent(@Url String url);
+
+  @GET
+  Flowable<ResponseBody> getFictionSearchResult(@Url String url);
 }

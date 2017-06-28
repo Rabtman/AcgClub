@@ -7,7 +7,7 @@ import android.widget.FrameLayout;
 import butterknife.BindView;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.mvp.ui.fragment.AcgNewsMainFragment;
-import com.rabtman.acgclub.mvp.ui.fragment.AcgPicMainFragment;
+import com.rabtman.acgclub.mvp.ui.fragment.FictionFragment;
 import com.rabtman.acgclub.mvp.ui.fragment.ScheduleMainFragment;
 import com.rabtman.common.base.SimpleActivity;
 import com.roughike.bottombar.BottomBar;
@@ -35,7 +35,8 @@ public class MainActivity extends SimpleActivity {
   //ActionBarDrawerToggle toggle;
   AcgNewsMainFragment acgNewsMainFragment;
   ScheduleMainFragment scheduleMainFragment;
-  AcgPicMainFragment acgPicMainFragment;
+  //AcgPicMainFragment acgPicMainFragment;
+  FictionFragment fictionFragment;
 
   private int hideFragment = R.id.nav_main;
   private int showFragment = R.id.nav_main;
@@ -63,9 +64,10 @@ public class MainActivity extends SimpleActivity {
     //fragment
     acgNewsMainFragment = new AcgNewsMainFragment();
     scheduleMainFragment = new ScheduleMainFragment();
-    acgPicMainFragment = new AcgPicMainFragment();
+    //acgPicMainFragment = new AcgPicMainFragment();
+    fictionFragment = new FictionFragment();
     loadMultipleRootFragment(R.id.main_content, 0, acgNewsMainFragment, scheduleMainFragment,
-        acgPicMainFragment);
+        fictionFragment);
 
     bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
       @Override
@@ -80,9 +82,13 @@ public class MainActivity extends SimpleActivity {
             showFragment = R.id.nav_schedule;
             title = getString(R.string.nav_schedule);
             break;
-          case R.id.nav_picture:
+          /*case R.id.nav_picture:
             showFragment = R.id.nav_picture;
             title = getString(R.string.nav_picture);
+            break;*/
+          case R.id.nav_fiction:
+            showFragment = R.id.nav_fiction;
+            title = getString(R.string.nav_fiction);
             break;
         }
         showHideFragment(getTargetFragment(showFragment),
@@ -118,8 +124,10 @@ public class MainActivity extends SimpleActivity {
         return acgNewsMainFragment;
       case R.id.nav_schedule:
         return scheduleMainFragment;
-      case R.id.nav_picture:
-        return acgPicMainFragment;
+      /*case R.id.nav_picture:
+        return acgPicMainFragment;*/
+      case R.id.nav_fiction:
+        return fictionFragment;
     }
     return acgNewsMainFragment;
   }

@@ -41,6 +41,10 @@
       android:screenOrientation="portrait" />
 
     <activity
+      android:name=".mvp.ui.activity.FictionSearchActivity"
+      android:screenOrientation="portrait" />
+
+    <activity
       android:name=".mvp.ui.activity.MoePicDetailActivity"
       android:screenOrientation="portrait" />
 

@@ -3,11 +3,13 @@
   <string name="nav_main">首页</string>
   <string name="nav_schedule">番剧</string>
   <string name="nav_picture">看图</string>
+  <string name="nav_fiction">小说</string>
   <string name="nav_group_two">选项</string>
 
   <string name="title_schedule_new">放送时间表</string>
 
   <string name="menu_download">下载</string>
+  <string name="menu_search">搜索</string>
 
   <!-- 动漫资讯-->
   <string name="acg_news_dmxw">xw/dmxw/list_527_%1$d.html</string>

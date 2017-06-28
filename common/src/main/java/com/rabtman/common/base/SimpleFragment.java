@@ -108,6 +108,7 @@ public abstract class SimpleFragment extends SupportFragment implements
 
   @Override
   public void showError(String message) {
+    hideLoading();
     Toasty.error(mContext, message, Toast.LENGTH_SHORT).show();
   }
 
