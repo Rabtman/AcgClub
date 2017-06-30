@@ -9,9 +9,13 @@
     id="@+id/nav_schedule"
     title="@string/nav_schedule" />
   <tab
+    icon="@drawable/nav_setting"
+    id="@+id/nav_setting"
+    title="@string/nav_setting" />
+  <!--<tab
     icon="@drawable/nav_fiction"
     id="@+id/nav_fiction"
-    title="@string/nav_fiction" />
+    title="@string/nav_fiction" />-->
   <!--<tab
     icon="@drawable/nav_picture"
     id="@+id/nav_picture"

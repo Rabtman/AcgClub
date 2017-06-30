@@ -96,10 +96,23 @@
 #----------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------
 #---------------------------------实体类---------------------------------
--keep com.rabtman.acgclub.mvp.model.jsoup.* { *; }
+-keep class com.rabtman.acgclub.mvp.model.jsoup.* { *; }
+-keep class com.rabtman.acgclub.mvp.model.entity.* { *; }
 
 #---------------------------------第三方包-------------------------------
-
+#阿里
+-keepattributes Signature
+-keep class sun.misc.Unsafe { *; }
+-keep class com.taobao.** {*;}
+-keep class com.alibaba.** {*;}
+-keep class com.alipay.** {*;}
+-dontwarn com.taobao.**
+-dontwarn com.alibaba.**
+-dontwarn com.alipay.**
+-keep class com.ut.** {*;}
+-dontwarn com.ut.**
+-keep class com.ta.** {*;}
+-dontwarn com.ta.**
 #支付宝支付
 -keep class com.alipay.android.app.IAlixPay{*;}
 -keep class com.alipay.android.app.IAlixPay$Stub{*;}
@@ -114,21 +127,19 @@
 -keep class com.tencent.wxop.** { *; }
 -dontwarn com.tencent.mm.**
 -keep class com.tencent.mm.**{*;}
-
--keep class sun.misc.Unsafe { *; }
-
--keep class com.taobao.** {*;}
--keep class com.alibaba.** {*;}
--keep class com.alipay.** {*;}
--dontwarn com.taobao.**
--dontwarn com.alibaba.**
--dontwarn com.alipay.**
-
--keep class com.ut.** {*;}
--dontwarn com.ut.**
-
--keep class com.ta.** {*;}
--dontwarn com.ta.**
+#阿里用户反馈
+-keep class com.alibaba.sdk.android.feedback.impl.FeedbackServiceImpl {*;}
+-keep class com.alibaba.sdk.android.feedback.impl.FeedbackAPI {*;}
+-keep class com.alibaba.sdk.android.feedback.util.IWxCallback {*;}
+-keep class com.alibaba.sdk.android.feedback.util.IUnreadCountCallback{*;}
+-keep class com.alibaba.sdk.android.feedback.FeedbackService{*;}
+-keep public class com.alibaba.mtl.log.model.LogField {public *;}
+-keep class com.taobao.securityjni.**{*;}
+-keep class com.taobao.wireless.security.**{*;}
+-keep class com.ut.secbody.**{*;}
+-keep class com.taobao.dp.**{*;}
+-keep class com.alibaba.wireless.security.**{*;}
+-keep class com.ta.utdid2.device.**{*;}
 
 -keep class anet.**{*;}
 -keep class org.android.spdy.**{*;}

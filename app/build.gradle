@@ -1,6 +1,22 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.antfortune.freeline'
 apply plugin: 'com.jakewharton.butterknife'
+//ApkChannelPackage
+apply plugin: 'channel'
+
+Properties properties = new Properties()
+File localPropertiesFile = project.rootProject.file("local.properties");
+if (localPropertiesFile.exists()) {
+    properties.load(localPropertiesFile.newDataInputStream())
+}
+
+//渠道配置
+channel {
+    //多渠道包的输出目录，默认为new File(project.buildDir,"channel")
+    baseOutputDir = new File(project.buildDir, "channel")
+    //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}
+    apkNameFormat = '${appName}_${flavorName}_v${versionName}'
+}
 
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -21,15 +37,30 @@ android {
         ndk {
             abiFilters "armeabi"
         }
+        vectorDrawables.useSupportLibrary = true
+
+        //阿里用户反馈
+        buildConfigField "String", "FEEDBACK_APP_KEY", properties.getProperty("fbAppKey")
+    }
+
+    signingConfigs {
+        rabtman {
+            storeFile file("rabtman.jks")
+            storePassword properties.getProperty("storePassword")
+            keyAlias properties.getProperty("keyAlias")
+            keyPassword properties.getProperty("keyPassword")
+        }
     }
 
     buildTypes {
         debug {
             minifyEnabled false
+            signingConfig signingConfigs.rabtman
         }
 
         release {
-            minifyEnabled false
+            minifyEnabled true
+            signingConfig signingConfigs.rabtman
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -41,12 +72,17 @@ android {
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':common')
-    compile files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100_sharewithdownload_obfs_20170301_182143.jar')
+    //ui
     compile 'com.zzhoujay.richtext:richtext:2.5.2'
-
     testCompile rootProject.ext.dependencies["junit"]
     //di
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
@@ -58,4 +94,16 @@ dependencies {
     releaseCompile rootProject.ext.dependencies["leakcanary-no-op"]
     //jsoup
     compile project(':jsoup-annotations')
+    //阿里用户反馈
+    compile(name: 'alisdk-feedback-2.5.6', ext: 'aar')
+    compile(name: 'securityguardaar3-5.1.103', ext: 'aar')
+    compile files('libs/app-monitor-sdk-2.5.1.1_for_bc_proguard.jar')
+    compile files('libs/utdid4all-1.1.5.3_proguard.jar')
+    //x5内核
+    compile files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100_sharewithdownload_obfs_20170301_182143.jar')
+    //bugly
+    compile rootProject.ext.dependencies["crashreport"]
+    compile rootProject.ext.dependencies["nativecrashreport"]
+    //ApkChannelPackage
+    compile rootProject.ext.dependencies["apk-channel-package"]
 }

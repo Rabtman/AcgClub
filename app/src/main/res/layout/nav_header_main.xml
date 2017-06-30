@@ -11,4 +11,9 @@
   android:orientation="vertical"
   android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
+  <ImageView
+    android:layout_width="130dp"
+    android:layout_height="130dp"
+    android:layout_gravity="center"
+    android:src="@mipmap/ic_launcher_round" />
 </LinearLayout>

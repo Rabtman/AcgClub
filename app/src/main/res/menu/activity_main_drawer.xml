@@ -22,4 +22,18 @@
     android:icon="@drawable/nav_picture"
     android:title="@string/nav_picture"
     app:showAsAction="ifRoom" />
+
+  <item
+    android:id="@+id/nav_fiction"
+    android:enabled="true"
+    android:icon="@drawable/nav_fiction"
+    android:title="@string/nav_fiction"
+    app:showAsAction="ifRoom" />
+
+  <item
+    android:id="@+id/nav_setting"
+    android:enabled="true"
+    android:icon="@drawable/nav_setting"
+    android:title="@string/nav_setting"
+    app:showAsAction="ifRoom" />
 </menu>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  app:divider="@drawable/shape_divider_horizontal"
+  app:showDividers="middle|end">
+
+  <RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="32dp"
+    android:layout_gravity="center">
+    <ImageView
+      android:id="@+id/img_setting_icon"
+      android:layout_width="120dp"
+      android:layout_height="120dp"
+      android:layout_marginTop="32dp"
+      android:layout_centerHorizontal="true"
+      android:src="@mipmap/ic_launcher_round" />
+    <TextView
+      android:id="@+id/tv_setting_version"
+      style="@style/Base.TextAppearance.AppCompat.Body1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/img_setting_icon"
+      android:layout_centerHorizontal="true"
+      android:padding="16dp"
+      android:textSize="16sp"
+      tools:text="v2.3.0" />
+  </RelativeLayout>
+
+  <RelativeLayout
+    android:id="@+id/layout_setting_opinion"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+    <TextView
+      android:id="@+id/tv_setting_opinion"
+      style="@style/Base.TextAppearance.AppCompat.Body1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="16dp"
+      android:gravity="center_vertical"
+      android:text="@string/setting_opinion" />
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="8dp"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:src="@drawable/ic_arrow_right_grey" />
+  </RelativeLayout>
+
+  <RelativeLayout
+    android:id="@+id/layout_setting_update"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+    <TextView
+      android:id="@+id/tv_setting_update"
+      style="@style/Base.TextAppearance.AppCompat.Body1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:padding="16dp"
+      android:gravity="center_vertical"
+      android:text="@string/setting_update" />
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="8dp"
+      android:layout_alignParentRight="true"
+      android:layout_centerVertical="true"
+      android:src="@drawable/ic_arrow_right_grey" />
+  </RelativeLayout>
+
+</android.support.v7.widget.LinearLayoutCompat>

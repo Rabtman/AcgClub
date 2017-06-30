@@ -1,6 +1,7 @@
 package com.rabtman.acgclub.base;
 
 import android.content.Context;
+import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.rabtman.acgclub.BuildConfig;
 import com.rabtman.common.base.BaseApplication;
 import com.rabtman.common.utils.LogUtil;
@@ -28,9 +29,14 @@ public class App extends BaseApplication {
   public void onCreate() {
     super.onCreate();
 
+    initFeedback();
     initX5Web();
     initToastyConfig();
     installLeakCanary();//leakCanary内存泄露检查
+  }
+
+  private void initFeedback() {
+    FeedbackAPI.init(this, BuildConfig.FEEDBACK_APP_KEY);
   }
 
   private void initToastyConfig() {

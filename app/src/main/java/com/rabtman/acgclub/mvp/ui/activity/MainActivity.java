@@ -7,8 +7,8 @@ import android.widget.FrameLayout;
 import butterknife.BindView;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.mvp.ui.fragment.AcgNewsMainFragment;
-import com.rabtman.acgclub.mvp.ui.fragment.FictionFragment;
 import com.rabtman.acgclub.mvp.ui.fragment.ScheduleMainFragment;
+import com.rabtman.acgclub.mvp.ui.fragment.SettingFragment;
 import com.rabtman.common.base.SimpleActivity;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
@@ -36,7 +36,8 @@ public class MainActivity extends SimpleActivity {
   AcgNewsMainFragment acgNewsMainFragment;
   ScheduleMainFragment scheduleMainFragment;
   //AcgPicMainFragment acgPicMainFragment;
-  FictionFragment fictionFragment;
+  //FictionFragment fictionFragment;
+  SettingFragment settingFragment;
 
   private int hideFragment = R.id.nav_main;
   private int showFragment = R.id.nav_main;
@@ -65,9 +66,10 @@ public class MainActivity extends SimpleActivity {
     acgNewsMainFragment = new AcgNewsMainFragment();
     scheduleMainFragment = new ScheduleMainFragment();
     //acgPicMainFragment = new AcgPicMainFragment();
-    fictionFragment = new FictionFragment();
+    //fictionFragment = new FictionFragment();
+    settingFragment = new SettingFragment();
     loadMultipleRootFragment(R.id.main_content, 0, acgNewsMainFragment, scheduleMainFragment,
-        fictionFragment);
+        settingFragment);
 
     bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
       @Override
@@ -86,9 +88,13 @@ public class MainActivity extends SimpleActivity {
             showFragment = R.id.nav_picture;
             title = getString(R.string.nav_picture);
             break;*/
-          case R.id.nav_fiction:
+          /*case R.id.nav_fiction:
             showFragment = R.id.nav_fiction;
             title = getString(R.string.nav_fiction);
+            break;*/
+          case R.id.nav_setting:
+            showFragment = R.id.nav_setting;
+            title = getString(R.string.nav_setting);
             break;
         }
         showHideFragment(getTargetFragment(showFragment),
@@ -125,9 +131,11 @@ public class MainActivity extends SimpleActivity {
       case R.id.nav_schedule:
         return scheduleMainFragment;
       /*case R.id.nav_picture:
-        return acgPicMainFragment;*/
+        return acgPicMainFragment;
       case R.id.nav_fiction:
-        return fictionFragment;
+        return fictionFragment;*/
+      case R.id.nav_setting:
+        return settingFragment;
     }
     return acgNewsMainFragment;
   }

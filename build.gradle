@@ -6,8 +6,14 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.2'
+        //butterknife
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
+        //freeline
         classpath 'com.antfortune.freeline:gradle:0.8.7'
+        //ApkChannelPackage
+        classpath 'com.leon.channel:plugin:1.0.4'
+        //bugly tinker
+        classpath "com.tencent.bugly:tinker-support:latest.release"
     }
 }
 
