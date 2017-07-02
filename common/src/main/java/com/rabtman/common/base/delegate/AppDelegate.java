@@ -1,7 +1,6 @@
 package com.rabtman.common.base.delegate;
 
 import android.app.Application;
-import android.text.TextUtils;
 import com.hss01248.dialog.StyledDialog;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.di.component.DaggerAppComponent;
@@ -71,12 +70,6 @@ public class AppDelegate {
     //初始化全局dialog
     StyledDialog.init(mApplication);
 
-    //获取渠道包值
-    String channel = ChannelReaderUtil.getChannel(getApplication());
-    KLog.d("channel:" + channel);
-    if (TextUtils.isEmpty(channel)) {
-      channel = "cyy";
-    }
 
   }
 
