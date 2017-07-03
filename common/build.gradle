@@ -17,9 +17,6 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
-
-        //umeng app key
-        buildConfigField "String", "UMENG_APP_KEY", properties.getProperty("umengAppKey")
     }
     buildTypes {
         release {

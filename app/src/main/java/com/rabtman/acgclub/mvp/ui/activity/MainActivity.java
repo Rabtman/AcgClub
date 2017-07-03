@@ -1,15 +1,25 @@
 package com.rabtman.acgclub.mvp.ui.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 import butterknife.BindView;
+import com.hss01248.dialog.StyledDialog;
+import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.rabtman.acgclub.R;
+import com.rabtman.acgclub.di.component.DaggerMainComponent;
+import com.rabtman.acgclub.di.module.MainModule;
+import com.rabtman.acgclub.mvp.contract.MainContract;
+import com.rabtman.acgclub.mvp.model.entity.VersionInfo;
+import com.rabtman.acgclub.mvp.presenter.MainPresenter;
 import com.rabtman.acgclub.mvp.ui.fragment.AcgNewsMainFragment;
 import com.rabtman.acgclub.mvp.ui.fragment.ScheduleMainFragment;
 import com.rabtman.acgclub.mvp.ui.fragment.SettingFragment;
-import com.rabtman.common.base.SimpleActivity;
+import com.rabtman.common.base.BaseActivity;
+import com.rabtman.common.di.component.AppComponent;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -18,7 +28,7 @@ import me.yokeyword.fragmentation.SupportFragment;
  * @author Rabtman
  */
 
-public class MainActivity extends SimpleActivity {
+public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 
 
   @BindView(R.id.toolbar)
@@ -50,6 +60,15 @@ public class MainActivity extends SimpleActivity {
   }
 
   @Override
+  protected void setupActivityComponent(AppComponent appComponent) {
+    DaggerMainComponent.builder()
+        .appComponent(appComponent)
+        .mainModule(new MainModule(this))
+        .build()
+        .inject(this);
+  }
+
+  @Override
   protected int getLayoutId() {
     return R.layout.layout_main;
   }
@@ -57,19 +76,30 @@ public class MainActivity extends SimpleActivity {
   @Override
   protected void initData() {
     setToolBar(mToolBar, getString(R.string.nav_main));
+
+    getAppVersionInfo(false);
+
     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
     /*toggle = new ActionBarDrawerToggle(this, drawerLayout, mToolBar,
         R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawerLayout.addDrawerListener(toggle);
     toggle.syncState();*/
-    //fragment
-    acgNewsMainFragment = new AcgNewsMainFragment();
-    scheduleMainFragment = new ScheduleMainFragment();
-    //acgPicMainFragment = new AcgPicMainFragment();
-    //fictionFragment = new FictionFragment();
-    settingFragment = new SettingFragment();
-    loadMultipleRootFragment(R.id.main_content, 0, acgNewsMainFragment, scheduleMainFragment,
-        settingFragment);
+    if (findFragment(AcgNewsMainFragment.class) == null) {
+      //fragment
+      acgNewsMainFragment = new AcgNewsMainFragment();
+      scheduleMainFragment = new ScheduleMainFragment();
+      //acgPicMainFragment = new AcgPicMainFragment();
+      //fictionFragment = new FictionFragment();
+      settingFragment = new SettingFragment();
+      loadMultipleRootFragment(R.id.main_content, 0, acgNewsMainFragment, scheduleMainFragment,
+          settingFragment);
+    } else {
+      acgNewsMainFragment = findFragment(AcgNewsMainFragment.class);
+      scheduleMainFragment = findFragment(ScheduleMainFragment.class);
+      //acgPicMainFragment = findFragment(AcgPicMainFragment.class);
+      //fictionFragment = findFragment(FictionFragment.class);
+      settingFragment = findFragment(SettingFragment.class);
+    }
 
     bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
       @Override
@@ -149,4 +179,27 @@ public class MainActivity extends SimpleActivity {
     //}
   }
 
+  //检查app更新
+  public void getAppVersionInfo(boolean isManual) {
+    mPresenter.getVersionInfo(isManual);
+  }
+
+  @Override
+  public void showUpdateDialog(final VersionInfo versionInfo) {
+    StyledDialog.buildMdAlert("版本更新", versionInfo.getDesc(), new MyDialogListener() {
+      @Override
+      public void onFirst() {
+        //调起浏览器更新app
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        Uri url = Uri.parse(versionInfo.getAppLink());
+        intent.setData(url);
+        startActivity(intent);
+      }
+
+      @Override
+      public void onSecond() {
+      }
+    }).setBtnText("现在升级", "下次再说").show();
+  }
 }

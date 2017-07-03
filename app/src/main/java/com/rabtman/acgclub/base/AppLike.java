@@ -1,19 +1,12 @@
 package com.rabtman.acgclub.base;
 
 import android.annotation.TargetApi;
-import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.text.TextUtils;
-import com.leon.channel.helper.ChannelReaderUtil;
-import com.rabtman.common.BuildConfig;
-import com.tencent.bugly.BuglyStrategy;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
 
 /**
  * @author Rabtman
@@ -32,7 +25,7 @@ public class AppLike extends DefaultApplicationLike {
   @Override
   public void onCreate() {
     super.onCreate();
-
+/*
     String processName = getCurProcessName(getApplication());
     boolean defaultProcess = processName.equals(getApplication().getPackageName());
 
@@ -55,7 +48,7 @@ public class AppLike extends DefaultApplicationLike {
       MobclickAgent
           .startWithConfigure(
               new UMAnalyticsConfig(getApplication(), BuildConfig.UMENG_APP_KEY, channel));
-    }
+    }*/
   }
 
   @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -73,17 +66,4 @@ public class AppLike extends DefaultApplicationLike {
     getApplication().registerActivityLifecycleCallbacks(callbacks);
   }
 
-  //获取进程名称
-  private String getCurProcessName(Context context) {
-    int pid = android.os.Process.myPid();
-    ActivityManager activityManager = (ActivityManager) context
-        .getSystemService(Context.ACTIVITY_SERVICE);
-    for (ActivityManager.RunningAppProcessInfo appProcess : activityManager
-        .getRunningAppProcesses()) {
-      if (appProcess.pid == pid) {
-        return appProcess.processName;
-      }
-    }
-    return "";
-  }
 }

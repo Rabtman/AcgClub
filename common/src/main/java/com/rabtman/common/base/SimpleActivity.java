@@ -11,6 +11,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.hss01248.dialog.StyledDialog;
 import com.rabtman.common.base.mvp.IView;
+import com.umeng.analytics.MobclickAgent;
 import es.dmoral.toasty.Toasty;
 import me.yokeyword.fragmentation.SupportActivity;
 
@@ -36,6 +37,18 @@ public abstract class SimpleActivity extends SupportActivity implements
     mContext = this;
     onViewCreated();
     initData();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    MobclickAgent.onResume(this);
+  }
+
+  @Override
+  protected void onPause() {
+    super.onPause();
+    MobclickAgent.onPause(this);
   }
 
   @Override

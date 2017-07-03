@@ -1,13 +1,20 @@
 package com.rabtman.acgclub.base;
 
+import android.app.ActivityManager;
 import android.content.Context;
+import android.text.TextUtils;
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
+import com.leon.channel.helper.ChannelReaderUtil;
 import com.rabtman.acgclub.BuildConfig;
 import com.rabtman.common.base.BaseApplication;
 import com.rabtman.common.utils.LogUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.tencent.bugly.Bugly;
+import com.tencent.bugly.BuglyStrategy;
 import com.tencent.smtt.sdk.QbSdk;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
 
 /**
  * @author Rabtman
@@ -29,9 +36,33 @@ public class App extends BaseApplication {
   public void onCreate() {
     super.onCreate();
 
-    initFeedback();
-    initX5Web();
-    initToastyConfig();
+    String processName = getCurProcessName(this);
+    boolean defaultProcess = processName.equals(getPackageName());
+
+    //获取渠道包值
+    String channel = ChannelReaderUtil.getChannel(this);
+    if (TextUtils.isEmpty(channel)) {
+      channel = "offical";
+    }
+
+    //bugly
+    BuglyStrategy strategy = new BuglyStrategy();
+    strategy.setAppChannel(channel);
+    strategy.setAppPackageName(BuildConfig.APPLICATION_ID);
+    strategy.setAppVersion(BuildConfig.VERSION_NAME);
+    strategy.setUploadProcess(defaultProcess);
+    Bugly.init(this, BuildConfig.BUGLY_APP_ID, BuildConfig.DEBUG, strategy);
+
+    if (defaultProcess) {
+      //umeng初始化
+      MobclickAgent
+          .startWithConfigure(
+              new UMAnalyticsConfig(this, BuildConfig.UMENG_APP_KEY, channel));
+
+      initFeedback();
+      initX5Web();
+      initToastyConfig();
+    }
     installLeakCanary();//leakCanary内存泄露检查
   }
 
@@ -82,5 +113,19 @@ public class App extends BaseApplication {
    */
   protected void installLeakCanary() {
     this.mRefWatcher = BuildConfig.DEBUG ? LeakCanary.install(this) : RefWatcher.DISABLED;
+  }
+
+  //获取进程名称
+  private String getCurProcessName(Context context) {
+    int pid = android.os.Process.myPid();
+    ActivityManager activityManager = (ActivityManager) context
+        .getSystemService(Context.ACTIVITY_SERVICE);
+    for (ActivityManager.RunningAppProcessInfo appProcess : activityManager
+        .getRunningAppProcesses()) {
+      if (appProcess.pid == pid) {
+        return appProcess.processName;
+      }
+    }
+    return "";
   }
 }

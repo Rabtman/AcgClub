@@ -5,6 +5,7 @@ import static com.rabtman.common.integration.AppManager.IS_NOT_ADD_ACTIVITY_LIST
 import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
+import com.hss01248.dialog.MyActyManager;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -39,6 +40,7 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
 
   @Override
   public void onActivityResumed(Activity activity) {
+    MyActyManager.getInstance().setCurrentActivity(activity);
     mAppManager.setCurrentActivity(activity);
   }
 

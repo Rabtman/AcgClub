@@ -10,14 +10,6 @@ if (localPropertiesFile.exists()) {
     properties.load(localPropertiesFile.newDataInputStream())
 }
 
-//渠道配置
-channel {
-    //多渠道包的输出目录，默认为new File(project.buildDir,"channel")
-    baseOutputDir = new File(project.buildDir, "channel")
-    //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}
-    apkNameFormat = '${appName}_${flavorName}_v${versionName}'
-}
-
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -41,6 +33,10 @@ android {
 
         //阿里用户反馈
         buildConfigField "String", "FEEDBACK_APP_KEY", properties.getProperty("fbAppKey")
+        //umeng app key
+        buildConfigField "String", "UMENG_APP_KEY", properties.getProperty("umengAppKey")
+        //bugly APP ID
+        buildConfigField "String", "BUGLY_APP_ID", properties.getProperty("buglyAppId")
     }
 
     signingConfigs {
@@ -70,6 +66,14 @@ android {
         disable "ResourceType"
         abortOnError false
     }
+}
+
+//渠道配置
+channel {
+    //多渠道包的输出目录，默认为new File(project.buildDir,"channel")
+    baseOutputDir = new File(project.buildDir, "channel")
+    //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}
+    apkNameFormat = 'com.rabtman.acgclub_${flavorName}_v${versionName}'
 }
 
 repositories {

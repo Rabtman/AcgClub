@@ -8,6 +8,7 @@ import butterknife.OnClick;
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.rabtman.acgclub.BuildConfig;
 import com.rabtman.acgclub.R;
+import com.rabtman.acgclub.mvp.ui.activity.MainActivity;
 import com.rabtman.common.base.SimpleFragment;
 
 /**
@@ -40,6 +41,10 @@ public class SettingFragment extends SimpleFragment {
         FeedbackAPI.openFeedbackActivity();
         break;
       case R.id.layout_setting_update:
+        if (getActivity() instanceof MainActivity) {
+          MainActivity activity = (MainActivity) getActivity();
+          activity.getAppVersionInfo(true);
+        }
         break;
     }
   }
