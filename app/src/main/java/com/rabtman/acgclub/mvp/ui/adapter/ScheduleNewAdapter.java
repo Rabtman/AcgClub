@@ -1,6 +1,7 @@
 package com.rabtman.acgclub.mvp.ui.adapter;
 
 import android.widget.ImageView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.rabtman.acgclub.R;
@@ -17,7 +18,7 @@ public class ScheduleNewAdapter extends BaseQuickAdapter<ScheduleNewItem, BaseVi
   private ImageLoader mImageLoader;
 
   public ScheduleNewAdapter(ImageLoader imageLoader) {
-    super(R.layout.item_schedule_new, null);
+      super(R.layout.item_schedule_new_test, null);
     mImageLoader = imageLoader;
   }
 

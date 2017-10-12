@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import butterknife.BindView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.rabtman.acgclub.R;
@@ -19,6 +19,8 @@ import com.rabtman.acgclub.mvp.ui.adapter.ScheduleNewAdapter;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.base.widget.CommonItemDecoration;
 import com.rabtman.common.di.component.AppComponent;
+
+import butterknife.BindView;
 
 /**
  * @author Rabtman
@@ -67,7 +69,7 @@ public class ScheduleNewActivity extends BaseActivity<ScheduleNewPresenter> impl
     rcvScheduleNew.setLayoutManager(layoutManager);
     rcvScheduleNew.setAdapter(mAdapter);
 
-    mPresenter.getScheduleNew(getIntent().getStringExtra(IntentConstant.SCHEDULE_NEW_URL));
+      mPresenter.getScheduleNew("http://m.dilidili.wang/anime/201707/");
   }
 
   @Override
