@@ -1,5 +1,4 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.jakewharton.butterknife'
 
 Properties properties = new Properties()
 File localPropertiesFile = project.rootProject.file("local.properties");
@@ -77,8 +76,9 @@ dependencies {
     compile rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
     compile rootProject.ext.dependencies["okhttp"]
     compile rootProject.ext.dependencies["okhttp-logging-interceptor"]
+    //image
     compile rootProject.ext.dependencies["glide"]
-    compile rootProject.ext.dependencies["glide-integration"]
+    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
     //rx
     compile rootProject.ext.dependencies["rxjava"]
     compile rootProject.ext.dependencies["rxandroid"]

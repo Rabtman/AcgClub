@@ -6,8 +6,6 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        //butterknife
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.5.1'
         //freeline
         classpath 'com.antfortune.freeline:gradle:0.8.7'
         //ApkChannelPackage
@@ -22,6 +20,7 @@ allprojects {
         mavenCentral()
         jcenter()
         maven { url "https://jitpack.io" }
+        maven { url "https://maven.google.com" }
     }
 }
 
