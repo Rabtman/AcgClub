@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.rabtman.acgclub.R;
@@ -23,11 +23,9 @@ import com.rabtman.acgclub.mvp.ui.adapter.ScheduleDetailEpisodeItemAdapter;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.imageloader.glide.GlideImageConfig;
+import com.rabtman.common.imageloader.glide.transformations.BlurTransformation;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-
 import java.util.List;
-
-import butterknife.BindView;
 
 /**
  * @author Rabtman
@@ -41,6 +39,8 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
     AppBarLayout appBar;
     @BindView(R.id.collapsing_toolbar)
     CollapsingToolbarLayout collapsingToolbarLayout;
+    @BindView(R.id.img_schedule_title_bg)
+    ImageView imgScheduleTitleBg;
     @BindView(R.id.img_schedule_detail_icon)
     ImageView imgScheduleDetailIcon;
     @BindView(R.id.tv_schedule_detail_time)
@@ -80,6 +80,14 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
 
     @Override
     public void showScheduleDetail(ScheduleDetail acgNewsDetail) {
+        mApplication.getAppComponent().imageLoader().loadImage(mContext,
+            GlideImageConfig
+                .builder()
+                .url(acgNewsDetail.getImgUrl())
+                .transformation(new BlurTransformation())
+                .imagerView(imgScheduleTitleBg)
+                .build()
+        );
         mApplication.getAppComponent().imageLoader().loadImage(mContext,
                 GlideImageConfig
                         .builder()

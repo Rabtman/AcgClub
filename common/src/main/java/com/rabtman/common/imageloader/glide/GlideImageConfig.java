@@ -1,8 +1,8 @@
 package com.rabtman.common.imageloader.glide;
 
 import android.widget.ImageView;
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 import com.rabtman.common.imageloader.ImageConfig;
+import com.rabtman.common.imageloader.glide.transformations.BitmapTransformation;
 
 /**
  * Glide配置信息
