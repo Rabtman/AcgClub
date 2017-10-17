@@ -9,21 +9,25 @@ import com.rabtman.common.imageloader.ImageConfig;
  */
 public class GlideImageConfig extends ImageConfig {
 
-  //缩放策略
-  public final static int CENTER_CROP = 1;
-  public final static int FIT_CENTER = 2;
-
-  private int cacheStrategy;//0对应DiskCacheStrategy.all,1对应DiskCacheStrategy.NONE,2对应DiskCacheStrategy.SOURCE,3对应DiskCacheStrategy.RESULT
-  private int zoomStrategy;
+  /**
+   * 缓存策略:
+   * 0对应DiskCacheStrategy.all
+   * 1对应DiskCacheStrategy.NONE
+   * 2对应DiskCacheStrategy.RESOURCE
+   * 3对应DiskCacheStrategy.DATA
+   * 4对应DiskCacheStrategy.AUTOMATIC
+   */
+  private int cacheStrategy;
   private BitmapTransformation transformation;//glide用它来改变图形的形状
+  private int fallback;
 
   private GlideImageConfig(Buidler builder) {
     this.url = builder.url;
     this.imageView = builder.imageView;
     this.placeholder = builder.placeholder;
     this.errorPic = builder.errorPic;
+    this.fallback = builder.fallback;
     this.cacheStrategy = builder.cacheStrategy;
-    this.zoomStrategy = builder.zoomStrategy;
     this.transformation = builder.transformation;
   }
 
@@ -35,8 +39,8 @@ public class GlideImageConfig extends ImageConfig {
     return cacheStrategy;
   }
 
-  public int getZoomStrategy() {
-    return zoomStrategy;
+  public int getFallback() {
+    return fallback;
   }
 
   public BitmapTransformation getTransformation() {
@@ -49,8 +53,8 @@ public class GlideImageConfig extends ImageConfig {
     private ImageView imageView;
     private int placeholder;
     private int errorPic;
-    private int cacheStrategy;//0对应DiskCacheStrategy.all,1对应DiskCacheStrategy.NONE,2对应DiskCacheStrategy.SOURCE,3对应DiskCacheStrategy.RESULT
-    private int zoomStrategy;
+    private int fallback; //请求 url 为空,则使用此图片作为占位符
+    private int cacheStrategy;
     private BitmapTransformation transformation;//glide用它来改变图形的形状
 
     private Buidler() {
@@ -71,6 +75,12 @@ public class GlideImageConfig extends ImageConfig {
       return this;
     }
 
+    public Buidler fallback(int fallback) {
+      this.fallback = fallback;
+      return this;
+    }
+
+
     public Buidler imagerView(ImageView imageView) {
       this.imageView = imageView;
       return this;
@@ -81,11 +91,6 @@ public class GlideImageConfig extends ImageConfig {
       return this;
     }
 
-    public Buidler zoomStrategy(int zoomStrategy) {
-      this.zoomStrategy = zoomStrategy;
-      return this;
-    }
-
     public Buidler transformation(BitmapTransformation transformation) {
       this.transformation = transformation;
       return this;
@@ -93,12 +98,6 @@ public class GlideImageConfig extends ImageConfig {
 
 
     public GlideImageConfig build() {
-      if (url == null) {
-        throw new IllegalStateException("url is required");
-      }
-      if (imageView == null) {
-        throw new IllegalStateException("imageview is required");
-      }
       return new GlideImageConfig(this);
     }
   }

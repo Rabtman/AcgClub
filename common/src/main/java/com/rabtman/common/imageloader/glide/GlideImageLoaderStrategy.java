@@ -1,11 +1,9 @@
 package com.rabtman.common.imageloader.glide;
 
-import android.app.Activity;
 import android.content.Context;
-import com.bumptech.glide.DrawableRequestBuilder;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.RequestManager;
+import android.graphics.drawable.Drawable;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.rabtman.common.imageloader.BaseImageLoaderStrategy;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -20,56 +18,58 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy<GlideIm
 
   @Override
   public void loadImage(Context ctx, GlideImageConfig config) {
-    RequestManager manager;
-    if (ctx instanceof Activity)//如果是activity则可以使用Activity的生命周期
-    {
-      manager = Glide.with((Activity) ctx);
-    } else {
-      manager = Glide.with(ctx);
+    if (ctx == null) {
+      throw new NullPointerException("Context is required");
+    }
+    if (config == null) {
+      throw new NullPointerException("GlideImageConfig is required");
+    }
+    if (config.getImageView() == null) {
+      throw new NullPointerException("Imageview is required");
     }
 
-    DrawableRequestBuilder<String> requestBuilder = manager.load(config.getUrl())
-        .crossFade();
+    GlideRequest<Drawable> glideRequest = GlideApp.with(ctx).load(config.getUrl())
+        .transition(DrawableTransitionOptions.withCrossFade())
+        .centerCrop();
 
     switch (config.getCacheStrategy()) {//缓存策略
       case 0:
-        requestBuilder.diskCacheStrategy(DiskCacheStrategy.ALL);
+        glideRequest.diskCacheStrategy(DiskCacheStrategy.ALL);
         break;
       case 1:
-        requestBuilder.diskCacheStrategy(DiskCacheStrategy.NONE);
+        glideRequest.diskCacheStrategy(DiskCacheStrategy.NONE);
         break;
       case 2:
-        requestBuilder.diskCacheStrategy(DiskCacheStrategy.SOURCE);
+        glideRequest.diskCacheStrategy(DiskCacheStrategy.RESOURCE);
         break;
       case 3:
-        requestBuilder.diskCacheStrategy(DiskCacheStrategy.RESULT);
+        glideRequest.diskCacheStrategy(DiskCacheStrategy.DATA);
         break;
-    }
-
-    switch (config.getZoomStrategy()) {
-      case GlideImageConfig.CENTER_CROP:
-        requestBuilder.centerCrop();
-        break;
-      case GlideImageConfig.FIT_CENTER:
-        requestBuilder.fitCenter();
+      case 4:
+        glideRequest.diskCacheStrategy(DiskCacheStrategy.AUTOMATIC);
         break;
     }
 
     if (config.getTransformation() != null) {//glide用它来改变图形的形状
-      requestBuilder.transform(config.getTransformation());
+      glideRequest.transform(config.getTransformation());
     }
 
     if (config.getPlaceholder() != 0)//设置占位符
     {
-      requestBuilder.placeholder(config.getPlaceholder());
+      glideRequest.placeholder(config.getPlaceholder());
     }
 
     if (config.getErrorPic() != 0)//设置错误的图片
     {
-      requestBuilder.error(config.getErrorPic());
+      glideRequest.error(config.getErrorPic());
     }
 
-    requestBuilder
+    if (config.getFallback() != 0)//设置请求 url 为空图片
+    {
+      glideRequest.fallback(config.getFallback());
+    }
+
+    glideRequest
         .into(config.getImageView());
   }
 }

@@ -17,7 +17,8 @@
     <ImageView
       android:id="@+id/img_fiction"
       android:layout_width="match_parent"
-      android:layout_height="match_parent" />
+      android:layout_height="match_parent"
+      android:scaleType="centerCrop" />
 
     <TextView
       android:id="@+id/tv_fiction"

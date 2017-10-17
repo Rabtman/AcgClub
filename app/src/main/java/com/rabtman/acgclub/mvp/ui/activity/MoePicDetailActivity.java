@@ -66,7 +66,6 @@ public class MoePicDetailActivity extends BaseActivity<APicDetailPresenter> impl
             GlideImageConfig
                 .builder()
                 .url(picUrl)
-                .zoomStrategy(GlideImageConfig.FIT_CENTER)
                 .imagerView(imgMoe)
                 .build());
   }

@@ -30,7 +30,6 @@ public class ScheduleRecommandAdapter extends BaseQuickAdapter<ScheduleRecommand
         GlideImageConfig
             .builder()
             .url(item.getImgUrl())
-            .zoomStrategy(GlideImageConfig.CENTER_CROP)
             .imagerView((ImageView) helper.getView(R.id.img_schedule_recommand))
             .build()
     );

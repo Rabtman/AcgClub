@@ -70,7 +70,6 @@ public class APicPagerAdapter extends PagerAdapter {
         GlideImageConfig
             .builder()
             .url(apicList.get(position))
-            .zoomStrategy(GlideImageConfig.FIT_CENTER)
             .imagerView(piv)
             .build());
     container.addView(piv);
@@ -91,7 +90,6 @@ public class APicPagerAdapter extends PagerAdapter {
         GlideImageConfig
             .builder()
             .url(apicList.get(position))
-            .zoomStrategy(GlideImageConfig.FIT_CENTER)
             .imagerView(piv)
             .build());
   }
