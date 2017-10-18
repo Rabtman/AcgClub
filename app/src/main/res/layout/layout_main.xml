@@ -34,8 +34,7 @@
       android:id="@+id/main_content"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_above="@id/view_navigation"
-      android:background="@color/grey200" />
+      android:layout_above="@id/view_navigation" />
   </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

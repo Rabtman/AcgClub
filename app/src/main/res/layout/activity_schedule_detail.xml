@@ -50,7 +50,7 @@
             tools:text="2016年10月" />
 
           <TextView
-            android:id="@+id/tv_schedule_detail_aera"
+            android:id="@+id/tv_schedule_detail_area"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
             tools:text="更新至37话" />
 
           <TextView
-            android:id="@+id/tv_schedule_detail_title"
+            android:id="@+id/tv_schedule_detail_label"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

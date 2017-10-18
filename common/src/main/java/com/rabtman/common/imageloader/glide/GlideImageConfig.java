@@ -1,8 +1,9 @@
 package com.rabtman.common.imageloader.glide;
 
+import android.graphics.Bitmap;
 import android.widget.ImageView;
+import com.bumptech.glide.load.Transformation;
 import com.rabtman.common.imageloader.ImageConfig;
-import com.rabtman.common.imageloader.glide.transformations.BitmapTransformation;
 
 /**
  * Glide配置信息
@@ -18,7 +19,7 @@ public class GlideImageConfig extends ImageConfig {
    * 4对应DiskCacheStrategy.AUTOMATIC
    */
   private int cacheStrategy;
-  private BitmapTransformation transformation;//glide用它来改变图形的形状
+  private Transformation<Bitmap> transformation;//glide用它来改变图形的形状
   private int fallback;
 
   private GlideImageConfig(Buidler builder) {
@@ -43,7 +44,7 @@ public class GlideImageConfig extends ImageConfig {
     return fallback;
   }
 
-  public BitmapTransformation getTransformation() {
+  public Transformation<Bitmap> getTransformation() {
     return transformation;
   }
 
@@ -55,7 +56,7 @@ public class GlideImageConfig extends ImageConfig {
     private int errorPic;
     private int fallback; //请求 url 为空,则使用此图片作为占位符
     private int cacheStrategy;
-    private BitmapTransformation transformation;//glide用它来改变图形的形状
+    private Transformation<Bitmap> transformation;//glide用它来改变图形的形状
 
     private Buidler() {
     }
@@ -91,7 +92,7 @@ public class GlideImageConfig extends ImageConfig {
       return this;
     }
 
-    public Buidler transformation(BitmapTransformation transformation) {
+    public Buidler transformation(Transformation<Bitmap> transformation) {
       this.transformation = transformation;
       return this;
     }

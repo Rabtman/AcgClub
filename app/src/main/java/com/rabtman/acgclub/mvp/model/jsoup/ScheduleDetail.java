@@ -95,6 +95,20 @@ public class ScheduleDetail {
     this.scheduleLabel = scheduleLabel;
   }
 
+  @Override
+  public String toString() {
+    return "ScheduleDetail{" +
+        "imgUrl='" + imgUrl + '\'' +
+        ", scheduleTitle='" + scheduleTitle + '\'' +
+        ", scheduleProc='" + scheduleProc + '\'' +
+        ", scheduleTime='" + scheduleTime + '\'' +
+        ", scheduleAera='" + scheduleAera + '\'' +
+        ", scheduleLabel='" + scheduleLabel + '\'' +
+        ", description='" + description + '\'' +
+        ", scheduleEpisodes=" + scheduleEpisodes +
+        '}';
+  }
+
   @Selector("div[class~=episodeWrap?] ul li")
   public static class ScheduleEpisode {
 
@@ -117,6 +131,14 @@ public class ScheduleDetail {
 
     public void setLink(String link) {
       this.link = link;
+    }
+
+    @Override
+    public String toString() {
+      return "ScheduleEpisode{" +
+          "name='" + name + '\'' +
+          ", link='" + link + '\'' +
+          '}';
     }
   }
 }

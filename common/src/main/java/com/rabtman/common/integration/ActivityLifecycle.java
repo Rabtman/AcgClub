@@ -21,6 +21,7 @@ public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks
 
   @Override
   public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+    MyActyManager.getInstance().setCurrentActivity(activity);
     //如果intent包含了此字段,并且为true说明不加入到list
     // 默认为false,如果不需要管理(比如不需要在退出所有activity(killAll)时，退出此activity就在intent加此字段为true)
     boolean isNotAdd = false;

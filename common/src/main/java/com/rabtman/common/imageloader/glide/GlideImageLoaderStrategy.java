@@ -29,8 +29,7 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy<GlideIm
     }
 
     GlideRequest<Drawable> glideRequest = GlideApp.with(ctx).load(config.getUrl())
-        .transition(DrawableTransitionOptions.withCrossFade())
-        .centerCrop();
+        .transition(DrawableTransitionOptions.withCrossFade());
 
     switch (config.getCacheStrategy()) {//缓存策略
       case 0:
