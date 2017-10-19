@@ -36,8 +36,8 @@ public class ScheduleRecentAdapter extends BaseQuickAdapter<ScheduleRecent, Base
             .builder()
             .url(item.getImgUrl())
             .transformation(
-                new MultiTransformation<>(new RoundedCornersTransformation(20, 0, CornerType.TOP),
-                    new CenterCrop()))
+                new MultiTransformation<>(new CenterCrop(),
+                    new RoundedCornersTransformation(20, 0, CornerType.TOP)))
             .imagerView((ImageView) helper.getView(R.id.img_schedule_recent))
             .build()
     );
