@@ -67,7 +67,7 @@ public class App extends BaseApplication {
   }
 
   private void initFeedback() {
-    FeedbackAPI.init(this, BuildConfig.FEEDBACK_APP_KEY);
+    FeedbackAPI.init(this, BuildConfig.FEEDBACK_APP_KEY, BuildConfig.FEEDBACK_APP_SECRET);
   }
 
   private void initToastyConfig() {

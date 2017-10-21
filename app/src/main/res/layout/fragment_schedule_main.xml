@@ -25,133 +25,105 @@
         app:open_mz_mode="false" />
 
 
-        <android.support.v7.widget.LinearLayoutCompat
+      <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_common_shadow"
+        android:orientation="horizontal"
+        app:divider="@drawable/shape_divider_vertical"
+        app:dividerPadding="16dp"
+        app:showDividers="middle">
+
+        <TextView
+          android:id="@+id/tv_schedule_time"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:padding="10dp"
+          android:drawablePadding="4dp"
+          android:drawableTop="@drawable/ic_schedule_time"
+          android:gravity="center"
+          android:text="@string/title_schedule_new" />
+
+        <TextView
+          android:id="@+id/tv_schedule_new"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:padding="10dp"
+          android:drawablePadding="4dp"
+          android:drawableTop="@drawable/ic_schedule_period"
+          android:gravity="center"
+          android:text="本季新番" />
+      </android.support.v7.widget.LinearLayoutCompat>
+
+
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/background_common_shadow">
+
+        <TextView
+          android:id="@+id/tv_recommand"
+          style="@style/Base.TextAppearance.AppCompat.Body1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="12dp"
+          android:layout_marginLeft="8dp"
+          android:drawableLeft="@drawable/ic_schedule_recommand"
+          android:drawablePadding="4dp"
+          android:gravity="center"
+          android:text="近期推荐"
+          android:textSize="14sp" />
+
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/rcv_schedule_recommand"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:background="@drawable/background_common_shadow"
-          android:orientation="horizontal"
-          app:divider="@drawable/shape_divider_vertical"
-          app:dividerPadding="16dp"
-          app:showDividers="middle">
+          android:layout_below="@id/tv_recommand"
+          android:padding="8dp" />
+      </RelativeLayout>
 
-          <TextView
-            android:id="@+id/tv_schedule_time"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:drawablePadding="4dp"
-            android:drawableTop="@drawable/ic_schedule_time"
-            android:gravity="center"
-            android:text="@string/title_schedule_new"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
-
-          <TextView
-            android:id="@+id/tv_schedule_new"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="10dp"
-            android:drawablePadding="4dp"
-            android:drawableTop="@drawable/ic_schedule_new"
-            android:gravity="center"
-            android:text="本季新番"
-            android:textColor="@color/colorPrimary"
-            android:textSize="18sp" />
-        </android.support.v7.widget.LinearLayoutCompat>
-
-
-      <android.support.v7.widget.CardView
+      <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        app:cardCornerRadius="1dp"
-        app:cardElevation="1dp"
-        app:cardUseCompatPadding="true">
-        <RelativeLayout
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/background_common_shadow">
+
+        <TextView
+          android:id="@+id/tv_recent"
+          style="@style/Base.TextAppearance.AppCompat.Body1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="12dp"
+          android:layout_marginLeft="8dp"
+          android:drawableLeft="@drawable/ic_schedule_recent"
+          android:drawablePadding="4dp"
+          android:gravity="center"
+          android:text="最近更新"
+          android:textSize="14sp" />
+
+        <!--<TextView
+          android:id="@+id/tv_recent_more"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_alignBottom="@id/tv_recent"
+          android:layout_alignParentRight="true"
+          android:paddingLeft="16dp"
+          android:paddingRight="8dp"
+          android:gravity="bottom"
+          android:text="查看更多"
+          android:textSize="12sp" />-->
+
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/rcv_schedule_recent"
           android:layout_width="match_parent"
-          android:layout_height="match_parent">
-          <TextView
-            android:id="@+id/tv_recommand"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="近期推荐"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
+          android:layout_height="wrap_content"
+          android:layout_below="@id/tv_recent"
+          android:padding="8dp" />
+      </RelativeLayout>
 
-          <View
-            android:id="@+id/view_left_line_recommand"
-            android:layout_width="4dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_alignBottom="@+id/tv_recommand"
-            android:layout_alignTop="@id/tv_recommand"
-            android:background="@color/colorPrimary" />
-
-          <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcv_schedule_recommand"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/view_left_line_recommand"
-            android:padding="8dp" />
-        </RelativeLayout>
-      </android.support.v7.widget.CardView>
-
-      <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        app:cardCornerRadius="1dp"
-        app:cardElevation="1dp"
-        app:cardUseCompatPadding="true">
-        <RelativeLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent">
-
-          <TextView
-            android:id="@+id/tv_recent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:text="最近更新"
-            android:textColor="@color/colorPrimary"
-            android:textSize="16sp" />
-
-          <View
-            android:id="@+id/view_left_line_recent"
-            android:layout_width="4dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:layout_alignBottom="@+id/tv_recent"
-            android:layout_alignTop="@id/tv_recent"
-            android:background="@color/colorPrimary" />
-
-          <!--<TextView
-            android:id="@+id/tv_recent_more"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignBottom="@id/tv_recent"
-            android:layout_alignParentRight="true"
-            android:paddingLeft="16dp"
-            android:paddingRight="8dp"
-            android:gravity="bottom"
-            android:text="查看更多"
-            android:textSize="12sp" />-->
-
-          <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcv_schedule_recent"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/view_left_line_recent"
-            android:padding="8dp" />
-        </RelativeLayout>
-      </android.support.v7.widget.CardView>
     </LinearLayout>
   </android.support.v4.widget.NestedScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>

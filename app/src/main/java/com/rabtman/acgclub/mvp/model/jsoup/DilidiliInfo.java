@@ -11,10 +11,10 @@ import java.util.List;
 public class DilidiliInfo {
 
   //本季新番
-  @Text("div div div.mainMenu ul li:last-of-type a span")
+  /*@Text("div div div.mainMenu ul li:last-of-type a span")
   private String scheduleNewName;
   @Attr(query = "div div div.mainMenu ul li:last-of-type a", attr = "href")
-  private String scheduleNewLink;
+  private String scheduleNewLink;*/
   @Items
   private List<ScheudleBanner> scheudleBanners; //轮播栏信息
   @Items
@@ -59,7 +59,7 @@ public class DilidiliInfo {
     this.scheduleRecents = scheduleRecents;
   }
 
-  public String getScheduleNewName() {
+  /*public String getScheduleNewName() {
     return scheduleNewName;
   }
 
@@ -73,14 +73,12 @@ public class DilidiliInfo {
 
   public void setScheduleNewLink(String scheduleNewLink) {
     this.scheduleNewLink = scheduleNewLink;
-  }
+  }*/
 
   @Override
   public String toString() {
     return "DilidiliInfo{" +
-        "scheduleNewName='" + scheduleNewName + '\'' +
-        ", scheduleNewLink='" + scheduleNewLink + '\'' +
-        ", scheudleBanners=" + scheudleBanners +
+        "scheudleBanners=" + scheudleBanners +
         ", scheduleRecommands=" + scheduleRecommands +
         ", scheduleWeek=" + scheduleWeek +
         ", scheduleRecents=" + scheduleRecents +
@@ -180,7 +178,7 @@ public class DilidiliInfo {
 
     @Attr(query = "a img", attr = "src")
     private String imgUrl;
-    @Text("a h4")
+    @Text("h4")
     private String name;
     @Text("a p")
     private String desc;

@@ -8,7 +8,7 @@
 
   <LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="155dp"
     android:layout_margin="8dp"
     android:layout_alignParentBottom="true"
     android:background="@drawable/background_common_shadow"
@@ -22,6 +22,7 @@
       android:layout_marginLeft="10dp"
       android:layout_gravity="bottom"
       android:background="@drawable/background_common_shadow"
+      android:scaleType="centerCrop"
       tools:background="@color/colorPrimary" />
 
     <RelativeLayout
@@ -34,53 +35,56 @@
       <TextView
         android:id="@+id/schedule_new_title"
         style="@style/TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="8dp"
         android:ellipsize="end"
         android:maxLines="2"
-        tools:text="《哆啦A梦》最新一集大雄对静香入浴11111111神吐槽" />
+        android:minLines="2"
+        tools:text="《哆啦A梦》最新一集\n大雄对静香" />
 
       <TextView
-        android:id="@+id/schedule_new_spot"
+        android:id="@+id/schedule_new_desc"
         style="@style/TextAppearance.AppCompat.Caption"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="8dp"
         android:layout_below="@id/schedule_new_title"
         android:ellipsize="end"
         android:maxLines="2"
-        tools:text="看点：这里是人与神的世界" />
+        android:minLines="2"
+        tools:text="看点：这里是人\n与神的世界" />
 
       <TextView
         android:id="@+id/schedule_new_type"
         style="@style/TextAppearance.AppCompat.Caption"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="8dp"
-        android:layout_below="@id/schedule_new_spot"
+        android:layout_below="@id/schedule_new_desc"
         android:ellipsize="end"
-        android:maxLines="2"
-        tools:text="看点：这里是人与神的世界" />
+        android:maxLines="1"
+        tools:text="看点：这里是\n人与神的世界" />
 
       <TextView
-        android:id="@+id/schedule_new_desc"
+        android:id="@+id/schedule_new_spot"
         style="@style/TextAppearance.AppCompat.Caption"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="2dp"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="8dp"
         android:layout_below="@id/schedule_new_type"
         android:ellipsize="end"
         android:maxLines="2"
-        tools:text="看点：这里是人与神的世界" />
+        android:minLines="2"
+        tools:text="看点：这里是人与神的\n世界" />
     </RelativeLayout>
   </LinearLayout>
 </RelativeLayout>

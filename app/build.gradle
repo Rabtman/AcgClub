@@ -32,6 +32,7 @@ android {
 
         //阿里用户反馈
         buildConfigField "String", "FEEDBACK_APP_KEY", properties.getProperty("fbAppKey")
+        buildConfigField "String", "FEEDBACK_APP_SECRET", properties.getProperty("fbAppSecret")
         //umeng app key
         buildConfigField "String", "UMENG_APP_KEY", properties.getProperty("umengAppKey")
         //bugly APP ID
@@ -98,12 +99,12 @@ dependencies {
     //jsoup
     compile project(':jsoup-annotations')
     //阿里用户反馈
-    compile(name: 'alisdk-feedback-2.5.6', ext: 'aar')
-    compile(name: 'securityguardaar3-5.1.103', ext: 'aar')
-    compile files('libs/app-monitor-sdk-2.5.1.1_for_bc_proguard.jar')
-    compile files('libs/utdid4all-1.1.5.3_proguard.jar')
+    compile 'com.aliyun.ams:alicloud-android-feedback:3.1.0@aar'
+    compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
+    compile 'com.aliyun.ams:alicloud-android-ut:5.1.0'
+    compile 'com.aliyun.ams:alicloud-android-utils:1.0.3'
     //x5内核
-    compile files('libs/tbs_sdk_thirdapp_v3.1.0.1034_43100_sharewithdownload_obfs_20170301_182143.jar')
+    compile files('libs/tbs_sdk_thirdapp_v3.5.0.1004_43500_sharewithdownload_withoutGame_obfs_20170801_113025.jar')
     //bugly
     compile rootProject.ext.dependencies["crashreport"]
     compile rootProject.ext.dependencies["nativecrashreport"]

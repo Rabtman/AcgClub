@@ -111,12 +111,11 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
       }
     });
     //本季新番
-    tvScheduleNew.setText(dilidiliInfo.getScheduleNewName());
     tvScheduleNew.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(android.view.View v) {
         Intent newIntent = new Intent(getContext(), ScheduleNewActivity.class);
-        newIntent.putExtra(IntentConstant.SCHEDULE_NEW_URL, dilidiliInfo.getScheduleNewLink());
+        //newIntent.putExtra(IntentConstant.SCHEDULE_NEW_URL, dilidiliInfo.getScheduleNewLink());
         startActivity(newIntent);
       }
     });

@@ -128,18 +128,14 @@
 -dontwarn com.tencent.mm.**
 -keep class com.tencent.mm.**{*;}
 #阿里用户反馈
--keep class com.alibaba.sdk.android.feedback.impl.FeedbackServiceImpl {*;}
--keep class com.alibaba.sdk.android.feedback.impl.FeedbackAPI {*;}
--keep class com.alibaba.sdk.android.feedback.util.IWxCallback {*;}
--keep class com.alibaba.sdk.android.feedback.util.IUnreadCountCallback{*;}
--keep class com.alibaba.sdk.android.feedback.FeedbackService{*;}
--keep public class com.alibaba.mtl.log.model.LogField {public *;}
--keep class com.taobao.securityjni.**{*;}
--keep class com.taobao.wireless.security.**{*;}
--keep class com.ut.secbody.**{*;}
--keep class com.taobao.dp.**{*;}
--keep class com.alibaba.wireless.security.**{*;}
--keep class com.ta.utdid2.device.**{*;}
+-keep class com.taobao.** {*;}
+-keep class com.alibaba.** {*;}
+-dontwarn com.taobao.**
+-dontwarn com.alibaba.**
+-keep class com.ut.** {*;}
+-dontwarn com.ut.**
+-keep class com.ta.** {*;}
+-dontwarn com.ta.**
 
 -keep class anet.**{*;}
 -keep class org.android.spdy.**{*;}
