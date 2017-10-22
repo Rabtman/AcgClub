@@ -10,5 +10,5 @@
     android:id="@+id/rcv_schedule_new"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="4dp" />
+    android:layout_marginTop="8dp" />
 </LinearLayout>

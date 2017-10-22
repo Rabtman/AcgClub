@@ -21,7 +21,7 @@ public class ScheduleNewAdapter extends BaseQuickAdapter<ScheduleNewItem, BaseVi
   private ImageLoader mImageLoader;
 
   public ScheduleNewAdapter(ImageLoader imageLoader) {
-    super(R.layout.item_schedule_new_test, null);
+    super(R.layout.item_schedule_new, null);
     mImageLoader = imageLoader;
   }
 

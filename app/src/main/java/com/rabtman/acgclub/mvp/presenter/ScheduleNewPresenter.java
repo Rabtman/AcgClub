@@ -1,7 +1,5 @@
 package com.rabtman.acgclub.mvp.presenter;
 
-import android.text.TextUtils;
-import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.mvp.contract.ScheduleNewContract;
 import com.rabtman.acgclub.mvp.model.jsoup.ScheduleNew;
 import com.rabtman.common.base.CommonSubscriber;
@@ -9,6 +7,7 @@ import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.ActivityScope;
 import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
+import java.util.Calendar;
 import javax.inject.Inject;
 
 /**
@@ -23,11 +22,8 @@ public class ScheduleNewPresenter extends
     super(model, rootView);
   }
 
-  public void getScheduleNew(String url) {
-    if (TextUtils.isEmpty(url)) {
-      mView.showError(R.string.msg_error_url_null);
-      return;
-    }
+  public void getScheduleNew() {
+    String url = getScheduleNewUrl();
 
     addSubscribe(
         mModel.getScheduleNew(url)
@@ -51,6 +47,24 @@ public class ScheduleNewPresenter extends
               }
             })
     );
+  }
+
+  //获取本季新番列表地址
+  private String getScheduleNewUrl() {
+    StringBuilder urlBuilder = new StringBuilder("http://m.dilidili.wang/anime/2017");
+    Calendar cal = Calendar.getInstance();
+    cal.setTimeInMillis(System.currentTimeMillis());
+    int month = cal.get(Calendar.MONTH) + 1;
+    if (1 <= month && month < 4) {//一月新番
+      urlBuilder.append("01");
+    } else if (4 <= month && month < 7) {//四月新番
+      urlBuilder.append("04");
+    } else if (7 <= month && month < 10) {//七月新番
+      urlBuilder.append("07");
+    } else {//十月新番
+      urlBuilder.append("10");
+    }
+    return urlBuilder.toString();
   }
 
 }

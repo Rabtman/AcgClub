@@ -3,9 +3,11 @@ package com.rabtman.acgclub.mvp.ui.activity;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
@@ -55,6 +57,8 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   TextView tvScheduleDetailLabel;
   @BindView(R.id.tv_schedule_detail_description)
   TextView tvScheduleDetailDescription;
+  @BindView(R.id.layout_episode)
+  CardView layoutSceduleEpisode;
   @BindView(R.id.rcv_schedule_detail)
   RecyclerView rcvScheduleDetail;
 
@@ -69,7 +73,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
 
   @Override
   protected int getLayoutId() {
-    return R.layout.activity_schedule_detail_test;
+    return R.layout.activity_schedule_detail;
   }
 
   @Override
@@ -87,7 +91,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
         GlideImageConfig
             .builder()
             .url(acgNewsDetail.getImgUrl())
-            .transformation(new BlurTransformation())
+            .transformation(new BlurTransformation(25, 2))
             .imagerView(imgScheduleTitleBg)
             .build()
     );
@@ -100,26 +104,34 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
     );
     tvScheduleDetailLabel.setText(acgNewsDetail.getScheduleLabel());
     tvScheduleDetailTime.setText(acgNewsDetail.getScheduleTime());
-    tvScheduleDetailProc.setText(acgNewsDetail.getScheduleProc());
+    if (TextUtils.isEmpty(acgNewsDetail.getScheduleProc())) {
+      tvScheduleDetailProc.setText(R.string.label_schedule_no_proc);
+    } else {
+      tvScheduleDetailProc.setText(acgNewsDetail.getScheduleProc());
+    }
     tvScheduleDetailAera.setText(acgNewsDetail.getScheduleAera());
     tvScheduleDetailDescription.setText(acgNewsDetail.getDescription()
         .substring(acgNewsDetail.getDescription().indexOf("：") + 1));
 
-    List<ScheduleEpisode> data = acgNewsDetail.getScheduleEpisodes()
-        .subList(0, acgNewsDetail.getScheduleEpisodes().size() - 1);
-    ScheduleDetailEpisodeItemAdapter adapter = new ScheduleDetailEpisodeItemAdapter(data);
-    adapter.setOnItemClickListener(new OnItemClickListener() {
-      @Override
-      public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
-        final ScheduleEpisode scheduleEpisode = (ScheduleEpisode) adapter.getData().get(position);
-        mPresenter.checkPermission2ScheduleVideo(new RxPermissions(ScheduleDetailActivity.this),
-            scheduleEpisode.getLink());
-      }
-    });
-    GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
-    layoutManager.setOrientation(GridLayoutManager.VERTICAL);
-    rcvScheduleDetail.setLayoutManager(layoutManager);
-    rcvScheduleDetail.setAdapter(adapter);
+    if (acgNewsDetail.getScheduleEpisodes() != null
+        && acgNewsDetail.getScheduleEpisodes().size() > 1) {
+      layoutSceduleEpisode.setVisibility(android.view.View.VISIBLE);
+      List<ScheduleEpisode> data = acgNewsDetail.getScheduleEpisodes()
+          .subList(0, acgNewsDetail.getScheduleEpisodes().size() - 1);
+      ScheduleDetailEpisodeItemAdapter adapter = new ScheduleDetailEpisodeItemAdapter(data);
+      adapter.setOnItemClickListener(new OnItemClickListener() {
+        @Override
+        public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
+          final ScheduleEpisode scheduleEpisode = (ScheduleEpisode) adapter.getData().get(position);
+          mPresenter.checkPermission2ScheduleVideo(new RxPermissions(ScheduleDetailActivity.this),
+              scheduleEpisode.getLink());
+        }
+      });
+      GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
+      layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+      rcvScheduleDetail.setLayoutManager(layoutManager);
+      rcvScheduleDetail.setAdapter(adapter);
+    }
   }
 
   @Override

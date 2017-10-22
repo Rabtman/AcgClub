@@ -67,7 +67,7 @@ public class ScheduleNewActivity extends BaseActivity<ScheduleNewPresenter> impl
     rcvScheduleNew.setLayoutManager(layoutManager);
     rcvScheduleNew.setAdapter(mAdapter);
 
-    mPresenter.getScheduleNew("http://m.dilidili.wang/anime/201707/");
+    mPresenter.getScheduleNew();
   }
 
   @Override
