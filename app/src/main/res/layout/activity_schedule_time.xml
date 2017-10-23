@@ -1,24 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:orientation="vertical">
+  android:layout_height="match_parent">
 
-  <include layout="@layout/view_toolbar" />
-
-  <android.support.design.widget.TabLayout
-    android:id="@+id/tab_schedule_time"
+  <android.support.design.widget.AppBarLayout
     android:layout_width="match_parent"
-    android:layout_height="@dimen/tab_height"
-    android:background="@android:color/white"
-    app:tabIndicatorColor="@color/colorPrimary"
-    app:tabMode="fixed"
-    app:tabSelectedTextColor="@color/colorPrimary"
-    app:tabTextColor="@color/colorPrimary" />
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/toolbar_height"
+      android:background="?attr/colorPrimary"
+      android:theme="@style/AppTheme.AppBarOverlay"
+      app:layout_scrollFlags="scroll|enterAlways"
+      app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    <android.support.design.widget.TabLayout
+      android:id="@+id/tab_schedule_time"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/toolbar_height"
+      android:background="@color/colorPrimary"
+      app:tabIndicatorColor="@android:color/white"
+      app:tabMode="fixed"
+      app:tabSelectedTextColor="@android:color/white"
+      app:tabTextAppearance="@style/ScheduleTimeTabTextStyle"
+      app:tabTextColor="@android:color/white" />
+
+  </android.support.design.widget.AppBarLayout>
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/rcv_schedule_time"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
-</LinearLayout>
+    android:layout_height="match_parent"
+    android:paddingTop="8dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+</android.support.design.widget.CoordinatorLayout>

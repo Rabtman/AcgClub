@@ -1,6 +1,9 @@
 package com.rabtman.acgclub.mvp.ui.activity;
 
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.Toolbar.OnMenuItemClickListener;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import butterknife.BindView;
 import com.rabtman.acgclub.R;
@@ -48,8 +51,25 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
   @Override
   protected void initData() {
     setToolBar(mToolBar, "");
+    mToolBar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+      @Override
+      public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+          case R.id.acginfo_share:
+            showMsg("点击了share");
+            break;
+        }
+        return false;
+      }
+    });
 
     mPresenter.getNewsDetail(getIntent().getStringExtra(IntentConstant.ACG_NEWS_DETAIL_URL));
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.activity_acginfo_share_menu, menu);
+    return true;
   }
 
   @Override

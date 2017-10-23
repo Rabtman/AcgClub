@@ -10,9 +10,12 @@
     android:layout_height="wrap_content"
     android:theme="@style/AppTheme.AppBarOverlay">
 
-    <include
-      layout="@layout/view_toolbar"
-      app:layout_scrollFlags="scroll|enterAlways" />
+    <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      style="@style/CommonToolBarStyle"
+      app:layout_scrollFlags="scroll|enterAlways"
+      tools:layout_height="46dp"
+      tools:layout_width="@dimen/toolbar_height" />
 
   </android.support.design.widget.AppBarLayout>
 
@@ -51,10 +54,11 @@
 
       <TextView
         android:id="@+id/tv_acg_detail_content"
-        style="@style/TextAppearance.AppCompat.Body1"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lineSpacingMultiplier="1.2"
+        android:lineSpacingExtra="8sp"
+        android:textSize="16sp"
         tools:text="漫画《最终幻想：失落的陌生人》是由创作过《C3魔方少女》的水濑叶月原作，龟屋树担任作画的作品。作品自然是会在史克威尔艾尼克斯的《少年GANGAN》上连载。目前漫画的详细故事还没有公开，不过看到这个封面，有日本网友吐槽这个社员一定是过劳死。而且死后还要被束缚在最终幻想（公司）里，实在太鬼畜了……
         漫画将于7月12日发售的《少年GANGAN 8月号》上开始连载。有兴趣的小伙伴们不妨期待一下。" />
     </LinearLayout>

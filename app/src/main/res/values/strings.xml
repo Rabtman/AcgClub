@@ -16,6 +16,7 @@
 
   <string name="menu_download">下载</string>
   <string name="menu_search">搜索</string>
+  <string name="menu_share">分享</string>
 
   <!-- 动漫资讯-->
   <string name="acg_news_dmxw">xw/dmxw/list_527_%1$d.html</string>

@@ -3,22 +3,26 @@
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
-  android:padding="8dp">
-
-  <View
-    android:id="@+id/view_left_line"
-    android:layout_width="4dp"
-    android:layout_height="18dp"
-    android:layout_centerVertical="true"
-    android:background="@color/colorPrimary" />
+  android:paddingTop="4dp"
+  android:paddingBottom="4dp"
+  android:paddingLeft="16dp"
+  android:paddingRight="16dp">
 
   <TextView
     android:id="@+id/schedule_time_title"
+    style="@style/Base.TextAppearance.AppCompat.Body1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="6dp"
-    android:layout_toRightOf="@id/view_left_line"
+    android:drawablePadding="8dp"
+    android:gravity="center_vertical"
     android:textColor="@color/colorPrimary"
-    android:textSize="16sp"
-    tools:text="周三" />
+    tools:drawableLeft="@drawable/ic_schedule_time_monday"
+    tools:text="星期一" />
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:layout_marginTop="8dp"
+    android:layout_below="@id/schedule_time_title"
+    android:background="@drawable/shape_divider_horizontal" />
 </RelativeLayout>

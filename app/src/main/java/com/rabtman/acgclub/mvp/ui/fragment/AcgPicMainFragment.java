@@ -30,8 +30,8 @@ public class AcgPicMainFragment extends SimpleFragment {
 
   @Override
   protected void initData() {
-    CartoonPicFragment cartoonPicFragment = new CartoonPicFragment();
-    fragments.add(cartoonPicFragment);
+    APicFragment aPicFragment = new APicFragment();
+    fragments.add(aPicFragment);
 
     mAdapter = new AcgPicMainPageAdapter(getFragmentManager(), fragments);
     mViewPager.setAdapter(mAdapter);

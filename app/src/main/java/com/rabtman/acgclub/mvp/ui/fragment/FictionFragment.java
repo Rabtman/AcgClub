@@ -53,7 +53,7 @@ public class FictionFragment extends BaseFragment<FictionPresenter> implements
       @Override
       public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
         /*PicInfo picInfo = (PicInfo) adapter.getData().get(position);
-        Intent intent = new Intent(getContext(), MoePicDetailActivity.class);
+        Intent intent = new Intent(getContext(), );
         intent.putExtra(IntentConstant.MOE_PIC_URL, picInfo.getThumbUrl());
         startActivity(intent);*/
       }

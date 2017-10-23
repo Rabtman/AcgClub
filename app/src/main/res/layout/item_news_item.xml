@@ -15,19 +15,6 @@
     tools:src="@mipmap/ic_launcher" />
 
   <TextView
-    android:id="@+id/news_title"
-    style="@style/TextAppearance.AppCompat.Body1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
-    android:layout_marginLeft="8dp"
-    android:layout_toRightOf="@id/news_img"
-    android:ellipsize="end"
-    android:maxLines="2"
-    tools:text="《哆啦A梦》最新一集大雄对静香入浴11111111神吐槽" />
-
-  <TextView
     android:id="@+id/news_datetime"
     style="@style/TextAppearance.AppCompat.Caption"
     android:layout_width="wrap_content"
@@ -36,5 +23,21 @@
     android:layout_alignParentBottom="true"
     android:layout_alignParentRight="true"
     tools:text="2017-05-15" />
+
+  <TextView
+    android:id="@+id/news_title"
+    style="@style/TextAppearance.AppCompat.Body1"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:layout_marginTop="4dp"
+    android:layout_marginBottom="4dp"
+    android:layout_marginLeft="8dp"
+    android:layout_above="@id/news_datetime"
+    android:layout_toRightOf="@id/news_img"
+    android:ellipsize="end"
+    android:gravity="center_vertical"
+    android:maxLines="3"
+    tools:minLines="3"
+    tools:text="《哆啦A梦》最新一集大雄神吐槽阿四大四大四大阿" />
 
 </RelativeLayout>

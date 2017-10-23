@@ -1,16 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@android:color/black"
-  android:orientation="vertical">
+  android:background="@android:color/black">
 
-  <include layout="@layout/view_toolbar" />
-
-  <com.rabtman.acgclub.base.view.PinchImageView
-    android:id="@+id/img_moe"
+  <android.support.v4.view.ViewPager
+    android:id="@+id/vp_apic"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scaleType="fitCenter" />
+    android:layout_height="match_parent" />
 
-</LinearLayout>
+  <android.support.v7.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="@drawable/shape_gradient_down_bg"
+    android:theme="@style/AppTheme.AppBarOverlay"
+    app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+  <RelativeLayout
+    android:id="@+id/bottom_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:padding="16dp"
+    android:background="@drawable/shape_gradient_up_bg">
+    <TextView
+      android:id="@+id/tv_pos"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:textColor="@android:color/white"
+      android:textSize="14sp"
+      tools:text="1" />
+    <TextView
+      android:id="@+id/tv_divider"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="2dp"
+      android:layout_marginRight="2dp"
+      android:layout_centerVertical="true"
+      android:layout_toRightOf="@id/tv_pos"
+      android:text="/"
+      android:textColor="@android:color/white"
+      android:textSize="14sp"
+      android:visibility="invisible" />
+    <TextView
+      android:id="@+id/tv_count"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerVertical="true"
+      android:layout_toRightOf="@id/tv_divider"
+      android:textColor="@android:color/white"
+      android:textSize="14sp"
+      tools:text="10" />
+    <ImageView
+      android:id="@+id/img_download"
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_alignParentRight="true"
+      android:src="@mipmap/ic_download_white"
+      android:visibility="invisible" />
+  </RelativeLayout>
+
+</FrameLayout>

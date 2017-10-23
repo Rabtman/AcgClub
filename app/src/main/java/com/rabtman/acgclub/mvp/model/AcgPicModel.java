@@ -3,7 +3,7 @@ package com.rabtman.acgclub.mvp.model;
 import com.fcannizzaro.jsoup.annotations.JP;
 import com.rabtman.acgclub.api.AcgService;
 import com.rabtman.acgclub.mvp.contract.AcgPicContract;
-import com.rabtman.acgclub.mvp.model.jsoup.MoePic;
+import com.rabtman.acgclub.mvp.model.jsoup.APic;
 import com.rabtman.common.base.mvp.BaseModel;
 import com.rabtman.common.di.scope.FragmentScope;
 import com.rabtman.common.integration.IRepositoryManager;
@@ -13,6 +13,7 @@ import io.reactivex.functions.Function;
 import javax.inject.Inject;
 import okhttp3.ResponseBody;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Element;
 
 /**
  * @author Rabtman
@@ -26,13 +27,14 @@ public class AcgPicModel extends BaseModel implements AcgPicContract.Model {
   }
 
   @Override
-  public Flowable<MoePic> getMoePictures(final String url) {
+  public Flowable<APic> getAcgPic(final String url) {
     return mRepositoryManager.obtainRetrofitService(AcgService.class)
         .getAcgPic(url)
-        .map(new Function<ResponseBody, MoePic>() {
+        .map(new Function<ResponseBody, APic>() {
           @Override
-          public MoePic apply(@NonNull ResponseBody body) throws Exception {
-            return JP.from(Jsoup.parse(body.string()), MoePic.class);
+          public APic apply(@NonNull ResponseBody body) throws Exception {
+            Element element = Jsoup.parse(body.string());
+            return JP.from(element, APic.class);
           }
         });
   }

@@ -39,10 +39,7 @@
       android:name=".mvp.ui.activity.ScheduleNewActivity"
       android:screenOrientation="portrait" />
     <activity
-      android:name=".mvp.ui.activity.FictionSearchActivity"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".mvp.ui.activity.MoePicDetailActivity"
+      android:name=".mvp.ui.activity.APicDetailActivity"
       android:screenOrientation="portrait" />
     <activity
       android:configChanges="orientation|screenSize|keyboardHidden"
