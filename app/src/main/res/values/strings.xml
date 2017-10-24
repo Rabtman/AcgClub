@@ -36,5 +36,6 @@
   <string name="msg_error_download_picture">图片保存失败(\u256f\ufe4f\u2570)</string>
   <string name="msg_error_load_video">视频加载失败\u0028\u2299\ufe3f\u2299\u0029</string>
   <string name="msg_error_check_permission">权限不足！请检查应用权限配置</string>
+  <string name="msg_error_version_info">获取版本信息异常！</string>
 
 </resources>

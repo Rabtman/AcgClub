@@ -50,11 +50,13 @@ android {
 
     buildTypes {
         debug {
+            buildConfigField "boolean", "APP_DEBUG", "true"      //测试模式
             minifyEnabled false
             signingConfig signingConfigs.rabtman
         }
 
         release {
+            buildConfigField "boolean", "APP_DEBUG", "false"
             minifyEnabled true
             signingConfig signingConfigs.rabtman
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

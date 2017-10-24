@@ -21,6 +21,6 @@ public interface AcgService {
   @GET
   Flowable<ResponseBody> getFictionSearchResult(@Url String url);
 
-  @GET("https://rabtman.com/api/version")
-  Flowable<VersionInfo> getVersionInfo();
+  @GET()
+  Flowable<VersionInfo> getVersionInfo(@Url String url);
 }

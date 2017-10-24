@@ -1,7 +1,5 @@
 package com.rabtman.acgclub.mvp.ui.activity;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +18,7 @@ import com.rabtman.acgclub.mvp.ui.fragment.ScheduleMainFragment;
 import com.rabtman.acgclub.mvp.ui.fragment.SettingFragment;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
+import com.rabtman.common.utils.IntentUtils;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -189,12 +188,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     StyledDialog.buildMdAlert("版本更新", versionInfo.getDesc(), new MyDialogListener() {
       @Override
       public void onFirst() {
-        //调起浏览器更新app
-        Intent intent = new Intent();
-        intent.setAction("android.intent.action.VIEW");
-        Uri url = Uri.parse(versionInfo.getAppLink());
-        intent.setData(url);
-        startActivity(intent);
+        //跳转更新APP版本
+        if (versionInfo.getAppLink().startsWith("http")) {
+          IntentUtils.go2Browser(getBaseContext(), versionInfo.getAppLink());
+        } else if (versionInfo.getAppLink().startsWith("market")) {
+          IntentUtils.go2Market(getBaseContext(), versionInfo.getAppLink());
+        }
       }
 
       @Override
