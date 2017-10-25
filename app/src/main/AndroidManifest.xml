@@ -9,6 +9,10 @@
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.READ_PHONE_STATE" />
   <uses-permission android:name="android.permission.READ_LOGS" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
   <application
     android:allowBackup="false"
@@ -57,6 +61,49 @@
       android:name="com.rabtman.acgclub.base.AppConfig"
       android:value="ConfigModule" />
 
+    <!--Umeng Share -->
+    <activity
+      android:configChanges="keyboardHidden|orientation"
+      android:name=".WBShareActivity"
+      android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:configChanges="keyboardHidden|orientation|screenSize"
+      android:exported="true"
+      android:name=".wxapi.WXEntryActivity"
+      android:screenOrientation="portrait"
+      android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+    <activity
+      android:launchMode="singleTask"
+      android:name="com.umeng.qq.tencent.AuthActivity"
+      android:noHistory="true">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+
+        <data android:scheme="tencent100424468" />
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:configChanges="orientation|keyboardHidden|screenSize"
+      android:name="com.umeng.qq.tencent.AssistActivity"
+      android:screenOrientation="portrait"
+      android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+    <activity
+      android:excludeFromRecents="true"
+      android:name="com.umeng.socialize.editorpage.ShareActivity"
+      android:theme="@style/Theme.UMDefault" />
+    <!--Umeng Share end-->
   </application>
 
 </manifest>

@@ -112,4 +112,14 @@ dependencies {
     compile rootProject.ext.dependencies["nativecrashreport"]
     //ApkChannelPackage
     compile rootProject.ext.dependencies["apk-channel-package"]
+    //Umeng Share
+    compile files('libs/SocialSDK_QQ_Simplify.jar')
+    compile files('libs/SocialSDK_Sina_Simplify.jar')
+    compile files('libs/SocialSDK_tencentWB.jar')
+    compile files('libs/SocialSDK_WeChat_Simplify.jar')
+    compile files('libs/umeng_social_api.jar')
+    compile files('libs/umeng_social_net.jar')
+    compile files('libs/umeng_social_shareboard.jar')
+    compile files('libs/umeng_social_shareview.jar')
+    compile files('libs/umeng_social_tool.jar')
 }
