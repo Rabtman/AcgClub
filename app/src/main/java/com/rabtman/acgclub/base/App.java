@@ -26,6 +26,14 @@ import com.umeng.socialize.common.QueuedWork;
 
 public class App extends BaseApplication {
 
+  static {
+    //Umeng Share各个平台的配置
+    //PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+    PlatformConfig.setSinaWeibo(BuildConfig.SINA_WEIBO_KEY, BuildConfig.SINA_WEIBO_SECRET,
+        "http://sns.whalecloud.com");
+    PlatformConfig.setQQZone(BuildConfig.QQ_ZONE_ID, BuildConfig.QQ_ZONE_KEY);
+  }
+
   private RefWatcher mRefWatcher;//leakCanary观察器
 
   /**
@@ -76,12 +84,6 @@ public class App extends BaseApplication {
     QueuedWork.isUseThreadPool = false;
     UMShareAPI.get(this);
 
-    //各个平台的配置
-    PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
-    //豆瓣RENREN平台目前只能在服务器端配置
-    PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad",
-        "http://sns.whalecloud.com");
-    PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
   }
 
   //阿里用户反馈

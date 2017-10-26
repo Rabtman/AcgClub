@@ -64,13 +64,28 @@
     <!--Umeng Share -->
     <activity
       android:configChanges="keyboardHidden|orientation"
-      android:name=".WBShareActivity"
-      android:screenOrientation="portrait">
+      android:exported="false"
+      android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+      android:screenOrientation="portrait"
+      android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
+    <activity
+      android:configChanges="keyboardHidden|orientation"
+      android:exported="false"
+      android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+      android:windowSoftInputMode="adjustResize">
+
+    </activity>
+    <activity
+      android:launchMode="singleTask"
+      android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
+      android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
       <intent-filter>
         <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
+
     </activity>
+
 
     <activity
       android:configChanges="keyboardHidden|orientation|screenSize"

@@ -13,6 +13,8 @@ public interface AcgNewsDetailContract {
   interface View extends IView {
 
     void showNewsDetail(AcgNewsDetail acgNewsDetail);
+
+    void showShareView();
   }
 
   interface Model extends IModel {
