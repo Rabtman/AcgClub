@@ -13,6 +13,7 @@ import com.rabtman.common.integration.IRepositoryManager;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import dagger.Component;
 import java.io.File;
+import java.util.HashMap;
 import javax.inject.Singleton;
 import okhttp3.OkHttpClient;
 
@@ -43,6 +44,8 @@ public interface AppComponent {
   AppManager appManager();
 
   RxPermissions rxPermissions();
+
+  HashMap<String, Integer> statusBarAttr();
 
   void inject(AppDelegate delegate);
 }

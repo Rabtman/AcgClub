@@ -13,6 +13,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
+import com.jaeger.library.StatusBarUtil;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.di.component.DaggerScheduleDetailComponent;
@@ -74,6 +75,11 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   @Override
   protected int getLayoutId() {
     return R.layout.activity_schedule_detail;
+  }
+
+  @Override
+  protected void setStatusBar() {
+    StatusBarUtil.setTranslucentForImageView(this, 0, mToolBar);
   }
 
   @Override

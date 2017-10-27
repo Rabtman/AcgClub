@@ -6,10 +6,12 @@ import android.app.Application;
 import android.text.TextUtils;
 import com.rabtman.common.http.GlobeHttpHandler;
 import com.rabtman.common.utils.FileUtils;
+import com.rabtman.common.utils.constant.StatusBarConstants;
 import dagger.Module;
 import dagger.Provides;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.inject.Singleton;
 import okhttp3.HttpUrl;
@@ -23,6 +25,7 @@ public class GlobeConfigModule {
   private GlobeHttpHandler mHandler;
   private List<Interceptor> mInterceptors;
   private File mCacheFile;
+  private HashMap<String, Integer> mStatusBarAttr;
 
   /**
    * @author: jess
@@ -34,6 +37,7 @@ public class GlobeConfigModule {
     this.mHandler = builder.handler;
     this.mInterceptors = builder.interceptors;
     this.mCacheFile = builder.cacheFile;
+    this.mStatusBarAttr = builder.statusBarAttr;
   }
 
   public static Builder builder() {
@@ -71,6 +75,14 @@ public class GlobeConfigModule {
     return mCacheFile == null ? FileUtils.getCacheFile(application) : mCacheFile;
   }
 
+  /**
+   * 提供系统状态栏属性值
+   */
+  @Singleton
+  @Provides
+  HashMap<String, Integer> provideStatusBarAttr() {
+    return mStatusBarAttr;
+  }
 
   public static final class Builder {
 
@@ -78,6 +90,7 @@ public class GlobeConfigModule {
     private GlobeHttpHandler handler;
     private List<Interceptor> interceptors = new ArrayList<>();
     private File cacheFile;
+    private HashMap<String, Integer> statusBarAttr = new HashMap<>();
 
     private Builder() {
     }
@@ -106,6 +119,15 @@ public class GlobeConfigModule {
       return this;
     }
 
+    public Builder statusBarColor(int color) {
+      this.statusBarAttr.put(StatusBarConstants.COLOR, color);
+      return this;
+    }
+
+    public Builder statusBarAlpha(int alpha) {
+      this.statusBarAttr.put(StatusBarConstants.ALPHA, alpha);
+      return this;
+    }
 
     public GlobeConfigModule build() {
       checkNotNull(apiUrl, "baseurl is required");

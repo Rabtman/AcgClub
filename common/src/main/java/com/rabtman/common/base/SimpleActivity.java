@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.hss01248.dialog.StyledDialog;
+import com.jaeger.library.StatusBarUtil;
 import com.rabtman.common.base.mvp.IView;
+import com.rabtman.common.utils.constant.StatusBarConstants;
 import com.umeng.analytics.MobclickAgent;
 import es.dmoral.toasty.Toasty;
 import me.yokeyword.fragmentation.SupportActivity;
@@ -35,6 +38,7 @@ public abstract class SimpleActivity extends SupportActivity implements
     mUnBinder = ButterKnife.bind(this);
     mApplication = (BaseApplication) getApplication();
     mContext = this;
+    setStatusBar();
     onViewCreated();
     initData();
   }
@@ -105,6 +109,14 @@ public abstract class SimpleActivity extends SupportActivity implements
   public void showError(String message) {
     hideLoading();
     Toasty.error(mContext, message, Toast.LENGTH_SHORT).show();
+  }
+
+  protected void setStatusBar() {
+    StatusBarUtil.setColor(mContext,
+        ContextCompat.getColor(mContext,
+            mApplication.getAppComponent().statusBarAttr().get(StatusBarConstants.COLOR)),
+        mApplication.getAppComponent().statusBarAttr().get(StatusBarConstants.ALPHA)
+    );
   }
 
   protected void onViewCreated() {
