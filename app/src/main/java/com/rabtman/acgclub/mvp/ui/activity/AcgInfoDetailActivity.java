@@ -12,6 +12,7 @@ import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.di.component.DaggerAcgNewsDetailComponent;
 import com.rabtman.acgclub.di.module.AcgNewsDetailModule;
 import com.rabtman.acgclub.mvp.contract.AcgNewsDetailContract.View;
+import com.rabtman.acgclub.mvp.model.jsoup.AcgNews;
 import com.rabtman.acgclub.mvp.model.jsoup.AcgNewsDetail;
 import com.rabtman.acgclub.mvp.presenter.AcgNewsDetailPresenter;
 import com.rabtman.common.base.BaseActivity;
@@ -23,6 +24,8 @@ import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
 import com.zzhoujay.richtext.RichText;
 
 /**
@@ -41,6 +44,7 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
   TextView tvAcgDetailLabels;
   @BindView(R.id.tv_acg_detail_datetime)
   TextView tvAcgDetailDatetime;
+  private AcgNews mAcgNewsItem;
 
   @Override
   protected void setupActivityComponent(AppComponent appComponent) {
@@ -59,6 +63,12 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
   @Override
   protected void initData() {
     setToolBar(mToolBar, "");
+    mAcgNewsItem = getIntent().getParcelableExtra(IntentConstant.ACG_NEWS_DETAIL_ITEM);
+    if (mAcgNewsItem == null) {
+      showError(R.string.msg_error_unknown);
+      return;
+    }
+
     mToolBar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
       @Override
       public boolean onMenuItemClick(MenuItem item) {
@@ -71,13 +81,19 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
       }
     });
 
-    mPresenter.getNewsDetail(getIntent().getStringExtra(IntentConstant.ACG_NEWS_DETAIL_URL));
+    mPresenter.getNewsDetail(mAcgNewsItem.getContentLink());
   }
 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+  }
+
+  @Override
+  protected void onDestroy() {
+    super.onDestroy();
+    UMShareAPI.get(this).release();
   }
 
   @Override
@@ -88,9 +104,9 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
 
   @Override
   public void showNewsDetail(AcgNewsDetail acgNewsDetail) {
-    tvAcgDetailTitle.setText(getIntent().getStringExtra(IntentConstant.ACG_NEWS_DETAIL_TITLE));
+    tvAcgDetailTitle.setText(mAcgNewsItem.getTitle());
     tvAcgDetailDatetime
-        .setText(getIntent().getStringExtra(IntentConstant.ACG_NEWS_DETAIL_DATETIME));
+        .setText(getIntent().getStringExtra(mAcgNewsItem.getDateTime()));
     //文章来源信息
     StringBuilder stringBuilder = new StringBuilder();
     for (int i = 0; i <= 3; i++) {
@@ -106,8 +122,16 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
 
   @Override
   public void showShareView() {
-    new ShareAction(AcgInfoDetailActivity.this).withText("hello")
-        .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.TENCENT)
+    UMWeb umWeb = new UMWeb(mAcgNewsItem.getContentLink());
+    umWeb.setThumb(new UMImage(this, mAcgNewsItem.getImgUrl()));
+    umWeb.setTitle(mAcgNewsItem.getTitle());
+    umWeb.setDescription(mAcgNewsItem.getDescription());
+
+    new ShareAction(AcgInfoDetailActivity.this)
+        .withMedia(umWeb)
+        .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN,
+            SHARE_MEDIA.WEIXIN_CIRCLE,
+            SHARE_MEDIA.WEIXIN_FAVORITE)
         .setCallback(new UMShareListener() {
           @Override
           public void onStart(SHARE_MEDIA share_media) {

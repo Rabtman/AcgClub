@@ -75,9 +75,7 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
       public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
         AcgNews acgNews = (AcgNews) adapter.getData().get(position);
         Intent intent = new Intent(getContext(), AcgInfoDetailActivity.class);
-        intent.putExtra(IntentConstant.ACG_NEWS_DETAIL_TITLE, acgNews.getTitle());
-        intent.putExtra(IntentConstant.ACG_NEWS_DETAIL_DATETIME, acgNews.getDateTime());
-        intent.putExtra(IntentConstant.ACG_NEWS_DETAIL_URL, acgNews.getContentLink());
+        intent.putExtra(IntentConstant.ACG_NEWS_DETAIL_ITEM, acgNews);
         startActivity(intent);
       }
     });

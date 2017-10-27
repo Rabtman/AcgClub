@@ -29,7 +29,7 @@
   <string name="msg_start_download_picture">保存图片...</string>
   <string name="msg_no_version_info">当前已经是最新版本</string>
 
-  <string name="msg_success_umeng_share">分享成功啦！</string>
+  <string name="msg_success_umeng_share">分享出去啦！</string>
   <string name="msg_success_download_picture">已保存到相册中</string>
 
   <string name="msg_error_url_null">大脑一片空白(@\ufe4f@)~</string>

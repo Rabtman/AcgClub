@@ -32,7 +32,6 @@ public class AcgNewsDetailPresenter extends
     rxPermissions.request(
         Manifest.permission.WRITE_EXTERNAL_STORAGE,
         Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.CALL_PHONE,
         Manifest.permission.WRITE_EXTERNAL_STORAGE)
         .subscribe(new Consumer<Boolean>() {
           @Override
@@ -51,6 +50,7 @@ public class AcgNewsDetailPresenter extends
       mView.showError(R.string.msg_error_url_null);
       return;
     }
+
     addSubscribe(
         mModel.getAcgNewsDetail(url)
             .compose(RxUtil.<AcgNewsDetail>rxSchedulerHelper())

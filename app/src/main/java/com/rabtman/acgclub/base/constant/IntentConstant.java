@@ -13,9 +13,7 @@ public class IntentConstant {
   public static final String SCHEDULE_EPISODE_URL = "schedule_episode_url";
   public static final String SCHEDULE_EPISODE_HTML = "schedule_episode_html";
   public static final String ACG_NEWS_TITLE = "acg_news_title";
-  public static final String ACG_NEWS_DETAIL_TITLE = "acg_news_detail_title";
-  public static final String ACG_NEWS_DETAIL_DATETIME = "acg_news_detail_datetime";
-  public static final String ACG_NEWS_DETAIL_URL = "acg_news_detail_url";
+  public static final String ACG_NEWS_DETAIL_ITEM = "acg_news_item";
   public static final String APIC_DETAIL_TITLE = "apic_detail_title";
   public static final String APIC_DETAIL_URL = "apic_detail_url";
 }

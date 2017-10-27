@@ -28,7 +28,7 @@ public class App extends BaseApplication {
 
   static {
     //Umeng Share各个平台的配置
-    //PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+    PlatformConfig.setWeixin(BuildConfig.WEIXIN_ID, BuildConfig.WEIXIN_KEY);
     PlatformConfig.setSinaWeibo(BuildConfig.SINA_WEIBO_KEY, BuildConfig.SINA_WEIBO_SECRET,
         "http://sns.whalecloud.com");
     PlatformConfig.setQQZone(BuildConfig.QQ_ZONE_ID, BuildConfig.QQ_ZONE_KEY);
@@ -82,7 +82,7 @@ public class App extends BaseApplication {
   private void initUShare() {
     Config.DEBUG = BuildConfig.APP_DEBUG;
     QueuedWork.isUseThreadPool = false;
-    UMShareAPI.get(this);
+    UMShareAPI.init(this, BuildConfig.UMENG_APP_KEY);
 
   }
 
