@@ -4,6 +4,7 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:windowIsTranslucent">true</item>
   </style>
 
   <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -23,9 +24,8 @@
     <item name="textAllCaps">true</item>
   </style>
 
-  <style name="CommonToolBarStyle" parent="AppTheme.PopupOverlay">
-    <item name="android:layout_width">match_parent</item>
-    <item name="android:layout_height">@dimen/toolbar_height</item>
+  <style name="CommonToolBarStyle" parent="AppTheme.AppBarOverlay">
     <item name="android:background">?attr/colorPrimary</item>
+    <item name="popupTheme">@style/AppTheme.PopupOverlay</item>
   </style>
 </resources>

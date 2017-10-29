@@ -16,14 +16,9 @@ import com.rabtman.common.base.mvp.IView;
 import com.rabtman.common.utils.constant.StatusBarConstants;
 import com.umeng.analytics.MobclickAgent;
 import es.dmoral.toasty.Toasty;
-import me.yokeyword.fragmentation.SupportActivity;
+import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
 
-/**
- * Created by codeest on 16/8/11.
- * 无MVP的activity基类
- */
-
-public abstract class SimpleActivity extends SupportActivity implements
+public abstract class SimpleActivity extends SwipeBackActivity implements
     IView {
 
   protected BaseApplication mApplication;

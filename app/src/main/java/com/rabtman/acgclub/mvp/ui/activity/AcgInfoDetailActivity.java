@@ -26,6 +26,7 @@ import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.shareboard.ShareBoardConfig;
 import com.zzhoujay.richtext.RichText;
 
 /**
@@ -127,11 +128,21 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
     umWeb.setTitle(mAcgNewsItem.getTitle());
     umWeb.setDescription(mAcgNewsItem.getDescription());
 
+    //分享面板ui
+    ShareBoardConfig config = new ShareBoardConfig();
+    config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_CENTER);
+    config.setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR); // 圆角背景
+
     new ShareAction(AcgInfoDetailActivity.this)
         .withMedia(umWeb)
-        .setDisplayList(SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.WEIXIN,
+        .setDisplayList(
+            SHARE_MEDIA.SINA,
+            SHARE_MEDIA.QQ,
+            SHARE_MEDIA.QZONE,
+            SHARE_MEDIA.WEIXIN,
             SHARE_MEDIA.WEIXIN_CIRCLE,
-            SHARE_MEDIA.WEIXIN_FAVORITE)
+            SHARE_MEDIA.WEIXIN_FAVORITE,
+            SHARE_MEDIA.MORE)
         .setCallback(new UMShareListener() {
           @Override
           public void onStart(SHARE_MEDIA share_media) {
@@ -141,12 +152,16 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
           @Override
           public void onResult(SHARE_MEDIA share_media) {
             LogUtil.d("share media:" + share_media);
-            showMsg(R.string.msg_success_umeng_share);
+            if (share_media != SHARE_MEDIA.MORE) {
+              showMsg(R.string.msg_success_umeng_share);
+            }
           }
 
           @Override
           public void onError(SHARE_MEDIA share_media, Throwable throwable) {
-            showError(R.string.msg_error_umeng_share);
+            if (share_media != SHARE_MEDIA.MORE) {
+              showError(R.string.msg_error_umeng_share);
+            }
             if (throwable != null) {
               LogUtil.e(ExceptionUtils.errToStr(throwable));
             }
@@ -157,6 +172,6 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
 
           }
         })
-        .open();
+        .open(config);
   }
 }

@@ -37,7 +37,6 @@
         <RelativeLayout
           android:layout_width="match_parent"
           android:layout_height="match_parent"
-          android:layout_marginTop="60dp"
           android:padding="8dp"
           app:layout_collapseMode="parallax"
           app:layout_collapseParallaxMultiplier="0.9">
@@ -46,8 +45,9 @@
             android:id="@+id/img_card"
             android:layout_width="140dp"
             android:layout_height="175dp"
+            android:layout_alignParentBottom="true"
             app:cardCornerRadius="8dp"
-            app:cardElevation="2dp"
+            app:cardElevation="4dp"
             app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="true">
 

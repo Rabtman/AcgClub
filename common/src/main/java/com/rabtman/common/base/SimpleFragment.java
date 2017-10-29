@@ -16,11 +16,6 @@ import com.rabtman.common.base.mvp.IView;
 import es.dmoral.toasty.Toasty;
 import me.yokeyword.fragmentation.SupportFragment;
 
-/**
- * Created by codeest on 16/8/11.
- * 无MVP的Fragment基类
- */
-
 public abstract class SimpleFragment extends SupportFragment implements
     IView {
 

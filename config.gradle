@@ -20,31 +20,32 @@ ext {
     ]
     dependencies = [
             //base
-            "appcompat-v7"              : "com.android.support:appcompat-v7:${dependVersion.support}",
-            "design"                    : "com.android.support:design:${dependVersion.support}",
-            "cardview-v7"               : "com.android.support:cardview-v7:${dependVersion.support}",
-            "recyclerview-v7"           : "com.android.support:recyclerview-v7:${dependVersion.support}",
+            "appcompat-v7"           : "com.android.support:appcompat-v7:${dependVersion.support}",
+            "design"                 : "com.android.support:design:${dependVersion.support}",
+            "cardview-v7"            : "com.android.support:cardview-v7:${dependVersion.support}",
+            "recyclerview-v7"        : "com.android.support:recyclerview-v7:${dependVersion.support}",
             //ui
-            "dialog"                    : "com.github.hss01248:DialogUtil:1.1.6",
-            "toast"             : "com.github.GrenderG:Toasty:1.2.3",
-            "base-rcv-helper"   : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.18",
-            "html-textview"     : "org.sufficientlysecure:html-textview:3.3",
-            "bottom-bar"        : "com.roughike:bottom-bar:2.3.1",
-            "mz-banner"         : "com.github.pinguo-zhouwei:MZBannerView:v1.1.0",
-            "materialsearchview": "com.miguelcatalan:materialsearchview:1.4.0",
-            "statusbarutil"     : "com.jaeger.statusbarutil:library:1.4.0",
+            "dialog"                 : "com.github.hss01248:DialogUtil:1.1.8",
+            "toast"                  : "com.github.GrenderG:Toasty:1.2.3",
+            "base-rcv-helper"        : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.18",
+            "html-textview"          : "org.sufficientlysecure:html-textview:3.3",
+            "bottom-bar"             : "com.roughike:bottom-bar:2.3.1",
+            "mz-banner"              : "com.github.pinguo-zhouwei:MZBannerView:v1.1.0",
+            "materialsearchview"     : "com.miguelcatalan:materialsearchview:1.4.0",
+            "statusbarutil"          : "com.jaeger.statusbarutil:library:1.4.0",
             //other
-            "multidex"          : "com.android.support:multidex:1.0.1",
-            "logger"            : "com.orhanobut:logger:1.15",
-            "fragmentation"     : "me.yokeyword:fragmentation:0.10.4",
+            "multidex"               : "com.android.support:multidex:1.0.2",
+            "logger"                 : "com.orhanobut:logger:1.15",
+            "fragmentation"          : "me.yokeyword:fragmentation:1.1.7",
+            "fragmentation-swipeback": "me.yokeyword:fragmentation-swipeback:1.1.7",
             //bugly
-            "crashreport"       : "com.tencent.bugly:crashreport_upgrade:latest.release",
-            "nativecrashreport" : "com.tencent.bugly:nativecrashreport:latest.release",
+            "crashreport"            : "com.tencent.bugly:crashreport_upgrade:latest.release",
+            "nativecrashreport"      : "com.tencent.bugly:nativecrashreport:latest.release",
             //json
-            "gson"              : "com.google.code.gson:gson:2.8.0",
+            "gson"                   : "com.google.code.gson:gson:2.8.0",
             //jsoup
-            "jsoup"                     : "org.jsoup:jsoup:1.10.2",
-            "jsoup-annotations"         : "com.github.fcannizzaro:jsoup-annotations:1.0.3",
+            "jsoup"                  : "org.jsoup:jsoup:1.10.2",
+            "jsoup-annotations"      : "com.github.fcannizzaro:jsoup-annotations:1.0.3",
             //network
             "retrofit"                  : "com.squareup.retrofit2:retrofit:${dependVersion.retrofit}",
             "retrofit-converter-gson"   : "com.squareup.retrofit2:converter-gson:${dependVersion.retrofit}",

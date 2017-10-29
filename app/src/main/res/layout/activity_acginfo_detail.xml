@@ -7,15 +7,14 @@
 
   <android.support.design.widget.AppBarLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.AppBarOverlay">
+    android:layout_height="wrap_content">
 
     <android.support.v7.widget.Toolbar
       android:id="@+id/toolbar"
-      style="@style/CommonToolBarStyle"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/toolbar_height"
       app:layout_scrollFlags="scroll|enterAlways"
-      tools:layout_height="46dp"
-      tools:layout_width="@dimen/toolbar_height" />
+      app:theme="@style/CommonToolBarStyle" />
 
   </android.support.design.widget.AppBarLayout>
 

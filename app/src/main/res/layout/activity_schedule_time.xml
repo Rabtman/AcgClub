@@ -12,10 +12,8 @@
       android:id="@+id/toolbar"
       android:layout_width="match_parent"
       android:layout_height="@dimen/toolbar_height"
-      android:background="?attr/colorPrimary"
-      android:theme="@style/AppTheme.AppBarOverlay"
       app:layout_scrollFlags="scroll|enterAlways"
-      app:popupTheme="@style/AppTheme.PopupOverlay" />
+      app:theme="@style/CommonToolBarStyle" />
 
     <android.support.design.widget.TabLayout
       android:id="@+id/tab_schedule_time"

@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
+    setSwipeBackEnable(false);
   }
 
   @Override
