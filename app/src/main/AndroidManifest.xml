@@ -29,7 +29,8 @@
     tools:replace="android:allowBackup">
     <activity
       android:name=".mvp.ui.activity.MainActivity"
-      android:screenOrientation="portrait">
+      android:screenOrientation="portrait"
+      android:theme="@style/SplashTheme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 

@@ -8,6 +8,11 @@
     <item name="android:windowAnimationStyle">@style/AppWindowAnimTranslucent</item>
   </style>
 
+  <style name="SplashTheme">
+    <item name="android:windowNoTitle">true</item>
+    <item name="android:windowBackground">@drawable/splash_bg</item>
+  </style>
+
   <style name="AppWindowAnim">
     <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>
     <item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>

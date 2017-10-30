@@ -54,6 +54,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
+    setTheme(R.style.AppTheme);
     super.onCreate(savedInstanceState);
     setSwipeBackEnable(false);
   }
