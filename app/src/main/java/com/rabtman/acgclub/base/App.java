@@ -133,7 +133,7 @@ public class App extends BaseApplication {
    * 安装leakCanary检测内存泄露
    */
   protected void installLeakCanary() {
-    this.mRefWatcher = BuildConfig.DEBUG ? LeakCanary.install(this) : RefWatcher.DISABLED;
+    this.mRefWatcher = BuildConfig.APP_DEBUG ? LeakCanary.install(this) : RefWatcher.DISABLED;
   }
 
   //获取进程名称

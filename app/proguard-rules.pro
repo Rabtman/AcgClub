@@ -93,8 +93,10 @@
 -keepclassmembers class * extends android.webkit.WebViewClient {
     public void *(android.webkit.WebView, jav.lang.String);
 }
-#----------------------------------------------------------------------------
-#---------------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------
+#---------------------------------Common--------------------------------
+-keep public class * implements com.rabtman.common.integration.ConfigModule
+-keep class com.rabtman.common.widget.** { *; }
 #---------------------------------实体类---------------------------------
 -keep class com.rabtman.acgclub.mvp.model.jsoup.* { *; }
 -keep class com.rabtman.acgclub.mvp.model.entity.* { *; }
@@ -252,6 +254,7 @@
 -keep class com.umeng.socialize.handler.*
 -keep class com.umeng.weixin.handler.**
 -keep class com.umeng.weixin.handler.*
+-keep public class * extends com.umeng.weixin.callback.WXCallbackActivity
 -keep class com.umeng.qq.handler.**
 -keep class com.umeng.qq.handler.*
 -keep class UMMoreHandler{*;}

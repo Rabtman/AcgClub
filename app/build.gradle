@@ -60,6 +60,7 @@ android {
             buildConfigField "boolean", "APP_DEBUG", "true"      //测试模式
             minifyEnabled false
             signingConfig signingConfigs.rabtman
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
         release {
