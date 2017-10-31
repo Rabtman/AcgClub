@@ -48,15 +48,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
   //FictionFragment fictionFragment;
   SettingFragment settingFragment;
 
-  private int hideFragment = R.id.nav_main;
-  private int showFragment = R.id.nav_main;
+  private int hideFragment = R.id.nav_news;
+  private int showFragment = R.id.nav_news;
 
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     setTheme(R.style.AppTheme);
     super.onCreate(savedInstanceState);
-    setSwipeBackEnable(false);
   }
 
   @Override
@@ -75,7 +74,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
   @Override
   protected void initData() {
-    setToolBar(mToolBar, getString(R.string.nav_main));
+    setToolBar(mToolBar, getString(R.string.nav_news));
 
     getAppVersionInfo(false);
 
@@ -106,9 +105,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
       public void onTabSelected(@IdRes int tabId) {
         String title = null;
         switch (tabId) {
-          case R.id.nav_main:
-            showFragment = R.id.nav_main;
-            title = getString(R.string.nav_main);
+          case R.id.nav_news:
+            showFragment = R.id.nav_news;
+            title = getString(R.string.nav_news);
             break;
           case R.id.nav_schedule:
             showFragment = R.id.nav_schedule;
@@ -133,14 +132,14 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         hideFragment = showFragment;
       }
     });
-    /*navigationView.getMenu().findItem(R.id.nav_main).setChecked(true);
+    /*navigationView.getMenu().findItem(R.id.nav_news).setChecked(true);
     navigationView.setNavigationItemSelectedListener(
         new OnNavigationItemSelectedListener() {
           @Override
           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-              case R.id.nav_main:
-                showFragment = R.id.nav_main;
+              case R.id.nav_news:
+                showFragment = R.id.nav_news;
                 searchView.setVisible(false);
                 break;
             }
@@ -156,7 +155,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
   private SupportFragment getTargetFragment(int tag) {
     switch (tag) {
-      case R.id.nav_main:
+      case R.id.nav_news:
         return acgNewsMainFragment;
       case R.id.nav_schedule:
         return scheduleMainFragment;

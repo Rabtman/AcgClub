@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs>
   <tab
-    icon="@drawable/nav_main"
-    id="@+id/nav_main"
-    title="@string/nav_main" />
+    icon="@drawable/nav_news"
+    id="@+id/nav_news"
+    title="@string/nav_news" />
   <tab
     icon="@drawable/nav_schedule"
     id="@+id/nav_schedule"

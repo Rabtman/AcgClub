@@ -16,9 +16,9 @@ import com.rabtman.common.base.mvp.IView;
 import com.rabtman.common.utils.constant.StatusBarConstants;
 import com.umeng.analytics.MobclickAgent;
 import es.dmoral.toasty.Toasty;
-import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
+import me.yokeyword.fragmentation.SupportActivity;
 
-public abstract class SimpleActivity extends SwipeBackActivity implements
+public abstract class SimpleActivity extends SupportActivity implements
     IView {
 
   protected BaseApplication mApplication;

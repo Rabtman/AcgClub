@@ -3,13 +3,14 @@ package com.rabtman.acgclub.mvp.ui.activity;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Build;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 import butterknife.BindView;
 import com.rabtman.acgclub.R;
-import com.rabtman.acgclub.base.constant.HtmlConstant;
 import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.base.view.X5VideoWebView;
 import com.rabtman.acgclub.di.component.DaggerScheduleVideoComponent;
@@ -32,6 +33,12 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
   ProgressBar progressVideo;
 
   @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    requestWindowFeature(Window.FEATURE_NO_TITLE);
+    super.onCreate(savedInstanceState);
+  }
+
+  @Override
   protected void setupActivityComponent(AppComponent appComponent) {
     DaggerScheduleVideoComponent.builder()
         .appComponent(appComponent)
@@ -52,7 +59,6 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
       }
     } catch (Exception e) {
     }
-    requestWindowFeature(Window.FEATURE_NO_TITLE);
     getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
         WindowManager.LayoutParams.FLAG_FULLSCREEN);
     return R.layout.activity_browser;
@@ -114,8 +120,7 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
   }
 
   @Override
-  public void showScheduleVideo(String videoUrl, String videoHtml) {
-    webView.loadDataWithBaseURL(videoUrl, videoHtml, HtmlConstant.MIME_TYPE, HtmlConstant.ENCODING,
-        null);
+  public void showScheduleVideo(String videoUrl) {
+    webView.loadUrl(videoUrl);
   }
 }

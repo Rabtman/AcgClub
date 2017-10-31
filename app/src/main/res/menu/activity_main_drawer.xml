@@ -3,10 +3,10 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <item
-    android:id="@+id/nav_main"
+    android:id="@+id/nav_news"
     android:enabled="true"
-    android:icon="@drawable/nav_main"
-    android:title="@string/nav_main"
+    android:icon="@drawable/nav_news"
+    android:title="@string/nav_news"
     app:showAsAction="ifRoom" />
 
   <item

@@ -25,30 +25,7 @@ public class AppLike extends DefaultApplicationLike {
   @Override
   public void onCreate() {
     super.onCreate();
-/*
-    String processName = getCurProcessName(getApplication());
-    boolean defaultProcess = processName.equals(getApplication().getPackageName());
 
-    //获取渠道包值
-    String channel = ChannelReaderUtil.getChannel(getApplication());
-    if (TextUtils.isEmpty(channel)) {
-      channel = "offical";
-    }
-
-    //bugly
-    BuglyStrategy strategy = new BuglyStrategy();
-    strategy.setAppChannel(channel);
-    strategy.setAppPackageName(BuildConfig.APPLICATION_ID);
-    strategy.setAppVersion(BuildConfig.VERSION_NAME);
-    strategy.setUploadProcess(defaultProcess);
-    //Bugly.init(getApplication(), BuildConfig.BUGLY_APP_ID, BuildConfig.DEBUG, strategy);
-
-    if (defaultProcess) {
-      //umeng初始化
-      MobclickAgent
-          .startWithConfigure(
-              new UMAnalyticsConfig(getApplication(), BuildConfig.UMENG_APP_KEY, channel));
-    }*/
   }
 
   @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)

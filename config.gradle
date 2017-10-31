@@ -37,7 +37,6 @@ ext {
             "multidex"               : "com.android.support:multidex:1.0.2",
             "logger"                 : "com.orhanobut:logger:1.15",
             "fragmentation"          : "me.yokeyword:fragmentation:1.1.7",
-            "fragmentation-swipeback": "me.yokeyword:fragmentation-swipeback:1.1.7",
             //bugly
             "crashreport"            : "com.tencent.bugly:crashreport_upgrade:latest.release",
             "nativecrashreport"      : "com.tencent.bugly:nativecrashreport:latest.release",
