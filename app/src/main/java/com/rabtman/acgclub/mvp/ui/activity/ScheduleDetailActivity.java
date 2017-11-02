@@ -14,6 +14,7 @@ import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.jaeger.library.StatusBarUtil;
+import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.di.component.DaggerScheduleDetailComponent;
@@ -57,7 +58,9 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   @BindView(R.id.tv_schedule_detail_label)
   TextView tvScheduleDetailLabel;
   @BindView(R.id.tv_schedule_detail_description)
-  TextView tvScheduleDetailDescription;
+  ExpandableTextView tvScheduleDetailDescription;
+  @BindView(R.id.layout_description)
+  CardView layoutSceduleDescription;
   @BindView(R.id.layout_episode)
   CardView layoutSceduleEpisode;
   @BindView(R.id.rcv_schedule_detail)
@@ -93,6 +96,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   @Override
   public void showScheduleDetail(ScheduleDetail acgNewsDetail) {
     mToolBarTitle.setText(acgNewsDetail.getScheduleTitle());
+    //模糊背景
     mApplication.getAppComponent().imageLoader().loadImage(mContext,
         GlideImageConfig
             .builder()
@@ -101,6 +105,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
             .imagerView(imgScheduleTitleBg)
             .build()
     );
+    //番剧展示图
     mApplication.getAppComponent().imageLoader().loadImage(mContext,
         GlideImageConfig
             .builder()
@@ -116,9 +121,17 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
       tvScheduleDetailProc.setText(acgNewsDetail.getScheduleProc());
     }
     tvScheduleDetailAera.setText(acgNewsDetail.getScheduleAera());
-    tvScheduleDetailDescription.setText(acgNewsDetail.getDescription()
-        .substring(acgNewsDetail.getDescription().indexOf("：") + 1));
-
+    //番剧介绍
+    String desc = acgNewsDetail.getDescription();
+    if (!TextUtils.isEmpty(desc)) {
+      desc = desc.substring(desc.indexOf("：") + 1);
+      desc.replaceAll("[展开全部]", "");
+      desc.replaceAll("[显示部分]", "");
+      tvScheduleDetailDescription.setText(desc);
+    } else {
+      layoutSceduleDescription.setVisibility(android.view.View.GONE);
+    }
+    //选集
     if (acgNewsDetail.getScheduleEpisodes() != null
         && acgNewsDetail.getScheduleEpisodes().size() > 1) {
       layoutSceduleEpisode.setVisibility(android.view.View.VISIBLE);

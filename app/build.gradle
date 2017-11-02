@@ -18,6 +18,7 @@ android {
         applicationId "com.rabtman.acgclub"
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
+        resConfigs rootProject.ext.android.resConfigs
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
@@ -66,6 +67,10 @@ android {
         release {
             buildConfigField "boolean", "APP_DEBUG", "false"
             minifyEnabled true
+            //Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
             signingConfig signingConfigs.rabtman
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -97,6 +102,7 @@ dependencies {
     compile project(':common')
     //ui
     compile 'com.zzhoujay.richtext:richtext:2.5.2'
+    compile 'com.ms-square:expandableTextView:0.1.4'
     testCompile rootProject.ext.dependencies["junit"]
     //di
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]

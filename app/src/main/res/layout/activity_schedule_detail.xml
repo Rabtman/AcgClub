@@ -39,7 +39,7 @@
           android:layout_height="match_parent"
           android:padding="8dp"
           app:layout_collapseMode="parallax"
-          app:layout_collapseParallaxMultiplier="0.9">
+          app:layout_collapseParallaxMultiplier="0.1">
 
           <android.support.v7.widget.CardView
             android:id="@+id/img_card"
@@ -139,6 +139,7 @@
       android:orientation="vertical">
 
       <android.support.v7.widget.CardView
+        android:id="@+id/layout_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="1dp"
@@ -169,15 +170,34 @@
             android:layout_alignTop="@id/tv_description"
             android:background="@color/colorPrimary" />
 
-          <TextView
+          <com.ms.square.android.expandabletextview.ExpandableTextView xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
             android:id="@+id/tv_schedule_detail_description"
-            style="@style/TextAppearance.AppCompat.Caption"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_left_line_description"
-            android:padding="8dp"
-            android:lineSpacingMultiplier="1.4"
-            tools:text="Heybot!动画全集是万代南梦宫集团与corocoro comic合作献上一个庞大的project。TV动画将于2016年秋开始播出。" />
+            expandableTextView:animDuration="200"
+            expandableTextView:maxCollapsedLines="2">
+            <TextView
+              android:id="@id/expandable_text"
+              style="@style/TextAppearance.AppCompat.Caption"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:padding="8dp"
+              android:lineSpacingMultiplier="1.4"
+              tools:text="Heybot!动画全集是万代南梦宫集团与corocoro comic合作献上一个庞大的project。TV动画将于2016年秋开始播出。" />
+            <ImageButton
+              android:id="@id/expand_collapse"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="4dp"
+              android:layout_gravity="right|bottom"
+              android:paddingTop="4dp"
+              android:paddingBottom="4dp"
+              android:paddingLeft="16dp"
+              android:paddingRight="16dp"
+              android:background="@android:color/transparent" />
+          </com.ms.square.android.expandabletextview.ExpandableTextView>
+
         </RelativeLayout>
       </android.support.v7.widget.CardView>
 

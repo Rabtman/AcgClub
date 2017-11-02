@@ -2,6 +2,7 @@ package com.rabtman.common.base.delegate;
 
 import android.app.Application;
 import com.hss01248.dialog.StyledDialog;
+import com.rabtman.common.BuildConfig;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.di.component.DaggerAppComponent;
 import com.rabtman.common.di.module.AppModule;
@@ -11,6 +12,7 @@ import com.rabtman.common.di.module.ImageModule;
 import com.rabtman.common.integration.ActivityLifecycle;
 import com.rabtman.common.integration.ConfigModule;
 import com.rabtman.common.integration.ManifestParser;
+import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +72,7 @@ public class AppDelegate {
     //初始化全局dialog
     StyledDialog.init(mApplication);
 
-
+    LogUtil.init(BuildConfig.DEBUG);
   }
 
   public void onTerminate() {

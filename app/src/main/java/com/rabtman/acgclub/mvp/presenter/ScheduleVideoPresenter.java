@@ -41,7 +41,12 @@ public class ScheduleVideoPresenter extends
               @Override
               public void onNext(ScheduleVideo scheduleVideo) {
                 LogUtil.d("getScheduleVideo" + scheduleVideo.toString());
-                mView.showScheduleVideo(scheduleVideo.getVideoUrl());
+                if (TextUtils.isEmpty(scheduleVideo.getVideoUrl())) {
+                  mView.showScheduleVideo(videoUrl,
+                      scheduleVideo.getVideoHtml());
+                } else {
+                  mView.showScheduleVideo(null, scheduleVideo.getVideoUrl());
+                }
               }
             })
     );

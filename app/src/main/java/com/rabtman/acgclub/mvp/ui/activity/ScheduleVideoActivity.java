@@ -5,12 +5,14 @@ import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 import butterknife.BindView;
 import com.rabtman.acgclub.R;
+import com.rabtman.acgclub.base.constant.HtmlConstant;
 import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.base.view.X5VideoWebView;
 import com.rabtman.acgclub.di.component.DaggerScheduleVideoComponent;
@@ -120,7 +122,13 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
   }
 
   @Override
-  public void showScheduleVideo(String videoUrl) {
-    webView.loadUrl(videoUrl);
+  public void showScheduleVideo(String videoLink, String videoUrl) {
+    if (TextUtils.isEmpty(videoLink)) {
+      webView.loadUrl(videoUrl);
+    } else {
+      webView
+          .loadDataWithBaseURL(videoLink, videoUrl, HtmlConstant.MIME_TYPE, HtmlConstant.ENCODING,
+              null);
+    }
   }
 }
