@@ -119,6 +119,8 @@
           style="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:ellipsize="end"
+          android:maxLines="1"
           tools:text="海贼王" />
       </android.support.v7.widget.Toolbar>
 

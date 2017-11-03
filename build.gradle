@@ -3,11 +3,10 @@ apply from: "config.gradle"
 buildscript {
     repositories {
         jcenter()
-        //google
-        maven { url "https://maven.google.com" }
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0'
+        classpath 'com.android.tools.build:gradle:2.3.3'
         //freeline
         classpath 'com.antfortune.freeline:gradle:0.8.7'
         //ApkChannelPackage
@@ -21,9 +20,8 @@ allprojects {
     repositories {
         mavenCentral()
         jcenter()
+        google()
         maven { url "https://jitpack.io" }
-        //google
-        maven { url "https://maven.google.com" }
         //aliyun
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
     }

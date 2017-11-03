@@ -50,8 +50,8 @@ public class X5VideoWebView extends WebView {
        * 防止加载网页时调起系统浏览器
        */
       public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        view.loadUrl(url);
-        return true;
+        //view.loadUrl(url);
+        return false;
       }
     });
     this.setWebChromeClient(new WebChromeClient() {
@@ -127,7 +127,7 @@ public class X5VideoWebView extends WebView {
     webSetting.setDisplayZoomControls(false);
     webSetting.setBuiltInZoomControls(true);
     //webSetting.setUseWideViewPort(true);
-    webSetting.setSupportMultipleWindows(true);
+    webSetting.setSupportMultipleWindows(false);
     // webSetting.setLoadWithOverviewMode(true);
     webSetting.setAppCacheEnabled(true);
     // webSetting.setDatabaseEnabled(true);

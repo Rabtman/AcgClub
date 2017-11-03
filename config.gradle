@@ -35,7 +35,7 @@ ext {
             "materialsearchview"        : "com.miguelcatalan:materialsearchview:1.4.0",
             "statusbarutil"             : "com.jaeger.statusbarutil:library:1.4.0",
             //other
-            "multidex"                  : "com.android.support:multidex:1.0.2",
+            "multidex"                  : "com.android.support:multidex:1.0.1",
             "logger"                    : "com.orhanobut:logger:1.15",
             "fragmentation"             : "me.yokeyword:fragmentation:1.1.7",
             //bugly

@@ -12,7 +12,6 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import butterknife.BindView;
 import com.rabtman.acgclub.R;
-import com.rabtman.acgclub.base.constant.HtmlConstant;
 import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.base.view.X5VideoWebView;
 import com.rabtman.acgclub.di.component.DaggerScheduleVideoComponent;
@@ -86,6 +85,15 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
   }
 
   @Override
+  public void onBackPressedSupport() {
+    if (webView.canGoBack()) {
+      webView.goBack();
+    } else {
+      super.onBackPressedSupport();
+    }
+  }
+
+  @Override
   protected void onDestroy() {
     webView.destroy();
     super.onDestroy();
@@ -126,9 +134,7 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
     if (TextUtils.isEmpty(videoLink)) {
       webView.loadUrl(videoUrl);
     } else {
-      webView
-          .loadDataWithBaseURL(videoLink, videoUrl, HtmlConstant.MIME_TYPE, HtmlConstant.ENCODING,
-              null);
+      webView.loadUrl(videoLink);
     }
   }
 }

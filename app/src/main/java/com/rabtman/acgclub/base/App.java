@@ -66,6 +66,8 @@ public class App extends BaseApplication {
     Bugly.init(this, BuildConfig.BUGLY_APP_ID, BuildConfig.DEBUG, strategy);
 
     if (defaultProcess) {
+      //log
+      LogUtil.init(BuildConfig.APP_DEBUG);
       initToastyConfig();
       //umeng初始化
       MobclickAgent
