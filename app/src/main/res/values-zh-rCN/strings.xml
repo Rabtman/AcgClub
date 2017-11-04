@@ -1,0 +1,48 @@
+<resources>
+  <string name="app_name">宅社</string>
+  <string name="nav_main">首页</string>
+  <string name="nav_news">资讯</string>
+  <string name="nav_schedule">番剧</string>
+  <string name="nav_picture">看图</string>
+  <string name="nav_fiction">小说</string>
+  <string name="nav_setting">设置</string>
+  <string name="nav_group_two">选项</string>
+
+  <string name="setting_opinion">意见反馈</string>
+  <string name="setting_update">检查更新</string>
+  <string name="setting_about">关于</string>
+
+  <string name="title_schedule_new">放送时间表</string>
+
+  <string name="label_schedule_no_proc">暂未更新</string>
+
+  <string name="menu_download">下载</string>
+  <string name="menu_search">搜索</string>
+  <string name="menu_share">分享</string>
+
+  <string name="content_about">目前APP纯属个人喜好开发学习，暂不做商业用途。\n\n资源均来源于网络（包括你可能会在视频中看到的广告），如有侵权或违规内容请告知我及时处理。\n\n在使用过程中，如遇什么问题或者有什么好的建议，欢迎各位同萌们提出。\n\n联系方式：acgclub@rabtman.com
+  </string>
+
+  <!-- 动漫资讯-->
+  <string name="acg_news_dmxw">xw/dmxw/list_527_%1$d.html</string>
+  <string name="acg_news_yjdt">xw/yjdt/list_528_%1$d.html</string>
+  <string name="acg_news_qtrd">xw/qtrd/list_529_%1$d.html</string>
+
+  <string name="acg_news_update_time">更新于 %1$s</string>
+
+  <!-- 信息-->
+  <string name="msg_start_download_picture">保存图片...</string>
+  <string name="msg_no_version_info">当前已经是最新版本</string>
+
+  <string name="msg_success_umeng_share">分享出去啦！</string>
+  <string name="msg_success_download_picture">已保存到相册中</string>
+
+  <string name="msg_error_url_null">大脑一片空白(@\ufe4f@)~</string>
+  <string name="msg_error_data_null">数据加载失败(\u256f\ufe4f\u2570)</string>
+  <string name="msg_error_download_picture">图片保存失败(\u256f\ufe4f\u2570)</string>
+  <string name="msg_error_load_video">视频加载失败\u0028\u2299\ufe3f\u2299\u0029</string>
+  <string name="msg_error_check_permission">权限不足！请检查应用权限配置</string>
+  <string name="msg_error_version_info">获取版本信息异常！</string>
+  <string name="msg_error_umeng_share">分享失败了？！</string>
+
+</resources>

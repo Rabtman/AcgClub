@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.antfortune.freeline'
 //ApkChannelPackage
 apply plugin: 'channel'
+//bugly tinker
+apply from: 'tinker-support.gradle'
 
 Properties properties = new Properties()
 File localPropertiesFile = project.rootProject.file("local.properties");

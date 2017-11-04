@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.JavascriptInterface;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 import com.rabtman.acgclub.R;
+import com.rabtman.acgclub.utils.WebViewJavaScriptFunction;
+import com.rabtman.common.utils.LogUtil;
 import com.tencent.smtt.export.external.interfaces.ConsoleMessage;
 import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback;
 import com.tencent.smtt.export.external.interfaces.JsResult;
@@ -50,8 +53,8 @@ public class X5VideoWebView extends WebView {
        * 防止加载网页时调起系统浏览器
        */
       public boolean shouldOverrideUrlLoading(WebView view, String url) {
-        //view.loadUrl(url);
-        return false;
+        view.loadUrl(url);
+        return true;
       }
     });
     this.setWebChromeClient(new WebChromeClient() {
@@ -140,34 +143,33 @@ public class X5VideoWebView extends WebView {
     webSetting.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
     this.getView().setOverScrollMode(View.OVER_SCROLL_ALWAYS);
-    /*this.addJavascriptInterface(new WebViewJavaScriptFunction() {
+    this.addJavascriptInterface(new WebViewJavaScriptFunction() {
 
       @Override
       public void onJsFunctionCalled(String tag) {
-        // TODO Auto-generated method stub
-        Log.d("x5", tag);
+        LogUtil.d("onJsFunctionCalled:" + tag);
       }
 
       @JavascriptInterface
       public void onX5ButtonClicked() {
-        Acg.this.enableX5FullscreenFunc();
+        enableX5FullscreenFunc();
       }
 
       @JavascriptInterface
       public void onCustomButtonClicked() {
-        ScheduleVideoActivity.this.disableX5FullscreenFunc();
+        disableX5FullscreenFunc();
       }
 
       @JavascriptInterface
       public void onLiteWndButtonClicked() {
-        ScheduleVideoActivity.this.enableLiteWndFunc();
+        enableLiteWndFunc();
       }
 
       @JavascriptInterface
       public void onPageVideoClicked() {
-        ScheduleVideoActivity.this.enablePageVideoFunc();
+        enablePageVideoFunc();
       }
-    }, "Android");*/
+    }, "Android");
   }
 
   // 向webview发出信息

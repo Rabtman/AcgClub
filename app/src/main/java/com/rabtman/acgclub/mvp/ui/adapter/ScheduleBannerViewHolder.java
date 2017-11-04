@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.rabtman.acgclub.R;
-import com.rabtman.acgclub.base.App;
 import com.rabtman.acgclub.mvp.model.jsoup.DilidiliInfo.ScheudleBanner;
+import com.rabtman.common.base.App;
 import com.rabtman.common.imageloader.glide.GlideImageConfig;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
 

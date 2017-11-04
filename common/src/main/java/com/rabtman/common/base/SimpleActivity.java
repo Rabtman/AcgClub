@@ -21,7 +21,7 @@ import me.yokeyword.fragmentation.SupportActivity;
 public abstract class SimpleActivity extends SupportActivity implements
     IView {
 
-  protected BaseApplication mApplication;
+  protected App mApplication;
   protected Activity mContext;
   private Dialog mLoadingDialog;
   private Unbinder mUnBinder;
@@ -31,7 +31,7 @@ public abstract class SimpleActivity extends SupportActivity implements
     super.onCreate(savedInstanceState);
     setContentView(getLayoutId());
     mUnBinder = ButterKnife.bind(this);
-    mApplication = (BaseApplication) getApplication();
+    mApplication = (App) getApplication();
     mContext = this;
     setStatusBar();
     onViewCreated();

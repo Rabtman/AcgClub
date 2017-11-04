@@ -65,6 +65,11 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
     return R.layout.activity_browser;
   }
 
+  //去掉状态栏着色
+  @Override
+  protected void setStatusBar() {
+  }
+
   @Override
   protected void initData() {
     if (!QbSdk.isTbsCoreInited()) {
