@@ -11,12 +11,16 @@ import android.text.TextUtils;
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.leon.channel.helper.ChannelReaderUtil;
 import com.rabtman.acgclub.BuildConfig;
+import com.rabtman.common.base.App;
+import com.rabtman.common.base.delegate.AppDelegate;
+import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.utils.LogUtil;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.BuglyStrategy;
 import com.tencent.bugly.beta.Beta;
+import com.tencent.bugly.beta.tinker.TinkerManager;
 import com.tencent.smtt.sdk.QbSdk;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.umeng.analytics.MobclickAgent;
@@ -30,7 +34,7 @@ import com.umeng.socialize.common.QueuedWork;
  * @author Rabtman
  */
 
-public class AppLike extends DefaultApplicationLike {
+public class AppLike extends DefaultApplicationLike implements App {
 
   static {
     //Umeng Share各个平台的配置
@@ -40,6 +44,7 @@ public class AppLike extends DefaultApplicationLike {
     PlatformConfig.setQQZone(BuildConfig.QQ_ZONE_ID, BuildConfig.QQ_ZONE_KEY);
   }
 
+  private AppDelegate mAppDelegate;
   private RefWatcher mRefWatcher;//leakCanary观察器
 
   public AppLike(Application application, int tinkerFlags,
@@ -53,6 +58,9 @@ public class AppLike extends DefaultApplicationLike {
   @Override
   public void onCreate() {
     super.onCreate();
+
+    this.mAppDelegate = new AppDelegate(TinkerManager.getApplication());
+    this.mAppDelegate.onCreate();
 
     String processName = getCurProcessName(getApplication().getApplicationContext());
     boolean defaultProcess = processName.equals(getApplication().getPackageName());
@@ -155,6 +163,7 @@ public class AppLike extends DefaultApplicationLike {
     if (mRefWatcher != null) {
       this.mRefWatcher = null;
     }
+    this.mAppDelegate.onTerminate();
   }
 
   /**
@@ -179,4 +188,8 @@ public class AppLike extends DefaultApplicationLike {
     return "";
   }
 
+  @Override
+  public AppComponent getAppComponent() {
+    return mAppDelegate.getAppComponent();
+  }
 }
