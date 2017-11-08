@@ -10,9 +10,11 @@ buildscript {
         //freeline
         classpath 'com.antfortune.freeline:gradle:0.8.7'
         //ApkChannelPackage
-        classpath 'com.leon.channel:plugin:1.0.4'
+        classpath 'com.leon.channel:plugin:1.0.5'
         //bugly tinker
         classpath "com.tencent.bugly:tinker-support:latest.release"
+        //andResGurad
+        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.7'
     }
 }
 

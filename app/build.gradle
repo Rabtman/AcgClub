@@ -3,7 +3,9 @@ apply plugin: 'com.antfortune.freeline'
 //ApkChannelPackage
 apply plugin: 'channel'
 //bugly tinker
-apply from: 'tinker-support.gradle'
+//apply from: 'tinker-support.gradle'
+//andResGuard
+apply from: 'and-res-guard.gradle'
 
 Properties properties = new Properties()
 File localPropertiesFile = project.rootProject.file("local.properties");
@@ -11,6 +13,9 @@ if (localPropertiesFile.exists()) {
     properties.load(localPropertiesFile.newDataInputStream())
 }
 
+/**
+ * 项目命令行打包指令：gradle resguardRelease rebuildChannel
+ */
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -48,6 +53,24 @@ android {
         //bugly APP ID
         buildConfigField "String", "BUGLY_APP_ID", properties.getProperty("buglyAppId")
     }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.each { output ->
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                //这里修改apk文件名
+                def fileName = "${defaultConfig.applicationId}_base_v${defaultConfig.versionName}.apk"
+                output.outputFile = new File(outputFile.parent, fileName)
+            }
+        }
+    }
+
+    //gradle 3.0
+    /*android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "${variant.name}-base-${variant.versionName}.apk"
+        }
+    }*/
 
     signingConfigs {
         rabtman {
@@ -91,6 +114,17 @@ channel {
     baseOutputDir = new File(project.buildDir, "channel")
     //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}
     apkNameFormat = 'com.rabtman.acgclub_${flavorName}_v${versionName}'
+}
+
+//rebuildChannel
+//根据已有基础包重新生成多渠道包
+rebuildChannel {
+    //baseDebugApk = 已有Debug APK
+    baseReleaseApk = new File(project.buildDir, "outputs/apk/com.rabtman.acgclub_base_v${rootProject.ext.android.versionName}.apk")
+    //默认为new File(project.buildDir, "rebuildChannel/debug")
+    //debugOutputDir = Debug渠道包输出目录
+    //默认为new File(project.buildDir, "rebuildChannel/release")
+    //releaseOutputDir = Release渠道包输出目录
 }
 
 repositories {

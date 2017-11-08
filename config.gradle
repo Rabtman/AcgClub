@@ -83,7 +83,7 @@ ext {
             "leakcanary-android"        : "com.squareup.leakcanary:leakcanary-android:${dependVersion.leakcanary}",
             "leakcanary-no-op"          : "com.squareup.leakcanary:leakcanary-android-no-op:${dependVersion.leakcanary}",
             //ApkChannelPackage
-            "apk-channel-package"       : "com.leon.channel:helper:1.0.4"
+            "apk-channel-package"       : "com.leon.channel:helper:1.0.5"
     ]
 
 

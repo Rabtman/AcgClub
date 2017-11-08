@@ -134,8 +134,10 @@ public class ScheduleTimeActivity extends SimpleActivity {
       public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ScheduleTimeItem scheduleItem = (ScheduleTimeItem) adapter.getItem(position);
         Intent intent = new Intent(getBaseContext(), ScheduleDetailActivity.class);
-        intent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL,
-            HtmlConstant.DILIDILI_URL + scheduleItem.t.getAnimeLink());
+        if (scheduleItem != null && scheduleItem.t != null) {
+          intent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL,
+              HtmlConstant.DILIDILI_URL + scheduleItem.t.getAnimeLink());
+        }
         startActivity(intent);
       }
     });
@@ -146,7 +148,9 @@ public class ScheduleTimeActivity extends SimpleActivity {
         if (view.getId() == R.id.schedule_episode) {
           ScheduleTimeItem scheduleItem = (ScheduleTimeItem) adapter.getItem(position);
           Intent intent = new Intent(getBaseContext(), ScheduleVideoActivity.class);
-          intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL, scheduleItem.t.getEpisodeLink());
+          if (scheduleItem != null && scheduleItem.t != null) {
+            intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL, scheduleItem.t.getEpisodeLink());
+          }
           startActivity(intent);
         }
       }

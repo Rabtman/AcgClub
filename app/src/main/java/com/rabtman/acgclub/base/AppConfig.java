@@ -2,6 +2,7 @@ package com.rabtman.acgclub.base;
 
 import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
+import com.rabtman.acgclub.BuildConfig;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.api.AcgService;
 import com.rabtman.acgclub.base.constant.HtmlConstant;
@@ -23,8 +24,10 @@ public class AppConfig implements ConfigModule {
   public void applyOptions(Context context, Builder builder) {
     builder.baseurl(HtmlConstant.BASE_URL)
         .statusBarColor(R.color.colorPrimary)
-        .statusBarAlpha(0)
-        .addInterceptor(new HttpLoggingInterceptor().setLevel(Level.BODY));
+        .statusBarAlpha(0);
+    if (BuildConfig.APP_DEBUG) {
+      builder.addInterceptor(new HttpLoggingInterceptor().setLevel(Level.BODY));
+    }
   }
 
   @Override
