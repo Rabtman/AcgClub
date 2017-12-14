@@ -27,17 +27,17 @@ ext {
             "recyclerview-v7"           : "com.android.support:recyclerview-v7:${dependVersion.support}",
             //ui
             "dialog"                    : "com.github.hss01248:DialogUtil:1.17",
-            "toast"                     : "com.github.GrenderG:Toasty:1.2.3",
-            "base-rcv-helper"           : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.18",
+            "toast"                     : "com.github.GrenderG:Toasty:1.2.8",
+            "base-rcv-helper"           : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34",
             "html-textview"             : "org.sufficientlysecure:html-textview:3.3",
             "bottom-bar"                : "com.roughike:bottom-bar:2.3.1",
-            "mz-banner"                 : "com.github.pinguo-zhouwei:MZBannerView:v1.1.0",
+            "mz-banner"                 : "com.github.pinguo-zhouwei:MZBannerView:v2.0.0",
             "materialsearchview"        : "com.miguelcatalan:materialsearchview:1.4.0",
             "statusbarutil"             : "com.jaeger.statusbarutil:library:1.4.0",
             //other
-            "multidex"                  : "com.android.support:multidex:1.0.1",
-            "logger"                    : "com.orhanobut:logger:1.15",
-            "fragmentation"             : "me.yokeyword:fragmentation:1.1.7",
+            "multidex"                  : "com.android.support:multidex:1.0.2",
+            "logger"                    : "com.orhanobut:logger:2.1.1",
+            "fragmentation"             : "me.yokeyword:fragmentation:1.1.9",
             //bugly
             "crashreport"               : "com.tencent.bugly:crashreport_upgrade:latest.release",
             "nativecrashreport"         : "com.tencent.bugly:nativecrashreport:latest.release",
@@ -83,7 +83,7 @@ ext {
             "leakcanary-android"        : "com.squareup.leakcanary:leakcanary-android:${dependVersion.leakcanary}",
             "leakcanary-no-op"          : "com.squareup.leakcanary:leakcanary-android-no-op:${dependVersion.leakcanary}",
             //ApkChannelPackage
-            "apk-channel-package"       : "com.leon.channel:helper:1.0.5"
+            "apk-channel-package"       : "com.leon.channel:helper:1.1.5"
     ]
 
 

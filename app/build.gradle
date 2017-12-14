@@ -18,7 +18,6 @@ if (localPropertiesFile.exists()) {
  */
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
@@ -33,9 +32,9 @@ android {
         multiDexEnabled true
         renderscriptTargetApi rootProject.ext.android.targetSdkVersion
         renderscriptSupportModeEnabled true
-        ndk {
+        /*ndk {
             abiFilters "armeabi"
-        }
+        }*/
         vectorDrawables.useSupportLibrary = true
 
         //阿里用户反馈
@@ -54,7 +53,8 @@ android {
         buildConfigField "String", "BUGLY_APP_ID", properties.getProperty("buglyAppId")
     }
 
-    android.applicationVariants.all { variant ->
+    //gradle 3.0 以下
+    /*android.applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
@@ -63,12 +63,23 @@ android {
                 output.outputFile = new File(outputFile.parent, fileName)
             }
         }
-    }
+    }*/
 
     //gradle 3.0
-    /*android.applicationVariants.all { variant ->
+    android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "${variant.name}-base-${variant.versionName}.apk"
+            outputFileName = "${defaultConfig.applicationId}_base_v${defaultConfig.versionName}.apk"
+        }
+    }
+
+    /*android.applicationVariants.all { variant ->
+        //这个修改输出的APK路径
+        if (variant.buildType.name != "debug") {//防止AS无法安装debug包(apk)
+            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
+        }
+        variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
+            //这个修改输出APK的文件名
+            apkData.outputFileName = "${defaultConfig.applicationId}_base_v${defaultConfig.versionName}.apk"
         }
     }*/
 
@@ -134,42 +145,50 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':common')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation project(':common')
     //ui
-    compile 'com.zzhoujay.richtext:richtext:2.5.2'
-    compile 'com.ms-square:expandableTextView:0.1.4'
-    testCompile rootProject.ext.dependencies["junit"]
+    implementation('com.zzhoujay.richtext:richtext:2.5.2') {
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+    }
+    implementation('com.ms-square:expandableTextView:0.1.4') {
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+    }
+    testImplementation rootProject.ext.dependencies["junit"]
     //di
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     //canary
-    debugCompile rootProject.ext.dependencies["blockcanary-android"]
-    releaseCompile rootProject.ext.dependencies["blockcanary-no-op"]
-    debugCompile rootProject.ext.dependencies["leakcanary-android"]
-    releaseCompile rootProject.ext.dependencies["leakcanary-no-op"]
+    debugImplementation rootProject.ext.dependencies["blockcanary-android"]
+    releaseImplementation rootProject.ext.dependencies["blockcanary-no-op"]
+    debugImplementation rootProject.ext.dependencies["leakcanary-android"]
+    releaseImplementation rootProject.ext.dependencies["leakcanary-no-op"]
     //jsoup
-    compile project(':jsoup-annotations')
+    implementation project(':jsoup-annotations')
     //阿里用户反馈
-    compile 'com.aliyun.ams:alicloud-android-feedback:3.1.0@aar'
-    compile 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
-    compile 'com.aliyun.ams:alicloud-android-ut:5.1.0'
-    compile 'com.aliyun.ams:alicloud-android-utils:1.0.3'
+    implementation 'com.aliyun.ams:alicloud-android-feedback:3.1.0@aar'
+    implementation 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
+    implementation 'com.aliyun.ams:alicloud-android-ut:5.1.0'
+    implementation 'com.aliyun.ams:alicloud-android-utils:1.0.3'
     //x5内核
-    compile files('libs/tbs_sdk_thirdapp_v3.5.0.1004_43500_sharewithdownload_withoutGame_obfs_20170801_113025.jar')
+    implementation files('libs/tbs_sdk_thirdapp_v3.5.0.1004_43500_sharewithdownload_withoutGame_obfs_20170801_113025.jar')
     //bugly
-    compile rootProject.ext.dependencies["crashreport"]
-    compile rootProject.ext.dependencies["nativecrashreport"]
+    implementation rootProject.ext.dependencies["crashreport"]
+    implementation rootProject.ext.dependencies["nativecrashreport"]
     //ApkChannelPackage
-    compile rootProject.ext.dependencies["apk-channel-package"]
+    implementation rootProject.ext.dependencies["apk-channel-package"]
     //Umeng Share
-    compile files('libs/SocialSDK_QQ_Simplify.jar')
-    compile files('libs/SocialSDK_Sina_Simplify.jar')
-    compile files('libs/SocialSDK_tencentWB.jar')
-    compile files('libs/SocialSDK_WeChat_Simplify.jar')
-    compile files('libs/umeng_social_api.jar')
-    compile files('libs/umeng_social_net.jar')
-    compile files('libs/umeng_social_shareboard.jar')
-    compile files('libs/umeng_social_shareview.jar')
-    compile files('libs/umeng_social_tool.jar')
+    implementation files('libs/SocialSDK_QQ_Simplify.jar')
+    implementation files('libs/SocialSDK_Sina_Simplify.jar')
+    implementation files('libs/SocialSDK_tencentWB.jar')
+    implementation files('libs/SocialSDK_WeChat_Simplify.jar')
+    implementation files('libs/umeng_social_api.jar')
+    implementation files('libs/umeng_social_net.jar')
+    implementation files('libs/umeng_social_shareboard.jar')
+    implementation files('libs/umeng_social_shareview.jar')
+    implementation files('libs/umeng_social_tool.jar')
 }
