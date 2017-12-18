@@ -63,6 +63,9 @@ ext {
             "rxdownload"                : "zlc.season:rxdownload2:2.0.2",
             "rxcache"                   : "com.github.VictorAlbertos.RxCache:runtime:1.8.0-2.x",
             "rxcache-jolyglot"          : "com.github.VictorAlbertos.Jolyglot:gson:0.0.3",
+            //router
+            "router"                    : "com.alibaba:arouter-api:1.2.4",
+            "router-compiler"           : "com.alibaba:arouter-compiler:1.1.4",
             //di
             "butterknife"               : "com.jakewharton:butterknife:${dependVersion.butterknife}",
             "butterknife-compiler"      : "com.jakewharton:butterknife-compiler:${dependVersion.butterknife}",
