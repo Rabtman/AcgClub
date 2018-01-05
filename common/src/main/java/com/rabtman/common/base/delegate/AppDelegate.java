@@ -2,6 +2,7 @@ package com.rabtman.common.base.delegate;
 
 import android.app.Application;
 import com.hss01248.dialog.StyledDialog;
+import com.rabtman.common.BuildConfig;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.di.component.DaggerAppComponent;
 import com.rabtman.common.di.module.AppModule;
@@ -11,19 +12,16 @@ import com.rabtman.common.di.module.ImageModule;
 import com.rabtman.common.integration.ActivityLifecycle;
 import com.rabtman.common.integration.ConfigModule;
 import com.rabtman.common.integration.ManifestParser;
+import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.Utils;
+import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
 /**
- * AppDelegate可以代理Application的生命周期,在对应的生命周期,执行对应的逻辑,因为Java只能单继承
- * 而我的框架要求Application要继承于BaseApplication
- * 所以当遇到某些三方库需要继承于它的Application的时候,就只有自定义Application继承于三方库的Application
- * 再将BaseApplication的代码复制进去,而现在就不用在复制代码,只用在对应的生命周期调用AppDelegate对应的方法,
- *
- * Created by jess on 24/04/2017 09:44
- * Contact with jess.yan.effort@gmail.com
+ * Application的生命周期代理
  */
 
 public class AppDelegate {
@@ -34,6 +32,7 @@ public class AppDelegate {
   private Application mApplication;
   private AppComponent mAppComponent;
   private List<Lifecycle> mLifecycles = new ArrayList<>();
+  private RefWatcher mRefWatcher;//leakCanary观察器
 
   public AppDelegate(Application application) {
     this.mApplication = application;
@@ -57,6 +56,9 @@ public class AppDelegate {
     //init utils
     Utils.init(mApplication);
 
+    //log
+    LogUtil.init(BuildConfig.DEBUG);
+
     mApplication.registerActivityLifecycleCallbacks(mActivityLifecycle);
 
     for (ConfigModule module : mModules) {
@@ -69,6 +71,9 @@ public class AppDelegate {
 
     //初始化全局dialog
     StyledDialog.init(mApplication);
+
+    //leakCanary内存泄露检查
+    installLeakCanary();
   }
 
   public void onTerminate() {
@@ -82,6 +87,17 @@ public class AppDelegate {
     for (Lifecycle lifecycle : mLifecycles) {
       lifecycle.onTerminate(mApplication);
     }
+
+    if (mRefWatcher != null) {
+      this.mRefWatcher = null;
+    }
+  }
+
+  /**
+   * 安装leakCanary检测内存泄露
+   */
+  protected void installLeakCanary() {
+    this.mRefWatcher = BuildConfig.DEBUG ? LeakCanary.install(mApplication) : RefWatcher.DISABLED;
   }
 
 

@@ -1,5 +1,6 @@
 ext {
     android = [
+            applicationId    : "com.rabtman.acgclub",
             compileSdkVersion: 26,
             buildToolsVersion: "26.0.2",
             minSdkVersion    : 19,
@@ -7,6 +8,11 @@ ext {
             versionCode      : 1,
             versionName      : "0.1.0",
             resConfigs       : "zh"
+    ]
+
+    //配置需要独立运行的组件
+    runAlone = [
+            "acgnews"
     ]
 
     def dependVersion = [

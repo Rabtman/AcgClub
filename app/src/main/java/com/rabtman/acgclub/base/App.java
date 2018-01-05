@@ -8,8 +8,6 @@ import com.leon.channel.helper.ChannelReaderUtil;
 import com.rabtman.acgclub.BuildConfig;
 import com.rabtman.common.base.BaseApplication;
 import com.rabtman.common.utils.LogUtil;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.BuglyStrategy;
 import com.tencent.smtt.sdk.QbSdk;
@@ -32,16 +30,6 @@ public class App extends BaseApplication {
     PlatformConfig.setSinaWeibo(BuildConfig.SINA_WEIBO_KEY, BuildConfig.SINA_WEIBO_SECRET,
         "http://sns.whalecloud.com");
     PlatformConfig.setQQZone(BuildConfig.QQ_ZONE_ID, BuildConfig.QQ_ZONE_KEY);
-  }
-
-  private RefWatcher mRefWatcher;//leakCanary观察器
-
-  /**
-   * 获得leakCanary观察器
-   */
-  public static RefWatcher getRefWatcher(Context context) {
-    App application = (App) context.getApplicationContext();
-    return application.mRefWatcher;
   }
 
   @Override
@@ -67,8 +55,6 @@ public class App extends BaseApplication {
     Bugly.setIsDevelopmentDevice(this, BuildConfig.APP_DEBUG);
 
     if (defaultProcess) {
-      //log
-      LogUtil.init(BuildConfig.APP_DEBUG);
       initToastyConfig();
       //umeng初始化
       MobclickAgent
@@ -78,7 +64,6 @@ public class App extends BaseApplication {
       initX5Web();
       initUShare();
     }
-    installLeakCanary();//leakCanary内存泄露检查
   }
 
   //Umeng Share
@@ -122,21 +107,6 @@ public class App extends BaseApplication {
         // TODO Auto-generated method stub
       }
     });
-  }
-
-  @Override
-  public void onTerminate() {
-    super.onTerminate();
-    if (mRefWatcher != null) {
-      this.mRefWatcher = null;
-    }
-  }
-
-  /**
-   * 安装leakCanary检测内存泄露
-   */
-  protected void installLeakCanary() {
-    this.mRefWatcher = BuildConfig.APP_DEBUG ? LeakCanary.install(this) : RefWatcher.DISABLED;
   }
 
   //获取进程名称

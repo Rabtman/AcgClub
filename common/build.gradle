@@ -1,11 +1,5 @@
 apply plugin: 'com.android.library'
 
-Properties properties = new Properties()
-File localPropertiesFile = project.rootProject.file("local.properties");
-if (localPropertiesFile.exists()) {
-    properties.load(localPropertiesFile.newDataInputStream())
-}
-
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     useLibrary 'org.apache.http.legacy'
@@ -73,7 +67,20 @@ dependencies {
         exclude module: 'appcompat-v7'
         exclude module: 'support-annotations'
     }
-
+    api('com.zzhoujay.richtext:richtext:2.5.2') {
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+    }
+    api('com.ms-square:expandableTextView:0.1.4') {
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-annotations'
+    }
+    //test
+    testApi rootProject.ext.dependencies["junit"]
+    //jsoup
+    api project(':jsoup-annotations')
     //other
     api rootProject.ext.dependencies["multidex"]
     api rootProject.ext.dependencies["logger"]
@@ -113,4 +120,9 @@ dependencies {
     api rootProject.ext.dependencies["butterknife"]
     //umeng
     api rootProject.ext.dependencies["umeng"]
+    //canary
+    debugImplementation rootProject.ext.dependencies["blockcanary-android"]
+    releaseImplementation rootProject.ext.dependencies["blockcanary-no-op"]
+    debugImplementation rootProject.ext.dependencies["leakcanary-android"]
+    releaseImplementation rootProject.ext.dependencies["leakcanary-no-op"]
 }

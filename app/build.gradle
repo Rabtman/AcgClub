@@ -21,7 +21,7 @@ android {
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        applicationId "com.rabtman.acgclub"
+        applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         resConfigs rootProject.ext.android.resConfigs
@@ -147,28 +147,9 @@ repositories {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':common')
-    //ui
-    implementation('com.zzhoujay.richtext:richtext:2.5.2') {
-        exclude module: 'support-v4'
-        exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
-    }
-    implementation('com.ms-square:expandableTextView:0.1.4') {
-        exclude module: 'support-v4'
-        exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
-    }
-    testImplementation rootProject.ext.dependencies["junit"]
     //di
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-    //canary
-    debugImplementation rootProject.ext.dependencies["blockcanary-android"]
-    releaseImplementation rootProject.ext.dependencies["blockcanary-no-op"]
-    debugImplementation rootProject.ext.dependencies["leakcanary-android"]
-    releaseImplementation rootProject.ext.dependencies["leakcanary-no-op"]
-    //jsoup
-    implementation project(':jsoup-annotations')
     //阿里用户反馈
     implementation 'com.aliyun.ams:alicloud-android-feedback:3.1.0@aar'
     implementation 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'

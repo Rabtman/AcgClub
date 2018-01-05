@@ -1,1 +1,10 @@
-include ':app', ':common', ':jsoup-annotations', ':router'
+//主模块
+include ':app'
+//功能基础库
+include ':common'
+//路由
+include ':router'
+//三方库
+include ':jsoup-annotations'
+//业务模块
+include ':component-acgnews'

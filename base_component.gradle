@@ -1,0 +1,47 @@
+//模块名称
+def preName = project.getName().replaceAll("component-", "")
+def isRunAlone = rootProject.ext.runAlone.contains(preName)
+if (isRunAlone) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        if (isRunAlone) {
+            applicationId rootProject.ext.android.applicationId + "." + preName
+        }
+        versionCode 1
+        versionName "1.0.0"
+        resourcePrefix preName + "_"
+        resValue "string", preName + "_module_name", project.getName()
+    }
+
+    if (isRunAlone) {
+        sourceSets {
+            main {
+                manifest.srcFile 'src/main/runalone/AndroidManifest.xml'
+                java.srcDirs = ['src/main/java', 'src/main/runalone/java']
+                res.srcDirs = ['src/main/res', 'src/main/runalone/res']
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dependencies {
+        //di
+        annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+        annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    }
+}
