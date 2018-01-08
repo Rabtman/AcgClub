@@ -1,48 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="colorPrimary">@color/colorPrimary</item>
-    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    <item name="colorAccent">@color/colorAccent</item>
-    <item name="android:windowAnimationStyle">@style/AppWindowAnim</item>
-  </style>
 
   <style name="SplashTheme">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowBackground">@drawable/splash_bg</item>
-  </style>
-
-  <style name="AppWindowAnim">
-    <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>
-    <item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>
-    <item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>
-    <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
-  </style>
-
-  <style name="AppWindowAnimTranslucent" parent="@android:style/Animation.Translucent">
-    <item name="android:windowEnterAnimation">@anim/slide_right_in</item>
-    <item name="android:windowExitAnimation">@anim/slide_right_out</item>
-  </style>
-
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
-  <style name="AppTranslucent" parent="Theme.AppCompat.Light.NoActionBar">
-    <item name="android:windowBackground">@android:color/transparent</item>
-    <item name="android:colorBackgroundCacheHint">@null</item>
-    <item name="android:windowIsTranslucent">true</item>
-    <item name="android:windowAnimationStyle">@android:style/Animation</item>
-  </style>
-
-  <style name="ScheduleTimeTabTextStyle" parent="TextAppearance.AppCompat.Button">
-    <item name="android:textSize">18sp</item>
-    <item name="android:textColor">?android:textColorSecondary</item>
-    <item name="textAllCaps">true</item>
-  </style>
-
-  <style name="CommonToolBarStyle" parent="AppTheme.AppBarOverlay">
-    <item name="android:background">?attr/colorPrimary</item>
-    <item name="popupTheme">@style/AppTheme.PopupOverlay</item>
   </style>
 </resources>

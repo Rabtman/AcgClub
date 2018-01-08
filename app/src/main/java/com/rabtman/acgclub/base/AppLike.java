@@ -15,8 +15,6 @@ import com.rabtman.common.base.App;
 import com.rabtman.common.base.delegate.AppDelegate;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.utils.LogUtil;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.BuglyStrategy;
 import com.tencent.bugly.beta.Beta;
@@ -45,7 +43,6 @@ public class AppLike extends DefaultApplicationLike implements App {
   }
 
   private AppDelegate mAppDelegate;
-  private RefWatcher mRefWatcher;//leakCanary观察器
 
   public AppLike(Application application, int tinkerFlags,
       boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime,
@@ -94,7 +91,6 @@ public class AppLike extends DefaultApplicationLike implements App {
       initX5Web();
       initUShare();
     }
-    installLeakCanary();//leakCanary内存泄露检查
   }
 
   @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
@@ -160,18 +156,7 @@ public class AppLike extends DefaultApplicationLike implements App {
   @Override
   public void onTerminate() {
     super.onTerminate();
-    if (mRefWatcher != null) {
-      this.mRefWatcher = null;
-    }
     this.mAppDelegate.onTerminate();
-  }
-
-  /**
-   * 安装leakCanary检测内存泄露
-   */
-  protected void installLeakCanary() {
-    this.mRefWatcher =
-        BuildConfig.APP_DEBUG ? LeakCanary.install(getApplication()) : RefWatcher.DISABLED;
   }
 
   //获取进程名称

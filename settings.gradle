@@ -1,7 +1,7 @@
 //主模块
 include ':app'
-//功能基础库
-include ':common'
+//基础库
+include ':common', ':common-res'
 //路由
 include ':router'
 //三方库

@@ -1,6 +1,6 @@
 //模块名称
-def preName = project.getName().replaceAll("component-", "")
-def isRunAlone = rootProject.ext.runAlone.contains(preName)
+def moduleName = project.getName().replaceAll("component-", "")
+def isRunAlone = rootProject.ext.runAlone.contains(moduleName)
 if (isRunAlone) {
     apply plugin: 'com.android.application'
 } else {
@@ -14,12 +14,12 @@ android {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         if (isRunAlone) {
-            applicationId rootProject.ext.android.applicationId + "." + preName
+            applicationId rootProject.ext.android.applicationId + "." + moduleName
         }
         versionCode 1
         versionName "1.0.0"
-        resourcePrefix preName + "_"
-        resValue "string", preName + "_module_name", project.getName()
+        resourcePrefix moduleName + "_"
+        resValue "string", moduleName + "_module_name", project.getName()
     }
 
     if (isRunAlone) {
@@ -40,8 +40,8 @@ android {
     }
 
     dependencies {
+        implementation project(':common')
         //di
-        annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
         annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     }
 }

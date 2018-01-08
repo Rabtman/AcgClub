@@ -75,6 +75,7 @@ ext {
             //di
             "butterknife"               : "com.jakewharton:butterknife:${dependVersion.butterknife}",
             "butterknife-compiler"      : "com.jakewharton:butterknife-compiler:${dependVersion.butterknife}",
+            "butterknife-gradle"        : "com.jakewharton:butterknife-gradle-plugin:${dependVersion.butterknife}",
             "dagger2"                   : "com.google.dagger:dagger:${dependVersion.dagger2}",
             "dagger2-compiler"          : "com.google.dagger:dagger-compiler:${dependVersion.dagger2}",
             "annotation"                : "org.glassfish:javax.annotation:10.0-b28",
