@@ -1,14 +1,14 @@
-package com.rabtman.acgclub.mvp.ui.fragment;
+package com.rabtman.acgnews.mvp.ui.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import butterknife.BindView;
-import com.rabtman.acgclub.R;
-import com.rabtman.acgclub.base.constant.IntentConstant;
-import com.rabtman.acgclub.base.constant.SystemConstant;
-import com.rabtman.acgclub.mvp.ui.adapter.AcgNewsMainPageAdapter;
+import com.rabtman.acgnews.R;
+import com.rabtman.acgnews.base.constant.IntentConstant;
+import com.rabtman.acgnews.base.constant.SystemConstant;
+import com.rabtman.acgnews.mvp.ui.adapter.AcgNewsMainPageAdapter;
 import com.rabtman.common.base.SimpleFragment;
 import java.util.ArrayList;
 import java.util.List;

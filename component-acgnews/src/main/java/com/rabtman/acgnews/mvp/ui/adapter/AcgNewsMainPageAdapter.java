@@ -1,10 +1,10 @@
-package com.rabtman.acgclub.mvp.ui.adapter;
+package com.rabtman.acgnews.mvp.ui.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
-import com.rabtman.acgclub.base.constant.SystemConstant;
+import com.rabtman.acgnews.base.constant.SystemConstant;
 import java.util.List;
 
 /**

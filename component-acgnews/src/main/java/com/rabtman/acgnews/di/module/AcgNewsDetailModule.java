@@ -1,7 +1,7 @@
-package com.rabtman.acgclub.di.module;
+package com.rabtman.acgnews.di.module;
 
-import com.rabtman.acgclub.mvp.contract.AcgNewsDetailContract;
-import com.rabtman.acgclub.mvp.model.AcgNewsDetailModel;
+import com.rabtman.acgnews.mvp.contract.AcgNewsDetailContract;
+import com.rabtman.acgnews.mvp.model.AcgNewsDetailModel;
 import com.rabtman.common.di.scope.ActivityScope;
 import dagger.Module;
 import dagger.Provides;

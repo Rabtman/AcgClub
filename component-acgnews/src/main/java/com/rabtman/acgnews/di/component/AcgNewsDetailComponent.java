@@ -1,7 +1,7 @@
-package com.rabtman.acgclub.di.component;
+package com.rabtman.acgnews.di.component;
 
-import com.rabtman.acgclub.di.module.AcgNewsDetailModule;
-import com.rabtman.acgclub.mvp.ui.activity.AcgInfoDetailActivity;
+import com.rabtman.acgnews.di.module.AcgNewsDetailModule;
+import com.rabtman.acgnews.mvp.ui.activity.AcgInfoDetailActivity;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.di.scope.ActivityScope;
 import dagger.Component;

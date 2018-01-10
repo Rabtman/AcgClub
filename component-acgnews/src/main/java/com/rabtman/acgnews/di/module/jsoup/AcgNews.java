@@ -1,4 +1,4 @@
-package com.rabtman.acgclub.mvp.model.jsoup;
+package com.rabtman.acgnews.di.module.jsoup;
 
 import android.os.Parcel;
 import android.os.Parcelable;

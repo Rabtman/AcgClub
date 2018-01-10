@@ -1,10 +1,10 @@
-package com.rabtman.acgclub.mvp.presenter;
+package com.rabtman.acgnews.mvp.presenter;
 
 import android.Manifest;
 import android.text.TextUtils;
-import com.rabtman.acgclub.R;
-import com.rabtman.acgclub.mvp.contract.AcgNewsDetailContract;
-import com.rabtman.acgclub.mvp.model.jsoup.AcgNewsDetail;
+import com.rabtman.acgnews.R;
+import com.rabtman.acgnews.di.module.jsoup.AcgNewsDetail;
+import com.rabtman.acgnews.mvp.contract.AcgNewsDetailContract;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.ActivityScope;

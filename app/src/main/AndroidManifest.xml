@@ -38,7 +38,7 @@
       </intent-filter>
     </activity>
     <activity
-      android:name=".mvp.ui.activity.AcgInfoDetailActivity"
+      android:name="com.rabtman.acgnews.mvp.ui.activity.AcgInfoDetailActivity"
       android:screenOrientation="portrait" />
     <activity
       android:name=".mvp.ui.activity.ScheduleTimeActivity"

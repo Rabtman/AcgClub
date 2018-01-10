@@ -1,4 +1,4 @@
-package com.rabtman.acgclub.mvp.ui.activity;
+package com.rabtman.acgnews.mvp.ui.activity;
 
 import android.content.Intent;
 import android.support.v7.widget.Toolbar;
@@ -7,14 +7,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import butterknife.BindView;
-import com.rabtman.acgclub.R;
-import com.rabtman.acgclub.base.constant.IntentConstant;
-import com.rabtman.acgclub.di.component.DaggerAcgNewsDetailComponent;
-import com.rabtman.acgclub.di.module.AcgNewsDetailModule;
-import com.rabtman.acgclub.mvp.contract.AcgNewsDetailContract.View;
-import com.rabtman.acgclub.mvp.model.jsoup.AcgNews;
-import com.rabtman.acgclub.mvp.model.jsoup.AcgNewsDetail;
-import com.rabtman.acgclub.mvp.presenter.AcgNewsDetailPresenter;
+import com.rabtman.acgnews.R;
+import com.rabtman.acgnews.base.constant.IntentConstant;
+import com.rabtman.acgnews.di.module.AcgNewsDetailModule;
+import com.rabtman.acgnews.di.module.jsoup.AcgNews;
+import com.rabtman.acgnews.mvp.contract.AcgNewsDetailContract.View;
+import com.rabtman.acgnews.mvp.presenter.AcgNewsDetailPresenter;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.utils.ExceptionUtils;

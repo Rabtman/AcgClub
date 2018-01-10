@@ -1,10 +1,10 @@
-package com.rabtman.acgclub.mvp.ui.adapter;
+package com.rabtman.acgnews.mvp.ui.adapter;
 
 import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.rabtman.acgclub.R;
-import com.rabtman.acgclub.mvp.model.jsoup.AcgNews;
+import com.rabtman.acgnews.R;
+import com.rabtman.acgnews.di.module.jsoup.AcgNews;
 import com.rabtman.common.imageloader.ImageLoader;
 import com.rabtman.common.imageloader.glide.GlideImageConfig;
 

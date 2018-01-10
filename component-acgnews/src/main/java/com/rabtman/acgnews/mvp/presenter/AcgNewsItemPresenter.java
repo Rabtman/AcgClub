@@ -1,8 +1,8 @@
-package com.rabtman.acgclub.mvp.presenter;
+package com.rabtman.acgnews.mvp.presenter;
 
 import com.rabtman.acgclub.base.constant.HtmlConstant;
-import com.rabtman.acgclub.mvp.contract.AcgNewsContract;
-import com.rabtman.acgclub.mvp.model.jsoup.AcgNewsPage;
+import com.rabtman.acgnews.di.module.jsoup.AcgNewsPage;
+import com.rabtman.acgnews.mvp.contract.AcgNewsContract;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.FragmentScope;
