@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter.RequestLoadMoreListener;
 import com.rabtman.acgnews.R;
 import com.rabtman.acgnews.base.constant.IntentConstant;
 import com.rabtman.acgnews.base.constant.SystemConstant;
+import com.rabtman.acgnews.di.component.DaggerAcgNewsItemComponent;
 import com.rabtman.acgnews.di.module.AcgNewsItemModule;
 import com.rabtman.acgnews.di.module.jsoup.AcgNews;
 import com.rabtman.acgnews.mvp.contract.AcgNewsContract.View;

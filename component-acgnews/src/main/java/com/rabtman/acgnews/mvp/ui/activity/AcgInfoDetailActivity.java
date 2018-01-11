@@ -7,29 +7,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import butterknife.BindView;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rabtman.acgnews.R;
 import com.rabtman.acgnews.base.constant.IntentConstant;
+import com.rabtman.acgnews.di.component.DaggerAcgNewsDetailComponent;
 import com.rabtman.acgnews.di.module.AcgNewsDetailModule;
 import com.rabtman.acgnews.di.module.jsoup.AcgNews;
+import com.rabtman.acgnews.di.module.jsoup.AcgNewsDetail;
 import com.rabtman.acgnews.mvp.contract.AcgNewsDetailContract.View;
 import com.rabtman.acgnews.mvp.presenter.AcgNewsDetailPresenter;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
-import com.rabtman.common.utils.ExceptionUtils;
-import com.rabtman.common.utils.LogUtil;
+import com.rabtman.router.RouterConstants;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.umeng.socialize.ShareAction;
-import com.umeng.socialize.UMShareAPI;
-import com.umeng.socialize.UMShareListener;
-import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.media.UMImage;
-import com.umeng.socialize.media.UMWeb;
-import com.umeng.socialize.shareboard.ShareBoardConfig;
 import com.zzhoujay.richtext.RichText;
 
 /**
  * @author Rabtman
  */
+@Route(path = RouterConstants.PATH_ACGNEWS_DETAIL)
 public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> implements
     View {
 
@@ -86,13 +82,13 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    //UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
   }
 
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    UMShareAPI.get(this).release();
+    //UMShareAPI.get(this).release();
   }
 
   @Override
@@ -121,7 +117,7 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
 
   @Override
   public void showShareView() {
-    UMWeb umWeb = new UMWeb(mAcgNewsItem.getContentLink());
+    /*UMWeb umWeb = new UMWeb(mAcgNewsItem.getContentLink());
     umWeb.setThumb(new UMImage(this, mAcgNewsItem.getImgUrl()));
     umWeb.setTitle(mAcgNewsItem.getTitle());
     umWeb.setDescription(mAcgNewsItem.getDescription());
@@ -170,6 +166,6 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
 
           }
         })
-        .open(config);
+        .open(config);*/
   }
 }

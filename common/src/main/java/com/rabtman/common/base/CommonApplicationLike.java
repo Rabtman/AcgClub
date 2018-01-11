@@ -1,6 +1,7 @@
-package com.rabtman.common.base.delegate;
+package com.rabtman.common.base;
 
 import android.app.Application;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.hss01248.dialog.StyledDialog;
 import com.rabtman.common.BuildConfig;
 import com.rabtman.common.di.component.AppComponent;
@@ -21,10 +22,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 /**
- * Application的生命周期代理
+ * Common Application的生命周期代理
  */
 
-public class AppDelegate {
+public class CommonApplicationLike implements IApplicationLike {
 
   private final List<ConfigModule> mModules;
   @Inject
@@ -34,7 +35,7 @@ public class AppDelegate {
   private List<Lifecycle> mLifecycles = new ArrayList<>();
   private RefWatcher mRefWatcher;//leakCanary观察器
 
-  public AppDelegate(Application application) {
+  public CommonApplicationLike(Application application) {
     this.mApplication = application;
     this.mModules = new ManifestParser(mApplication).parse();
     for (ConfigModule module : mModules) {
@@ -42,7 +43,7 @@ public class AppDelegate {
     }
   }
 
-
+  @Override
   public void onCreate() {
     mAppComponent = DaggerAppComponent
         .builder()
@@ -52,6 +53,14 @@ public class AppDelegate {
         .globeConfigModule(getGlobeConfigModule(mApplication, mModules))//全局配置
         .build();
     mAppComponent.inject(this);
+
+    //router
+    if (BuildConfig.DEBUG) {
+      ARouter.openLog();
+      ARouter.openDebug();
+      ARouter.printStackTrace();
+    }
+    ARouter.init(mApplication);
 
     //init utils
     Utils.init(mApplication);

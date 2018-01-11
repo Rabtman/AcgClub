@@ -12,7 +12,7 @@ import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.leon.channel.helper.ChannelReaderUtil;
 import com.rabtman.acgclub.BuildConfig;
 import com.rabtman.common.base.App;
-import com.rabtman.common.base.delegate.AppDelegate;
+import com.rabtman.common.base.CommonApplicationLike;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.utils.LogUtil;
 import com.tencent.bugly.Bugly;
@@ -42,7 +42,7 @@ public class AppLike extends DefaultApplicationLike implements App {
     PlatformConfig.setQQZone(BuildConfig.QQ_ZONE_ID, BuildConfig.QQ_ZONE_KEY);
   }
 
-  private AppDelegate mAppDelegate;
+  private CommonApplicationLike mCommonApplicationLike;
 
   public AppLike(Application application, int tinkerFlags,
       boolean tinkerLoadVerifyFlag, long applicationStartElapsedTime,
@@ -56,8 +56,8 @@ public class AppLike extends DefaultApplicationLike implements App {
   public void onCreate() {
     super.onCreate();
 
-    this.mAppDelegate = new AppDelegate(TinkerManager.getApplication());
-    this.mAppDelegate.onCreate();
+    this.mCommonApplicationLike = new CommonApplicationLike(TinkerManager.getApplication());
+    this.mCommonApplicationLike.onCreate();
 
     String processName = getCurProcessName(getApplication().getApplicationContext());
     boolean defaultProcess = processName.equals(getApplication().getPackageName());
@@ -156,7 +156,7 @@ public class AppLike extends DefaultApplicationLike implements App {
   @Override
   public void onTerminate() {
     super.onTerminate();
-    this.mAppDelegate.onTerminate();
+    this.mCommonApplicationLike.onTerminate();
   }
 
   //获取进程名称
@@ -175,6 +175,6 @@ public class AppLike extends DefaultApplicationLike implements App {
 
   @Override
   public AppComponent getAppComponent() {
-    return mAppDelegate.getAppComponent();
+    return mCommonApplicationLike.getAppComponent();
   }
 }

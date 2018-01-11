@@ -1,6 +1,6 @@
 package com.rabtman.acgnews.mvp.presenter;
 
-import com.rabtman.acgclub.base.constant.HtmlConstant;
+import com.rabtman.acgnews.base.constant.HtmlConstant;
 import com.rabtman.acgnews.di.module.jsoup.AcgNewsPage;
 import com.rabtman.acgnews.mvp.contract.AcgNewsContract;
 import com.rabtman.common.base.CommonSubscriber;

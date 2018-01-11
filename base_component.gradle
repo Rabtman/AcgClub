@@ -16,6 +16,11 @@ android {
         if (isRunAlone) {
             applicationId rootProject.ext.android.applicationId + "." + moduleName
         }
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
         versionCode 1
         versionName "1.0.0"
         resourcePrefix moduleName + "_"
@@ -42,6 +47,8 @@ android {
     dependencies {
         implementation project(':common')
         //di
+        annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
         annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+        annotationProcessor rootProject.ext.dependencies["router-compiler"]
     }
 }

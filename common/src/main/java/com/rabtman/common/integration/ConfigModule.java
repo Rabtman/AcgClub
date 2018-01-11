@@ -2,8 +2,8 @@ package com.rabtman.common.integration;
 
 import android.app.Application;
 import android.content.Context;
-import com.rabtman.common.base.delegate.AppDelegate;
-import com.rabtman.common.base.delegate.AppDelegate.Lifecycle;
+import com.rabtman.common.base.CommonApplicationLike;
+import com.rabtman.common.base.CommonApplicationLike.Lifecycle;
 import com.rabtman.common.di.module.GlobeConfigModule;
 import java.util.List;
 
@@ -26,7 +26,7 @@ public interface ConfigModule {
   void registerComponents(Context context, IRepositoryManager repositoryManager);
 
   /**
-   * 使用{@link AppDelegate.Lifecycle}在Application的声明周期中注入一些操作
+   * 使用{@link CommonApplicationLike.Lifecycle}在Application的声明周期中注入一些操作
    */
   void injectAppLifecycle(Context context, List<Lifecycle> lifecycles);
 

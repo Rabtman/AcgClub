@@ -148,7 +148,9 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':common')
     //di
+    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+    annotationProcessor rootProject.ext.dependencies["router-compiler"]
     //阿里用户反馈
     implementation 'com.aliyun.ams:alicloud-android-feedback:3.1.0@aar'
     implementation 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'

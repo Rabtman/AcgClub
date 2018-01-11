@@ -7,6 +7,9 @@
     android:label="@string/acgnews_module_name"
     tools:replace="android:label">
 
+    <activity
+      android:name="com.rabtman.acgnews.mvp.ui.activity.AcgInfoDetailActivity"
+      android:screenOrientation="portrait" />
   </application>
 
 </manifest>

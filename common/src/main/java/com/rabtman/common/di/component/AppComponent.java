@@ -2,7 +2,7 @@ package com.rabtman.common.di.component;
 
 import android.app.Application;
 import com.google.gson.Gson;
-import com.rabtman.common.base.delegate.AppDelegate;
+import com.rabtman.common.base.CommonApplicationLike;
 import com.rabtman.common.di.module.AppModule;
 import com.rabtman.common.di.module.ClientModule;
 import com.rabtman.common.di.module.GlobeConfigModule;
@@ -47,5 +47,5 @@ public interface AppComponent {
 
   HashMap<String, Integer> statusBarAttr();
 
-  void inject(AppDelegate delegate);
+  void inject(CommonApplicationLike delegate);
 }

@@ -5,17 +5,20 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import butterknife.BindView;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rabtman.acgnews.R;
 import com.rabtman.acgnews.base.constant.IntentConstant;
 import com.rabtman.acgnews.base.constant.SystemConstant;
 import com.rabtman.acgnews.mvp.ui.adapter.AcgNewsMainPageAdapter;
 import com.rabtman.common.base.SimpleFragment;
+import com.rabtman.router.RouterConstants;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Rabtman
  */
+@Route(path = RouterConstants.PATH_ACGNEWS_MAIN)
 public class AcgNewsMainFragment extends SimpleFragment {
 
   @BindView(R.id.tab_news)

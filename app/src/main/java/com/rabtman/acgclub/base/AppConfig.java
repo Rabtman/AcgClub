@@ -6,7 +6,7 @@ import com.rabtman.acgclub.BuildConfig;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.api.AcgService;
 import com.rabtman.acgclub.base.constant.HtmlConstant;
-import com.rabtman.common.base.delegate.AppDelegate.Lifecycle;
+import com.rabtman.common.base.CommonApplicationLike.Lifecycle;
 import com.rabtman.common.di.module.GlobeConfigModule.Builder;
 import com.rabtman.common.integration.ConfigModule;
 import com.rabtman.common.integration.IRepositoryManager;
