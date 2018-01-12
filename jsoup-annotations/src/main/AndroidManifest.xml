@@ -1,11 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
 
   package="com.fcannizzaro.jsoup.annotations">
 
   <application
     android:allowBackup="true"
-    android:label="@string/app_name"
-    android:supportsRtl="true">
+    android:label="@string/lib_name"
+    android:supportsRtl="true"
+    tools:replace="android:label">
 
   </application>
 

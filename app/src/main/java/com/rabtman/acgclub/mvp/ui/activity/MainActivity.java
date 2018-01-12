@@ -19,6 +19,8 @@ import com.rabtman.acgclub.mvp.ui.fragment.SettingFragment;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.utils.IntentUtils;
+import com.rabtman.router.RouterConstants;
+import com.rabtman.router.RouterUtils;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
 import me.yokeyword.fragmentation.SupportFragment;
@@ -154,9 +156,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
   }
 
   private SupportFragment getTargetFragment(int tag) {
+    String path = "";
     switch (tag) {
       case R.id.nav_news:
-        return acgNewsMainFragment;
+        path = RouterConstants.PATH_ACGNEWS_MAIN;
       case R.id.nav_schedule:
         return scheduleMainFragment;
       /*case R.id.nav_picture:
@@ -166,8 +169,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
       case R.id.nav_setting:
         return settingFragment;
     }
+    SupportFragment fragment = (SupportFragment) (RouterUtils.getInstance()
+        .build(RouterConstants.PATH_ACGNEWS_MAIN)
+        .navigation());
+    if (findFragment(fragment.getClass()) == null) {
+
+    }
     return acgNewsMainFragment;
   }
+
 
   @Override
   public void onBackPressedSupport() {

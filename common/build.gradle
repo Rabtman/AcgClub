@@ -1,5 +1,12 @@
 apply plugin: 'com.android.library'
 
+Properties properties = new Properties()
+File localPropertiesFile = project.rootProject.file("local.properties");
+if (localPropertiesFile.exists()) {
+    properties.load(localPropertiesFile.newDataInputStream())
+}
+
+
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     useLibrary 'org.apache.http.legacy'
@@ -9,6 +16,18 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
+
+        //application id
+        buildConfigField "String", "applicationId", "\"" + rootProject.ext.android.applicationId + "\""
+        //umeng app key
+        buildConfigField "String", "UMENG_APP_KEY", properties.getProperty("umengAppKey")
+        //umeng share
+        buildConfigField "String", "SINA_WEIBO_KEY", properties.getProperty("SINA_WEIBO_KEY")
+        buildConfigField "String", "SINA_WEIBO_SECRET", properties.getProperty("SINA_WEIBO_SECRET")
+        buildConfigField "String", "QQ_ZONE_ID", properties.getProperty("QQ_ZONE_ID")
+        buildConfigField "String", "QQ_ZONE_KEY", properties.getProperty("QQ_ZONE_KEY")
+        buildConfigField "String", "WEIXIN_ID", properties.getProperty("WEIXIN_ID")
+        buildConfigField "String", "WEIXIN_KEY", properties.getProperty("WEIXIN_KEY")
     }
     buildTypes {
         release {
@@ -117,4 +136,16 @@ dependencies {
     releaseImplementation rootProject.ext.dependencies["blockcanary-no-op"]
     debugImplementation rootProject.ext.dependencies["leakcanary-android"]
     releaseImplementation rootProject.ext.dependencies["leakcanary-no-op"]
+    //x5内核
+    api files('libs/tbs_sdk_thirdapp_v3.5.0.1004_43500_sharewithdownload_withoutGame_obfs_20170801_113025.jar')
+    //Umeng Share
+    api files('libs/SocialSDK_QQ_Simplify.jar')
+    api files('libs/SocialSDK_Sina_Simplify.jar')
+    api files('libs/SocialSDK_tencentWB.jar')
+    api files('libs/SocialSDK_WeChat_Simplify.jar')
+    api files('libs/umeng_social_api.jar')
+    api files('libs/umeng_social_net.jar')
+    api files('libs/umeng_social_shareboard.jar')
+    api files('libs/umeng_social_shareview.jar')
+    api files('libs/umeng_social_tool.jar')
 }

@@ -18,8 +18,17 @@ import com.rabtman.acgnews.mvp.contract.AcgNewsDetailContract.View;
 import com.rabtman.acgnews.mvp.presenter.AcgNewsDetailPresenter;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
+import com.rabtman.common.utils.ExceptionUtils;
+import com.rabtman.common.utils.LogUtil;
 import com.rabtman.router.RouterConstants;
 import com.tbruyelle.rxpermissions2.RxPermissions;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
+import com.umeng.socialize.media.UMWeb;
+import com.umeng.socialize.shareboard.ShareBoardConfig;
 import com.zzhoujay.richtext.RichText;
 
 /**
@@ -82,13 +91,13 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
   @Override
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
-    //UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+    UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
   }
 
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    //UMShareAPI.get(this).release();
+    UMShareAPI.get(this).release();
   }
 
   @Override
@@ -117,7 +126,7 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
 
   @Override
   public void showShareView() {
-    /*UMWeb umWeb = new UMWeb(mAcgNewsItem.getContentLink());
+    UMWeb umWeb = new UMWeb(mAcgNewsItem.getContentLink());
     umWeb.setThumb(new UMImage(this, mAcgNewsItem.getImgUrl()));
     umWeb.setTitle(mAcgNewsItem.getTitle());
     umWeb.setDescription(mAcgNewsItem.getDescription());
@@ -166,6 +175,6 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
 
           }
         })
-        .open(config);*/
+        .open(config);
   }
 }

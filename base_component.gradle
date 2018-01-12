@@ -14,7 +14,7 @@ android {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         if (isRunAlone) {
-            applicationId rootProject.ext.android.applicationId + "." + moduleName
+            applicationId rootProject.ext.android.organization + "." + moduleName
         }
         javaCompileOptions {
             annotationProcessorOptions {

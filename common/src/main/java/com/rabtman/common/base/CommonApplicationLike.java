@@ -4,6 +4,7 @@ import android.app.Application;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hss01248.dialog.StyledDialog;
 import com.rabtman.common.BuildConfig;
+import com.rabtman.common.R;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.di.component.DaggerAppComponent;
 import com.rabtman.common.di.module.AppModule;
@@ -17,6 +18,11 @@ import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.Utils;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.tencent.smtt.sdk.QbSdk;
+import com.umeng.socialize.Config;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.common.QueuedWork;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -26,6 +32,14 @@ import javax.inject.Inject;
  */
 
 public class CommonApplicationLike implements IApplicationLike {
+
+  static {
+    //Umeng Share各个平台的配置
+    PlatformConfig.setWeixin(BuildConfig.WEIXIN_ID, BuildConfig.WEIXIN_KEY);
+    PlatformConfig.setSinaWeibo(BuildConfig.SINA_WEIBO_KEY, BuildConfig.SINA_WEIBO_SECRET,
+        "http://sns.whalecloud.com");
+    PlatformConfig.setQQZone(BuildConfig.QQ_ZONE_ID, BuildConfig.QQ_ZONE_KEY);
+  }
 
   private final List<ConfigModule> mModules;
   @Inject
@@ -85,6 +99,12 @@ public class CommonApplicationLike implements IApplicationLike {
     installLeakCanary();
   }
 
+  public void onDefaultProcessCreate() {
+    initToastyConfig();
+    initX5Web();
+    initUShare();
+  }
+
   public void onTerminate() {
     if (mActivityLifecycle != null) {
       mApplication.unregisterActivityLifecycleCallbacks(mActivityLifecycle);
@@ -100,6 +120,43 @@ public class CommonApplicationLike implements IApplicationLike {
     if (mRefWatcher != null) {
       this.mRefWatcher = null;
     }
+  }
+
+  //Umeng Share
+  private void initUShare() {
+    Config.DEBUG = BuildConfig.DEBUG;
+    QueuedWork.isUseThreadPool = false;
+    UMShareAPI.init(mApplication, BuildConfig.UMENG_APP_KEY);
+  }
+
+  private void initToastyConfig() {
+    /*Toasty.Config.getInstance()
+        .setErrorColor( @ColorInt int errorColor) // optional
+    .setInfoColor( @ColorInt int infoColor) // optional
+    .setSuccessColor( @ColorInt int successColor) // optional
+    .setWarningColor( @ColorInt int warningColor) // optional
+    .setTextColor( @ColorInt int textColor) // optional
+    .tintIcon( boolean tintIcon) // optional (apply textColor also to the icon)
+    .setToastTypeface(@NonNull Typeface typeface) // optional
+        .apply(); */
+  }
+
+  private void initX5Web() {
+    //x5内核初始化接口
+    QbSdk.initX5Environment(mApplication, new QbSdk.PreInitCallback() {
+
+      @Override
+      public void onViewInitFinished(boolean arg0) {
+        // TODO Auto-generated method stub
+        //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
+        LogUtil.d("onViewInitFinished is " + arg0);
+      }
+
+      @Override
+      public void onCoreInitFinished() {
+        // TODO Auto-generated method stub
+      }
+    });
   }
 
   /**
@@ -119,7 +176,9 @@ public class CommonApplicationLike implements IApplicationLike {
     GlobeConfigModule.Builder builder = GlobeConfigModule
         .builder()
         .baseurl(
-            "https://api.github.com");//为了防止用户没有通过GlobeConfigModule配置baseurl,而导致报错,所以提前配置个默认baseurl
+            "https://api.github.com")//为了防止用户没有通过GlobeConfigModule配置baseurl,而导致报错,所以提前配置个默认baseurl
+        .statusBarColor(R.color.colorPrimary)   //提供一个默认的状态栏颜色
+        .statusBarAlpha(0);
 
     for (ConfigModule module : modules) {
       module.applyOptions(context, builder);

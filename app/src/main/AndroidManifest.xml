@@ -26,14 +26,13 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme"
-    tools:replace="android:allowBackup">
+    tools:replace="android:allowBackup,android:label">
     <activity
       android:name=".mvp.ui.activity.MainActivity"
       android:screenOrientation="portrait"
       android:theme="@style/SplashTheme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
-
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
@@ -62,64 +61,13 @@
       android:name="com.rabtman.acgclub.base.AppConfig"
       android:value="ConfigModule" />
 
-    <!--Umeng Share -->
-    <activity
-      android:configChanges="keyboardHidden|orientation"
-      android:exported="false"
-      android:name="com.umeng.socialize.media.WBShareCallBackActivity"
-      android:screenOrientation="portrait"
-      android:theme="@android:style/Theme.Translucent.NoTitleBar"></activity>
-    <activity
-      android:configChanges="keyboardHidden|orientation"
-      android:exported="false"
-      android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
-      android:windowSoftInputMode="adjustResize">
-
-    </activity>
-    <activity
-      android:launchMode="singleTask"
-      android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
-      android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
-      <intent-filter>
-        <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-
-    </activity>
-
-
+    <!-- Umeng Share 微信分享-->
     <activity
       android:configChanges="keyboardHidden|orientation|screenSize"
       android:exported="true"
       android:name=".wxapi.WXEntryActivity"
       android:screenOrientation="portrait"
       android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-    <activity
-      android:launchMode="singleTask"
-      android:name="com.umeng.qq.tencent.AuthActivity"
-      android:noHistory="true">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-
-        <data android:scheme="tencent1106419823" />
-      </intent-filter>
-    </activity>
-
-    <activity
-      android:configChanges="orientation|keyboardHidden|screenSize"
-      android:name="com.umeng.qq.tencent.AssistActivity"
-      android:screenOrientation="portrait"
-      android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-    <activity
-      android:excludeFromRecents="true"
-      android:name="com.umeng.socialize.editorpage.ShareActivity"
-      android:theme="@style/Theme.UMDefault" />
-    <!--Umeng Share end-->
   </application>
 
 </manifest>

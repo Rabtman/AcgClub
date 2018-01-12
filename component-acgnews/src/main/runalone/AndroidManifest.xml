@@ -3,13 +3,49 @@
   xmlns:tools="http://schemas.android.com/tools"
   package="com.rabtman.acgnews">
 
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+  <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+  <uses-permission android:name="android.permission.READ_LOGS" />
+  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+  <uses-permission android:name="android.permission.CALL_PHONE" />
+
   <application
+    android:icon="@mipmap/ic_launcher"
     android:label="@string/acgnews_module_name"
+    android:name=".AcgNewsApplication"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:theme="@style/AppTheme"
     tools:replace="android:label">
 
     <activity
+      android:name=".AcgNewsMainActivity"
+      android:screenOrientation="portrait">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity
       android:name="com.rabtman.acgnews.mvp.ui.activity.AcgInfoDetailActivity"
       android:screenOrientation="portrait" />
+
+    <meta-data
+      android:name="UMENG_APPKEY"
+      android:value="5955fe1d734be4698a001da3"></meta-data>
+    <!-- Umeng Share 微信分享-->
+    <activity
+      android:configChanges="keyboardHidden|orientation|screenSize"
+      android:exported="true"
+      android:name=".wxapi.WXEntryActivity"
+      android:screenOrientation="portrait"
+      android:theme="@android:style/Theme.Translucent.NoTitleBar" />
   </application>
 
 </manifest>

@@ -40,15 +40,6 @@ android {
         //阿里用户反馈
         buildConfigField "String", "FEEDBACK_APP_KEY", properties.getProperty("fbAppKey")
         buildConfigField "String", "FEEDBACK_APP_SECRET", properties.getProperty("fbAppSecret")
-        //umeng app key
-        buildConfigField "String", "UMENG_APP_KEY", properties.getProperty("umengAppKey")
-        //umeng share
-        buildConfigField "String", "SINA_WEIBO_KEY", properties.getProperty("SINA_WEIBO_KEY")
-        buildConfigField "String", "SINA_WEIBO_SECRET", properties.getProperty("SINA_WEIBO_SECRET")
-        buildConfigField "String", "QQ_ZONE_ID", properties.getProperty("QQ_ZONE_ID")
-        buildConfigField "String", "QQ_ZONE_KEY", properties.getProperty("QQ_ZONE_KEY")
-        buildConfigField "String", "WEIXIN_ID", properties.getProperty("WEIXIN_ID")
-        buildConfigField "String", "WEIXIN_KEY", properties.getProperty("WEIXIN_KEY")
         //bugly APP ID
         buildConfigField "String", "BUGLY_APP_ID", properties.getProperty("buglyAppId")
     }
@@ -147,6 +138,7 @@ repositories {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':common')
+    implementation project(':component-acgnews')
     //di
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
@@ -156,21 +148,9 @@ dependencies {
     implementation 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
     implementation 'com.aliyun.ams:alicloud-android-ut:5.1.0'
     implementation 'com.aliyun.ams:alicloud-android-utils:1.0.3'
-    //x5内核
-    implementation files('libs/tbs_sdk_thirdapp_v3.5.0.1004_43500_sharewithdownload_withoutGame_obfs_20170801_113025.jar')
     //bugly
     implementation rootProject.ext.dependencies["crashreport"]
     implementation rootProject.ext.dependencies["nativecrashreport"]
     //ApkChannelPackage
     implementation rootProject.ext.dependencies["apk-channel-package"]
-    //Umeng Share
-    implementation files('libs/SocialSDK_QQ_Simplify.jar')
-    implementation files('libs/SocialSDK_Sina_Simplify.jar')
-    implementation files('libs/SocialSDK_tencentWB.jar')
-    implementation files('libs/SocialSDK_WeChat_Simplify.jar')
-    implementation files('libs/umeng_social_api.jar')
-    implementation files('libs/umeng_social_net.jar')
-    implementation files('libs/umeng_social_shareboard.jar')
-    implementation files('libs/umeng_social_shareview.jar')
-    implementation files('libs/umeng_social_tool.jar')
 }

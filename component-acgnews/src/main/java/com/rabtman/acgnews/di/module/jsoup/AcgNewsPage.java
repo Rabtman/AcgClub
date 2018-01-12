@@ -1,8 +1,8 @@
 package com.rabtman.acgnews.di.module.jsoup;
 
+import com.fcannizzaro.jsoup.annotations.interfaces.Attr;
 import com.fcannizzaro.jsoup.annotations.interfaces.Items;
 import com.fcannizzaro.jsoup.annotations.interfaces.Selector;
-import com.fcannizzaro.jsoup.annotations.interfaces.Text;
 import java.util.List;
 
 /**
@@ -13,7 +13,7 @@ public class AcgNewsPage {
 
   @Items
   private List<AcgNews> acgNewsList;
-  @Text("div div ul li span strong")
+  @Attr(query = "div div.pages div ul li a:last-child", attr = "href")
   private String pageCount;
 
   public List<AcgNews> getAcgNewsList() {
@@ -25,7 +25,7 @@ public class AcgNewsPage {
   }
 
   public String getPageCount() {
-    return pageCount;
+    return pageCount.substring(pageCount.lastIndexOf("_") + 1, pageCount.lastIndexOf("."));
   }
 
   public void setPageCount(String pageCount) {

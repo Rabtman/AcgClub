@@ -2,6 +2,7 @@ package com.rabtman.common.base;
 
 import android.app.Application;
 import com.rabtman.common.di.component.AppComponent;
+import com.rabtman.common.utils.SystemUtils;
 
 
 public abstract class BaseApplication extends Application implements App {
@@ -14,6 +15,12 @@ public abstract class BaseApplication extends Application implements App {
     super.onCreate();
     this.mCommonApplicationLike = new CommonApplicationLike(this);
     this.mCommonApplicationLike.onCreate();
+
+    boolean defaultProcess = SystemUtils.getCurProcessName().equals(getPackageName());
+    if (defaultProcess) {
+      this.mCommonApplicationLike.onDefaultProcessCreate();
+      this.onDefaultProcessCreate();
+    }
   }
 
   /**
@@ -25,11 +32,15 @@ public abstract class BaseApplication extends Application implements App {
     this.mCommonApplicationLike.onTerminate();
   }
 
+  /**
+   * 在默认进程中进行操作
+   */
+  public void onDefaultProcessCreate() {
+
+  }
 
   /**
    * 将AppComponent返回出去,供其它地方使用, AppComponent接口中声明的方法返回的实例,在getAppComponent()拿到对象后都可以直接使用
-   *
-   * @return
    */
   @Override
   public AppComponent getAppComponent() {
