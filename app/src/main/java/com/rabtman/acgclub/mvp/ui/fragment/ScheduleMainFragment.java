@@ -10,6 +10,7 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import butterknife.BindView;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.rabtman.acgclub.R;
@@ -31,6 +32,7 @@ import com.rabtman.acgclub.mvp.ui.adapter.ScheduleRecentAdapter;
 import com.rabtman.acgclub.mvp.ui.adapter.ScheduleRecommandAdapter;
 import com.rabtman.common.base.BaseFragment;
 import com.rabtman.common.di.component.AppComponent;
+import com.rabtman.router.RouterConstants;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.MZBannerView.BannerPageClickListener;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
@@ -40,7 +42,7 @@ import java.util.ArrayList;
 /**
  * @author Rabtman
  */
-
+@Route(path = RouterConstants.PATH_SCHEDULE_MAIN)
 public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> implements
     View {
 

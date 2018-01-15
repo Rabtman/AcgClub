@@ -13,9 +13,6 @@ import com.rabtman.acgclub.di.module.MainModule;
 import com.rabtman.acgclub.mvp.contract.MainContract;
 import com.rabtman.acgclub.mvp.model.entity.VersionInfo;
 import com.rabtman.acgclub.mvp.presenter.MainPresenter;
-import com.rabtman.acgclub.mvp.ui.fragment.AcgNewsMainFragment;
-import com.rabtman.acgclub.mvp.ui.fragment.ScheduleMainFragment;
-import com.rabtman.acgclub.mvp.ui.fragment.SettingFragment;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.utils.IntentUtils;
@@ -23,6 +20,7 @@ import com.rabtman.router.RouterConstants;
 import com.rabtman.router.RouterUtils;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
+import java.util.HashMap;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**
@@ -44,14 +42,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
   DrawerLayout drawerLayout;*/
 
   //ActionBarDrawerToggle toggle;
-  AcgNewsMainFragment acgNewsMainFragment;
-  ScheduleMainFragment scheduleMainFragment;
+  //需要加载的fragment
+  HashMap<String, Class<? extends SupportFragment>> loadFragments = new HashMap<>();
+  //AcgNewsMainFragment acgNewsMainFragment;
+  //ScheduleMainFragment scheduleMainFragment;
   //AcgPicMainFragment acgPicMainFragment;
   //FictionFragment fictionFragment;
-  SettingFragment settingFragment;
+  //SettingFragment settingFragment;
 
-  private int hideFragment = R.id.nav_news;
-  private int showFragment = R.id.nav_news;
+  private String hideFragment = RouterConstants.PATH_ACGNEWS_MAIN;
+  private String showFragment = RouterConstants.PATH_ACGNEWS_MAIN;
 
 
   @Override
@@ -85,21 +85,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawerLayout.addDrawerListener(toggle);
     toggle.syncState();*/
-    if (findFragment(AcgNewsMainFragment.class) == null) {
-      //fragment
-      acgNewsMainFragment = new AcgNewsMainFragment();
-      scheduleMainFragment = new ScheduleMainFragment();
-      //acgPicMainFragment = new AcgPicMainFragment();
-      //fictionFragment = new FictionFragment();
-      settingFragment = new SettingFragment();
-      loadMultipleRootFragment(R.id.main_content, 0, acgNewsMainFragment, scheduleMainFragment,
-          settingFragment);
-    } else {
-      acgNewsMainFragment = findFragment(AcgNewsMainFragment.class);
-      scheduleMainFragment = findFragment(ScheduleMainFragment.class);
-      //acgPicMainFragment = findFragment(AcgPicMainFragment.class);
-      //fictionFragment = findFragment(FictionFragment.class);
-      settingFragment = findFragment(SettingFragment.class);
+    if (loadFragments.get(RouterConstants.PATH_ACGNEWS_MAIN) == null) {
+      loadMultipleRootFragment(R.id.main_content,
+          0,
+          getTargetFragment(RouterConstants.PATH_ACGNEWS_MAIN),
+          getTargetFragment(RouterConstants.PATH_SCHEDULE_MAIN),
+          getTargetFragment(RouterConstants.PATH_SETTING));
     }
 
     bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
@@ -108,11 +99,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         String title = null;
         switch (tabId) {
           case R.id.nav_news:
-            showFragment = R.id.nav_news;
+            showFragment = RouterConstants.PATH_ACGNEWS_MAIN;
             title = getString(R.string.nav_news);
             break;
           case R.id.nav_schedule:
-            showFragment = R.id.nav_schedule;
+            showFragment = RouterConstants.PATH_SCHEDULE_MAIN;
             title = getString(R.string.nav_schedule);
             break;
           /*case R.id.nav_picture:
@@ -124,7 +115,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             title = getString(R.string.nav_fiction);
             break;*/
           case R.id.nav_setting:
-            showFragment = R.id.nav_setting;
+            showFragment = RouterConstants.PATH_SETTING;
             title = getString(R.string.nav_setting);
             break;
         }
@@ -155,27 +146,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         });*/
   }
 
-  private SupportFragment getTargetFragment(int tag) {
-    String path = "";
-    switch (tag) {
-      case R.id.nav_news:
-        path = RouterConstants.PATH_ACGNEWS_MAIN;
-      case R.id.nav_schedule:
-        return scheduleMainFragment;
-      /*case R.id.nav_picture:
-        return acgPicMainFragment;
-      case R.id.nav_fiction:
-        return fictionFragment;*/
-      case R.id.nav_setting:
-        return settingFragment;
+  /**
+   * 根据目标路径找到对应的页面
+   */
+  private SupportFragment getTargetFragment(String path) {
+    if (loadFragments.get(path) != null && findFragment(loadFragments.get(path)) != null) {
+      return findFragment(loadFragments.get(path));
+    } else {
+      SupportFragment fragment = (SupportFragment) (RouterUtils.getInstance()
+          .build(path)
+          .navigation());
+      loadFragments.put(path, fragment.getClass());
+      return fragment;
     }
-    SupportFragment fragment = (SupportFragment) (RouterUtils.getInstance()
-        .build(RouterConstants.PATH_ACGNEWS_MAIN)
-        .navigation());
-    if (findFragment(fragment.getClass()) == null) {
-
-    }
-    return acgNewsMainFragment;
   }
 
 

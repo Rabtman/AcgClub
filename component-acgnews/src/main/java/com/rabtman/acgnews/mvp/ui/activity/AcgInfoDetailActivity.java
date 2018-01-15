@@ -38,15 +38,15 @@ import com.zzhoujay.richtext.RichText;
 public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> implements
     View {
 
-  @BindView(R.id.toolbar)
+  @BindView(R2.id.toolbar)
   Toolbar mToolBar;
-  @BindView(R.id.tv_acg_detail_content)
+  @BindView(R2.id.tv_acg_detail_content)
   TextView tvAcgDetailContent;
-  @BindView(R.id.tv_acg_detail_title)
+  @BindView(R2.id.tv_acg_detail_title)
   TextView tvAcgDetailTitle;
-  @BindView(R.id.tv_acg_detail_labels)
+  @BindView(R2.id.tv_acg_detail_labels)
   TextView tvAcgDetailLabels;
-  @BindView(R.id.tv_acg_detail_datetime)
+  @BindView(R2.id.tv_acg_detail_datetime)
   TextView tvAcgDetailDatetime;
   private AcgNews mAcgNewsItem;
 
@@ -76,10 +76,8 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
     mToolBar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
       @Override
       public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-          case R.id.acginfo_share:
-            mPresenter.start2Share(new RxPermissions(AcgInfoDetailActivity.this));
-            break;
+        if (item.getItemId() == R.id.acginfo_share) {
+          mPresenter.start2Share(new RxPermissions(AcgInfoDetailActivity.this));
         }
         return false;
       }

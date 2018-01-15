@@ -6,17 +6,19 @@ import android.view.View;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.hss01248.dialog.StyledDialog;
 import com.rabtman.acgclub.BuildConfig;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.mvp.ui.activity.MainActivity;
 import com.rabtman.common.base.SimpleFragment;
+import com.rabtman.router.RouterConstants;
 
 /**
  * @author Rabtman
  */
-
+@Route(path = RouterConstants.PATH_SETTING)
 public class SettingFragment extends SimpleFragment {
 
   @BindView(R.id.tv_setting_version)

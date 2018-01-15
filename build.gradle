@@ -16,7 +16,7 @@ buildscript {
         //andResGurad
         classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.10'
         //butterknife
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.1'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
     }
 }
 

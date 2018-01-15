@@ -21,9 +21,9 @@ import java.util.List;
 @Route(path = RouterConstants.PATH_ACGNEWS_MAIN)
 public class AcgNewsMainFragment extends SimpleFragment {
 
-  @BindView(R.id.tab_news)
+  @BindView(R2.id.tab_news)
   TabLayout mTabLayout;
-  @BindView(R.id.vp_news)
+  @BindView(R2.id.vp_news)
   ViewPager mViewPager;
 
   List<Fragment> fragments = new ArrayList<>();

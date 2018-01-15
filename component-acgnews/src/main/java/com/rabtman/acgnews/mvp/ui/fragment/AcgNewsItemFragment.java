@@ -31,9 +31,9 @@ import java.util.List;
 public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> implements
     View {
 
-  @BindView(R.id.rcv_news_item)
+  @BindView(R2.id.rcv_news_item)
   RecyclerView rcvNewsItem;
-  @BindView(R.id.swipe_refresh_news)
+  @BindView(R2.id.swipe_refresh_news)
   SwipeRefreshLayout swipeRefresh;
   //当前资讯类型地址id
   private int typeUrlId;
@@ -57,16 +57,13 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
   protected void initData() {
     Bundle bundle = getArguments();
     String title = bundle.getString(IntentConstant.ACG_NEWS_TITLE, "");
-    switch (SystemConstant.ACG_NEWS_TITLE.indexOf(title)) {
-      case 0:
-        typeUrlId = R.string.acg_news_dmxw;
-        break;
-      case 1:
-        typeUrlId = R.string.acg_news_yjdt;
-        break;
-      case 2:
-        typeUrlId = R.string.acg_news_qtrd;
-        break;
+    int titlePos = SystemConstant.ACG_NEWS_TITLE.indexOf(title);
+    if (titlePos == 0) {
+      typeUrlId = R.string.acg_news_dmxw;
+    } else if (titlePos == 1) {
+      typeUrlId = R.string.acg_news_yjdt;
+    } else if (titlePos == 2) {
+      typeUrlId = R.string.acg_news_qtrd;
     }
 
     mAdapter = new AcgNewsItemAdapter(getAppComponent().imageLoader());
