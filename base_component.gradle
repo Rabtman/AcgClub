@@ -1,6 +1,6 @@
 //模块名称
-def moduleName = project.getName().replaceAll("component-", "")
-def isRunAlone = rootProject.ext.runAlone.contains(moduleName)
+def componentName = project.getName().replaceAll("component-", "")
+def isRunAlone = rootProject.ext.runAlone.contains(componentName)
 if (isRunAlone) {
     apply plugin: 'com.android.application'
 } else {
@@ -15,7 +15,7 @@ android {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         if (isRunAlone) {
-            applicationId rootProject.ext.android.organization + "." + moduleName
+            applicationId rootProject.ext.android.organization + "." + componentName
         }
         javaCompileOptions {
             annotationProcessorOptions {
@@ -24,8 +24,8 @@ android {
         }
         versionCode 1
         versionName "1.0.0"
-        resourcePrefix moduleName + "_"
-        resValue "string", moduleName + "_module_name", project.getName()
+        resourcePrefix componentName + "_"
+        resValue "string", componentName + "_module_name", project.getName()
     }
 
     if (isRunAlone) {

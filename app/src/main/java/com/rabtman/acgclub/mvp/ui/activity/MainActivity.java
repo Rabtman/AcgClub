@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import android.support.v7.widget.Toolbar;
 import android.widget.FrameLayout;
 import butterknife.BindView;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.rabtman.acgclub.R;
@@ -153,6 +154,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     if (loadFragments.get(path) != null && findFragment(loadFragments.get(path)) != null) {
       return findFragment(loadFragments.get(path));
     } else {
+      Object f = ARouter.getInstance().build(RouterConstants.PATH_ACGNEWS_DETAIL).navigation();
       SupportFragment fragment = (SupportFragment) (RouterUtils.getInstance()
           .build(path)
           .navigation());

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rabtman.acgnews.R;
+import com.rabtman.acgnews.R2;
 import com.rabtman.acgnews.base.constant.IntentConstant;
 import com.rabtman.acgnews.di.component.DaggerAcgNewsDetailComponent;
 import com.rabtman.acgnews.di.module.AcgNewsDetailModule;

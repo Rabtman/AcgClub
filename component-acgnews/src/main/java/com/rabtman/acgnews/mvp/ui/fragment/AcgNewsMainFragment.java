@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rabtman.acgnews.R;
+import com.rabtman.acgnews.R2;
 import com.rabtman.acgnews.base.constant.IntentConstant;
 import com.rabtman.acgnews.base.constant.SystemConstant;
 import com.rabtman.acgnews.mvp.ui.adapter.AcgNewsMainPageAdapter;

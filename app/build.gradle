@@ -36,7 +36,11 @@ android {
             abiFilters "armeabi"
         }*/
         vectorDrawables.useSupportLibrary = true
-
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ moduleName : project.getName() ]
+            }
+        }
         //阿里用户反馈
         buildConfigField "String", "FEEDBACK_APP_KEY", properties.getProperty("fbAppKey")
         buildConfigField "String", "FEEDBACK_APP_SECRET", properties.getProperty("fbAppSecret")

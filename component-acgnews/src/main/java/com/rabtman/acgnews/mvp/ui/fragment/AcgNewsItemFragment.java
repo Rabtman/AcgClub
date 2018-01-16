@@ -11,6 +11,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.chad.library.adapter.base.BaseQuickAdapter.RequestLoadMoreListener;
 import com.rabtman.acgnews.R;
+import com.rabtman.acgnews.R2;
 import com.rabtman.acgnews.base.constant.IntentConstant;
 import com.rabtman.acgnews.base.constant.SystemConstant;
 import com.rabtman.acgnews.di.component.DaggerAcgNewsItemComponent;

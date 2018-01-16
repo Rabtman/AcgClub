@@ -72,7 +72,7 @@ ext {
             "rxcache"                   : "com.github.VictorAlbertos.RxCache:runtime:1.8.0-2.x",
             "rxcache-jolyglot"          : "com.github.VictorAlbertos.Jolyglot:gson:0.0.3",
             //router
-            "router"                    : "com.alibaba:arouter-api:1.2.4",
+            "router"                    : "com.alibaba:arouter-api:1.3.1",
             "router-compiler"           : "com.alibaba:arouter-compiler:1.1.4",
             //di
             "butterknife"               : "com.jakewharton:butterknife:${dependVersion.butterknife}",
