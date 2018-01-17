@@ -51,7 +51,7 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
 
   @Override
   protected int getLayoutId() {
-    return R.layout.fragment_news_item;
+    return R.layout.acgnews_fragment_news_item;
   }
 
   @Override
@@ -60,11 +60,11 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
     String title = bundle.getString(IntentConstant.ACG_NEWS_TITLE, "");
     int titlePos = SystemConstant.ACG_NEWS_TITLE.indexOf(title);
     if (titlePos == 0) {
-      typeUrlId = R.string.acg_news_dmxw;
+      typeUrlId = R.string.acgnews_url_dmxw;
     } else if (titlePos == 1) {
-      typeUrlId = R.string.acg_news_yjdt;
+      typeUrlId = R.string.acgnews_url_yjdt;
     } else if (titlePos == 2) {
-      typeUrlId = R.string.acg_news_qtrd;
+      typeUrlId = R.string.acgnews_url_qtrd;
     }
 
     mAdapter = new AcgNewsItemAdapter(getAppComponent().imageLoader());

@@ -5,6 +5,6 @@
     android:id="@+id/acginfo_share"
     android:icon="@drawable/ic_share_white"
     android:orderInCategory="101"
-    android:title="@string/menu_share"
+    android:title="@string/acgnews_menu_share"
     app:showAsAction="ifRoom|collapseActionView" />
 </menu>

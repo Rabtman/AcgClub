@@ -1,6 +1,8 @@
 package com.rabtman.common.base;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.utils.SystemUtils;
 
@@ -21,6 +23,12 @@ public abstract class BaseApplication extends Application implements App {
       this.mCommonApplicationLike.onDefaultProcessCreate();
       this.onDefaultProcessCreate();
     }
+  }
+
+  @Override
+  protected void attachBaseContext(Context base) {
+    super.attachBaseContext(base);
+    MultiDex.install(this);
   }
 
   /**

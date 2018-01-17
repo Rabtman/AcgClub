@@ -32,7 +32,7 @@ public class AcgNewsMainFragment extends SimpleFragment {
 
   @Override
   protected int getLayoutId() {
-    return R.layout.fragment_news_main;
+    return R.layout.acgnews_fragment_news_main;
   }
 
   @Override

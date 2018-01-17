@@ -18,19 +18,14 @@
 
   <string name="menu_download">下载</string>
   <string name="menu_search">搜索</string>
-  <string name="menu_share">分享</string>
 
   <string name="content_about">目前APP纯属个人喜好开发学习，暂不做商业用途。\n\n资源均来源于网络（包括你可能会在视频中看到的广告），如有侵权或违规内容请告知我及时处理。\n\n在使用过程中，如遇什么问题或者有什么好的建议，欢迎各位同萌们提出。\n\n联系方式：acgclub@rabtman.com
   </string>
 
-  <!-- 动漫资讯-->
-  <string name="acg_news_dmxw">xw/dmxw/list_527_%1$d.html</string>
-  <string name="acg_news_yjdt">xw/yjdt/list_528_%1$d.html</string>
-  <string name="acg_news_qtrd">xw/qtrd/list_529_%1$d.html</string>
-
-  <string name="acg_news_update_time">更新于 %1$s</string>
-
   <!-- 信息-->
+  <string name="msg_error_network">貌似网络不太好使(\u2565\ufe4f\u2565)</string>
+  <string name="msg_error_unknown">发生了些意想不到的错误\u03a3( \u00b0 \u25b3 \u00b0)</string>
+
   <string name="msg_start_download_picture">保存图片...</string>
   <string name="msg_no_version_info">当前已经是最新版本</string>
 

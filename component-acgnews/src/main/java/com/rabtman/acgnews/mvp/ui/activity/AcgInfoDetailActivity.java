@@ -62,7 +62,7 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
 
   @Override
   protected int getLayoutId() {
-    return R.layout.activity_acginfo_detail;
+    return R.layout.acgnews_activity_acginfo_detail;
   }
 
   @Override
@@ -101,7 +101,7 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
-    getMenuInflater().inflate(R.menu.activity_acginfo_share_menu, menu);
+    getMenuInflater().inflate(R.menu.acgnews_activity_acginfo_share_menu, menu);
     return true;
   }
 

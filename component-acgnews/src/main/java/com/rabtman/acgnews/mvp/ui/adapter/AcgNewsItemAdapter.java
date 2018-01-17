@@ -17,7 +17,7 @@ public class AcgNewsItemAdapter extends BaseQuickAdapter<AcgNews, BaseViewHolder
   private ImageLoader mImageLoader;
 
   public AcgNewsItemAdapter(ImageLoader imageLoader) {
-    super(R.layout.item_news_item, null);
+    super(R.layout.acgnews_item_news_item, null);
     mImageLoader = imageLoader;
   }
 
