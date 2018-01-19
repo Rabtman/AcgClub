@@ -1,8 +1,8 @@
 package com.rabtman.acgnews.mvp.model;
 
 import com.fcannizzaro.jsoup.annotations.JP;
-import com.rabtman.acgnews.di.module.jsoup.AcgNewsPage;
 import com.rabtman.acgnews.mvp.contract.AcgNewsContract;
+import com.rabtman.acgnews.mvp.model.jsoup.AcgNewsPage;
 import com.rabtman.common.base.mvp.BaseModel;
 import com.rabtman.common.di.scope.FragmentScope;
 import com.rabtman.common.integration.IRepositoryManager;

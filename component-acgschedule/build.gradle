@@ -1,0 +1,5 @@
+apply from:"../base_component.gradle"
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+}

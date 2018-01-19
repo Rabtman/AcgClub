@@ -37,23 +37,8 @@
       </intent-filter>
     </activity>
     <activity
-      android:name=".mvp.ui.activity.ScheduleTimeActivity"
-      android:screenOrientation="portrait" />
-    <activity
-      android:name=".mvp.ui.activity.ScheduleNewActivity"
-      android:screenOrientation="portrait" />
-    <activity
       android:name=".mvp.ui.activity.APicDetailActivity"
       android:screenOrientation="portrait" />
-    <activity
-      android:configChanges="orientation|screenSize|keyboardHidden"
-      android:name=".mvp.ui.activity.ScheduleVideoActivity"
-      android:screenOrientation="landscape" />
-    <activity
-      android:configChanges="orientation|screenSize|keyboardHidden"
-      android:name=".mvp.ui.activity.ScheduleDetailActivity"
-      android:screenOrientation="portrait" />
-
     <meta-data
       android:name="com.rabtman.common.imageloader.glide.GlideConfiguration"
       android:value="GlideModule" />

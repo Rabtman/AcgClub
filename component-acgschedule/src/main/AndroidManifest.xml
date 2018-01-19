@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.rabtman.acgschedule">
+
+  <application
+    android:label="@string/acgschedule_module_name"
+    tools:replace="android:label">
+
+    <activity
+      android:name="com.rabtman.acgschedule.mvp.ui.activity.ScheduleTimeActivity"
+      android:screenOrientation="portrait" />
+    <activity
+      android:name="com.rabtman.acgschedule.mvp.ui.activity.ScheduleNewActivity"
+      android:screenOrientation="portrait" />
+    <activity
+      android:configChanges="orientation|screenSize|keyboardHidden"
+      android:name="com.rabtman.acgschedule.mvp.ui.activity.ScheduleVideoActivity"
+      android:screenOrientation="landscape" />
+    <activity
+      android:configChanges="orientation|screenSize|keyboardHidden"
+      android:name="com.rabtman.acgschedule.mvp.ui.activity.ScheduleDetailActivity"
+      android:screenOrientation="portrait" />
+  </application>
+</manifest>

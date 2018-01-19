@@ -1,6 +1,6 @@
 package com.rabtman.acgnews.mvp.contract;
 
-import com.rabtman.acgnews.di.module.jsoup.AcgNewsDetail;
+import com.rabtman.acgnews.mvp.model.jsoup.AcgNewsDetail;
 import com.rabtman.common.base.mvp.IModel;
 import com.rabtman.common.base.mvp.IView;
 import io.reactivex.Flowable;

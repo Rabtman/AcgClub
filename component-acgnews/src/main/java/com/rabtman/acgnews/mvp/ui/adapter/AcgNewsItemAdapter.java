@@ -4,7 +4,7 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.rabtman.acgnews.R;
-import com.rabtman.acgnews.di.module.jsoup.AcgNews;
+import com.rabtman.acgnews.mvp.model.jsoup.AcgNews;
 import com.rabtman.common.imageloader.ImageLoader;
 import com.rabtman.common.imageloader.glide.GlideImageConfig;
 
