@@ -17,6 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.jaeger.library.StatusBarUtil;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.rabtman.acgschedule.R;
+import com.rabtman.acgschedule.R2;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
 import com.rabtman.acgschedule.di.component.DaggerScheduleDetailComponent;
 import com.rabtman.acgschedule.di.module.ScheduleDetailModule;
@@ -40,33 +41,33 @@ import java.util.List;
 public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter> implements
     View {
 
-  @BindView(R.id.toolbar)
+  @BindView(R2.id.toolbar)
   Toolbar mToolBar;
-  @BindView(R.id.toolbar_title)
+  @BindView(R2.id.toolbar_title)
   TextView mToolBarTitle;
-  @BindView(R.id.app_bar)
+  @BindView(R2.id.app_bar)
   AppBarLayout appBar;
-  @BindView(R.id.collapsing_toolbar)
+  @BindView(R2.id.collapsing_toolbar)
   CollapsingToolbarLayout collapsingToolbarLayout;
-  @BindView(R.id.img_schedule_title_bg)
+  @BindView(R2.id.img_schedule_title_bg)
   ImageView imgScheduleTitleBg;
-  @BindView(R.id.img_schedule_detail_icon)
+  @BindView(R2.id.img_schedule_detail_icon)
   ImageView imgScheduleDetailIcon;
-  @BindView(R.id.tv_schedule_detail_time)
+  @BindView(R2.id.tv_schedule_detail_time)
   TextView tvScheduleDetailTime;
-  @BindView(R.id.tv_schedule_detail_area)
+  @BindView(R2.id.tv_schedule_detail_area)
   TextView tvScheduleDetailAera;
-  @BindView(R.id.tv_schedule_detail_proc)
+  @BindView(R2.id.tv_schedule_detail_proc)
   TextView tvScheduleDetailProc;
-  @BindView(R.id.tv_schedule_detail_label)
+  @BindView(R2.id.tv_schedule_detail_label)
   TextView tvScheduleDetailLabel;
-  @BindView(R.id.tv_schedule_detail_description)
+  @BindView(R2.id.tv_schedule_detail_description)
   ExpandableTextView tvScheduleDetailDescription;
-  @BindView(R.id.layout_description)
+  @BindView(R2.id.layout_description)
   CardView layoutSceduleDescription;
-  @BindView(R.id.layout_episode)
+  @BindView(R2.id.layout_episode)
   CardView layoutSceduleEpisode;
-  @BindView(R.id.rcv_schedule_detail)
+  @BindView(R2.id.rcv_schedule_detail)
   RecyclerView rcvScheduleDetail;
 
   @Override

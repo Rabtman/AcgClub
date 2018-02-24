@@ -17,6 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemChildClickListener;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.rabtman.acgschedule.R;
+import com.rabtman.acgschedule.R2;
 import com.rabtman.acgschedule.base.constant.HtmlConstant;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
 import com.rabtman.acgschedule.base.constant.SystemConstant;
@@ -39,11 +40,11 @@ import java.util.List;
 public class ScheduleTimeActivity extends SimpleActivity {
 
 
-  @BindView(R.id.toolbar)
+  @BindView(R2.id.toolbar)
   Toolbar toolbar;
-  @BindView(R.id.tab_schedule_time)
+  @BindView(R2.id.tab_schedule_time)
   TabLayout tabScheduleTime;
-  @BindView(R.id.rcv_schedule_time)
+  @BindView(R2.id.rcv_schedule_time)
   RecyclerView rcvScheduleTime;
   private ScheduleTimeAdapter mAdapter;
   private LinearLayoutManager mLayoutManager;

@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rabtman.acgschedule.R;
+import com.rabtman.acgschedule.R2;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
 import com.rabtman.acgschedule.di.component.DaggerScheduleVideoComponent;
 import com.rabtman.acgschedule.di.module.ScheduleVideoModule;
@@ -31,9 +32,9 @@ import com.tencent.smtt.sdk.QbSdk;
 public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> implements
     ScheduleVideoContract.View {
 
-  @BindView(R.id.webview)
+  @BindView(R2.id.webview)
   X5VideoWebView webView;
-  @BindView(R.id.progress_video)
+  @BindView(R2.id.progress_video)
   ProgressBar progressVideo;
 
   @Override

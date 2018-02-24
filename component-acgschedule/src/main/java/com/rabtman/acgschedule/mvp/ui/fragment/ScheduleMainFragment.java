@@ -14,6 +14,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.rabtman.acgschedule.R;
+import com.rabtman.acgschedule.R2;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
 import com.rabtman.acgschedule.di.component.DaggerScheduleMainComponent;
 import com.rabtman.acgschedule.di.module.ScheduleMainModule;
@@ -46,19 +47,19 @@ import java.util.ArrayList;
 public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> implements
     View {
 
-  @BindView(R.id.swipe_refresh_schedule_main)
+  @BindView(R2.id.swipe_refresh_schedule_main)
   SwipeRefreshLayout swipeRefresh;
-  @BindView(R.id.layout_schedule_main)
+  @BindView(R2.id.layout_schedule_main)
   LinearLayout layoutScheduleMain;
-  @BindView(R.id.banner_schedule)
+  @BindView(R2.id.banner_schedule)
   MZBannerView bannerSchedule;
-  @BindView(R.id.tv_schedule_time)
+  @BindView(R2.id.tv_schedule_time)
   TextView tvScheduleTime;
-  @BindView(R.id.tv_schedule_new)
+  @BindView(R2.id.tv_schedule_new)
   TextView tvScheduleNew;
-  @BindView(R.id.rcv_schedule_recommand)
+  @BindView(R2.id.rcv_schedule_recommand)
   RecyclerView rcvScheduleRecommand;
-  @BindView(R.id.rcv_schedule_recent)
+  @BindView(R2.id.rcv_schedule_recent)
   RecyclerView rcvScheduleRecent;
 
   @Override

@@ -9,6 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.rabtman.acgschedule.R;
+import com.rabtman.acgschedule.R2;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
 import com.rabtman.acgschedule.di.component.DaggerScheduleNewComponent;
 import com.rabtman.acgschedule.di.module.ScheduleNewModule;
@@ -29,9 +30,9 @@ import com.rabtman.router.RouterConstants;
 public class ScheduleNewActivity extends BaseActivity<ScheduleNewPresenter> implements
     View {
 
-  @BindView(R.id.toolbar)
+  @BindView(R2.id.toolbar)
   Toolbar toolbar;
-  @BindView(R.id.rcv_schedule_new)
+  @BindView(R2.id.rcv_schedule_new)
   RecyclerView rcvScheduleNew;
   private ScheduleNewAdapter mAdapter;
 
