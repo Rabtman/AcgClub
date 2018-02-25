@@ -24,6 +24,13 @@
     app:showAsAction="ifRoom" />
 
   <item
+    android:id="@+id/nav_comic"
+    android:enabled="true"
+    android:icon="@drawable/nav_comic"
+    android:title="@string/nav_comic"
+    app:showAsAction="ifRoom" />
+
+  <item
     android:id="@+id/nav_fiction"
     android:enabled="true"
     android:icon="@drawable/nav_fiction"

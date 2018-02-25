@@ -1,0 +1,12 @@
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+        //di
+        kapt rootProject.ext.dependencies["dagger2-compiler"]
+        kapt rootProject.ext.dependencies["butterknife-compiler"]
+        kapt rootProject.ext.dependencies["router-compiler"]
+    }
+}

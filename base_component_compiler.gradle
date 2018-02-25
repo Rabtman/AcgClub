@@ -1,0 +1,8 @@
+android {
+    dependencies {
+        //di
+        annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
+        annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+        annotationProcessor rootProject.ext.dependencies["router-compiler"]
+    }
+}

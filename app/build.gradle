@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.antfortune.freeline'
-//ApkChannelPackage
+//VasDolly
 apply plugin: 'channel'
 //bugly tinker
 //apply from: 'tinker-support.gradle'
@@ -156,6 +156,6 @@ dependencies {
     //bugly
     implementation rootProject.ext.dependencies["crashreport"]
     implementation rootProject.ext.dependencies["nativecrashreport"]
-    //ApkChannelPackage
-    implementation rootProject.ext.dependencies["apk-channel-package"]
+    //VasDolly
+    api rootProject.ext.dependencies["vasdolly"]
 }

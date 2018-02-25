@@ -16,6 +16,8 @@ public class RouterConstants {
   public static final String PATH_SCHEDULE_NEW = "/acgschedule/new";
   public static final String PATH_SCHEDULE_VIDEO = "/acgschedule/video";
   public static final String PATH_SCHEDULE_DETAIL = "/acgschedule/detail";
+  //acgcomic
+  public static final String PATH_COMIC_MAIN = "/acgcomic/main";
   //setting
   public static final String PATH_SETTING = "/acgclub/setting";
 

@@ -16,6 +16,7 @@ ext {
     runAlone = [
             //"acgnews",
             //"acgschedule"
+            "acgcomic"
     ]
 
     def dependVersion = [
@@ -23,7 +24,7 @@ ext {
             retrofit   : "2.3.0",
             okhttp     : "3.9.0",
             glide      : "4.2.0",
-            dagger2    : "2.11",
+            dagger2    : "2.14.1",
             butterknife: "8.8.1",
             blockcanary: "1.5.0",
             leakcanary : "1.5.4"
@@ -43,6 +44,7 @@ ext {
             "mz-banner"                 : "com.github.pinguo-zhouwei:MZBannerView:v2.0.0",
             "materialsearchview"        : "com.miguelcatalan:materialsearchview:1.4.0",
             "statusbarutil"             : "com.jaeger.statusbarutil:library:1.4.0",
+            "dropdownmenu"              : "com.github.dongjunkun:DropDownMenu:1.0.4",
             //other
             "multidex"                  : "com.android.support:multidex:1.0.2",
             "logger"                    : "com.orhanobut:logger:2.1.1",
@@ -95,8 +97,8 @@ ext {
             "blockcanary-no-op"         : "com.github.markzhai:blockcanary-no-op:${dependVersion.blockcanary}",
             "leakcanary-android"        : "com.squareup.leakcanary:leakcanary-android:${dependVersion.leakcanary}",
             "leakcanary-no-op"          : "com.squareup.leakcanary:leakcanary-android-no-op:${dependVersion.leakcanary}",
-            //ApkChannelPackage
-            "apk-channel-package"       : "com.leon.channel:helper:1.1.5"
+            //VasDolly
+            "vasdolly"                  : "com.leon.channel:helper:1.1.7"
     ]
 
 
