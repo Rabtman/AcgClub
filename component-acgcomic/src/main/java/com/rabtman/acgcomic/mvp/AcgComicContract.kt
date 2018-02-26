@@ -17,6 +17,6 @@ interface ComicMainContract {
     }
 
     interface Model : IModel {
-        val comicInfos: Flowable<List<AcgComicItem>>
+        fun getComicInfos(selected: String): Flowable<List<AcgComicItem>>
     }
 }

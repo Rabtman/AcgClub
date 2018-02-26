@@ -3,12 +3,13 @@ package com.rabtman.acgcomic.di
 import com.rabtman.acgcomic.mvp.ComicMainContract
 import com.rabtman.acgcomic.mvp.ComicMainModel
 import com.rabtman.common.di.scope.FragmentScope
+import dagger.Module
 import dagger.Provides
 
 /**
  * @author Rabtman
  */
-
+@Module
 class ComicMainModule(private val view: ComicMainContract.View) {
 
     @FragmentScope

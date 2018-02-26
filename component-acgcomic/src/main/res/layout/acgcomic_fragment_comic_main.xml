@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.rabtman.common.base.widget.DropDownMenu xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/ddm_acg_comic_menu"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  app:dddividerColor="@color/grey500"
+  app:ddmaskColor="@color/mask_color"
+  app:ddmenuBackgroundColor="@android:color/white"
+  app:ddmenuMenuHeightPercent="0.5"
+  app:ddmenuSelectedIcon="@drawable/ic_drop_down_selected"
+  app:ddmenuTextSize="12sp"
+  app:ddmenuUnselectedIcon="@drawable/ic_drop_down_unselected"
+  app:ddtextSelectedColor="@color/colorPrimaryDark"
+  app:ddtextUnselectedColor="@color/drop_down_unselected"
+  app:ddunderlineColor="@color/grey500" />

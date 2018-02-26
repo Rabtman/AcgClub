@@ -1,5 +1,6 @@
 package com.rabtman.acgcomic.mvp
 
+import com.rabtman.acgcomic.api.AcgComicService
 import com.rabtman.acgcomic.mvp.model.entity.AcgComicItem
 import com.rabtman.common.base.mvp.BaseModel
 import com.rabtman.common.di.scope.FragmentScope
@@ -13,6 +14,10 @@ import javax.inject.Inject
 @FragmentScope
 class ComicMainModel @Inject
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), ComicMainContract.Model {
-    override val comicInfos: Flowable<List<AcgComicItem>>
-        get() = TODO("not implemented")
+
+    override fun getComicInfos(selected: String): Flowable<List<AcgComicItem>> {
+        return mRepositoryManager.obtainRetrofitService(AcgComicService::class.java)
+                .getComicList(selected)
+    }
+
 }

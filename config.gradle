@@ -44,7 +44,6 @@ ext {
             "mz-banner"                 : "com.github.pinguo-zhouwei:MZBannerView:v2.0.0",
             "materialsearchview"        : "com.miguelcatalan:materialsearchview:1.4.0",
             "statusbarutil"             : "com.jaeger.statusbarutil:library:1.4.0",
-            "dropdownmenu"              : "com.github.dongjunkun:DropDownMenu:1.0.4",
             //other
             "multidex"                  : "com.android.support:multidex:1.0.2",
             "logger"                    : "com.orhanobut:logger:2.1.1",

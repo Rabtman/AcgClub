@@ -45,6 +45,12 @@ android {
         }
     }
 
+    android {
+        lintOptions {
+            abortOnError false
+        }
+    }
+
     dependencies {
         implementation project(':common')
     }

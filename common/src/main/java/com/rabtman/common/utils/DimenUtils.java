@@ -1,9 +1,34 @@
 package com.rabtman.common.utils;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Point;
+import android.os.Build;
 import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 
 public class DimenUtils {
+
+  /**
+   * Get the size of current screen.
+   *
+   * @param context the context
+   * @return the size
+   */
+  @SuppressWarnings("deprecation")
+  @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+  public static Point getScreenSize(Context context) {
+    WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+    Display display = windowManager.getDefaultDisplay();
+    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB_MR2) {
+      return new Point(display.getWidth(), display.getHeight());
+    } else {
+      Point point = new Point();
+      display.getSize(point);
+      return point;
+    }
+  }
 
   /**
    * Get the width of current screen.
