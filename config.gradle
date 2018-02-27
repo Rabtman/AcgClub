@@ -15,7 +15,7 @@ ext {
     //配置需要独立运行的组件
     runAlone = [
             //"acgnews",
-            //"acgschedule"
+            "acgschedule",
             "acgcomic"
     ]
 

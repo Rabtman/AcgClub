@@ -32,6 +32,10 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+
+    <meta-data
+      android:name="com.rabtman.acgcomic.AppConfig"
+      android:value="ConfigModule" />
   </application>
 
 </manifest>

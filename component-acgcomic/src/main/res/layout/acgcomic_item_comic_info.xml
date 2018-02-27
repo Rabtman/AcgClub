@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="140dp"
+  android:layout_height="240dp">
+
+  <TextView
+    android:id="@+id/tv_comic_update"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="40dp"
+    android:layout_alignParentBottom="true"
+    android:padding="4dp"
+    android:textColor="@android:color/holo_red_light"
+    android:textSize="12sp"
+    tools:text="同人：EXTRA - 3" />
+
+  <TextView
+    android:id="@+id/label_comic_update"
+    style="@style/TextAppearance.AppCompat.Caption"
+    android:layout_width="40dp"
+    android:layout_height="wrap_content"
+    android:layout_alignTop="@id/tv_comic_update"
+    android:padding="4dp"
+    android:gravity="center"
+    android:text="最新" />
+
+  <TextView
+    android:id="@+id/tv_comic_name"
+    style="@style/TextAppearance.AppCompat.Body1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_above="@id/label_comic_update"
+    android:ellipsize="end"
+    android:maxLines="1"
+    tools:text="一拳超人" />
+
+  <ImageView
+    android:id="@+id/img_comic_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="4dp"
+    android:layout_above="@id/tv_comic_name"
+    tools:src="@color/grey500" />
+</RelativeLayout>

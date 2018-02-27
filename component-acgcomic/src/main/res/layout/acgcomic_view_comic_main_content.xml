@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <RadioGroup
+    android:id="@+id/rg_comic_main"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="8dp"
+    android:layout_gravity="right"
+    android:orientation="horizontal">
+    <RadioButton
+      android:id="@+id/rb_comic_main_popular"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="8dp"
+      android:checked="true"
+      android:text="人气" />
+    <RadioButton
+      android:id="@+id/rb_comic_main_update"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="更新" />
+  </RadioGroup>
+
+  <android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/swipe_refresh_comic_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/rcv_comic_main"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+  </android.support.v4.widget.SwipeRefreshLayout>
+</LinearLayout>

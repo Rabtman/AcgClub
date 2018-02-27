@@ -16,6 +16,7 @@ android {
         targetSdkVersion rootProject.ext.android.targetSdkVersion
         if (isRunAlone) {
             applicationId rootProject.ext.android.organization + "." + componentName
+            multiDexEnabled true
         }
         javaCompileOptions {
             annotationProcessorOptions {

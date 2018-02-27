@@ -14,6 +14,10 @@ interface ComicMainContract {
 
     interface View : IView {
         fun showComicInfos(comicInfos: List<AcgComicItem>)
+
+        fun showMoreComicInfos(comicInfos: List<AcgComicItem>, canLoadMore: Boolean)
+
+        fun onLoadMoreFail()
     }
 
     interface Model : IModel {

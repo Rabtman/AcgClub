@@ -1,13 +1,11 @@
 package com.rabtman.acgcomic.mvp.ui.fragment
 
 import android.support.v4.content.ContextCompat
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.TypedValue
-import android.view.Gravity
 import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.RadioGroup
 import butterknife.BindView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.rabtman.acgcomic.R
@@ -16,6 +14,7 @@ import com.rabtman.acgcomic.di.DaggerComicMainComponent
 import com.rabtman.acgcomic.mvp.ComicMainContract
 import com.rabtman.acgcomic.mvp.model.entity.AcgComicItem
 import com.rabtman.acgcomic.mvp.presenter.ComicMainPresenter
+import com.rabtman.acgcomic.mvp.ui.adapter.ComicItemAdpater
 import com.rabtman.acgcomic.mvp.ui.adapter.ComicMenuAdapter
 import com.rabtman.common.base.BaseFragment
 import com.rabtman.common.base.widget.DropDownMenu
@@ -26,10 +25,13 @@ import com.rabtman.common.di.component.AppComponent
  * @author Rabtman
  */
 class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContract.View {
-
-    @BindView(R.id.ddm_acg_comic_menu)
-    lateinit var mMenuAcgComic: DropDownMenu
-    private val headers = listOf("题材", "读者群", "进度", "地域", "排序")
+    @BindView(R.id.ddm_comic_main_menu)
+    lateinit var mMenuComicMain: DropDownMenu
+    private var mSortGroup: RadioGroup? = null
+    private var mSwipeRefresh: SwipeRefreshLayout? = null
+    private var mRcvComicMain: RecyclerView? = null
+    private var mComicItemAdapter: ComicItemAdpater? = null
+    private val headers = listOf("题材", "读者群", "进度", "地域")
     //菜单选项
     private val topic = arrayListOf(
             "全部", "冒险", "欢乐向", "格斗",
@@ -42,8 +44,6 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
     private val status = arrayListOf("全部", "连载", "完结")
     private val area = arrayListOf("全部", "日本", "内地", "欧美", "港台", "韩国", "其他")
     private val sort = arrayListOf("人气", "更新")
-    //当前菜单的选择结果
-    private var selected = arrayOf(0, 0, 0, 0, 0)
     //菜单选项适配器
     private var topicAdapter: ComicMenuAdapter? = null
     private var groupAdapter: ComicMenuAdapter? = null
@@ -66,6 +66,14 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
     }
 
     override fun initData() {
+        initDropDownMenu()
+        mMenuComicMain.setDropDownMenu(headers, popupViews!!, initContentView())
+
+        mPresenter.getComicInfos()
+    }
+
+    //初始化菜单布局
+    private fun initDropDownMenu() {
         //题材
         val topicView = RecyclerView(this.context)
         topicView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
@@ -73,8 +81,9 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
         topicAdapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
-                mMenuAcgComic.setTabText(if (position == 0) headers[0] else topic[position])
-                mMenuAcgComic.closeMenu()
+                mMenuComicMain.setTabText(if (position == 0) headers[0] else topic[position])
+                mMenuComicMain.closeMenu()
+                mPresenter.changeMenuSelected(0, position)
             }
         }
         topicView.layoutManager = GridLayoutManager(this.context, 4)
@@ -86,8 +95,9 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
         groupAdapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
-                mMenuAcgComic.setTabText(if (position == 0) headers[1] else groups[position])
-                mMenuAcgComic.closeMenu()
+                mMenuComicMain.setTabText(if (position == 0) headers[1] else groups[position])
+                mMenuComicMain.closeMenu()
+                mPresenter.changeMenuSelected(1, position)
             }
         }
         groupView.layoutManager = GridLayoutManager(this.context, 4)
@@ -99,8 +109,9 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
         statusAdapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
-                mMenuAcgComic.setTabText(if (position == 0) headers[2] else status[position])
-                mMenuAcgComic.closeMenu()
+                mMenuComicMain.setTabText(if (position == 0) headers[2] else status[position])
+                mMenuComicMain.closeMenu()
+                mPresenter.changeMenuSelected(2, position)
             }
         }
         statusView.layoutManager = GridLayoutManager(this.context, 4)
@@ -112,8 +123,9 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
         areaAdapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
-                mMenuAcgComic.setTabText(if (position == 0) headers[3] else area[position])
-                mMenuAcgComic.closeMenu()
+                mMenuComicMain.setTabText(if (position == 0) headers[3] else area[position])
+                mMenuComicMain.closeMenu()
+                mPresenter.changeMenuSelected(3, position)
             }
         }
         areaView.layoutManager = GridLayoutManager(this.context, 4)
@@ -125,26 +137,44 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
         sortAdapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
-                mMenuAcgComic.setTabText(if (position == 0) headers[4] else sort[position])
-                mMenuAcgComic.closeMenu()
+                mMenuComicMain.setTabText(if (position == 0) headers[4] else sort[position])
+                mMenuComicMain.closeMenu()
             }
         }
         sortView.layoutManager = GridLayoutManager(this.context, 4)
         sortView.adapter = sortAdapter*/
-
-        //init context view
-        val contentView = TextView(this.context)
-        contentView.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
-        contentView.text = "内容显示区域"
-        contentView.gravity = Gravity.CENTER
-        contentView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
-
         popupViews = listOf<View>(topicView, groupView, statusView, areaView)
-        mMenuAcgComic.setDropDownMenu(headers, popupViews!!, contentView)
+    }
+
+    //初始化内容布局
+    private fun initContentView(): View {
+        val contentView = layoutInflater.inflate(R.layout.acgcomic_view_comic_main_content, null)
+        mSortGroup = contentView.findViewById(R.id.rg_comic_main)
+        mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_comic_main)
+        mRcvComicMain = contentView.findViewById(R.id.rcv_comic_main)
+        mComicItemAdapter = ComicItemAdpater(appComponent.imageLoader())
+        mRcvComicMain?.layoutManager = GridLayoutManager(this.context, 2)
+        mRcvComicMain?.adapter = mComicItemAdapter
+
+        mSwipeRefresh?.setOnRefreshListener({ mPresenter.getComicInfos() })
+        setSwipeRefreshLayout(mSwipeRefresh)
+        return contentView
     }
 
     override fun showComicInfos(comicInfos: List<AcgComicItem>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mComicItemAdapter?.setNewData(comicInfos)
+    }
+
+    override fun showMoreComicInfos(comicInfos: List<AcgComicItem>, canLoadMore: Boolean) {
+        mComicItemAdapter?.addData(comicInfos)
+        mComicItemAdapter?.loadMoreComplete()
+        if (!canLoadMore) {
+            mComicItemAdapter?.loadMoreEnd()
+        }
+    }
+
+    override fun onLoadMoreFail() {
+        mComicItemAdapter?.loadMoreFail()
     }
 
 }
