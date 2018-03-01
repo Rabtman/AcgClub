@@ -33,6 +33,10 @@
       </intent-filter>
     </activity>
 
+    <activity
+      android:name=".mvp.ui.activity.OacgComicDetailActivity"
+      android:screenOrientation="portrait" />
+
     <meta-data
       android:name="com.rabtman.acgcomic.AppConfig"
       android:value="ConfigModule" />

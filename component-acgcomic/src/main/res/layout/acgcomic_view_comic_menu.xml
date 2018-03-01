@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.rabtman.common.base.widget.DropDownMenu xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/ddm_comic_main_menu"
+  android:id="@+id/ddm_comic_menu"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   app:dddividerColor="@color/grey500"

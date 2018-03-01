@@ -1,7 +1,7 @@
 package com.rabtman.acgcomic.mvp.presenter
 
-import com.rabtman.acgcomic.mvp.ComicMainContract
-import com.rabtman.acgcomic.mvp.model.entity.AcgComicItem
+import com.rabtman.acgcomic.mvp.DmzjComicContract
+import com.rabtman.acgcomic.mvp.model.entity.DmzjComicItem
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.FragmentScope
@@ -13,9 +13,9 @@ import javax.inject.Inject
  * @author Rabtman
  */
 @FragmentScope
-class ComicMainPresenter
-@Inject constructor(model: ComicMainContract.Model,
-                    view: ComicMainContract.View) : BasePresenter<ComicMainContract.Model, ComicMainContract.View>(model, view) {
+class DmzjComicPresenter
+@Inject constructor(model: DmzjComicContract.Model,
+                    view: DmzjComicContract.View) : BasePresenter<DmzjComicContract.Model, DmzjComicContract.View>(model, view) {
     /**
      * 当前菜单的选择结果
      * 按位置顺序分别对应：
@@ -40,8 +40,8 @@ class ComicMainPresenter
         selected[5] = 0
         addSubscribe(
                 mModel.getComicInfos(selected.joinToString(separator = "-"))
-                        .compose(RxUtil.rxSchedulerHelper<List<AcgComicItem>>())
-                        .subscribeWith(object : CommonSubscriber<List<AcgComicItem>>(mView) {
+                        .compose(RxUtil.rxSchedulerHelper<List<DmzjComicItem>>())
+                        .subscribeWith(object : CommonSubscriber<List<DmzjComicItem>>(mView) {
                             override fun onStart() {
                                 super.onStart()
                                 mView.showLoading()
@@ -51,7 +51,7 @@ class ComicMainPresenter
                                 mView.hideLoading()
                             }
 
-                            override fun onNext(comicItems: List<AcgComicItem>) {
+                            override fun onNext(comicItems: List<DmzjComicItem>) {
                                 LogUtil.d("getComicInfos" + comicItems.toString())
                                 mView.showComicInfos(comicItems)
                             }
@@ -63,8 +63,8 @@ class ComicMainPresenter
         selected[5] = selected[5]++
         addSubscribe(
                 mModel.getComicInfos(selected.joinToString(separator = "-"))
-                        .compose(RxUtil.rxSchedulerHelper<List<AcgComicItem>>())
-                        .subscribeWith(object : CommonSubscriber<List<AcgComicItem>>(mView) {
+                        .compose(RxUtil.rxSchedulerHelper<List<DmzjComicItem>>())
+                        .subscribeWith(object : CommonSubscriber<List<DmzjComicItem>>(mView) {
                             override fun onStart() {
                                 super.onStart()
                                 mView.showLoading()
@@ -74,7 +74,7 @@ class ComicMainPresenter
                                 mView.hideLoading()
                             }
 
-                            override fun onNext(comicItems: List<AcgComicItem>) {
+                            override fun onNext(comicItems: List<DmzjComicItem>) {
                                 LogUtil.d("getMoreComicInfos" + comicItems.toString())
                                 mView.showMoreComicInfos(comicItems, comicItems.isNotEmpty())
                             }

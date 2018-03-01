@@ -107,7 +107,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             title = getString(R.string.nav_schedule);
             break;
           case R.id.nav_comic:
-            showFragment = RouterConstants.PATH_COMIC_MAIN;
+            showFragment = RouterConstants.PATH_COMIC_OACG;
             title = getString(R.string.nav_comic);
             break;
           /*case R.id.nav_picture:

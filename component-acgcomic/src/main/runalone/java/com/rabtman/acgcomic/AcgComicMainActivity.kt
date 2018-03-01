@@ -2,7 +2,7 @@ package com.rabtman.acgcomic
 
 import android.widget.FrameLayout
 import butterknife.BindView
-import com.rabtman.acgcomic.mvp.ui.fragment.AcgComicMainFragment
+import com.rabtman.acgcomic.mvp.ui.fragment.OacgComicFragment
 import com.rabtman.common.base.SimpleActivity
 
 /**
@@ -19,7 +19,7 @@ class AcgComicMainActivity : SimpleActivity() {
     }
 
     override fun initData() {
-        val comicMainFragment = AcgComicMainFragment()
+        val comicMainFragment = OacgComicFragment()
         loadRootFragment(R.id.layout_load_fragment, comicMainFragment)
     }
 }

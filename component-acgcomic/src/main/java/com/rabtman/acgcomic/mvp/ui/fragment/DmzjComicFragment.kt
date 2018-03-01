@@ -9,13 +9,13 @@ import android.widget.RadioGroup
 import butterknife.BindView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.rabtman.acgcomic.R
-import com.rabtman.acgcomic.di.ComicMainModule
-import com.rabtman.acgcomic.di.DaggerComicMainComponent
-import com.rabtman.acgcomic.mvp.ComicMainContract
-import com.rabtman.acgcomic.mvp.model.entity.AcgComicItem
-import com.rabtman.acgcomic.mvp.presenter.ComicMainPresenter
-import com.rabtman.acgcomic.mvp.ui.adapter.ComicItemAdpater
+import com.rabtman.acgcomic.di.DaggerDmzjComicComponent
+import com.rabtman.acgcomic.di.DmzjComicModule
+import com.rabtman.acgcomic.mvp.DmzjComicContract
+import com.rabtman.acgcomic.mvp.model.entity.DmzjComicItem
+import com.rabtman.acgcomic.mvp.presenter.DmzjComicPresenter
 import com.rabtman.acgcomic.mvp.ui.adapter.ComicMenuAdapter
+import com.rabtman.acgcomic.mvp.ui.adapter.DmzjComicItemAdpater
 import com.rabtman.common.base.BaseFragment
 import com.rabtman.common.base.widget.DropDownMenu
 import com.rabtman.common.di.component.AppComponent
@@ -24,13 +24,13 @@ import com.rabtman.common.di.component.AppComponent
 /**
  * @author Rabtman
  */
-class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContract.View {
-    @BindView(R.id.ddm_comic_main_menu)
+class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.View {
+    @BindView(R.id.ddm_comic_menu)
     lateinit var mMenuComicMain: DropDownMenu
     private var mSortGroup: RadioGroup? = null
     private var mSwipeRefresh: SwipeRefreshLayout? = null
     private var mRcvComicMain: RecyclerView? = null
-    private var mComicItemAdapter: ComicItemAdpater? = null
+    private var mDmzjComicItemAdapter: DmzjComicItemAdpater? = null
     private val headers = listOf("题材", "读者群", "进度", "地域")
     //菜单选项
     private val topic = arrayListOf(
@@ -54,13 +54,13 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
     private var popupViews: List<View>? = null
 
     override fun getLayoutId(): Int {
-        return R.layout.acgcomic_fragment_comic_main
+        return R.layout.acgcomic_view_comic_menu
     }
 
     override fun setupFragmentComponent(appComponent: AppComponent?) {
-        DaggerComicMainComponent.builder()
+        DaggerDmzjComicComponent.builder()
                 .appComponent(appComponent)
-                .comicMainModule(ComicMainModule(this))
+                .dmzjComicModule(DmzjComicModule(this))
                 .build()
                 .inject(this)
     }
@@ -78,7 +78,7 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
         val topicView = RecyclerView(this.context)
         topicView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
         topicAdapter = ComicMenuAdapter(topic)
-        topicAdapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        topicAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
                 mMenuComicMain.setTabText(if (position == 0) headers[0] else topic[position])
@@ -92,7 +92,7 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
         val groupView = RecyclerView(this.context)
         groupView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
         groupAdapter = ComicMenuAdapter(groups)
-        groupAdapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        groupAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
                 mMenuComicMain.setTabText(if (position == 0) headers[1] else groups[position])
@@ -106,7 +106,7 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
         val statusView = RecyclerView(this.context)
         statusView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
         statusAdapter = ComicMenuAdapter(status)
-        statusAdapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        statusAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
                 mMenuComicMain.setTabText(if (position == 0) headers[2] else status[position])
@@ -120,7 +120,7 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
         val areaView = RecyclerView(this.context)
         areaView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
         areaAdapter = ComicMenuAdapter(area)
-        areaAdapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        areaAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
                 mMenuComicMain.setTabText(if (position == 0) headers[3] else area[position])
@@ -134,7 +134,7 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
         /*val sortView = RecyclerView(this.context)
         sortView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
         sortAdapter = ComicMenuAdapter(sort)
-        sortAdapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        sortAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
                 mMenuComicMain.setTabText(if (position == 0) headers[4] else sort[position])
@@ -148,33 +148,33 @@ class AcgComicMainFragment : BaseFragment<ComicMainPresenter>(), ComicMainContra
 
     //初始化内容布局
     private fun initContentView(): View {
-        val contentView = layoutInflater.inflate(R.layout.acgcomic_view_comic_main_content, null)
-        mSortGroup = contentView.findViewById(R.id.rg_comic_main)
-        mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_comic_main)
-        mRcvComicMain = contentView.findViewById(R.id.rcv_comic_main)
-        mComicItemAdapter = ComicItemAdpater(appComponent.imageLoader())
+        val contentView = layoutInflater.inflate(R.layout.acgcomic_view_dmzj_comic_content, null)
+        mSortGroup = contentView.findViewById(R.id.rg_dmzj_comic)
+        mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_dmzj_comic)
+        mRcvComicMain = contentView.findViewById(R.id.rcv_dmzj_comic)
+        mDmzjComicItemAdapter = DmzjComicItemAdpater(appComponent.imageLoader())
         mRcvComicMain?.layoutManager = GridLayoutManager(this.context, 2)
-        mRcvComicMain?.adapter = mComicItemAdapter
+        mRcvComicMain?.adapter = mDmzjComicItemAdapter
 
         mSwipeRefresh?.setOnRefreshListener({ mPresenter.getComicInfos() })
         setSwipeRefreshLayout(mSwipeRefresh)
         return contentView
     }
 
-    override fun showComicInfos(comicInfos: List<AcgComicItem>) {
-        mComicItemAdapter?.setNewData(comicInfos)
+    override fun showComicInfos(comicInfos: List<DmzjComicItem>) {
+        mDmzjComicItemAdapter?.setNewData(comicInfos)
     }
 
-    override fun showMoreComicInfos(comicInfos: List<AcgComicItem>, canLoadMore: Boolean) {
-        mComicItemAdapter?.addData(comicInfos)
-        mComicItemAdapter?.loadMoreComplete()
+    override fun showMoreComicInfos(comicInfos: List<DmzjComicItem>, canLoadMore: Boolean) {
+        mDmzjComicItemAdapter?.addData(comicInfos)
+        mDmzjComicItemAdapter?.loadMoreComplete()
         if (!canLoadMore) {
-            mComicItemAdapter?.loadMoreEnd()
+            mDmzjComicItemAdapter?.loadMoreEnd()
         }
     }
 
     override fun onLoadMoreFail() {
-        mComicItemAdapter?.loadMoreFail()
+        mDmzjComicItemAdapter?.loadMoreFail()
     }
 
 }

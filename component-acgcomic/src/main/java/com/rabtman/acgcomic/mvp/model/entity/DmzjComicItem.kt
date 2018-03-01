@@ -10,9 +10,9 @@ import com.google.gson.annotations.SerializedName
  */
 
 /**
- * 漫画信息
+ * 动漫之家漫画信息
  */
-data class AcgComicItem(
+data class DmzjComicItem(
         @SerializedName("id") val id: Int = 0,
         @SerializedName("name") val name: String = "",
         @SerializedName("zone") val zone: String = "",
@@ -78,9 +78,9 @@ data class AcgComicItem(
 
     companion object {
         @JvmField
-        val CREATOR: Parcelable.Creator<AcgComicItem> = object : Parcelable.Creator<AcgComicItem> {
-            override fun createFromParcel(source: Parcel): AcgComicItem = AcgComicItem(source)
-            override fun newArray(size: Int): Array<AcgComicItem?> = arrayOfNulls(size)
+        val CREATOR: Parcelable.Creator<DmzjComicItem> = object : Parcelable.Creator<DmzjComicItem> {
+            override fun createFromParcel(source: Parcel): DmzjComicItem = DmzjComicItem(source)
+            override fun newArray(size: Int): Array<DmzjComicItem?> = arrayOfNulls(size)
         }
     }
 }

@@ -5,5 +5,9 @@
 
   <application
     android:label="@string/acgcomic_module_name"
-    tools:replace="android:label"></application>
+    tools:replace="android:label">
+    <activity
+      android:name=".mvp.ui.activity.OacgComicDetailActivity"
+      android:screenOrientation="portrait" />
+  </application>
 </manifest>

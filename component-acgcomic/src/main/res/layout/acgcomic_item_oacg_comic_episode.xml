@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/tv_oacg_comic_episode_name"
+  android:layout_width="60dp"
+  android:layout_height="30dp"
+  android:layout_margin="6dp"
+  android:background="@drawable/btn_oacg_comic_episode"
+  android:gravity="center"
+  android:textColor="@color/colorPrimary"
+  android:textSize="15sp"
+  tools:text="123" />
