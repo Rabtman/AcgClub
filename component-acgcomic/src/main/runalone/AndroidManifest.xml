@@ -37,6 +37,11 @@
       android:name=".mvp.ui.activity.OacgComicDetailActivity"
       android:screenOrientation="portrait" />
 
+    <activity
+      android:name=".mvp.ui.activity.OacgComicReadActivity"
+      android:screenOrientation="portrait"
+      android:theme="@style/AppFullScreenTheme" />
+
     <meta-data
       android:name="com.rabtman.acgcomic.AppConfig"
       android:value="ConfigModule" />

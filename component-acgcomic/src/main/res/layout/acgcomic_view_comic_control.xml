@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <RelativeLayout
+    android:id="@+id/layout_comic_top"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/toolbar_height"
+    android:background="@drawable/shape_gradient_down_bg">
+
+    <ImageView
+      android:id="@+id/btn_comic_back"
+      android:layout_width="36dp"
+      android:layout_height="36dp"
+      android:layout_marginLeft="8dp"
+      android:layout_centerVertical="true"
+      android:src="@drawable/ic_action_navigation_arrow_back_inverted" />
+
+    <TextView
+      android:id="@+id/tv_comic_title"
+      style="@style/Base.TextAppearance.AppCompat.Title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_centerVertical="true"
+      android:layout_toRightOf="@id/btn_comic_back"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textColor="@android:color/white"
+      tools:text="斗破苍穹" />
+  </RelativeLayout>
+
+  <RelativeLayout
+    android:id="@+id/layout_comic_bottom"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_alignParentBottom="true"
+    android:padding="8dp"
+    android:background="@drawable/shape_gradient_up_bg">
+
+    <ImageView
+      android:id="@+id/btn_comic_before"
+      android:layout_width="36dp"
+      android:layout_height="36dp"
+      android:src="@drawable/ic_navigate_before" />
+
+    <ImageView
+      android:id="@+id/btn_comic_next"
+      android:layout_width="36dp"
+      android:layout_height="36dp"
+      android:layout_alignParentRight="true"
+      android:src="@drawable/ic_navigate_next" />
+
+    <android.support.v7.widget.AppCompatSeekBar
+      android:id="@+id/seekbar_comic_proc"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:layout_alignBottom="@id/btn_comic_before"
+      android:layout_toLeftOf="@id/btn_comic_next"
+      android:layout_toRightOf="@id/btn_comic_before"
+      tools:progress="100" />
+
+    <TextView
+      android:id="@+id/tv_comic_count"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="16dp"
+      android:layout_alignRight="@id/seekbar_comic_proc"
+      android:layout_below="@id/seekbar_comic_proc"
+      android:textColor="@android:color/white"
+      android:textSize="14sp"
+      tools:text="10" />
+
+    <TextView
+      android:id="@+id/tv_divider"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="2dp"
+      android:layout_marginRight="2dp"
+      android:layout_alignBottom="@id/tv_comic_count"
+      android:layout_toLeftOf="@id/tv_comic_count"
+      android:text=" / "
+      android:textColor="@android:color/white"
+      android:textSize="14sp" />
+
+    <TextView
+      android:id="@+id/tv_comic_pos"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@id/tv_comic_count"
+      android:layout_toLeftOf="@id/tv_divider"
+      android:textColor="@android:color/white"
+      android:textSize="14sp"
+      tools:text="1" />
+  </RelativeLayout>
+
+</RelativeLayout>

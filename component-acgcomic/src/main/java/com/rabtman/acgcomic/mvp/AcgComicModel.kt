@@ -2,7 +2,8 @@ package com.rabtman.acgcomic.mvp
 
 import com.rabtman.acgcomic.api.AcgComicService
 import com.rabtman.acgcomic.mvp.model.entity.DmzjComicItem
-import com.rabtman.acgcomic.mvp.model.entity.OacgComicDetail
+import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
+import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisodePage
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicPage
 import com.rabtman.common.base.mvp.BaseModel
 import com.rabtman.common.di.scope.ActivityScope
@@ -39,8 +40,17 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
 @ActivityScope
 class OacgComicDetailModel @Inject
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), OacgComicDetailContract.Model {
-    override fun getComicDetail(comicId: Int): Flowable<List<OacgComicDetail>> {
+    override fun getComicDetail(comicId: Int): Flowable<List<OacgComicEpisode>> {
         return mRepositoryManager.obtainRetrofitService(AcgComicService::class.java)
                 .getOacgComicDetail(comicId)
+    }
+}
+
+@ActivityScope
+class OacgComicEpisodeDetailModel @Inject
+constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), OacgComicEpisodeDetailContract.Model {
+    override fun getEpisodeDetail(comicId: Int, chapterIndex: Int): Flowable<OacgComicEpisodePage> {
+        return mRepositoryManager.obtainRetrofitService(AcgComicService::class.java)
+                .getOacgEpisodeDetail(comicId, chapterIndex)
     }
 }

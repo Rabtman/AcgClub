@@ -7,11 +7,16 @@ import com.orhanobut.logger.Logger;
  */
 public class LogUtil {
 
-  private static final String TAG = "com.rabtman.acgclub";
+  private static String mTag = "com.rabtman.acgclub";
   private static boolean mIsDebug = true;
 
   public static void init(Boolean isDebug) {
     mIsDebug = isDebug;
+  }
+
+  public static void init(Boolean isDebug, String tag) {
+    mIsDebug = isDebug;
+    mTag = tag;
   }
 
   public static void e(String tag, Object o) {
@@ -21,7 +26,7 @@ public class LogUtil {
   }
 
   public static void e(Object o) {
-    LogUtil.e(TAG, o);
+    LogUtil.e(mTag, o);
   }
 
   public static void w(String tag, Object o) {
@@ -31,7 +36,7 @@ public class LogUtil {
   }
 
   public static void w(Object o) {
-    LogUtil.w(TAG, o);
+    LogUtil.w(mTag, o);
   }
 
   public static void d(String msg) {

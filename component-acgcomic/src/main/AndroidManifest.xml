@@ -9,5 +9,9 @@
     <activity
       android:name=".mvp.ui.activity.OacgComicDetailActivity"
       android:screenOrientation="portrait" />
+
+    <activity
+      android:name=".mvp.ui.activity.OacgComicReadActivity"
+      android:screenOrientation="portrait" />
   </application>
 </manifest>

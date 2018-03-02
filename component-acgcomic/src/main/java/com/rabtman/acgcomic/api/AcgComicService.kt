@@ -2,7 +2,8 @@ package com.rabtman.acgcomic.api
 
 import com.rabtman.acgcomic.base.constant.HtmlConstant
 import com.rabtman.acgcomic.mvp.model.entity.DmzjComicItem
-import com.rabtman.acgcomic.mvp.model.entity.OacgComicDetail
+import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
+import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisodePage
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicPage
 import io.reactivex.Flowable
 import retrofit2.http.*
@@ -30,5 +31,12 @@ interface AcgComicService {
      */
     @POST(HtmlConstant.OACG_URL + "index.php?m=Index&a=content_catalog")
     @FormUrlEncoded
-    fun getOacgComicDetail(@Field("comic_id") comicId: Int): Flowable<List<OacgComicDetail>>
+    fun getOacgComicDetail(@Field("comic_id") comicId: Int): Flowable<List<OacgComicEpisode>>
+
+    /**
+     * 获取Oacg指定章节内容
+     */
+    @POST(HtmlConstant.OACG_URL + "index.php?m=Index&a=page_more")
+    @FormUrlEncoded
+    fun getOacgEpisodeDetail(@Field("comic_id") comicId: Int, @Field("chapter_index") chapterIndex: Int): Flowable<OacgComicEpisodePage>
 }

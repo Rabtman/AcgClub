@@ -120,7 +120,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
     tvScheduleDetailLabel.setText(acgNewsDetail.getScheduleLabel());
     tvScheduleDetailTime.setText(acgNewsDetail.getScheduleTime());
     if (TextUtils.isEmpty(acgNewsDetail.getScheduleProc())) {
-      tvScheduleDetailProc.setText(R.string.label_schedule_no_proc);
+      tvScheduleDetailProc.setText(R.string.acgschedule_label_schedule_no_proc);
     } else {
       tvScheduleDetailProc.setText(acgNewsDetail.getScheduleProc());
     }

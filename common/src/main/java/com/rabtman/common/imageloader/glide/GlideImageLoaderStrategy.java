@@ -68,6 +68,10 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy<GlideIm
       glideRequest.fallback(config.getFallback());
     }
 
+    if (config.getSize() != null && config.getSize()[0] > 0 && config.getSize()[0] > 0) {
+      glideRequest.override(config.getSize()[0], config.getSize()[1]);
+    }
+
     glideRequest
         .into(config.getImageView());
   }

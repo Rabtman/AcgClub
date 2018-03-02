@@ -1,9 +1,6 @@
 package com.rabtman.acgcomic.mvp
 
-import com.rabtman.acgcomic.mvp.model.entity.DmzjComicItem
-import com.rabtman.acgcomic.mvp.model.entity.OacgComicDetail
-import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
-import com.rabtman.acgcomic.mvp.model.entity.OacgComicPage
+import com.rabtman.acgcomic.mvp.model.entity.*
 import com.rabtman.common.base.mvp.IModel
 import com.rabtman.common.base.mvp.IView
 import io.reactivex.Flowable
@@ -46,10 +43,22 @@ interface OacgComicContract {
 interface OacgComicDetailContract {
 
     interface View : IView {
-        fun showComicDetail(comicInfos: List<OacgComicDetail>)
+        fun showComicDetail(comicInfos: List<OacgComicEpisode>)
     }
 
     interface Model : IModel {
-        fun getComicDetail(comicId: Int): Flowable<List<OacgComicDetail>>
+        fun getComicDetail(comicId: Int): Flowable<List<OacgComicEpisode>>
     }
 }
+
+interface OacgComicEpisodeDetailContract {
+
+    interface View : IView {
+        fun showEpisodeDetail(episodePage: OacgComicEpisodePage)
+    }
+
+    interface Model : IModel {
+        fun getEpisodeDetail(comicId: Int, chapterIndex: Int): Flowable<OacgComicEpisodePage>
+    }
+}
+

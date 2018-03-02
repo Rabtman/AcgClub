@@ -1,6 +1,7 @@
 package com.rabtman.acgcomic.di
 
 import com.rabtman.acgcomic.mvp.ui.activity.OacgComicDetailActivity
+import com.rabtman.acgcomic.mvp.ui.activity.OacgComicReadActivity
 import com.rabtman.acgcomic.mvp.ui.fragment.DmzjComicFragment
 import com.rabtman.acgcomic.mvp.ui.fragment.OacgComicFragment
 import com.rabtman.common.di.component.AppComponent
@@ -31,4 +32,11 @@ interface OacgComicComponent {
 interface OacgComicDetailComponent {
 
     fun inject(activity: OacgComicDetailActivity)
+}
+
+@ActivityScope
+@Component(modules = arrayOf(OacgComicEpisodeDetailModule::class), dependencies = arrayOf(AppComponent::class))
+interface OacgComicEpisodeDetailComponent {
+
+    fun inject(activity: OacgComicReadActivity)
 }

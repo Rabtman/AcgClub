@@ -20,7 +20,7 @@ import com.rabtman.acgcomic.base.constant.IntentConstant
 import com.rabtman.acgcomic.di.DaggerOacgComicDetailComponent
 import com.rabtman.acgcomic.di.OacgComicDetailModule
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract
-import com.rabtman.acgcomic.mvp.model.entity.OacgComicDetail
+import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
 import com.rabtman.acgcomic.mvp.presenter.OacgComicDetailPresenter
 import com.rabtman.acgcomic.mvp.ui.adapter.OacgComicEpisodeItemAdapter
@@ -29,6 +29,7 @@ import com.rabtman.common.di.component.AppComponent
 import com.rabtman.common.imageloader.glide.GlideImageConfig
 import com.rabtman.common.imageloader.glide.transformations.BlurTransformation
 import com.rabtman.router.RouterConstants
+import com.rabtman.router.RouterUtils
 
 /**
  * @author Rabtman
@@ -92,7 +93,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         mPresenter.getOacgComicDetail(comicId = currentComicInfo!!.id)
     }
 
-    override fun showComicDetail(comicInfos: List<OacgComicDetail>) {
+    override fun showComicDetail(comicInfos: List<OacgComicEpisode>) {
         mToolBarTitle.text = currentComicInfo?.comicName
         //模糊背景
         mApplication.appComponent.imageLoader().loadImage(mContext,
@@ -132,7 +133,13 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
             layoutSceduleEpisode.visibility = android.view.View.VISIBLE
             val adapter = OacgComicEpisodeItemAdapter(comicInfos)
             adapter.setOnItemClickListener({ adapter, _, position ->
-
+                val item = adapter.getItem(position) as OacgComicEpisode
+                RouterUtils.getInstance()
+                        .build(RouterConstants.PATH_COMIC_OACG_READ)
+                        .withString(IntentConstant.OACG_COMIC_ID, item.comicId)
+                        .withString(IntentConstant.OACG_COMIC_TITLE, currentComicInfo?.comicName)
+                        .withString(IntentConstant.OACG_COMIC_CHAPTERID, item.orderIdx)
+                        .navigation()
             })
             val layoutManager = GridLayoutManager(this, 4)
             layoutManager.orientation = GridLayoutManager.VERTICAL

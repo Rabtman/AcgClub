@@ -21,6 +21,7 @@ public class GlideImageConfig extends ImageConfig {
   private int cacheStrategy;
   private Transformation<Bitmap> transformation;//glide用它来改变图形的形状
   private int fallback;
+  private int[] size;
 
   private GlideImageConfig(Buidler builder) {
     this.url = builder.url;
@@ -30,6 +31,7 @@ public class GlideImageConfig extends ImageConfig {
     this.fallback = builder.fallback;
     this.cacheStrategy = builder.cacheStrategy;
     this.transformation = builder.transformation;
+    this.size = builder.size;
   }
 
   public static Buidler builder() {
@@ -48,6 +50,10 @@ public class GlideImageConfig extends ImageConfig {
     return transformation;
   }
 
+  public int[] getSize() {
+    return size;
+  }
+
   public static final class Buidler {
 
     private String url;
@@ -57,6 +63,7 @@ public class GlideImageConfig extends ImageConfig {
     private int fallback; //请求 url 为空,则使用此图片作为占位符
     private int cacheStrategy;
     private Transformation<Bitmap> transformation;//glide用它来改变图形的形状
+    private int[] size;
 
     private Buidler() {
     }
@@ -97,6 +104,10 @@ public class GlideImageConfig extends ImageConfig {
       return this;
     }
 
+    public Buidler override(int width, int height) {
+      this.size = new int[]{width, height};
+      return this;
+    }
 
     public GlideImageConfig build() {
       return new GlideImageConfig(this);

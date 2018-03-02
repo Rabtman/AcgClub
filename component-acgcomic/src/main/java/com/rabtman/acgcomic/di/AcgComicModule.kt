@@ -56,3 +56,19 @@ class OacgComicDetailModule(private val view: OacgComicDetailContract.View) {
         return model
     }
 }
+
+@Module
+class OacgComicEpisodeDetailModule(private val view: OacgComicEpisodeDetailContract.View) {
+
+    @ActivityScope
+    @Provides
+    internal fun providerOacgComicEpisodeDetailView(): OacgComicEpisodeDetailContract.View {
+        return this.view
+    }
+
+    @ActivityScope
+    @Provides
+    internal fun providerOacgComicEpisodeDetailModel(model: OacgComicEpisodeDetailModel): OacgComicEpisodeDetailContract.Model {
+        return model
+    }
+}
