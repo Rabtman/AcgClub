@@ -16,10 +16,37 @@ import javax.inject.Inject
 class OacgComicEpisodeDetailPresenter @Inject
 constructor(model: OacgComicEpisodeDetailContract.Model,
             rootView: OacgComicEpisodeDetailContract.View) : BasePresenter<OacgComicEpisodeDetailContract.Model, OacgComicEpisodeDetailContract.View>(model, rootView) {
+    //当前漫画id
+    private var currentComicId = -1
+    //上一话
+    private var preIndex = 0
+    //下一话
+    private var nextIndex = 0
 
-    fun getEpisodeDetail(comicId: String, chapterIndex: String) {
+    fun setComicId(comicId: Int) {
+        currentComicId = comicId
+    }
+
+    /**
+     * 加载上一话
+     */
+    fun getPreEpisodeDetail() {
+        getEpisodeDetail(preIndex)
+    }
+
+    /**
+     * 加载下一话
+     */
+    fun getNextEpisodeDetail() {
+        getEpisodeDetail(nextIndex)
+    }
+
+    /**
+     * 加载漫画详细内容
+     */
+    fun getEpisodeDetail(chapterIndex: Int) {
         addSubscribe(
-                mModel.getEpisodeDetail(comicId.toInt(), chapterIndex.toInt())
+                mModel.getEpisodeDetail(currentComicId, chapterIndex)
                         .compose(RxUtil.rxSchedulerHelper<OacgComicEpisodePage>())
                         .subscribeWith(object : CommonSubscriber<OacgComicEpisodePage>(mView) {
                             override fun onStart() {
@@ -31,9 +58,11 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
                                 mView.hideLoading()
                             }
 
-                            override fun onNext(comicEpisodes: OacgComicEpisodePage) {
-                                LogUtil.d("getOacgComicEpisodeDetail" + comicEpisodes.toString())
-                                mView.showEpisodeDetail(comicEpisodes)
+                            override fun onNext(comicEpisodePage: OacgComicEpisodePage) {
+                                LogUtil.d("getOacgComicEpisodeDetail" + comicEpisodePage.toString())
+                                preIndex = comicEpisodePage.preIndex.toInt()
+                                nextIndex = comicEpisodePage.nextIndex.toInt()
+                                mView.showEpisodeDetail(comicEpisodePage)
                             }
                         })
         )

@@ -4,11 +4,23 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
+  <TextView
+    android:id="@+id/tv_comic_pos_tip"
+    android:layout_width="120dp"
+    android:layout_height="120dp"
+    android:layout_centerInParent="true"
+    android:background="@drawable/shape_square_translucent"
+    android:gravity="center"
+    android:text="1"
+    android:textColor="@android:color/white"
+    android:textSize="80sp"
+    android:visibility="gone" />
+
   <RelativeLayout
     android:id="@+id/layout_comic_top"
     android:layout_width="match_parent"
     android:layout_height="@dimen/toolbar_height"
-    android:background="@drawable/shape_gradient_down_bg">
+    android:background="@color/translucent">
 
     <ImageView
       android:id="@+id/btn_comic_back"
@@ -38,7 +50,8 @@
     android:layout_height="70dp"
     android:layout_alignParentBottom="true"
     android:padding="8dp"
-    android:background="@drawable/shape_gradient_up_bg">
+    android:background="@color/translucent"
+    android:visibility="invisible">
 
     <ImageView
       android:id="@+id/btn_comic_before"

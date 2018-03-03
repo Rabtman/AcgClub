@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/img_oacg_comic_read"
-  android:layout_width="wrap_content"
-  android:layout_height="wrap_content"
-  android:layout_gravity="center_horizontal"
-  tools:src="@mipmap/ic_launcher" />
+  android:id="@+id/layout_oacg_comic_read"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <TextView
+    android:id="@+id/tv_oacg_comic_pos"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/black"
+    android:gravity="center"
+    android:text="1"
+    android:textColor="@android:color/white"
+    android:textSize="80sp" />
+
+  <ImageView
+    android:id="@+id/img_oacg_comic_read"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:src="@mipmap/ic_launcher"
+    tools:visibility="invisible" />
+</FrameLayout>
