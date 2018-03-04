@@ -28,9 +28,9 @@ interface DmzjComicContract {
 interface OacgComicContract {
 
     interface View : IView {
-        fun showComicInfos(comicInfos: List<OacgComicItem>)
+        fun showComicInfos(comicInfos: List<OacgComicItem>?)
 
-        fun showMoreComicInfos(comicInfos: List<OacgComicItem>, canLoadMore: Boolean)
+        fun showMoreComicInfos(comicInfos: List<OacgComicItem>?, canLoadMore: Boolean?)
 
         fun onLoadMoreFail()
     }
@@ -43,7 +43,7 @@ interface OacgComicContract {
 interface OacgComicDetailContract {
 
     interface View : IView {
-        fun showComicDetail(comicInfos: List<OacgComicEpisode>)
+        fun showComicDetail(comicInfos: List<OacgComicEpisode>?)
     }
 
     interface Model : IModel {

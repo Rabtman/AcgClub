@@ -166,15 +166,18 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
             btnComicNext.visibility = View.VISIBLE
         }
         oacgComicReadAdapter.setNewData(episodePage.pageContent)
-        maxPage = episodePage.pageContent.size
-        //每次刷新重置控件
-        rcvOacgComicContent.scrollToPosition(0)
-        seekComicProc.progress = 1
-        seekComicProc.max = maxPage - 1
-        tvComicPos.text = "1"
-        tvComicCount.text = maxPage.toString()
-        tvComicTitle.text = currentComicTitle
-        tvComicTitle.append(" ${episodePage.currTitle}")
+        if (episodePage.pageContent == null || episodePage.pageContent.isEmpty()) {
+            maxPage = 0
+
+        } else {
+            maxPage = episodePage.pageContent.size
+            //每次刷新重置控件
+            rcvOacgComicContent.scrollToPosition(0)
+            seekComicProc.progress = 1
+            seekComicProc.max = maxPage - 1
+            tvComicPos.text = "1"
+        }
+
     }
 
     /**

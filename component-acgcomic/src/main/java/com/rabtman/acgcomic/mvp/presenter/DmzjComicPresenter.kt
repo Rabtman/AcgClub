@@ -65,15 +65,6 @@ class DmzjComicPresenter
                 mModel.getComicInfos(selected.joinToString(separator = "-"))
                         .compose(RxUtil.rxSchedulerHelper<List<DmzjComicItem>>())
                         .subscribeWith(object : CommonSubscriber<List<DmzjComicItem>>(mView) {
-                            override fun onStart() {
-                                super.onStart()
-                                mView.showLoading()
-                            }
-
-                            override fun onComplete() {
-                                mView.hideLoading()
-                            }
-
                             override fun onNext(comicItems: List<DmzjComicItem>) {
                                 LogUtil.d("getMoreComicInfos" + comicItems.toString())
                                 mView.showMoreComicInfos(comicItems, comicItems.isNotEmpty())

@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import butterknife.BindView
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -33,6 +34,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
     lateinit var mMenuComicMain: DropDownMenu
     private var mSwipeRefresh: SwipeRefreshLayout? = null
     private var mRcvComicMain: RecyclerView? = null
+    private var mLayoutManager: LinearLayoutManager? = null
     private var mOacgComicItemAdapter: OacgComicItemAdpater? = null
     private val headers = listOf("分类")
     //菜单选项
@@ -45,6 +47,8 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
     private var typeAdapter: ComicMenuAdapter? = null
     //弹出菜单视图集
     private var popupViews: List<View>? = null
+    //头部搜索框
+    private var headerSearchView: View? = null
 
     override fun getLayoutId(): Int {
         return R.layout.acgcomic_view_comic_menu
@@ -90,6 +94,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
         mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_oacg_comic)
         mRcvComicMain = contentView.findViewById(R.id.rcv_oacg_comic)
         mOacgComicItemAdapter = OacgComicItemAdpater(appComponent.imageLoader())
+        mOacgComicItemAdapter?.setHeaderView(getHeaderView())
         //加载更多
         mOacgComicItemAdapter?.setOnLoadMoreListener({ mPresenter.getMoreComicInfos() }, mRcvComicMain)
         //点击跳转到漫画详情
@@ -100,8 +105,15 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
                     .withParcelable(IntentConstant.OACG_COMIC_ITEM, oacgComicItem)
                     .navigation()
         }
-        mRcvComicMain?.layoutManager = LinearLayoutManager(this.context)
+        mLayoutManager = LinearLayoutManager(this.context)
+        mRcvComicMain?.layoutManager = mLayoutManager
         mRcvComicMain?.adapter = mOacgComicItemAdapter
+        mRcvComicMain?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                Log.d("onscroll", "recyclerview------>x:$dx ,y:$dy")
+            }
+        })
 
         //下拉刷新
         mSwipeRefresh?.setOnRefreshListener({ mPresenter.getComicInfos() })
@@ -109,16 +121,25 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
         return contentView
     }
 
-    override fun showComicInfos(comicInfos: List<OacgComicItem>) {
-        mRcvComicMain?.scrollToPosition(0)
-        mOacgComicItemAdapter?.setNewData(comicInfos)
+    private fun getHeaderView(): View? {
+        if (headerSearchView == null) {
+            headerSearchView = layoutInflater.inflate(R.layout.acgcomic_view_oacg_comic_search, null)
+        }
+        return headerSearchView
     }
 
-    override fun showMoreComicInfos(comicInfos: List<OacgComicItem>, canLoadMore: Boolean) {
-        mOacgComicItemAdapter?.addData(comicInfos)
-        mOacgComicItemAdapter?.loadMoreComplete()
-        if (!canLoadMore) {
+    override fun showComicInfos(comicInfos: List<OacgComicItem>?) {
+        headerSearchView?.height?.let { mRcvComicMain?.scrollBy(0, it) }
+        mOacgComicItemAdapter?.setNewData(comicInfos)
+        //mRcvComicMain?.scrollBy(0, 0)
+    }
+
+    override fun showMoreComicInfos(comicInfos: List<OacgComicItem>?, canLoadMore: Boolean?) {
+        if (canLoadMore == null || !canLoadMore) {
             mOacgComicItemAdapter?.loadMoreEnd()
+        } else {
+            comicInfos?.let { mOacgComicItemAdapter?.addData(it) }
+            mOacgComicItemAdapter?.loadMoreComplete()
         }
     }
 

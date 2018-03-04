@@ -62,18 +62,8 @@ class OacgComicPresenter
                 mModel.getComicInfos(selectedType, ++pageNo)
                         .compose(RxUtil.rxSchedulerHelper<OacgComicPage>())
                         .subscribeWith(object : CommonSubscriber<OacgComicPage>(mView) {
-                            override fun onStart() {
-                                super.onStart()
-                                mView.showLoading()
-                            }
-
-                            override fun onComplete() {
-                                mView.hideLoading()
-                            }
-
                             override fun onNext(oacgComicPage: OacgComicPage) {
-                                LogUtil.d("getMoreComicInfos" + oacgComicPage.toString())
-                                mView.showMoreComicInfos(oacgComicPage.oacgComicItems, oacgComicPage.oacgComicItems.isNotEmpty())
+                                mView.showMoreComicInfos(oacgComicPage.oacgComicItems, oacgComicPage.oacgComicItems?.isNotEmpty())
                             }
 
                             override fun onError(e: Throwable?) {

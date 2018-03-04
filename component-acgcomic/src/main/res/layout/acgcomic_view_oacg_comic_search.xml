@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+  <android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="48dp"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="0.5dp">
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:focusable="true"
+      android:focusableInTouchMode="true">
+
+      <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/drug_search"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginRight="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ic_comic_search" />
+
+      <ImageView
+        android:id="@+id/drug_line"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_margin="12dp"
+        android:layout_toLeftOf="@id/drug_search"
+        android:background="@color/colorPrimary" />
+
+      <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/drug_close"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/drug_line"
+        android:background="@android:drawable/ic_menu_close_clear_cancel"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+
+      <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/drug_keyword"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="24dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/drug_close"
+        android:background="@null"
+        android:maxLines="1"
+        android:textSize="@dimen/body"
+        tools:text="123123111111111111111111" />
+
+    </RelativeLayout>
+  </android.support.v7.widget.CardView>
+</LinearLayout>

@@ -93,7 +93,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         mPresenter.getOacgComicDetail(comicId = currentComicInfo!!.id)
     }
 
-    override fun showComicDetail(comicInfos: List<OacgComicEpisode>) {
+    override fun showComicDetail(comicInfos: List<OacgComicEpisode>?) {
         mToolBarTitle.text = currentComicInfo?.comicName
         //模糊背景
         mApplication.appComponent.imageLoader().loadImage(mContext,
@@ -115,21 +115,11 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         tvOacgComicDetailSpot.text = currentComicInfo?.comicTagName
         tvOacgComicDetailPainter.text = currentComicInfo?.painterUserNickname
         tvOacgComicDetailScript.text = currentComicInfo?.scriptUserNickname
-        if (comicInfos.isEmpty()) {
+        if (comicInfos == null || comicInfos.isEmpty()) {
             tvOacgComicDetailProc.setText(R.string.acgcomic_label_comic_no_proc)
         } else {
             tvOacgComicDetailProc.text = String.format(getString(R.string.acgcomic_label_comic_update), currentComicInfo?.comicLastOrderidx)
-        }
-        tvOacgComicDetailPopluar.text = String.format(getString(R.string.acgcomic_label_comic_popluar), currentComicInfo?.clickScore)
-        //番剧介绍
-        val desc = currentComicInfo?.comicDesc
-        if (!TextUtils.isEmpty(desc)) {
-            tvOacgComicDetailDescription.text = desc
-        } else {
-            layoutSceduleDescription.visibility = android.view.View.GONE
-        }
-        //选集
-        if (!comicInfos.isEmpty()) {
+            //选集内容
             layoutSceduleEpisode.visibility = android.view.View.VISIBLE
             val adapter = OacgComicEpisodeItemAdapter(comicInfos)
             adapter.setOnItemClickListener({ adapter, _, position ->
@@ -145,6 +135,14 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
             layoutManager.orientation = GridLayoutManager.VERTICAL
             rcvOacgComicDetail.layoutManager = layoutManager
             rcvOacgComicDetail.adapter = adapter
+        }
+        tvOacgComicDetailPopluar.text = String.format(getString(R.string.acgcomic_label_comic_popluar), currentComicInfo?.clickScore)
+        //番剧介绍
+        val desc = currentComicInfo?.comicDesc
+        if (!TextUtils.isEmpty(desc)) {
+            tvOacgComicDetailDescription.text = desc
+        } else {
+            layoutSceduleDescription.visibility = android.view.View.GONE
         }
     }
 

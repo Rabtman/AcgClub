@@ -14,7 +14,7 @@ import com.google.gson.annotations.SerializedName
  * 漫画列表信息
  */
 data class OacgComicPage(
-        @SerializedName("comic_arr") val oacgComicItems: List<OacgComicItem> = listOf(),
+        @SerializedName("comic_arr") val oacgComicItems: List<OacgComicItem>? = null,
         @SerializedName("page_num") val pageNum: String = ""
 )
 
@@ -87,7 +87,7 @@ data class OacgComicEpisode(
  * 指定章节的内容
  */
 data class OacgComicEpisodePage(
-        @SerializedName("page_arr") val pageContent: List<PageContent> = listOf(),
+        @SerializedName("page_arr") val pageContent: List<PageContent>?,
         @SerializedName("comic_id") val comicId: String = "",
         @SerializedName("comic_name") val comicName: String = "",
         @SerializedName("pre_index") val preIndex: String = "",
