@@ -2,15 +2,16 @@ package com.rabtman.acgcomic.mvp.ui.fragment
 
 import android.support.v4.content.ContextCompat
 import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.*
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import butterknife.BindView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.rabtman.acgcomic.R
+import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.base.constant.IntentConstant
 import com.rabtman.acgcomic.di.DaggerOacgComicComponent
 import com.rabtman.acgcomic.di.OacgComicModule
@@ -24,13 +25,14 @@ import com.rabtman.common.base.widget.DropDownMenu
 import com.rabtman.common.di.component.AppComponent
 import com.rabtman.router.RouterConstants
 import com.rabtman.router.RouterUtils
+import es.dmoral.toasty.Toasty
 
 /**
  * @author Rabtman
  */
 @Route(path = RouterConstants.PATH_COMIC_OACG)
 class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.View {
-    @BindView(R.id.ddm_comic_menu)
+    @BindView(R2.id.ddm_comic_menu)
     lateinit var mMenuComicMain: DropDownMenu
     private var mSwipeRefresh: SwipeRefreshLayout? = null
     private var mRcvComicMain: RecyclerView? = null
@@ -48,7 +50,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
     //弹出菜单视图集
     private var popupViews: List<View>? = null
     //头部搜索框
-    private var headerSearchView: View? = null
+    private lateinit var headerSearchView: View
 
     override fun getLayoutId(): Int {
         return R.layout.acgcomic_view_comic_menu
@@ -64,6 +66,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
 
     override fun initData() {
         initDropDownMenu()
+        initHeaderView()
         mMenuComicMain.setDropDownMenu(headers, popupViews!!, initContentView())
 
         mPresenter.getComicInfos()
@@ -94,7 +97,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
         mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_oacg_comic)
         mRcvComicMain = contentView.findViewById(R.id.rcv_oacg_comic)
         mOacgComicItemAdapter = OacgComicItemAdpater(appComponent.imageLoader())
-        mOacgComicItemAdapter?.setHeaderView(getHeaderView())
+        mOacgComicItemAdapter?.setHeaderView(headerSearchView)
         //加载更多
         mOacgComicItemAdapter?.setOnLoadMoreListener({ mPresenter.getMoreComicInfos() }, mRcvComicMain)
         //点击跳转到漫画详情
@@ -121,15 +124,52 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
         return contentView
     }
 
-    private fun getHeaderView(): View? {
-        if (headerSearchView == null) {
-            headerSearchView = layoutInflater.inflate(R.layout.acgcomic_view_oacg_comic_search, null)
+    private fun initHeaderView(): View {
+        headerSearchView = layoutInflater.inflate(R.layout.acgcomic_view_oacg_comic_search, null)
+        val etKeyword: AppCompatEditText = headerSearchView.findViewById(R.id.et_oacg_comic_keyword)
+        val btnClear: AppCompatImageButton = headerSearchView.findViewById(R.id.btn_oacg_comic_close)
+        val btnSearch: AppCompatImageButton = headerSearchView.findViewById(R.id.btn_oacg_comic_search)
+
+        //监听搜索框输入情况
+        etKeyword.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                //控制清除按钮的状态
+                if (s.toString().isEmpty()) {
+                    btnClear.visibility = View.INVISIBLE
+                } else {
+                    btnClear.visibility = View.VISIBLE
+                }
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+        })
+        //清除事件
+        btnClear.setOnClickListener { etKeyword.setText("") }
+        //搜索事件
+        btnSearch.setOnClickListener {
+            val keyword = etKeyword.text.toString()
+            if (keyword.isEmpty()) {
+                Toasty.info(context, getString(R.string.acgcomic_msg_comic_search_empty))
+            } else {
+                mPresenter.searchComicInfos(keyword)
+            }
         }
         return headerSearchView
     }
 
+    override fun showSearchComicInfos(comicInfos: List<OacgComicItem>?) {
+        mOacgComicItemAdapter?.setNewData(comicInfos)
+        mOacgComicItemAdapter?.loadMoreEnd()
+    }
+
     override fun showComicInfos(comicInfos: List<OacgComicItem>?) {
-        headerSearchView?.height?.let { mRcvComicMain?.scrollBy(0, it) }
+        mRcvComicMain?.scrollBy(0, headerSearchView.height)
         mOacgComicItemAdapter?.setNewData(comicInfos)
         //mRcvComicMain?.scrollBy(0, 0)
     }

@@ -39,4 +39,11 @@ interface AcgComicService {
     @POST(HtmlConstant.OACG_URL + "index.php?m=Index&a=page_more")
     @FormUrlEncoded
     fun getOacgEpisodeDetail(@Field("comic_id") comicId: Int, @Field("chapter_index") chapterIndex: Int): Flowable<OacgComicEpisodePage>
+
+    /**
+     * Oacg漫画搜索
+     */
+    @POST(HtmlConstant.OACG_URL + "index.php?m=Index&a=searchlistdata")
+    @FormUrlEncoded
+    fun searchOacgComicInfos(@Field("tag") keyword: String): Flowable<OacgComicPage>
 }

@@ -115,6 +115,8 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
 
         seekComicProc.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onStartTrackingTouch(p0: SeekBar?) {
+                //先停止滑动
+                rcvOacgComicContent.stopScroll()
                 tvComicPosTip.visibility = View.VISIBLE
                 tvComicPosTip.text = (currentPage + 1).toString()
             }
@@ -165,10 +167,11 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
         } else {
             btnComicNext.visibility = View.VISIBLE
         }
+        tvComicTitle.text = currentComicTitle
+        tvComicTitle.append(" ${episodePage.currTitle}")
         oacgComicReadAdapter.setNewData(episodePage.pageContent)
         if (episodePage.pageContent == null || episodePage.pageContent.isEmpty()) {
             maxPage = 0
-
         } else {
             maxPage = episodePage.pageContent.size
             //每次刷新重置控件
@@ -177,7 +180,7 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
             seekComicProc.max = maxPage - 1
             tvComicPos.text = "1"
         }
-
+        tvComicCount.text = maxPage.toString()
     }
 
     /**

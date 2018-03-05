@@ -30,6 +30,11 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
 class OacgComicModel @Inject
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), OacgComicContract.Model {
 
+    override fun getSearchComicInfos(keyword: String): Flowable<OacgComicPage> {
+        return mRepositoryManager.obtainRetrofitService(AcgComicService::class.java)
+                .searchOacgComicInfos(keyword)
+    }
+
     override fun getComicInfos(themeId: Int, pageNo: Int): Flowable<OacgComicPage> {
         return mRepositoryManager.obtainRetrofitService(AcgComicService::class.java)
                 .getOacgComicList(themeId, pageNo)

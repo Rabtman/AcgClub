@@ -9,6 +9,7 @@ import android.widget.RadioGroup
 import butterknife.BindView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.rabtman.acgcomic.R
+import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.di.DaggerDmzjComicComponent
 import com.rabtman.acgcomic.di.DmzjComicModule
 import com.rabtman.acgcomic.mvp.DmzjComicContract
@@ -25,7 +26,7 @@ import com.rabtman.common.di.component.AppComponent
  * @author Rabtman
  */
 class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.View {
-    @BindView(R.id.ddm_comic_menu)
+    @BindView(R2.id.ddm_comic_menu)
     lateinit var mMenuComicMain: DropDownMenu
     private var mSortGroup: RadioGroup? = null
     private var mSwipeRefresh: SwipeRefreshLayout? = null

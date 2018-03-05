@@ -44,12 +44,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
   //ActionBarDrawerToggle toggle;
   //需要加载的fragment
   HashMap<String, Class<? extends SupportFragment>> loadFragments = new HashMap<>();
-  //AcgNewsMainFragment acgNewsMainFragment;
-  //ScheduleMainFragment scheduleMainFragment;
-  //AcgPicMainFragment acgPicMainFragment;
-  //FictionFragment fictionFragment;
-  //SettingFragment settingFragment;
-
   private String hideFragment = RouterConstants.PATH_ACGNEWS_MAIN;
   private String showFragment = RouterConstants.PATH_ACGNEWS_MAIN;
 

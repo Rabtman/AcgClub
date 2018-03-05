@@ -2,4 +2,6 @@
   <string name="acgcomic_label_comic_no_proc">暂未更新</string>
   <string name="acgcomic_label_comic_update">更新至 %1$s 话</string>
   <string name="acgcomic_label_comic_popluar">人气 %1$s</string>
+
+  <string name="acgcomic_msg_comic_search_empty">请输入漫画名称或作者</string>
 </resources>

@@ -11,7 +11,7 @@ import com.rabtman.common.base.SimpleActivity
 
 class AcgComicMainActivity : SimpleActivity() {
 
-    @BindView(R.id.layout_load_fragment)
+    @BindView(R2.id.layout_load_fragment)
     lateinit var layoutLoadFragment: FrameLayout
 
     override fun getLayoutId(): Int {

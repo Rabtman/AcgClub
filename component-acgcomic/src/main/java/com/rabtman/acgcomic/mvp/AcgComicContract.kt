@@ -32,11 +32,15 @@ interface OacgComicContract {
 
         fun showMoreComicInfos(comicInfos: List<OacgComicItem>?, canLoadMore: Boolean?)
 
+        fun showSearchComicInfos(comicInfos: List<OacgComicItem>?)
+
         fun onLoadMoreFail()
     }
 
     interface Model : IModel {
         fun getComicInfos(themeId: Int, pageNo: Int): Flowable<OacgComicPage>
+
+        fun getSearchComicInfos(keyword: String): Flowable<OacgComicPage>
     }
 }
 

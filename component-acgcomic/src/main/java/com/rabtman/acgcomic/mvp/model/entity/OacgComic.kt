@@ -15,7 +15,8 @@ import com.google.gson.annotations.SerializedName
  */
 data class OacgComicPage(
         @SerializedName("comic_arr") val oacgComicItems: List<OacgComicItem>? = null,
-        @SerializedName("page_num") val pageNum: String = ""
+        @SerializedName("page_num") val pageNum: String = "",
+        @SerializedName("len") val len: Int = 0
 )
 
 data class OacgComicItem(

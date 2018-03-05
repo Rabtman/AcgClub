@@ -143,7 +143,8 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':common')
     implementation project(':component-acgnews')
-    //implementation project(':component-acgschedule')
+    implementation project(':component-acgschedule')
+    implementation project(':component-acgcomic')
     //di
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]

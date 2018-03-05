@@ -74,4 +74,26 @@ class OacgComicPresenter
                         })
         )
     }
+
+    fun searchComicInfos(keyword: String) {
+        pageNo = 0
+        addSubscribe(
+                mModel.getSearchComicInfos(keyword)
+                        .compose(RxUtil.rxSchedulerHelper<OacgComicPage>())
+                        .subscribeWith(object : CommonSubscriber<OacgComicPage>(mView) {
+                            override fun onStart() {
+                                super.onStart()
+                                mView.showLoading()
+                            }
+
+                            override fun onComplete() {
+                                mView.hideLoading()
+                            }
+
+                            override fun onNext(oacgComicPage: OacgComicPage) {
+                                mView.showSearchComicInfos(oacgComicPage.oacgComicItems)
+                            }
+                        })
+        )
+    }
 }
