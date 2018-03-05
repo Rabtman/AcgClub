@@ -14,7 +14,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level
  * @author Rabtman
  */
 
-class AppConfig : ConfigModule {
+class AcgComicConfig : ConfigModule {
 
     override fun applyOptions(context: Context, builder: Builder) {
         builder.addInterceptor(HttpLoggingInterceptor().setLevel(Level.BODY))

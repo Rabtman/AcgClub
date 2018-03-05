@@ -43,7 +43,7 @@
       android:theme="@style/AppFullScreenTheme" />
 
     <meta-data
-      android:name="com.rabtman.acgcomic.AppConfig"
+      android:name="com.rabtman.acgcomic.AcgComicConfig"
       android:value="ConfigModule" />
   </application>
 

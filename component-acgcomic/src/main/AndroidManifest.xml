@@ -13,5 +13,9 @@
     <activity
       android:name=".mvp.ui.activity.OacgComicReadActivity"
       android:screenOrientation="portrait" />
+
+    <meta-data
+      android:name="com.rabtman.acgcomic.AcgComicConfig"
+      android:value="ConfigModule" />
   </application>
 </manifest>

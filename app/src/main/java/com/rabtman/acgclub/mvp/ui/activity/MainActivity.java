@@ -84,6 +84,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
           0,
           getTargetFragment(RouterConstants.PATH_ACGNEWS_MAIN),
           getTargetFragment(RouterConstants.PATH_SCHEDULE_MAIN),
+          getTargetFragment(RouterConstants.PATH_COMIC_OACG),
           getTargetFragment(RouterConstants.PATH_SETTING));
     }
 
