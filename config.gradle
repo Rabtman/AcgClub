@@ -24,6 +24,7 @@ ext {
             retrofit   : "2.3.0",
             okhttp     : "3.9.0",
             glide      : "4.2.0",
+            room       : "1.0.0",
             dagger2    : "2.14.1",
             butterknife: "8.8.1",
             blockcanary: "1.5.0",
@@ -44,6 +45,11 @@ ext {
             "mz-banner"                 : "com.github.pinguo-zhouwei:MZBannerView:v2.0.0",
             "materialsearchview"        : "com.miguelcatalan:materialsearchview:1.4.0",
             "statusbarutil"             : "com.jaeger.statusbarutil:library:1.4.0",
+            //db
+            "room"                      : "android.arch.persistence.room:runtime:${dependVersion.room}",
+            "room-compiler"             : "android.arch.persistence.room:compiler:${dependVersion.room}",
+            "room-testing"                 : "android.arch.persistence.room:testing:${dependVersion.room}",
+            "room-rxjava"               : "android.arch.persistence.room:rxjava2:${dependVersion.room}",
             //other
             "multidex"                  : "com.android.support:multidex:1.0.2",
             "logger"                    : "com.orhanobut:logger:2.1.1",

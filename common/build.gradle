@@ -92,6 +92,10 @@ dependencies {
     testApi rootProject.ext.dependencies["junit"]
     //jsoup
     api project(':jsoup-annotations')
+    //db
+    api rootProject.ext.dependencies["room"]
+    api rootProject.ext.dependencies["room-rxjava"]
+    testApi rootProject.ext.dependencies["room-testing"]
     //other
     api rootProject.ext.dependencies["multidex"]
     api rootProject.ext.dependencies["logger"]

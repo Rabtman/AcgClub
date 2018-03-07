@@ -3,6 +3,7 @@ android {
         //di
         annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
         annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
+        annotationProcessor rootProject.ext.dependencies["room-compiler"]
         annotationProcessor rootProject.ext.dependencies["router-compiler"]
     }
 }
