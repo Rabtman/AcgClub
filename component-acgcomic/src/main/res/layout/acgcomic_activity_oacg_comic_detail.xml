@@ -2,6 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/layout_root"
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
@@ -29,6 +30,7 @@
           android:scaleType="centerCrop" />
 
         <View
+          android:id="@+id/view_bg_white"
           android:layout_width="match_parent"
           android:layout_height="40dp"
           android:layout_gravity="bottom"
@@ -147,6 +149,14 @@
     </android.support.design.widget.CollapsingToolbarLayout>
 
   </android.support.design.widget.AppBarLayout>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/btn_oacg_comic_like"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:layout_marginRight="16dp"
+    app:layout_anchor="@id/view_bg_white"
+    app:layout_anchorGravity="right" />
 
   <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"

@@ -2,14 +2,17 @@ package com.rabtman.acgcomic.mvp.ui.activity
 
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.CardView
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
+import butterknife.OnClick
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.jaeger.library.StatusBarUtil
 import com.ms.square.android.expandabletextview.ExpandableTextView
@@ -35,13 +38,15 @@ import com.rabtman.router.RouterUtils
  * @author Rabtman
  */
 @Route(path = RouterConstants.PATH_COMIC_OACG_DETAIL)
-class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgComicDetailContract.View {
+class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgComicDetailContract.View, View.OnClickListener {
     @BindView(R2.id.toolbar)
     lateinit internal var mToolBar: Toolbar
     @BindView(R2.id.toolbar_title)
     lateinit internal var mToolBarTitle: TextView
     @BindView(R2.id.app_bar)
     lateinit internal var appBar: AppBarLayout
+    @BindView(R2.id.btn_oacg_comic_like)
+    lateinit internal var btnOacgComicLike: FloatingActionButton
     @BindView(R2.id.collapsing_toolbar)
     lateinit internal var collapsingToolbarLayout: CollapsingToolbarLayout
     @BindView(R2.id.img_oacg_comic_title_bg)
@@ -91,6 +96,24 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
 
         currentComicInfo = intent.getParcelableExtra(IntentConstant.OACG_COMIC_ITEM)
         mPresenter.getOacgComicDetail(comicId = currentComicInfo!!.id)
+    }
+
+    @OnClick(R2.id.btn_oacg_comic_like)
+    override fun onClick(v: View?) {
+        if (v == null) return
+        if (v.id == R.id.btn_oacg_comic_like) {
+            if (btnOacgComicLike.tag as Boolean) {
+                currentComicInfo?.id?.let {
+                    mPresenter.unCollectComic(it)
+                    btnOacgComicLike.tag = true
+                }
+            } else {
+                currentComicInfo?.let {
+                    mPresenter.collectComic(it)
+                    btnOacgComicLike.tag = false
+                }
+            }
+        }
     }
 
     override fun showComicDetail(comicInfos: List<OacgComicEpisode>?) {

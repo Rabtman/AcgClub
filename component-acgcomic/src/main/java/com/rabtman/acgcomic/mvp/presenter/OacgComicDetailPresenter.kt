@@ -3,7 +3,9 @@ package com.rabtman.acgcomic.mvp.presenter
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract.Model
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract.View
+import com.rabtman.acgcomic.mvp.model.dao.OacgComicDAO
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
+import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
@@ -41,4 +43,12 @@ constructor(model: OacgComicDetailContract.Model,
         )
     }
 
+    fun collectComic(comicInfo: OacgComicItem) {
+        OacgComicDAO().saveOacgComicItem(comicInfo)
+    }
+
+    fun unCollectComic(comicInfoId: String) {
+        OacgComicDAO().getOacgComicItemById(comicInfoId)
+                .compose(RxUtil.rxSchedulerHelper())
+    }
 }
