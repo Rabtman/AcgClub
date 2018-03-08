@@ -9,6 +9,7 @@ import com.rabtman.acgclub.base.constant.HtmlConstant;
 import com.rabtman.common.base.CommonApplicationLike.Lifecycle;
 import com.rabtman.common.di.module.GlobeConfigModule.Builder;
 import com.rabtman.common.integration.ConfigModule;
+import com.rabtman.common.integration.IDbMigrationManager;
 import com.rabtman.common.integration.IRepositoryManager;
 import java.util.List;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -43,5 +44,10 @@ public class AppConfig implements ConfigModule {
   @Override
   public void injectActivityLifecycle(Context context,
       List<ActivityLifecycleCallbacks> lifecycles) {
+  }
+
+  @Override
+  public void injectDbMigration(IDbMigrationManager dbMigrationManager) {
+
   }
 }

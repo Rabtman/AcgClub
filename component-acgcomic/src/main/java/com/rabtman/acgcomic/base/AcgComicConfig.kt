@@ -6,6 +6,7 @@ import com.rabtman.acgcomic.api.AcgComicService
 import com.rabtman.common.base.CommonApplicationLike.Lifecycle
 import com.rabtman.common.di.module.GlobeConfigModule.Builder
 import com.rabtman.common.integration.ConfigModule
+import com.rabtman.common.integration.IDbMigrationManager
 import com.rabtman.common.integration.IRepositoryManager
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
@@ -31,5 +32,9 @@ class AcgComicConfig : ConfigModule {
 
     override fun injectActivityLifecycle(context: Context,
                                          lifecycles: List<ActivityLifecycleCallbacks>) {
+    }
+
+    override fun injectDbMigration(dbMigrationManager: IDbMigrationManager?) {
+
     }
 }
