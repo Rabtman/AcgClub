@@ -11,6 +11,7 @@ import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxUtil
+import io.reactivex.subscribers.ResourceSubscriber
 import javax.inject.Inject
 
 /**
@@ -20,6 +21,8 @@ import javax.inject.Inject
 class OacgComicDetailPresenter @Inject
 constructor(model: OacgComicDetailContract.Model,
             rootView: OacgComicDetailContract.View) : BasePresenter<Model, View>(model, rootView) {
+
+    private val DAO = OacgComicDAO()
 
     fun getOacgComicDetail(comicId: String) {
         addSubscribe(
@@ -43,12 +46,38 @@ constructor(model: OacgComicDetailContract.Model,
         )
     }
 
-    fun collectComic(comicInfo: OacgComicItem) {
-        OacgComicDAO().saveOacgComicItem(comicInfo)
+    /**
+     * 查询是否已经收藏过该漫画
+     */
+    fun isCollected(comicInfoId: String) {
+        addSubscribe(
+                DAO.getOacgComicItemById(comicInfoId)
+                        .compose(RxUtil.rxSchedulerHelper())
+                        .subscribeWith(object : ResourceSubscriber<OacgComicItem>() {
+                            override fun onNext(item: OacgComicItem?) {
+                                LogUtil.d("OacgComicItem" + item.toString())
+                                mView.showCollectView(item != null)
+                            }
+
+                            override fun onComplete() {
+                            }
+
+                            override fun onError(t: Throwable?) {
+                            }
+
+                        })
+        )
     }
 
-    fun unCollectComic(comicInfoId: String) {
-        OacgComicDAO().getOacgComicItemById(comicInfoId)
-                .compose(RxUtil.rxSchedulerHelper())
+    /**
+     * 漫画收藏、取消
+     */
+    fun collectOrCancelComic(comicInfo: OacgComicItem, isCollected: Boolean) {
+
+        if (isCollected) {
+            DAO.saveOacgComicItem(comicInfo)
+        } else {
+            DAO.deleteOacgComicItem(comicInfo)
+        }
     }
 }

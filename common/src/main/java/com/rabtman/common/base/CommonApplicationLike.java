@@ -9,7 +9,6 @@ import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.di.component.DaggerAppComponent;
 import com.rabtman.common.di.module.AppModule;
 import com.rabtman.common.di.module.ClientModule;
-import com.rabtman.common.di.module.DbModule;
 import com.rabtman.common.di.module.GlobeConfigModule;
 import com.rabtman.common.di.module.ImageModule;
 import com.rabtman.common.integration.ActivityLifecycle;
@@ -66,7 +65,6 @@ public class CommonApplicationLike implements IApplicationLike {
         .appModule(new AppModule(mApplication))////提供application
         .clientModule(new ClientModule())//用于提供okhttp和retrofit的单例
         .imageModule(new ImageModule())//图片加载框架默认使用glide
-        .dbModule(new DbModule())//数据库配置
         .globeConfigModule(getGlobeConfigModule(mApplication, mModules))//全局配置
         .build();
     mAppComponent.inject(this);
@@ -81,7 +79,6 @@ public class CommonApplicationLike implements IApplicationLike {
 
     //db init
     Realm.init(mApplication);
-    Realm.setDefaultConfiguration(mAppComponent.realmConfiguration());
 
     //init utils
     Utils.init(mApplication);

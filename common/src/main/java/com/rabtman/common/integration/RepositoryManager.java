@@ -1,6 +1,7 @@
 package com.rabtman.common.integration;
 
 import android.content.Context;
+import io.realm.RealmConfiguration;
 import io.rx_cache2.internal.RxCache;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -19,6 +20,7 @@ public class RepositoryManager implements IRepositoryManager {
 
   private final Map<String, Object> mRetrofitServiceCache = new LinkedHashMap<>();
   private final Map<String, Object> mCacheServiceCache = new LinkedHashMap<>();
+  private final Map<String, RealmConfiguration> mRealmConfigs = new LinkedHashMap<>();
   private Retrofit mRetrofit;
   private RxCache mRxCache;
 
@@ -55,6 +57,16 @@ public class RepositoryManager implements IRepositoryManager {
     }
   }
 
+  @Override
+  public void injectRealmConfigs(RealmConfiguration... realmConfigurations) {
+    for (RealmConfiguration realmConfiguration : realmConfigurations) {
+      if (mRealmConfigs.containsKey(realmConfiguration.getRealmFileName())) {
+        continue;
+      }
+      mRealmConfigs.put(realmConfiguration.getRealmFileName(), realmConfiguration);
+    }
+  }
+
   /**
    * 根据传入的Class获取对应的Retrift service
    */
@@ -69,5 +81,10 @@ public class RepositoryManager implements IRepositoryManager {
   @Override
   public <T> T obtainCacheService(Class<T> cache) {
     return (T) mCacheServiceCache.get(cache.getName());
+  }
+
+  @Override
+  public RealmConfiguration obtainRealmConfig(String realmFileName) {
+    return mRealmConfigs.get(realmFileName);
   }
 }

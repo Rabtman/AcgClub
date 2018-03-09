@@ -12,7 +12,6 @@ import dagger.Component
 /**
  * @author Rabtman
  */
-
 @FragmentScope
 @Component(modules = arrayOf(DmzjComicModule::class), dependencies = arrayOf(AppComponent::class))
 interface DmzjComicComponent {

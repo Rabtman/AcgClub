@@ -49,7 +49,7 @@
             android:layout_height="175dp"
             android:layout_alignParentBottom="true"
             app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
+            app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="true">
 
@@ -154,9 +154,12 @@
     android:id="@+id/btn_oacg_comic_like"
     android:layout_width="48dp"
     android:layout_height="48dp"
-    android:layout_marginRight="16dp"
+    android:src="@drawable/ic_heart"
+    app:elevation="1dp"
     app:layout_anchor="@id/view_bg_white"
-    app:layout_anchorGravity="right" />
+    app:layout_anchorGravity="right"
+    app:layout_scrollFlags="exitUntilCollapsed"
+    app:useCompatPadding="true" />
 
   <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"

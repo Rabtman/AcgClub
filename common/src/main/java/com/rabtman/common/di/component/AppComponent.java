@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.rabtman.common.base.CommonApplicationLike;
 import com.rabtman.common.di.module.AppModule;
 import com.rabtman.common.di.module.ClientModule;
-import com.rabtman.common.di.module.DbModule;
 import com.rabtman.common.di.module.GlobeConfigModule;
 import com.rabtman.common.di.module.ImageModule;
 import com.rabtman.common.imageloader.ImageLoader;
@@ -13,7 +12,6 @@ import com.rabtman.common.integration.AppManager;
 import com.rabtman.common.integration.IRepositoryManager;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import dagger.Component;
-import io.realm.RealmConfiguration;
 import java.io.File;
 import java.util.HashMap;
 import javax.inject.Singleton;
@@ -21,7 +19,7 @@ import okhttp3.OkHttpClient;
 
 
 @Singleton
-@Component(modules = {AppModule.class, ClientModule.class, ImageModule.class, DbModule.class,
+@Component(modules = {AppModule.class, ClientModule.class, ImageModule.class,
     GlobeConfigModule.class})
 public interface AppComponent {
 
@@ -30,14 +28,10 @@ public interface AppComponent {
   //用于管理网络请求层,以及数据缓存层
   IRepositoryManager repositoryManager();
 
-
   OkHttpClient okHttpClient();
 
   //图片管理器,用于加载图片的管理类,默认使用glide,使用策略模式,可替换框架
   ImageLoader imageLoader();
-
-  //realm配置
-  RealmConfiguration realmConfiguration();
 
   //gson
   Gson gson();

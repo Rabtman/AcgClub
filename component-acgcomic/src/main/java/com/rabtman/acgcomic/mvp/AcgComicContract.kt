@@ -48,6 +48,8 @@ interface OacgComicDetailContract {
 
     interface View : IView {
         fun showComicDetail(comicInfos: List<OacgComicEpisode>?)
+
+        fun showCollectView(isCollected: Boolean)
     }
 
     interface Model : IModel {

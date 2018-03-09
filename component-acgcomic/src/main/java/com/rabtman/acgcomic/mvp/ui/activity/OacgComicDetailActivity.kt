@@ -3,6 +3,7 @@ package com.rabtman.acgcomic.mvp.ui.activity
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
 import android.support.design.widget.FloatingActionButton
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -39,6 +40,7 @@ import com.rabtman.router.RouterUtils
  */
 @Route(path = RouterConstants.PATH_COMIC_OACG_DETAIL)
 class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgComicDetailContract.View, View.OnClickListener {
+
     @BindView(R2.id.toolbar)
     lateinit internal var mToolBar: Toolbar
     @BindView(R2.id.toolbar_title)
@@ -95,24 +97,31 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         collapsingToolbarLayout.isTitleEnabled = false
 
         currentComicInfo = intent.getParcelableExtra(IntentConstant.OACG_COMIC_ITEM)
-        mPresenter.getOacgComicDetail(comicId = currentComicInfo!!.id)
+
+        currentComicInfo?.let { it ->
+            mPresenter.isCollected(it.id)
+            mPresenter.getOacgComicDetail(it.id)
+        }
     }
 
     @OnClick(R2.id.btn_oacg_comic_like)
     override fun onClick(v: View?) {
         if (v == null) return
         if (v.id == R.id.btn_oacg_comic_like) {
-            if (btnOacgComicLike.tag as Boolean) {
-                currentComicInfo?.id?.let {
-                    mPresenter.unCollectComic(it)
-                    btnOacgComicLike.tag = true
-                }
-            } else {
-                currentComicInfo?.let {
-                    mPresenter.collectComic(it)
-                    btnOacgComicLike.tag = false
-                }
+            val isCollect = btnOacgComicLike.tag as Boolean
+            currentComicInfo?.let {
+                mPresenter.collectOrCancelComic(it, isCollect.not())
+                btnOacgComicLike.tag = isCollect.not()
             }
+        }
+    }
+
+    override fun showCollectView(isCollected: Boolean) {
+        btnOacgComicLike.tag = isCollected
+        if (isCollected) {
+            btnOacgComicLike.setImageDrawable(ContextCompat.getDrawable(baseContext, R.drawable.ic_heart_solid))
+        } else {
+            btnOacgComicLike.setImageDrawable(ContextCompat.getDrawable(baseContext, R.drawable.ic_heart))
         }
     }
 

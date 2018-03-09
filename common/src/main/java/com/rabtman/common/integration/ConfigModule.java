@@ -35,9 +35,4 @@ public interface ConfigModule {
    */
   void injectActivityLifecycle(Context context,
       List<Application.ActivityLifecycleCallbacks> lifecycles);
-
-  /**
-   * 使用{@link IDbMigrationManager}注入数据库迁移操作
-   */
-  void injectDbMigration(IDbMigrationManager dbMigrationManager);
 }
