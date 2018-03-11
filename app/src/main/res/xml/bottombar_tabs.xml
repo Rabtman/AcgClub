@@ -12,10 +12,10 @@
     icon="@drawable/nav_comic"
     id="@+id/nav_comic"
     title="@string/nav_comic" />
-  <tab
+  <!--<tab
     icon="@drawable/nav_setting"
     id="@+id/nav_setting"
-    title="@string/nav_setting" />
+    title="@string/nav_setting" />-->
   <!--<tab
     icon="@drawable/nav_fiction"
     id="@+id/nav_fiction"

@@ -39,7 +39,7 @@ import com.rabtman.router.RouterUtils
  * @author Rabtman
  */
 @Route(path = RouterConstants.PATH_COMIC_OACG_DETAIL)
-class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgComicDetailContract.View, View.OnClickListener {
+class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgComicDetailContract.View {
 
     @BindView(R2.id.toolbar)
     lateinit internal var mToolBar: Toolbar
@@ -105,14 +105,11 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
     }
 
     @OnClick(R2.id.btn_oacg_comic_like)
-    override fun onClick(v: View?) {
-        if (v == null) return
-        if (v.id == R.id.btn_oacg_comic_like) {
-            val isCollect = btnOacgComicLike.tag as Boolean
-            currentComicInfo?.let {
-                mPresenter.collectOrCancelComic(it, isCollect.not())
-                btnOacgComicLike.tag = isCollect.not()
-            }
+    fun collectComic() {
+        val isCollect = btnOacgComicLike.tag as Boolean
+        currentComicInfo?.let {
+            mPresenter.collectOrCancelComic(it, isCollect.not())
+            btnOacgComicLike.tag = isCollect.not()
         }
     }
 
@@ -120,8 +117,10 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         btnOacgComicLike.tag = isCollected
         if (isCollected) {
             btnOacgComicLike.setImageDrawable(ContextCompat.getDrawable(baseContext, R.drawable.ic_heart_solid))
+            showMsg(R.string.msg_success_collect_add)
         } else {
             btnOacgComicLike.setImageDrawable(ContextCompat.getDrawable(baseContext, R.drawable.ic_heart))
+            showMsg(R.string.msg_success_collect_cancel)
         }
     }
 

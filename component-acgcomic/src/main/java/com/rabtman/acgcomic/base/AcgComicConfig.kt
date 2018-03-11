@@ -3,7 +3,6 @@ package com.rabtman.acgcomic
 import android.app.Application.ActivityLifecycleCallbacks
 import android.content.Context
 import com.rabtman.acgcomic.api.AcgComicService
-import com.rabtman.acgcomic.base.AcgComicRealmModule
 import com.rabtman.acgcomic.base.constant.SystemConstant.DB_NAME
 import com.rabtman.acgcomic.base.constant.SystemConstant.DB_VERSION
 import com.rabtman.common.base.CommonApplicationLike.Lifecycle
@@ -31,7 +30,7 @@ class AcgComicConfig : ConfigModule {
                 RealmConfiguration.Builder()
                         .name(DB_NAME)
                         .schemaVersion(DB_VERSION)
-                        .modules(AcgComicRealmModule())
+                        //.modules(Realm.getDefaultModule(), AcgComicRealmModule())
                         .build()
         )
     }

@@ -29,6 +29,7 @@
           android:scaleType="centerCrop" />
 
         <View
+          android:id="@+id/view_bg_grey"
           android:layout_width="match_parent"
           android:layout_height="40dp"
           android:layout_gravity="bottom"
@@ -127,6 +128,18 @@
     </android.support.design.widget.CollapsingToolbarLayout>
 
   </android.support.design.widget.AppBarLayout>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/btn_schedule_detail_like"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:scaleType="center"
+    android:src="@drawable/ic_heart"
+    app:elevation="1dp"
+    app:layout_anchor="@id/view_bg_grey"
+    app:layout_anchorGravity="right"
+    app:layout_scrollFlags="exitUntilCollapsed"
+    app:useCompatPadding="true" />
 
   <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"

@@ -37,8 +37,12 @@
       </intent-filter>
     </activity>
     <activity
+      android:name=".mvp.ui.activity.SettingActivity"
+      android:screenOrientation="portrait" />
+    <activity
       android:name=".mvp.ui.activity.APicDetailActivity"
       android:screenOrientation="portrait" />
+
     <meta-data
       android:name="com.rabtman.common.imageloader.glide.GlideConfiguration"
       android:value="GlideModule" />
@@ -53,6 +57,8 @@
       android:name=".wxapi.WXEntryActivity"
       android:screenOrientation="portrait"
       android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+    <service android:name=".service.UpdateAppService" />
   </application>
 
 </manifest>

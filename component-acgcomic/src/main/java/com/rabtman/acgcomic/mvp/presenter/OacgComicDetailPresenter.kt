@@ -1,9 +1,9 @@
 package com.rabtman.acgcomic.mvp.presenter
 
+import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract.Model
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract.View
-import com.rabtman.acgcomic.mvp.model.dao.OacgComicDAO
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
 import com.rabtman.common.base.CommonSubscriber
@@ -21,8 +21,6 @@ import javax.inject.Inject
 class OacgComicDetailPresenter @Inject
 constructor(model: OacgComicDetailContract.Model,
             rootView: OacgComicDetailContract.View) : BasePresenter<Model, View>(model, rootView) {
-
-    private val DAO = OacgComicDAO()
 
     fun getOacgComicDetail(comicId: String) {
         addSubscribe(
@@ -51,7 +49,7 @@ constructor(model: OacgComicDetailContract.Model,
      */
     fun isCollected(comicInfoId: String) {
         addSubscribe(
-                DAO.getOacgComicItemById(comicInfoId)
+                mModel.getLocalOacgComicItemById(comicInfoId)
                         .compose(RxUtil.rxSchedulerHelper())
                         .subscribeWith(object : ResourceSubscriber<OacgComicItem>() {
                             override fun onNext(item: OacgComicItem?) {
@@ -73,11 +71,18 @@ constructor(model: OacgComicDetailContract.Model,
      * 漫画收藏、取消
      */
     fun collectOrCancelComic(comicInfo: OacgComicItem, isCollected: Boolean) {
-
-        if (isCollected) {
-            DAO.saveOacgComicItem(comicInfo)
-        } else {
-            DAO.deleteOacgComicItem(comicInfo)
-        }
+        addSubscribe(
+                mModel.addOrDeleteLocalOacgComicItem(comicInfo, isCollected)
+                        .subscribe({
+                            mView.showCollectView(isCollected.not())
+                        }, { throwable ->
+                            throwable.printStackTrace()
+                            if (isCollected.not()) {
+                                mView.showError(R.string.msg_error_collect_add)
+                            } else {
+                                mView.showError(R.string.msg_error_collect_cancel)
+                            }
+                        })
+        )
     }
 }

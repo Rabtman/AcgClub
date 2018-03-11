@@ -1,0 +1,23 @@
+<resources>
+  <string name="app_name">宅社</string>
+  <string name="nav_main">首页</string>
+  <string name="nav_news">资讯</string>
+  <string name="nav_schedule">番剧</string>
+  <string name="nav_picture">看图</string>
+  <string name="nav_comic">漫画</string>
+  <string name="nav_fiction">小说</string>
+  <string name="nav_collection">我的收藏</string>
+  <string name="nav_setting">设置</string>
+  <string name="nav_group_two">选项</string>
+
+  <string name="navigation_drawer_open">打开侧边栏</string>
+  <string name="navigation_drawer_close">关闭侧边栏</string>
+
+  <string name="setting_opinion">意见反馈</string>
+  <string name="setting_update">检查更新</string>
+  <string name="setting_about">关于</string>
+
+  <string name="content_about">目前APP纯属个人喜好开发学习，暂不做商业用途。\n\n资源均来源于网络（包括你可能会在视频中看到的广告），如有侵权或违规内容请告知我及时处理。\n\n在使用过程中，如遇什么问题或者有什么好的建议，欢迎各位同萌们提出。\n\n联系方式：acgclub@rabtman.com
+  </string>
+
+</resources>

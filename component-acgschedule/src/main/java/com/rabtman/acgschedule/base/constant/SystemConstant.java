@@ -7,6 +7,9 @@ import com.rabtman.acgschedule.R;
  */
 public class SystemConstant {
 
+  public static final String DB_NAME = "lib.schedule.realm";
+  public static final long DB_VERSION = 1;
+
   //番剧标题栏
   public static final String[] ACG_SCHEDULE_TITLE = {"放送表"};
   //番剧时间表TAB标题栏

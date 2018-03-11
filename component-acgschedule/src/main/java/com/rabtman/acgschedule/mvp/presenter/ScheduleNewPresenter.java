@@ -51,9 +51,12 @@ public class ScheduleNewPresenter extends
 
   //获取本季新番列表地址
   private String getScheduleNewUrl() {
-    StringBuilder urlBuilder = new StringBuilder("http://m.dilidili.wang/anime/2017");
+    StringBuilder urlBuilder = new StringBuilder("http://m.dilidili.wang/anime/");
     Calendar cal = Calendar.getInstance();
     cal.setTimeInMillis(System.currentTimeMillis());
+
+    urlBuilder.append(cal.get(Calendar.YEAR));
+
     int month = cal.get(Calendar.MONTH) + 1;
     if (1 <= month && month < 4) {//一月新番
       urlBuilder.append("01");

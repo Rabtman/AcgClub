@@ -1,21 +1,27 @@
 package com.rabtman.acgclub.mvp.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.design.widget.NavigationView.OnNavigationItemSelectedListener;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 import butterknife.BindView;
-import com.hss01248.dialog.StyledDialog;
-import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.di.component.DaggerMainComponent;
 import com.rabtman.acgclub.di.module.MainModule;
 import com.rabtman.acgclub.mvp.contract.MainContract;
-import com.rabtman.acgclub.mvp.model.entity.VersionInfo;
 import com.rabtman.acgclub.mvp.presenter.MainPresenter;
+import com.rabtman.acgclub.service.UpdateAppService;
 import com.rabtman.common.base.BaseActivity;
+import com.rabtman.common.base.NullFragment;
 import com.rabtman.common.di.component.AppComponent;
-import com.rabtman.common.utils.IntentUtils;
 import com.rabtman.router.RouterConstants;
 import com.rabtman.router.RouterUtils;
 import com.roughike.bottombar.BottomBar;
@@ -36,12 +42,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
   BottomBar bottomBar;
   @BindView(R.id.main_content)
   FrameLayout mainContent;
- /* @BindView(R.id.nav_view)
+  @BindView(R.id.nav_view)
   NavigationView navigationView;
   @BindView(R.id.drawer_layout)
-  DrawerLayout drawerLayout;*/
+  DrawerLayout drawerLayout;
 
-  //ActionBarDrawerToggle toggle;
+  ActionBarDrawerToggle toggle;
   //需要加载的fragment
   HashMap<String, Class<? extends SupportFragment>> loadFragments = new HashMap<>();
   private String hideFragment = RouterConstants.PATH_ACGNEWS_MAIN;
@@ -65,27 +71,26 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
   @Override
   protected int getLayoutId() {
-    return R.layout.layout_main;
+    return R.layout.activity_main;
   }
 
   @Override
   protected void initData() {
     setToolBar(mToolBar, getString(R.string.nav_news));
 
-    getAppVersionInfo(false);
+    getAppVersionInfo();
 
     getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-    /*toggle = new ActionBarDrawerToggle(this, drawerLayout, mToolBar,
+    toggle = new ActionBarDrawerToggle(this, drawerLayout, mToolBar,
         R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawerLayout.addDrawerListener(toggle);
-    toggle.syncState();*/
+    toggle.syncState();
     if (loadFragments.get(RouterConstants.PATH_ACGNEWS_MAIN) == null) {
       loadMultipleRootFragment(R.id.main_content,
           0,
           getTargetFragment(RouterConstants.PATH_ACGNEWS_MAIN),
           getTargetFragment(RouterConstants.PATH_SCHEDULE_MAIN),
-          getTargetFragment(RouterConstants.PATH_COMIC_OACG),
-          getTargetFragment(RouterConstants.PATH_SETTING));
+          getTargetFragment(RouterConstants.PATH_COMIC_OACG));
     }
 
     bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
@@ -113,10 +118,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             showFragment = R.id.nav_fiction;
             title = getString(R.string.nav_fiction);
             break;*/
-          case R.id.nav_setting:
+          /*case R.id.nav_setting:
             showFragment = RouterConstants.PATH_SETTING;
             title = getString(R.string.nav_setting);
-            break;
+            break;*/
         }
         showHideFragment(getTargetFragment(showFragment),
             getTargetFragment(hideFragment));
@@ -124,25 +129,23 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         hideFragment = showFragment;
       }
     });
-    /*navigationView.getMenu().findItem(R.id.nav_news).setChecked(true);
+    //navigationView.getMenu().findItem(R.id.nav_news).setChecked(true);
     navigationView.setNavigationItemSelectedListener(
         new OnNavigationItemSelectedListener() {
           @Override
           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
-              case R.id.nav_news:
-                showFragment = R.id.nav_news;
-                searchView.setVisible(false);
+              case R.id.nav_setting:
+                RouterUtils.getInstance()
+                    .build(RouterConstants.PATH_SETTING)
+                    .navigation();
                 break;
             }
-            showHideFragment(getTargetFragment(showFragment),
-                getTargetFragment(hideFragment));
-            mToolBar.setTitle(item.getTitle());
-            hideFragment = showFragment;
+            //mToolBar.setTitle(item.getTitle());
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
           }
-        });*/
+        });
   }
 
   /**
@@ -155,6 +158,9 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
       SupportFragment fragment = (SupportFragment) (RouterUtils.getInstance()
           .build(path)
           .navigation());
+      if (fragment == null) {
+        fragment = new NullFragment();
+      }
       loadFragments.put(path, fragment.getClass());
       return fragment;
     }
@@ -163,34 +169,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
   @Override
   public void onBackPressedSupport() {
-    /*if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+    if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
       drawerLayout.closeDrawer(GravityCompat.START);
-    } else {*/
-    super.onBackPressedSupport();
-    //}
+    } else {
+      super.onBackPressedSupport();
+    }
   }
 
   //检查app更新
-  public void getAppVersionInfo(boolean isManual) {
-    mPresenter.getVersionInfo(isManual);
-  }
-
-  @Override
-  public void showUpdateDialog(final VersionInfo versionInfo) {
-    StyledDialog.buildMdAlert("版本更新", versionInfo.getDesc(), new MyDialogListener() {
-      @Override
-      public void onFirst() {
-        //跳转更新APP版本
-        if (versionInfo.getAppLink().startsWith("http")) {
-          IntentUtils.go2Browser(getBaseContext(), versionInfo.getAppLink());
-        } else if (versionInfo.getAppLink().startsWith("market")) {
-          IntentUtils.go2Market(getBaseContext(), versionInfo.getAppLink());
-        }
-      }
-
-      @Override
-      public void onSecond() {
-      }
-    }).setBtnText("现在升级", "下次再说").show();
+  public void getAppVersionInfo() {
+    startService(new Intent(this, UpdateAppService.class));
   }
 }

@@ -155,7 +155,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
         btnSearch.setOnClickListener {
             val keyword = etKeyword.text.toString()
             if (keyword.isEmpty()) {
-                Toasty.info(context, getString(R.string.acgcomic_msg_comic_search_empty))
+                Toasty.info(context, getString(R.string.acgcomic_msg_empty_comic_search))
             } else {
                 mPresenter.searchComicInfos(keyword)
             }

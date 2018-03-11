@@ -3,6 +3,7 @@ package com.rabtman.acgcomic.mvp
 import com.rabtman.acgcomic.mvp.model.entity.*
 import com.rabtman.common.base.mvp.IModel
 import com.rabtman.common.base.mvp.IView
+import io.reactivex.Completable
 import io.reactivex.Flowable
 
 /**
@@ -54,6 +55,10 @@ interface OacgComicDetailContract {
 
     interface Model : IModel {
         fun getComicDetail(comicId: Int): Flowable<List<OacgComicEpisode>>
+
+        fun getLocalOacgComicItemById(comicInfoId: String): Flowable<OacgComicItem>
+
+        fun addOrDeleteLocalOacgComicItem(comicInfo: OacgComicItem, isAdd: Boolean): Completable
     }
 }
 

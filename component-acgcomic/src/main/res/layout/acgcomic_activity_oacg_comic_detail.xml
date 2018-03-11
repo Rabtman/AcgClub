@@ -30,7 +30,7 @@
           android:scaleType="centerCrop" />
 
         <View
-          android:id="@+id/view_bg_white"
+          android:id="@+id/view_bg_grey"
           android:layout_width="match_parent"
           android:layout_height="40dp"
           android:layout_gravity="bottom"
@@ -154,9 +154,10 @@
     android:id="@+id/btn_oacg_comic_like"
     android:layout_width="48dp"
     android:layout_height="48dp"
+    android:scaleType="center"
     android:src="@drawable/ic_heart"
     app:elevation="1dp"
-    app:layout_anchor="@id/view_bg_white"
+    app:layout_anchor="@id/view_bg_grey"
     app:layout_anchorGravity="right"
     app:layout_scrollFlags="exitUntilCollapsed"
     app:useCompatPadding="true" />

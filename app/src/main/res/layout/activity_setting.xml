@@ -8,6 +8,8 @@
   app:divider="@drawable/shape_divider_horizontal"
   app:showDividers="middle|end">
 
+  <include layout="@layout/view_toolbar" />
+
   <RelativeLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

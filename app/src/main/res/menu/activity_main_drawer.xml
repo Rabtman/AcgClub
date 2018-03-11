@@ -3,38 +3,10 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <item
-    android:id="@+id/nav_news"
+    android:id="@+id/nav_collection"
     android:enabled="true"
-    android:icon="@drawable/nav_news"
-    android:title="@string/nav_news"
-    app:showAsAction="ifRoom" />
-
-  <item
-    android:id="@+id/nav_schedule"
-    android:enabled="true"
-    android:icon="@drawable/nav_schedule"
-    android:title="@string/nav_schedule"
-    app:showAsAction="ifRoom" />
-
-  <item
-    android:id="@+id/nav_picture"
-    android:enabled="true"
-    android:icon="@drawable/nav_picture"
-    android:title="@string/nav_picture"
-    app:showAsAction="ifRoom" />
-
-  <item
-    android:id="@+id/nav_comic"
-    android:enabled="true"
-    android:icon="@drawable/nav_comic"
-    android:title="@string/nav_comic"
-    app:showAsAction="ifRoom" />
-
-  <item
-    android:id="@+id/nav_fiction"
-    android:enabled="true"
-    android:icon="@drawable/nav_fiction"
-    android:title="@string/nav_fiction"
+    android:icon="@drawable/nav_collection"
+    android:title="@string/nav_collection"
     app:showAsAction="ifRoom" />
 
   <item
@@ -43,4 +15,5 @@
     android:icon="@drawable/nav_setting"
     android:title="@string/nav_setting"
     app:showAsAction="ifRoom" />
+
 </menu>

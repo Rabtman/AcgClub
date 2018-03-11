@@ -45,6 +45,10 @@
       android:configChanges="orientation|screenSize|keyboardHidden"
       android:name="com.rabtman.acgschedule.mvp.ui.activity.ScheduleDetailActivity"
       android:screenOrientation="portrait" />
+
+    <meta-data
+      android:name="com.rabtman.acgschedule.base.AcgScheduleConfig"
+      android:value="ConfigModule" />
   </application>
 
 </manifest>

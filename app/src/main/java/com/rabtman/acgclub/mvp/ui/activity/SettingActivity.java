@@ -1,5 +1,7 @@
-package com.rabtman.acgclub.mvp.ui.fragment;
+package com.rabtman.acgclub.mvp.ui.activity;
 
+import android.content.Intent;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +13,19 @@ import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.hss01248.dialog.StyledDialog;
 import com.rabtman.acgclub.BuildConfig;
 import com.rabtman.acgclub.R;
-import com.rabtman.acgclub.mvp.ui.activity.MainActivity;
-import com.rabtman.common.base.SimpleFragment;
+import com.rabtman.acgclub.base.constant.IntentConstant;
+import com.rabtman.acgclub.service.UpdateAppService;
+import com.rabtman.common.base.SimpleActivity;
 import com.rabtman.router.RouterConstants;
 
 /**
  * @author Rabtman
  */
 @Route(path = RouterConstants.PATH_SETTING)
-public class SettingFragment extends SimpleFragment {
+public class SettingActivity extends SimpleActivity {
 
+  @BindView(R.id.toolbar)
+  Toolbar mToolBar;
   @BindView(R.id.tv_setting_version)
   TextView tvSettingVersion;
   @BindView(R.id.tv_setting_opinion)
@@ -33,11 +38,12 @@ public class SettingFragment extends SimpleFragment {
 
   @Override
   protected int getLayoutId() {
-    return R.layout.fragment_setting;
+    return R.layout.activity_setting;
   }
 
   @Override
   protected void initData() {
+    setToolBar(mToolBar, getString(R.string.nav_setting));
     tvSettingVersion.setText("v" + BuildConfig.VERSION_NAME);
   }
 
@@ -48,15 +54,13 @@ public class SettingFragment extends SimpleFragment {
         FeedbackAPI.openFeedbackActivity();
         break;
       case R.id.tv_setting_update:
-        if (getActivity() instanceof MainActivity) {
-          MainActivity activity = (MainActivity) getActivity();
-          activity.getAppVersionInfo(true);
-        }
+        Intent updateAppIntent = new Intent(this, UpdateAppService.class);
+        updateAppIntent.putExtra(IntentConstant.CHECK_APP_UPDATE_MANUAL, true);
         break;
       case R.id.tv_setting_about:
         StyledDialog.buildCustom(
             LayoutInflater.from(
-                getContext()).inflate(R.layout.view_setting_about, null),
+                this).inflate(R.layout.view_setting_about, null),
             Gravity.CENTER)
             .setCancelable(true, true)
             .show();
