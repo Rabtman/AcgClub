@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.hss01248.dialog.StyledDialog;
 import com.rabtman.common.base.mvp.IView;
+import com.rabtman.common.di.component.AppComponent;
 import es.dmoral.toasty.Toasty;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -59,6 +60,10 @@ public abstract class SimpleFragment extends SupportFragment implements
   public void onDestroyView() {
     super.onDestroyView();
     mUnBinder.unbind();
+  }
+
+  protected AppComponent getAppComponent() {
+    return mActivity.mAppComponent;
   }
 
   protected void setSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout) {

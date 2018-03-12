@@ -114,6 +114,11 @@ public class ScheduleDetailPresenter extends
               @Override
               public void run() throws Exception {
                 mView.showCollectionView(!isCollected);
+                if (!isCollected) {
+                  mView.showMsg(R.string.msg_success_collect_add);
+                } else {
+                  mView.showMsg(R.string.msg_success_collect_cancel);
+                }
               }
             }, new Consumer<Throwable>() {
               @Override

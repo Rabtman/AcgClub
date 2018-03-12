@@ -16,7 +16,6 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.base.constant.IntentConstant
-import com.rabtman.acgcomic.di.DaggerOacgComicEpisodeDetailComponent
 import com.rabtman.acgcomic.di.OacgComicEpisodeDetailModule
 import com.rabtman.acgcomic.mvp.OacgComicEpisodeDetailContract
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisodePage
@@ -90,7 +89,7 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
     override fun initData() {
         currentComicTitle = intent.getStringExtra(IntentConstant.OACG_COMIC_TITLE)
 
-        oacgComicReadAdapter = OacgComicReadAdapter(appComponent.imageLoader())
+        oacgComicReadAdapter = OacgComicReadAdapter(mAppComponent.imageLoader())
         oacgComicReadAdapter.setOnItemClickListener { _, _, _ ->
             toogleDisplayPanel()
         }

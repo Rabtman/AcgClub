@@ -13,6 +13,7 @@ import butterknife.Unbinder;
 import com.hss01248.dialog.StyledDialog;
 import com.jaeger.library.StatusBarUtil;
 import com.rabtman.common.base.mvp.IView;
+import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.utils.constant.StatusBarConstants;
 import com.umeng.analytics.MobclickAgent;
 import es.dmoral.toasty.Toasty;
@@ -22,6 +23,7 @@ public abstract class SimpleActivity extends SupportActivity implements
     IView {
 
   protected App mApplication;
+  protected AppComponent mAppComponent;
   protected Activity mContext;
   private Dialog mLoadingDialog;
   private Unbinder mUnBinder;
@@ -33,6 +35,7 @@ public abstract class SimpleActivity extends SupportActivity implements
     mUnBinder = ButterKnife.bind(this);
     mApplication = (App) getApplication();
     mContext = this;
+    mAppComponent = mApplication.getAppComponent();
     setStatusBar();
     onViewCreated();
     initData();

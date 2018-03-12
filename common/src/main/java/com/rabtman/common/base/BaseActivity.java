@@ -11,12 +11,10 @@ public abstract class BaseActivity<P extends BasePresenter> extends SimpleActivi
 
   @Inject
   protected P mPresenter;
-  private AppComponent mAppComponent;
 
   @Override
   protected void onViewCreated() {
     super.onViewCreated();
-    mAppComponent = mApplication.getAppComponent();
     setupActivityComponent(mAppComponent);//依赖注入
   }
 
@@ -40,11 +38,6 @@ public abstract class BaseActivity<P extends BasePresenter> extends SimpleActivi
       mPresenter.onDestroy();
     }
     this.mPresenter = null;
-  }
-
-
-  public AppComponent getAppComponent() {
-    return mAppComponent;
   }
 
   /**

@@ -13,13 +13,11 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
   @Inject
   protected T mPresenter;
   protected View mView;
-  private AppComponent mAppComponent;
 
   @Override
   public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
     super.onViewCreated(view, savedInstanceState);
-    mAppComponent = mActivity.mApplication.getAppComponent();
-    setupFragmentComponent(mAppComponent);
+    setupFragmentComponent(getAppComponent());
   }
 
 
@@ -29,10 +27,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends SimpleFragme
       mPresenter.onDestroy();
     }
     super.onDestroyView();
-  }
-
-  public AppComponent getAppComponent() {
-    return mAppComponent;
   }
 
   /**

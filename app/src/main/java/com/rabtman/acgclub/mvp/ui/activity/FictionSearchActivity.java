@@ -45,7 +45,7 @@ public class FictionSearchActivity extends BaseActivity<FictionSearchPresenter> 
   @Override
   protected void initData() {
     setToolBar(toolbar, "");
-    mAdapter = new FictionItemAdapter(getAppComponent().imageLoader());
+    mAdapter = new FictionItemAdapter(mAppComponent.imageLoader());
     mAdapter.setOnItemClickListener(new OnItemClickListener() {
       @Override
       public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {

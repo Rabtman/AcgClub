@@ -8,6 +8,8 @@ import io.reactivex.functions.Consumer;
 import io.realm.Realm;
 import io.realm.Realm.Transaction;
 import io.realm.RealmConfiguration;
+import io.realm.RealmResults;
+import java.util.List;
 
 /**
  * @author Rabtman
@@ -56,6 +58,18 @@ public class ScheduleDAO {
       ScheduleCollection queryResult = realm.where(ScheduleCollection.class)
           .equalTo("scheduleUrl", url)
           .findFirst();
+      if (queryResult != null) {
+        return Flowable.just(realm.copyFromRealm(queryResult));
+      } else {
+        return Flowable.empty();
+      }
+    }
+  }
+
+  public Flowable<List<ScheduleCollection>> getScheduleCollections() {
+    try (final Realm realm = Realm.getInstance(realmConfiguration)) {
+      RealmResults<ScheduleCollection> queryResult = realm.where(ScheduleCollection.class)
+          .findAll();
       if (queryResult != null) {
         return Flowable.just(realm.copyFromRealm(queryResult));
       } else {

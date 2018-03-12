@@ -135,6 +135,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
           @Override
           public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
+              case R.id.nav_collection:
+                RouterUtils.getInstance()
+                    .build(RouterConstants.PATH_COLLECTION)
+                    .navigation();
+                break;
               case R.id.nav_setting:
                 RouterUtils.getInstance()
                     .build(RouterConstants.PATH_SETTING)

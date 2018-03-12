@@ -54,7 +54,7 @@ public class ScheduleNewActivity extends BaseActivity<ScheduleNewPresenter> impl
   protected void initData() {
     setToolBar(toolbar, "本季新番");
 
-    mAdapter = new ScheduleNewAdapter(getAppComponent().imageLoader());
+    mAdapter = new ScheduleNewAdapter(mAppComponent.imageLoader());
     mAdapter.setOnItemClickListener(new OnItemClickListener() {
       @Override
       public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {

@@ -40,6 +40,9 @@
       android:name=".mvp.ui.activity.SettingActivity"
       android:screenOrientation="portrait" />
     <activity
+      android:name=".mvp.ui.activity.AcgCollectionActivity"
+      android:screenOrientation="portrait" />
+    <activity
       android:name=".mvp.ui.activity.APicDetailActivity"
       android:screenOrientation="portrait" />
 

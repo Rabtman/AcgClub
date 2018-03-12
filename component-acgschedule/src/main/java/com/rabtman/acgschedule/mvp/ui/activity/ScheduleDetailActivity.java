@@ -191,11 +191,9 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
     if (isCollected) {
       btnScheduleDetailLike
           .setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_heart_solid));
-      showMsg(R.string.msg_success_collect_add);
     } else {
       btnScheduleDetailLike
           .setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_heart));
-      showMsg(R.string.msg_success_collect_cancel);
     }
   }
 }
