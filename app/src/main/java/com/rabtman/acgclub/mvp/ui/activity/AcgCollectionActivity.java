@@ -42,7 +42,7 @@ public class AcgCollectionActivity extends SimpleActivity {
     setToolBar(mToolbar, getString(R.string.nav_collection));
 
     SimpleFragment scheduleCollection = (SimpleFragment) RouterUtils.getInstance()
-        .build(RouterConstants.PATH_COLLECTION_SCHEDULE)
+        .build(RouterConstants.PATH_SCHEDULE_COLLECTION)
         .navigation();
     if (scheduleCollection == null) {
       scheduleCollection = new NullFragment();

@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import butterknife.BindView;
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.di.component.DaggerMainComponent;
 import com.rabtman.acgclub.di.module.MainModule;
@@ -32,7 +33,7 @@ import me.yokeyword.fragmentation.SupportFragment;
 /**
  * @author Rabtman
  */
-
+@Route(path = RouterConstants.PATH_ACGCLUB_MAIN)
 public class MainActivity extends BaseActivity<MainPresenter> implements MainContract.View {
 
 

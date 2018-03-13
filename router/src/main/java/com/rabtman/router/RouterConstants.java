@@ -6,6 +6,11 @@ package com.rabtman.router;
 
 public class RouterConstants {
 
+  //acgclub
+  public static final String PATH_ACGCLUB_MAIN = "/acgclub/main";
+  public static final String PATH_COLLECTION = "/acgclub/collection";
+  public static final String PATH_SETTING = "/acgclub/setting";
+
   //acgnews
   public static final String PATH_ACGNEWS_MAIN = "/acgnews/main";
   public static final String PATH_ACGNEWS_ITEM = "/acgnews/item";
@@ -16,14 +21,10 @@ public class RouterConstants {
   public static final String PATH_SCHEDULE_NEW = "/acgschedule/new";
   public static final String PATH_SCHEDULE_VIDEO = "/acgschedule/video";
   public static final String PATH_SCHEDULE_DETAIL = "/acgschedule/detail";
+  public static final String PATH_SCHEDULE_COLLECTION = "/acgschedule/collection";
   //acgcomic
   public static final String PATH_COMIC_OACG = "/acgcomic/oacg";
   public static final String PATH_COMIC_OACG_DETAIL = "/acgcomic/oacg/detail";
   public static final String PATH_COMIC_OACG_READ = "/acgcomic/oacg/read";
-  //collection
-  public static final String PATH_COLLECTION = "/acgclub/collection";
-  public static final String PATH_COLLECTION_SCHEDULE = "/acgclub/collection/schedule";
-  //setting
-  public static final String PATH_SETTING = "/acgclub/setting";
 
 }

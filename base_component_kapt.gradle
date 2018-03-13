@@ -1,6 +1,12 @@
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
+    }
+}
+
 android {
     dependencies {
         compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"

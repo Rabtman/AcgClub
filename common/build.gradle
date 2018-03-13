@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'realm-android'
+apply plugin: 'com.alibaba.arouter'
 
 Properties properties = new Properties()
 File localPropertiesFile = project.rootProject.file("local.properties");

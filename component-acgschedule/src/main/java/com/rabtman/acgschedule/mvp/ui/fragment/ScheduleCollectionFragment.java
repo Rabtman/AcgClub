@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author Rabtman
  */
-@Route(path = RouterConstants.PATH_COLLECTION_SCHEDULE)
+@Route(path = RouterConstants.PATH_SCHEDULE_COLLECTION)
 public class ScheduleCollectionFragment extends SimpleFragment {
 
   @BindView(R2.id.rcv_schedule_collection)

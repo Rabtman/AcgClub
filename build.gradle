@@ -25,6 +25,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         //realm
         classpath "io.realm:realm-gradle-plugin:$realm_version"
+        //arouter
+        classpath "com.alibaba:arouter-register:1.0.2"
     }
 }
 

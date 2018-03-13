@@ -6,6 +6,8 @@ apply plugin: 'channel'
 //apply from: 'tinker-support.gradle'
 //andResGuard
 apply from: 'and-res-guard.gradle'
+//arouter
+apply plugin: 'com.alibaba.arouter'
 
 Properties properties = new Properties()
 File localPropertiesFile = project.rootProject.file("local.properties");
