@@ -30,7 +30,7 @@ class AcgComicConfig : ConfigModule {
                 RealmConfiguration.Builder()
                         .name(DB_NAME)
                         .schemaVersion(DB_VERSION)
-                        //.modules(Realm.getDefaultModule(), AcgComicRealmModule())
+                        //.modules(AcgComicRealmModule())
                         .build()
         )
     }

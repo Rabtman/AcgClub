@@ -1,6 +1,25 @@
 apply from:"../base_component.gradle"
-apply from:"../base_component_kapt.gradle"
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
-dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
+    }
+    generateStubs = true
+}
+
+realm {
+    kotlinExtensionsEnabled = true
+}
+
+android {
+    dependencies {
+        compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+        //di
+        kapt rootProject.ext.dependencies["dagger2-compiler"]
+        kapt rootProject.ext.dependencies["butterknife-compiler"]
+        kapt rootProject.ext.dependencies["router-compiler"]
+    }
 }

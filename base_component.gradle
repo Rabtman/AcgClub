@@ -54,10 +54,6 @@ android {
         }
     }
 
-    realm {
-        kotlinExtensionsEnabled = false
-    }
-
     dependencies {
         implementation project(':common')
     }

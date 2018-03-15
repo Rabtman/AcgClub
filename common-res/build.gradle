@@ -25,6 +25,7 @@ dependencies {
     api rootProject.ext.dependencies["design"]
     api rootProject.ext.dependencies["cardview-v7"]
     api rootProject.ext.dependencies["recyclerview-v7"]
+    api rootProject.ext.dependencies["constraintlayout"]
     api(rootProject.ext.dependencies["base-rcv-helper"]) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'

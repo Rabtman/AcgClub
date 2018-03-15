@@ -16,7 +16,8 @@ ext {
     runAlone = [
             //"acgnews",
             //"acgschedule",
-            "acgcomic"
+            "acgcomic",
+            "realmtest"
     ]
 
     def dependVersion = [
@@ -35,6 +36,7 @@ ext {
             "design"                    : "com.android.support:design:${dependVersion.support}",
             "cardview-v7"               : "com.android.support:cardview-v7:${dependVersion.support}",
             "recyclerview-v7"           : "com.android.support:recyclerview-v7:${dependVersion.support}",
+            "constraintlayout"          : "com.android.support.constraint:constraint-layout:1.0.2",
             //ui
             "dialog"                    : "com.github.hss01248:DialogUtil:1.17",
             "toast"                     : "com.github.GrenderG:Toasty:1.2.8",

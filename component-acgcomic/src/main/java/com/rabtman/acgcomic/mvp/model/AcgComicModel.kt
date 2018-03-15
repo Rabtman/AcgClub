@@ -51,7 +51,6 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     }
 
     override fun getLocalOacgComicItemById(comicInfoId: String): Flowable<OacgComicItem> {
-        DAO.getTest(comicInfoId)
         return DAO.getOacgComicItemById(comicInfoId)
     }
 

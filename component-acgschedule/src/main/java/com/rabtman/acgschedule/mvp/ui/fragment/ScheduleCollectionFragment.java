@@ -2,10 +2,14 @@ package com.rabtman.acgschedule.mvp.ui.fragment;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.R2;
+import com.rabtman.acgschedule.base.constant.IntentConstant;
 import com.rabtman.acgschedule.base.constant.SystemConstant;
 import com.rabtman.acgschedule.mvp.model.dao.ScheduleDAO;
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleCollection;
@@ -13,6 +17,7 @@ import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleCollectionAdapter;
 import com.rabtman.common.base.SimpleFragment;
 import com.rabtman.common.utils.RxUtil;
 import com.rabtman.router.RouterConstants;
+import com.rabtman.router.RouterUtils;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.subscribers.ResourceSubscriber;
 import java.util.List;
@@ -36,8 +41,18 @@ public class ScheduleCollectionFragment extends SimpleFragment {
   @Override
   protected void initData() {
     mAdapter = new ScheduleCollectionAdapter(getAppComponent().imageLoader());
-    rcvScheduleCollection.setLayoutManager(new GridLayoutManager(getContext(), 2));
+    rcvScheduleCollection.setLayoutManager(new GridLayoutManager(getContext(), 3));
     rcvScheduleCollection.setAdapter(mAdapter);
+    mAdapter.setOnItemClickListener(new OnItemClickListener() {
+      @Override
+      public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        ScheduleCollection item = (ScheduleCollection) adapter.getItem(position);
+        RouterUtils.getInstance()
+            .build(RouterConstants.PATH_SCHEDULE_DETAIL)
+            .withString(IntentConstant.SCHEDULE_DETAIL_URL, item.getScheduleUrl())
+            .navigation();
+      }
+    });
   }
 
   @Override

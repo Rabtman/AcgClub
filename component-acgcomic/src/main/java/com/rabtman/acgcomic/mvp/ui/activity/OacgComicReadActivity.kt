@@ -16,6 +16,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.base.constant.IntentConstant
+import com.rabtman.acgcomic.di.DaggerOacgComicEpisodeDetailComponent
 import com.rabtman.acgcomic.di.OacgComicEpisodeDetailModule
 import com.rabtman.acgcomic.mvp.OacgComicEpisodeDetailContract
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisodePage
