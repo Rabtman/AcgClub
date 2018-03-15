@@ -7,6 +7,7 @@ import com.rabtman.common.base.CommonApplicationLike.Lifecycle;
 import com.rabtman.common.di.module.GlobeConfigModule.Builder;
 import com.rabtman.common.integration.ConfigModule;
 import com.rabtman.common.integration.IRepositoryManager;
+import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class AcgScheduleConfig implements ConfigModule {
         new RealmConfiguration.Builder()
             .name(SystemConstant.DB_NAME)
             .schemaVersion(SystemConstant.DB_VERSION)
-            .modules(new AcgScheduleRealmModule())
+            .modules(Realm.getDefaultModule(), new AcgScheduleRealmModule())
             .build()
     );
   }

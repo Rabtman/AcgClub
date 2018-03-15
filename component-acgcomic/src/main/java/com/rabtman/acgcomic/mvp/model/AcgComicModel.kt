@@ -55,7 +55,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     }
 
     override fun addOrDeleteLocalOacgComicItem(comicInfo: OacgComicItem, isAdd: Boolean): Completable {
-        return if (isAdd) DAO.saveOacgComicItem(comicInfo) else DAO.deleteOacgComicItem(comicInfo)
+        return if (isAdd) DAO.saveOacgComicItem(comicInfo) else DAO.deleteById(comicInfo.id)
     }
 }
 

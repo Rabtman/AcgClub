@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+  <android.support.v7.widget.CardView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    android:layout_gravity="center_horizontal"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="1dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="true">
+
+    <FrameLayout
+      android:layout_width="130dp"
+      android:layout_height="170dp">
+
+      <ImageView
+        android:id="@+id/img_comic_collection"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+      <TextView
+        android:id="@+id/tv_comic_collection_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:padding="7dp"
+        android:background="@drawable/shape_gradient_up_bg"
+        android:maxLines="2"
+        android:textColor="@android:color/white"
+        android:textSize="12sp"
+        tools:text="达啥都爱仕达爱仕达爱仕达哈哈" />
+    </FrameLayout>
+  </android.support.v7.widget.CardView>
+
+</FrameLayout>

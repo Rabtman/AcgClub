@@ -7,7 +7,6 @@ if (isRunAlone) {
     apply plugin: 'com.android.library'
 }
 apply plugin: 'com.jakewharton.butterknife'
-apply plugin: 'realm-android'
 apply plugin: 'com.alibaba.arouter'
 
 android {

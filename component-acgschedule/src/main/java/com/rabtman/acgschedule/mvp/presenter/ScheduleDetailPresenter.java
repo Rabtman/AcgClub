@@ -86,9 +86,7 @@ public class ScheduleDetailPresenter extends
 
               @Override
               public void onNext(ScheduleCollection scheduleCollection) {
-                if (scheduleCollection != null) {
-                  isCollected = true;
-                }
+                isCollected = (scheduleCollection != null);
               }
 
               @Override

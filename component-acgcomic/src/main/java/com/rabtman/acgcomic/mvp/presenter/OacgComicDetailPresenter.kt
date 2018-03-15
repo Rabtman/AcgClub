@@ -52,12 +52,15 @@ constructor(model: OacgComicDetailContract.Model,
                 mModel.getLocalOacgComicItemById(comicInfoId)
                         .compose(RxUtil.rxSchedulerHelper())
                         .subscribeWith(object : ResourceSubscriber<OacgComicItem>() {
+
+                            private var isCollected = false
+
                             override fun onNext(item: OacgComicItem?) {
-                                LogUtil.d("OacgComicItem" + item.toString())
-                                mView.showCollectView(item != null)
+                                isCollected = (item != null)
                             }
 
                             override fun onComplete() {
+                                mView.showCollectView(isCollected)
                             }
 
                             override fun onError(t: Throwable?) {
@@ -72,9 +75,14 @@ constructor(model: OacgComicDetailContract.Model,
      */
     fun collectOrCancelComic(comicInfo: OacgComicItem, isCollected: Boolean) {
         addSubscribe(
-                mModel.addOrDeleteLocalOacgComicItem(comicInfo, isCollected)
+                mModel.addOrDeleteLocalOacgComicItem(comicInfo, isCollected.not())
                         .subscribe({
                             mView.showCollectView(isCollected.not())
+                            if (isCollected.not()) {
+                                mView.showMsg(R.string.msg_success_collect_add)
+                            } else {
+                                mView.showMsg(R.string.msg_success_collect_cancel)
+                            }
                         }, { throwable ->
                             throwable.printStackTrace()
                             if (isCollected.not()) {

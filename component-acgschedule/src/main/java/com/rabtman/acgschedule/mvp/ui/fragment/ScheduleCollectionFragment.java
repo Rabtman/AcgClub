@@ -53,12 +53,15 @@ public class ScheduleCollectionFragment extends SimpleFragment {
             .navigation();
       }
     });
+    getScheduleCollections();
   }
 
   @Override
   public void onResume() {
     super.onResume();
-    getScheduleCollections();
+    if (isInited && isVisible) {
+      getScheduleCollections();
+    }
   }
 
   @Override

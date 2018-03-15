@@ -15,7 +15,7 @@
       android:screenOrientation="portrait" />
 
     <meta-data
-      android:name="com.rabtman.acgcomic.AcgComicConfig"
+      android:name="com.rabtman.acgcomic.base.AcgComicConfig"
       android:value="ConfigModule" />
   </application>
 </manifest>

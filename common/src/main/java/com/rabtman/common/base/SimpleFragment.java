@@ -23,10 +23,11 @@ public abstract class SimpleFragment extends SupportFragment implements
   protected View mView;
   protected SimpleActivity mActivity;
   protected Context mContext;
+  protected boolean isInited = false;
+  protected boolean isVisible = false;
   private SwipeRefreshLayout mSwipeRefreshLayout;
   private Dialog mLoadingDialog;
   private Unbinder mUnBinder;
-  private boolean isInited = false;
 
   @Override
   public void onAttach(Context context) {
@@ -60,6 +61,18 @@ public abstract class SimpleFragment extends SupportFragment implements
   public void onDestroyView() {
     super.onDestroyView();
     mUnBinder.unbind();
+  }
+
+  @Override
+  public void onSupportVisible() {
+    super.onSupportVisible();
+    isVisible = true;
+  }
+
+  @Override
+  public void onSupportInvisible() {
+    super.onSupportInvisible();
+    isVisible = false;
   }
 
   protected AppComponent getAppComponent() {

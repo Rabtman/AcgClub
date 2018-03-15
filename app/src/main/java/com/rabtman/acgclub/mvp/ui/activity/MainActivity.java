@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.jaeger.library.StatusBarUtil;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.di.component.DaggerMainComponent;
 import com.rabtman.acgclub.di.module.MainModule;
@@ -23,6 +24,7 @@ import com.rabtman.acgclub.service.UpdateAppService;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.base.NullFragment;
 import com.rabtman.common.di.component.AppComponent;
+import com.rabtman.common.utils.constant.StatusBarConstants;
 import com.rabtman.router.RouterConstants;
 import com.rabtman.router.RouterUtils;
 import com.roughike.bottombar.BottomBar;
@@ -68,6 +70,16 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         .mainModule(new MainModule(this))
         .build()
         .inject(this);
+  }
+
+  @Override
+  protected void setStatusBar() {
+    StatusBarUtil.setColorForDrawerLayout(
+        mContext,
+        drawerLayout,
+        mApplication.getAppComponent().statusBarAttr().get(StatusBarConstants.COLOR),
+        mApplication.getAppComponent().statusBarAttr().get(StatusBarConstants.ALPHA)
+    );
   }
 
   @Override

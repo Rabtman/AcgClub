@@ -3,6 +3,7 @@ package com.rabtman.acgclub.mvp.ui.activity;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.widget.Toolbar;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -41,17 +42,42 @@ public class AcgCollectionActivity extends SimpleActivity {
   protected void initData() {
     setToolBar(mToolbar, getString(R.string.nav_collection));
 
+    //番剧收藏
     SimpleFragment scheduleCollection = (SimpleFragment) RouterUtils.getInstance()
         .build(RouterConstants.PATH_SCHEDULE_COLLECTION)
         .navigation();
     if (scheduleCollection == null) {
       scheduleCollection = new NullFragment();
     }
+    //漫画收藏
+    SimpleFragment comicCollection = (SimpleFragment) RouterUtils.getInstance()
+        .build(RouterConstants.PATH_COMIC_COLLECTION)
+        .navigation();
+    if (comicCollection == null) {
+      comicCollection = new NullFragment();
+    }
     fragments.add(scheduleCollection);
+    fragments.add(comicCollection);
 
     mAdapter = new AcgCollectionPageAdapter(getSupportFragmentManager(), fragments);
     mViewPager.setAdapter(mAdapter);
     mViewPager.setOffscreenPageLimit(1);
     mTabLayout.setupWithViewPager(mViewPager);
+    mViewPager.addOnPageChangeListener(new OnPageChangeListener() {
+      @Override
+      public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+      }
+
+      @Override
+      public void onPageSelected(int position) {
+
+      }
+
+      @Override
+      public void onPageScrollStateChanged(int state) {
+
+      }
+    });
   }
 }

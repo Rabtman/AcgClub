@@ -1,4 +1,4 @@
-package com.rabtman.acgcomic
+package com.rabtman.acgcomic.base
 
 import android.app.Application.ActivityLifecycleCallbacks
 import android.content.Context
@@ -9,6 +9,7 @@ import com.rabtman.common.base.CommonApplicationLike.Lifecycle
 import com.rabtman.common.di.module.GlobeConfigModule.Builder
 import com.rabtman.common.integration.ConfigModule
 import com.rabtman.common.integration.IRepositoryManager
+import io.realm.Realm
 import io.realm.RealmConfiguration
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
@@ -30,7 +31,7 @@ class AcgComicConfig : ConfigModule {
                 RealmConfiguration.Builder()
                         .name(DB_NAME)
                         .schemaVersion(DB_VERSION)
-                        //.modules(AcgComicRealmModule())
+                        .modules(Realm.getDefaultModule(), AcgComicRealmModule())
                         .build()
         )
     }

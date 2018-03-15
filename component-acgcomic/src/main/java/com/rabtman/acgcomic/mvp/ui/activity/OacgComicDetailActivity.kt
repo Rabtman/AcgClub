@@ -108,8 +108,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
     fun collectComic() {
         val isCollect = btnOacgComicLike.tag as Boolean
         currentComicInfo?.let {
-            mPresenter.collectOrCancelComic(it, isCollect.not())
-            btnOacgComicLike.tag = isCollect.not()
+            mPresenter.collectOrCancelComic(it, isCollect)
         }
     }
 
@@ -117,10 +116,8 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         btnOacgComicLike.tag = isCollected
         if (isCollected) {
             btnOacgComicLike.setImageDrawable(ContextCompat.getDrawable(baseContext, R.drawable.ic_heart_solid))
-            showMsg(R.string.msg_success_collect_add)
         } else {
             btnOacgComicLike.setImageDrawable(ContextCompat.getDrawable(baseContext, R.drawable.ic_heart))
-            showMsg(R.string.msg_success_collect_cancel)
         }
     }
 

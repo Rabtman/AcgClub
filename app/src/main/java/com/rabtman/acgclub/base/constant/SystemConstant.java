@@ -18,7 +18,8 @@ public class SystemConstant {
   public static final String ACG_IMG_PATH = pathRoot;
 
   static {
-    ACG_COLLECTION_TITLE = new ArrayList<>();
+    ACG_COLLECTION_TITLE = new ArrayList<>(2);
     ACG_COLLECTION_TITLE.add("番剧");
+    ACG_COLLECTION_TITLE.add("漫画");
   }
 }
