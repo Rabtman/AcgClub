@@ -10,14 +10,14 @@
 
   <TextView
     android:id="@+id/schedule_time_title"
-    style="@style/Base.TextAppearance.AppCompat.Body1"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:drawablePadding="8dp"
     android:gravity="center_vertical"
     android:textColor="@color/colorPrimary"
+    android:textSize="16sp"
     tools:drawableLeft="@drawable/ic_schedule_time_monday"
-    tools:text="星期一" />
+    tools:text="水曜日" />
 
   <View
     android:layout_width="match_parent"

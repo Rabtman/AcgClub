@@ -23,8 +23,8 @@ public class ScheduleBannerViewHolder implements MZViewHolder<ScheudleBanner> {
   public View createView(Context context) {
     View view = LayoutInflater.from(context)
         .inflate(R.layout.acgschedule_item_schedule_main_banner, null);
-    bannerImg = (ImageView) view.findViewById(R.id.banner_scheudle_img);
-    bannerTitle = (TextView) view.findViewById(R.id.banner_schedule_title);
+    bannerImg = view.findViewById(R.id.banner_scheudle_img);
+    bannerTitle = view.findViewById(R.id.banner_schedule_title);
     return view;
   }
 

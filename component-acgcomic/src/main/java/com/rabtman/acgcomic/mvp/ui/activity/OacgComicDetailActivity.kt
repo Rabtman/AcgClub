@@ -163,6 +163,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
             layoutManager.orientation = GridLayoutManager.VERTICAL
             rcvOacgComicDetail.layoutManager = layoutManager
             rcvOacgComicDetail.adapter = adapter
+            rcvOacgComicDetail.isNestedScrollingEnabled = false
         }
         tvOacgComicDetailPopluar.text = String.format(getString(R.string.acgcomic_label_comic_popluar), currentComicInfo?.clickScore)
         //番剧介绍

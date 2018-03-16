@@ -1,34 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:layout_width="wrap_content"
+  android:layout_width="140dp"
   android:layout_height="wrap_content"
-  android:layout_margin="4dp"
-  app:cardCornerRadius="4dp"
-  app:cardElevation="1dp"
-  app:cardPreventCornerOverlap="false"
-  app:cardUseCompatPadding="true">
+  android:layout_marginLeft="8dp"
+  android:layout_marginRight="8dp"
+  android:orientation="vertical">
 
-  <FrameLayout
+  <ImageView
+    android:id="@+id/img_schedule_recommand"
     android:layout_width="140dp"
-    android:layout_height="200dp">
+    android:layout_height="200dp"
+    android:scaleType="centerCrop"
+    tools:src="@mipmap/ic_launcher" />
 
-    <ImageView
-      android:id="@+id/img_schedule_recommand"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:scaleType="centerCrop" />
-
-    <TextView
-      android:id="@+id/tv_schedule_recommand"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_gravity="bottom"
-      android:padding="7dp"
-      android:background="@drawable/shape_gradient_up_bg"
-      android:textColor="@android:color/white"
-      android:textSize="14sp"
-      tools:text="哈哈哈哈哈哈哈" />
-  </FrameLayout>
-</android.support.v7.widget.CardView>
+  <TextView
+    android:id="@+id/tv_schedule_recommand"
+    style="@style/TextAppearance.AppCompat.Body1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="4dp"
+    android:maxLines="2"
+    android:textSize="14sp"
+    tools:text="哈哈哈哈哈哈哈" />
+</LinearLayout>

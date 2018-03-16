@@ -1,11 +1,15 @@
 package com.rabtman.acgschedule.mvp.ui.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.support.v4.widget.NestedScrollView;
+import android.support.v4.widget.NestedScrollView.OnScrollChangeListener;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -51,6 +55,8 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
   SwipeRefreshLayout swipeRefresh;
   @BindView(R2.id.layout_schedule_main)
   LinearLayout layoutScheduleMain;
+  @BindView(R2.id.scroll_schedule)
+  NestedScrollView scrollScheduleView;
   @BindView(R2.id.banner_schedule)
   MZBannerView bannerSchedule;
   @BindView(R2.id.tv_schedule_time)
@@ -76,6 +82,7 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
     return R.layout.acgschedule_fragment_schedule_main;
   }
 
+  @SuppressLint("ClickableViewAccessibility")
   @Override
   protected void initData() {
     swipeRefresh.setOnRefreshListener(new OnRefreshListener() {
@@ -86,6 +93,16 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
       }
     });
     setSwipeRefreshLayout(swipeRefresh);
+    scrollScheduleView.setOnScrollChangeListener(new OnScrollChangeListener() {
+      @Override
+      public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX,
+          int oldScrollY) {
+        Log.d("scroll",
+            "x---" + scrollX + "---y---" + scrollY + "---oldX---" + oldScrollX + "---oldY---"
+                + oldScrollY);
+      }
+    });
+
     mPresenter.getDilidiliInfo();
   }
 
@@ -165,6 +182,7 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
     });
     rcvScheduleRecent.setLayoutManager(gridLayoutManager);
     rcvScheduleRecent.setAdapter(scheduleRecentAdapter);
+    rcvScheduleRecent.setNestedScrollingEnabled(false);
 
     layoutScheduleMain.setVisibility(android.view.View.VISIBLE);
   }

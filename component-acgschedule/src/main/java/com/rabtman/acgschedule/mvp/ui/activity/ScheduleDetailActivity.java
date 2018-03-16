@@ -166,6 +166,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
       layoutManager.setOrientation(GridLayoutManager.VERTICAL);
       rcvScheduleDetail.setLayoutManager(layoutManager);
       rcvScheduleDetail.setAdapter(adapter);
+      rcvScheduleDetail.setNestedScrollingEnabled(false);
     }
   }
 

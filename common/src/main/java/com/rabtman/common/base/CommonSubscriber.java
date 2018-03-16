@@ -83,12 +83,6 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
             mContext.getString(R.string.msg_error_network),
             Toast.LENGTH_SHORT
         ).show();
-      } else {
-        Toasty.error(
-            mContext,
-            mContext.getString(R.string.msg_error_unknown),
-            Toast.LENGTH_SHORT
-        ).show();
       }
     }
   }

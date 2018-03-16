@@ -16,7 +16,13 @@ ext {
     runAlone = [
             //"acgnews",
             //"acgschedule",
-            //"acgcomic",
+            //"acgcomic"
+    ]
+
+    needRun = [
+            "acgnews",
+            "acgschedule",
+            "acgcomic"
     ]
 
     def dependVersion = [
