@@ -16,7 +16,8 @@ public class ScheduleTimeItem extends SectionEntity<ScheduleItem> {
     headerIndex = index;
   }
 
-  public ScheduleTimeItem(ScheduleItem scheduleItem) {
+  public ScheduleTimeItem(ScheduleItem scheduleItem, int index) {
     super(scheduleItem);
+    headerIndex = index;
   }
 }

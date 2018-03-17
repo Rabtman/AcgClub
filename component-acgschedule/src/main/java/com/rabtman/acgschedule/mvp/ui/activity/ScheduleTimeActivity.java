@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView.OnScrollListener;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseIntArray;
 import android.view.View;
-import android.widget.LinearLayout;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,9 +25,7 @@ import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleWeek;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleWeek.ScheduleItem;
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleTimeAdapter;
 import com.rabtman.common.base.SimpleActivity;
-import com.rabtman.common.utils.DimenUtils;
 import com.rabtman.router.RouterConstants;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +45,6 @@ public class ScheduleTimeActivity extends SimpleActivity {
   RecyclerView rcvScheduleTime;
   private ScheduleTimeAdapter mAdapter;
   private LinearLayoutManager mLayoutManager;
-  private int currentHeaderPosition = 0;
   private SparseIntArray headerArray = new SparseIntArray();
 
   @Override
@@ -81,13 +77,13 @@ public class ScheduleTimeActivity extends SimpleActivity {
       headerArray.put(i, headerPos);
       headerPos++;
       for (ScheduleItem scheduleItem : schduleWeek.getScheduleItems()) {
-        scheduleTimeItems.add(new ScheduleTimeItem(scheduleItem));
+        scheduleTimeItems.add(new ScheduleTimeItem(scheduleItem, i));
         headerPos++;
       }
     }
 
     //通过反射修改tab下划线样式
-    try {
+    /*try {
       Class<?> tablayout = tabScheduleTime.getClass();
       Field tabStrip = tablayout.getDeclaredField("mTabStrip");
       tabStrip.setAccessible(true);
@@ -106,7 +102,7 @@ public class ScheduleTimeActivity extends SimpleActivity {
       e.printStackTrace();
     } catch (NoSuchFieldException e) {
       e.printStackTrace();
-    }
+    }*/
 
     tabScheduleTime.addOnTabSelectedListener(new OnTabSelectedListener() {
       @Override
@@ -163,16 +159,27 @@ public class ScheduleTimeActivity extends SimpleActivity {
     rcvScheduleTime.setLayoutManager(mLayoutManager);
     rcvScheduleTime.setAdapter(mAdapter);
     rcvScheduleTime.addOnScrollListener(new OnScrollListener() {
+
+      private int currentHeaderPosition = 0;
+
       @Override
       public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
         int fistVisibleItemPos = mLayoutManager.findFirstVisibleItemPosition();
+        int lastVisibleItemPos = mLayoutManager.findLastVisibleItemPosition();
         if (mAdapter.getItemCount() > 0) {
           ScheduleTimeItem scheduleTimeItem = mAdapter.getItem(fistVisibleItemPos);
           if (scheduleTimeItem != null && scheduleTimeItem.isHeader
               && currentHeaderPosition != fistVisibleItemPos) {
             currentHeaderPosition = fistVisibleItemPos;
             tabScheduleTime.getTabAt(scheduleTimeItem.headerIndex).select();
+          } else if (lastVisibleItemPos == mAdapter.getItemCount() - 1) {
+            ScheduleTimeItem lastScheduleTimeItem = mAdapter.getItem(lastVisibleItemPos);
+            if (lastScheduleTimeItem == null) {
+              return;
+            }
+            currentHeaderPosition = headerArray.get(lastScheduleTimeItem.headerIndex);
+            tabScheduleTime.getTabAt(lastScheduleTimeItem.headerIndex).select();
           }
         }
       }

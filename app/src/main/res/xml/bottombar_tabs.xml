@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tabs>
   <tab
-    icon="@drawable/nav_news"
-    id="@+id/nav_news"
-    title="@string/nav_news" />
-  <tab
     icon="@drawable/nav_schedule"
     id="@+id/nav_schedule"
     title="@string/nav_schedule" />
@@ -12,6 +8,10 @@
     icon="@drawable/nav_comic"
     id="@+id/nav_comic"
     title="@string/nav_comic" />
+  <tab
+    icon="@drawable/nav_news"
+    id="@+id/nav_news"
+    title="@string/nav_news" />
   <!--<tab
     icon="@drawable/nav_setting"
     id="@+id/nav_setting"

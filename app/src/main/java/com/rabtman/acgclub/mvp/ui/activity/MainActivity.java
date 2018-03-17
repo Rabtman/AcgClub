@@ -53,8 +53,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
   ActionBarDrawerToggle toggle;
   //需要加载的fragment
   HashMap<String, Class<? extends SupportFragment>> loadFragments = new HashMap<>();
-  private String hideFragment = RouterConstants.PATH_ACGNEWS_MAIN;
-  private String showFragment = RouterConstants.PATH_ACGNEWS_MAIN;
+  private String hideFragment = RouterConstants.PATH_SCHEDULE_MAIN;
+  private String showFragment = RouterConstants.PATH_SCHEDULE_MAIN;
 
 
   @Override
@@ -98,12 +98,12 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         R.string.navigation_drawer_open, R.string.navigation_drawer_close);
     drawerLayout.addDrawerListener(toggle);
     toggle.syncState();
-    if (loadFragments.get(RouterConstants.PATH_ACGNEWS_MAIN) == null) {
+    if (loadFragments.get(RouterConstants.PATH_SCHEDULE_MAIN) == null) {
       loadMultipleRootFragment(R.id.main_content,
           0,
-          getTargetFragment(RouterConstants.PATH_ACGNEWS_MAIN),
           getTargetFragment(RouterConstants.PATH_SCHEDULE_MAIN),
-          getTargetFragment(RouterConstants.PATH_COMIC_OACG));
+          getTargetFragment(RouterConstants.PATH_COMIC_OACG),
+          getTargetFragment(RouterConstants.PATH_ACGNEWS_MAIN));
     }
 
     bottomBar.setOnTabSelectListener(new OnTabSelectListener() {
@@ -111,10 +111,6 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
       public void onTabSelected(@IdRes int tabId) {
         String title = null;
         switch (tabId) {
-          case R.id.nav_news:
-            showFragment = RouterConstants.PATH_ACGNEWS_MAIN;
-            title = getString(R.string.nav_news);
-            break;
           case R.id.nav_schedule:
             showFragment = RouterConstants.PATH_SCHEDULE_MAIN;
             title = getString(R.string.nav_schedule);
@@ -122,6 +118,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
           case R.id.nav_comic:
             showFragment = RouterConstants.PATH_COMIC_OACG;
             title = getString(R.string.nav_comic);
+            break;
+          case R.id.nav_news:
+            showFragment = RouterConstants.PATH_ACGNEWS_MAIN;
+            title = getString(R.string.nav_news);
             break;
           /*case R.id.nav_picture:
             showFragment = R.id.nav_picture;

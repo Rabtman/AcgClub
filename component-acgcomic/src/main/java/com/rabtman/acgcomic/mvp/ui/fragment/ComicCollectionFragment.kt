@@ -40,7 +40,7 @@ class ComicCollectionFragment : SimpleFragment() {
         mAdapter!!.setOnItemClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as OacgComicItem?
             RouterUtils.getInstance()
-                    .build(RouterConstants.PATH_SCHEDULE_DETAIL)
+                    .build(RouterConstants.PATH_COMIC_OACG_DETAIL)
                     .withParcelable(IntentConstant.OACG_COMIC_ITEM, item)
                     .navigation()
         }
