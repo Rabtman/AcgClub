@@ -27,7 +27,7 @@
         <ImageView
           android:id="@+id/img_schedule_title_bg"
           android:layout_width="match_parent"
-          android:layout_height="250dp"
+          android:layout_height="280dp"
           android:scaleType="centerCrop" />
 
         <View
@@ -46,11 +46,12 @@
 
           <android.support.v7.widget.CardView
             android:id="@+id/img_card"
-            android:layout_width="140dp"
-            android:layout_height="175dp"
+            android:layout_width="150dp"
+            android:layout_height="185dp"
+            android:layout_marginBottom="8dp"
             android:layout_alignParentBottom="true"
             app:cardCornerRadius="8dp"
-            app:cardElevation="4dp"
+            app:cardElevation="2dp"
             app:cardPreventCornerOverlap="false"
             app:cardUseCompatPadding="true">
 
@@ -67,12 +68,12 @@
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="60dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="50dp"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@id/img_card"
-            android:gravity="center_vertical"
+            android:maxLines="2"
+            android:minLines="2"
             tools:text="标签：百合|恋爱|日常|肉番|日常|肉番" />
 
           <TextView

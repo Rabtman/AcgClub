@@ -16,10 +16,10 @@ class ComicMenuAdapter(data: List<String>) : BaseQuickAdapter<String, BaseViewHo
         helper?.setText(R.id.tv_option_name, item)
         if (checkItemPos == helper?.adapterPosition) {
             helper.setTextColor(R.id.tv_option_name, ContextCompat.getColor(mContext, R.color.colorPrimaryDark))
-                    .setBackgroundRes(R.id.tv_option_name, R.drawable.shape_menu_option_selected)
+                    .setBackgroundRes(R.id.tv_option_name, R.drawable.acgcomic_shape_menu_option_selected)
         } else {
             helper?.setTextColor(R.id.tv_option_name, ContextCompat.getColor(mContext, R.color.grey500))
-                    ?.setBackgroundRes(R.id.tv_option_name, R.drawable.shape_menu_option_normal)
+                    ?.setBackgroundRes(R.id.tv_option_name, R.drawable.acgcomic_shape_menu_option_normal)
         }
     }
 

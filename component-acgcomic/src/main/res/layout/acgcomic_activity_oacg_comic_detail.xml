@@ -26,7 +26,7 @@
         <ImageView
           android:id="@+id/img_oacg_comic_title_bg"
           android:layout_width="match_parent"
-          android:layout_height="250dp"
+          android:layout_height="280dp"
           android:scaleType="centerCrop" />
 
         <View
@@ -45,8 +45,9 @@
 
           <android.support.v7.widget.CardView
             android:id="@+id/img_card"
-            android:layout_width="140dp"
-            android:layout_height="175dp"
+            android:layout_width="150dp"
+            android:layout_height="185dp"
+            android:layout_marginBottom="8dp"
             android:layout_alignParentBottom="true"
             app:cardCornerRadius="8dp"
             app:cardElevation="2dp"
@@ -66,12 +67,13 @@
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="60dp"
             android:layout_marginLeft="8dp"
             android:layout_alignParentBottom="true"
             android:layout_toRightOf="@id/img_card"
-            android:gravity="center_vertical"
-            tools:text="标签：百合|恋爱|日常|肉番" />
+            android:maxLines="2"
+            android:minLines="2"
+            tools:text="标签：百合|恋爱|日常|肉番|日常" />
 
           <TextView
             android:id="@+id/tv_oacg_comic_detail_proc"
@@ -159,8 +161,31 @@
     app:elevation="1dp"
     app:layout_anchor="@id/view_bg_grey"
     app:layout_anchorGravity="right"
-    app:layout_scrollFlags="exitUntilCollapsed"
     app:useCompatPadding="true" />
+
+  <android.support.v7.widget.CardView
+    android:layout_width="110dp"
+    android:layout_height="68dp"
+    android:layout_marginRight="80dp"
+    app:cardBackgroundColor="@color/colorAccent"
+    app:cardCornerRadius="24dp"
+    app:cardUseCompatPadding="true"
+    app:elevation="1dp"
+    app:layout_anchor="@id/btn_oacg_comic_like"
+    app:layout_anchorGravity="center_vertical">
+
+    <TextView
+      android:id="@+id/btn_oacg_comic_read"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:layout_gravity="center"
+      android:ellipsize="end"
+      android:gravity="center"
+      android:maxLines="1"
+      android:text="开始观看"
+      android:textColor="@android:color/white" />
+  </android.support.v7.widget.CardView>
+
 
   <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
@@ -282,6 +307,4 @@
     </LinearLayout>
 
   </android.support.v4.widget.NestedScrollView>
-
-
 </android.support.design.widget.CoordinatorLayout>

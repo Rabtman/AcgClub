@@ -93,7 +93,7 @@ dependencies {
     //test
     testApi rootProject.ext.dependencies["junit"]
     //jsoup
-    api project(':jsoup-annotations')
+    api project(':third-party-libs:jsoup-annotations')
     //other
     api rootProject.ext.dependencies["multidex"]
     api rootProject.ext.dependencies["logger"]

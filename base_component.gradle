@@ -1,6 +1,6 @@
 //模块名称
 def componentName = project.getName().replaceAll("component-", "")
-def isRunAlone = rootProject.ext.runAlone.contains(componentName)
+def isRunAlone = !rootProject.ext.merge.contains(componentName)
 if (isRunAlone) {
     apply plugin: 'com.android.application'
 } else {

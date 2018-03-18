@@ -141,16 +141,14 @@ repositories {
     }
 }
 
-rootProject.ext.needRun.each { c ->
+rootProject.ext.merge.each { c ->
     project.dependencies.add("implementation", project.project(':component-' + c))
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':common')
-    //implementation project(':component-acgnews')
-    //implementation project(':component-acgschedule')
-    //implementation project(':component-acgcomic')
+
     //di
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]

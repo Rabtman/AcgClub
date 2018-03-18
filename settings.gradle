@@ -5,6 +5,6 @@ include ':common', ':common-res'
 //路由
 include ':router'
 //三方库
-include ':jsoup-annotations'
+include ':third-party-libs:jsoup-annotations'
 //业务模块
 include ':component-acgnews', ':component-acgschedule', ':component-acgcomic'

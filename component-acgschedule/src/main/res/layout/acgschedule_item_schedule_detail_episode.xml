@@ -5,7 +5,7 @@
   android:layout_width="60dp"
   android:layout_height="30dp"
   android:layout_margin="6dp"
-  android:background="@drawable/btn_sd_episode"
+  android:background="@drawable/acgschedule_btn_episode"
   android:gravity="center"
   android:textColor="@color/colorPrimary"
   android:textSize="15sp"

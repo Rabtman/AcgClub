@@ -7,7 +7,7 @@
   android:layout_margin="4dp"
   android:paddingTop="4dp"
   android:paddingBottom="4dp"
-  android:background="@drawable/btn_oacg_comic_episode"
+  android:background="@drawable/acgcomic_btn_episode"
   android:gravity="center"
   android:textColor="@color/colorPrimary"
   android:textSize="15sp"
