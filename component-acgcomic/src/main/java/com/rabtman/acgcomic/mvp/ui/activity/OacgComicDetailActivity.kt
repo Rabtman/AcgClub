@@ -2,7 +2,6 @@ package com.rabtman.acgcomic.mvp.ui.activity
 
 import android.support.design.widget.AppBarLayout
 import android.support.design.widget.CollapsingToolbarLayout
-import android.support.design.widget.FloatingActionButton
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.CardView
 import android.support.v7.widget.GridLayoutManager
@@ -48,7 +47,9 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
     @BindView(R2.id.app_bar)
     lateinit internal var appBar: AppBarLayout
     @BindView(R2.id.btn_oacg_comic_like)
-    lateinit internal var btnOacgComicLike: FloatingActionButton
+    lateinit internal var btnOacgComicLike: ImageView
+    @BindView(R2.id.btn_oacg_comic_read)
+    lateinit internal var btnOacgComicRead: CardView
     @BindView(R2.id.collapsing_toolbar)
     lateinit internal var collapsingToolbarLayout: CollapsingToolbarLayout
     @BindView(R2.id.img_oacg_comic_title_bg)
@@ -91,6 +92,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
     override fun setStatusBar() {
         StatusBarUtil.setTranslucentForImageView(this, 0, mToolBar)
     }
+
 
     override fun initData() {
         setToolBar(mToolBar, "")

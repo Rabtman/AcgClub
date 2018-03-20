@@ -111,6 +111,32 @@
             android:layout_toRightOf="@id/img_card"
             tools:text="地区：日本" />
 
+          <android.support.v7.widget.CardView
+            android:id="@+id/btn_schedule_detail_read"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginLeft="8dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/img_card"
+            app:cardBackgroundColor="@color/colorStress"
+            app:cardCornerRadius="20dp"
+            app:cardUseCompatPadding="true"
+            app:elevation="16dp">
+
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:drawableLeft="@drawable/ic_play"
+              android:drawablePadding="8dp"
+              android:ellipsize="end"
+              android:gravity="center"
+              android:maxLines="1"
+              android:text="开始观看"
+              android:textColor="@android:color/white" />
+          </android.support.v7.widget.CardView>
+
         </RelativeLayout>
       </FrameLayout>
 
@@ -119,34 +145,36 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
         app:layout_collapseMode="pin">
-        <TextView
-          android:id="@+id/toolbar_title"
-          style="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
+        <RelativeLayout
           android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:ellipsize="marquee"
-          android:focusable="true"
-          android:focusableInTouchMode="true"
-          android:marqueeRepeatLimit="marquee_forever"
-          android:singleLine="true"
-          tools:text="海贼王" />
+          android:layout_height="match_parent"
+          android:gravity="center_vertical">
+
+          <ImageView
+            android:id="@+id/btn_schedule_detail_like"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:src="@drawable/ic_heart" />
+
+          <TextView
+            android:id="@+id/toolbar_title"
+            style="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_toLeftOf="@id/btn_schedule_detail_like"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            tools:text="海贼王" />
+        </RelativeLayout>
       </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.CollapsingToolbarLayout>
 
   </android.support.design.widget.AppBarLayout>
-
-  <android.support.design.widget.FloatingActionButton
-    android:id="@+id/btn_schedule_detail_like"
-    android:layout_width="48dp"
-    android:layout_height="48dp"
-    android:scaleType="center"
-    android:src="@drawable/ic_heart"
-    app:elevation="1dp"
-    app:layout_anchor="@id/view_bg_grey"
-    app:layout_anchorGravity="right"
-    app:layout_scrollFlags="exitUntilCollapsed"
-    app:useCompatPadding="true" />
 
   <android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"

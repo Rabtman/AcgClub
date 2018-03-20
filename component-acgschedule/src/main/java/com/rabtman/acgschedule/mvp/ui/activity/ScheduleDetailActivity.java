@@ -3,7 +3,6 @@ package com.rabtman.acgschedule.mvp.ui.activity;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,6 +20,7 @@ import com.jaeger.library.StatusBarUtil;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.R2;
+import com.rabtman.acgschedule.R2.id;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
 import com.rabtman.acgschedule.di.component.DaggerScheduleDetailComponent;
 import com.rabtman.acgschedule.di.module.ScheduleDetailModule;
@@ -53,7 +53,9 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   @BindView(R2.id.collapsing_toolbar)
   CollapsingToolbarLayout collapsingToolbarLayout;
   @BindView(R2.id.btn_schedule_detail_like)
-  FloatingActionButton btnScheduleDetailLike;
+  ImageView btnScheduleDetailLike;
+  @BindView(R2.id.btn_schedule_detail_read)
+  CardView btnScheduleDetailRead;
   @BindView(R2.id.img_schedule_title_bg)
   ImageView imgScheduleTitleBg;
   @BindView(R2.id.img_schedule_detail_icon)
@@ -74,6 +76,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   CardView layoutSceduleEpisode;
   @BindView(R2.id.rcv_schedule_detail)
   RecyclerView rcvScheduleDetail;
+  private RxPermissions rxPermissions = new RxPermissions(this);
 
   @Override
   protected void setupActivityComponent(AppComponent appComponent) {
@@ -158,8 +161,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
         @Override
         public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
           final ScheduleEpisode scheduleEpisode = (ScheduleEpisode) adapter.getData().get(position);
-          mPresenter.checkPermission2ScheduleVideo(new RxPermissions(ScheduleDetailActivity.this),
-              scheduleEpisode.getLink());
+          mPresenter.checkPermission2ScheduleVideo(rxPermissions, scheduleEpisode.getLink());
         }
       });
       GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
@@ -184,6 +186,11 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
       return;
     }
     mPresenter.collectOrCancelSchedule((Boolean) isCollected);
+  }
+
+  @OnClick(id.btn_schedule_detail_read)
+  public void start2NextScheduleVideo() {
+
   }
 
   @Override

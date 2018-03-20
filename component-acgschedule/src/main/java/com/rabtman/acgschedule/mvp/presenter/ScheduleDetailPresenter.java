@@ -4,6 +4,7 @@ import android.Manifest.permission;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.mvp.contract.ScheduleDetailContract;
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleCollection;
+import com.rabtman.acgschedule.mvp.model.entity.ScheduleHistory;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
@@ -28,6 +29,10 @@ public class ScheduleDetailPresenter extends
    * 当前番剧链接
    */
   private String currentScheduleUrl;
+  /**
+   * 当前番剧详情
+   */
+  private ScheduleDetail currentScheduleDetail;
   /**
    * 番剧收藏对象
    */
@@ -67,7 +72,35 @@ public class ScheduleDetailPresenter extends
                 collection.setName(scheduleDetail.getScheduleTitle());
                 collection.setImgUrl(scheduleDetail.getImgUrl());
 
+                currentScheduleDetail = scheduleDetail;
+
                 mView.showScheduleDetail(scheduleDetail);
+              }
+            })
+    );
+  }
+
+  /**
+   * 获取番剧观看历史记录
+   */
+  public void getLastReadRecord() {
+    addSubscribe(
+        mModel.getScheduleHistory(currentScheduleUrl)
+            .compose(RxUtil.<ScheduleHistory>rxSchedulerHelper())
+            .subscribeWith(new ResourceSubscriber<ScheduleHistory>() {
+              @Override
+              public void onNext(ScheduleHistory scheduleHistory) {
+
+              }
+
+              @Override
+              public void onError(Throwable t) {
+
+              }
+
+              @Override
+              public void onComplete() {
+
               }
             })
     );

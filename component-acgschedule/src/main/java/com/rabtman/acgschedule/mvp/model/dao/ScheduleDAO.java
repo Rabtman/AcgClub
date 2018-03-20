@@ -1,6 +1,7 @@
 package com.rabtman.acgschedule.mvp.model.dao;
 
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleCollection;
+import com.rabtman.acgschedule.mvp.model.entity.ScheduleHistory;
 import com.rabtman.common.utils.RxRealmUtils;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
@@ -56,6 +57,19 @@ public class ScheduleDAO {
   public Flowable<ScheduleCollection> getScheduleCollectionByUrl(String url) {
     try (final Realm realm = Realm.getInstance(realmConfiguration)) {
       ScheduleCollection queryResult = realm.where(ScheduleCollection.class)
+          .equalTo("scheduleUrl", url)
+          .findFirst();
+      if (queryResult != null) {
+        return Flowable.just(realm.copyFromRealm(queryResult));
+      } else {
+        return Flowable.empty();
+      }
+    }
+  }
+
+  public Flowable<ScheduleHistory> getScheduleHistoryByUrl(String url) {
+    try (final Realm realm = Realm.getInstance(realmConfiguration)) {
+      ScheduleHistory queryResult = realm.where(ScheduleHistory.class)
           .equalTo("scheduleUrl", url)
           .findFirst();
       if (queryResult != null) {

@@ -6,6 +6,7 @@ import com.rabtman.acgschedule.base.constant.SystemConstant;
 import com.rabtman.acgschedule.mvp.contract.ScheduleDetailContract;
 import com.rabtman.acgschedule.mvp.model.dao.ScheduleDAO;
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleCollection;
+import com.rabtman.acgschedule.mvp.model.entity.ScheduleHistory;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail;
 import com.rabtman.common.base.mvp.BaseModel;
 import com.rabtman.common.di.scope.ActivityScope;
@@ -58,6 +59,11 @@ public class ScheduleDetailModel extends BaseModel implements ScheduleDetailCont
   @Override
   public Flowable<ScheduleCollection> getScheduleCollection(String scheduleUrl) {
     return DAO.getScheduleCollectionByUrl(scheduleUrl);
+  }
+
+  @Override
+  public Flowable<ScheduleHistory> getScheduleHistory(String scheduleUrl) {
+    return DAO.getScheduleHistoryByUrl(scheduleUrl);
   }
 
   @Override

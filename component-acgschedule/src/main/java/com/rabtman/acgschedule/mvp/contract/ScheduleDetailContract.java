@@ -1,6 +1,7 @@
 package com.rabtman.acgschedule.mvp.contract;
 
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleCollection;
+import com.rabtman.acgschedule.mvp.model.entity.ScheduleHistory;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail;
 import com.rabtman.common.base.mvp.IModel;
 import com.rabtman.common.base.mvp.IView;
@@ -26,6 +27,8 @@ public interface ScheduleDetailContract {
     Flowable<ScheduleDetail> getScheduleDetail(String url);
 
     Flowable<ScheduleCollection> getScheduleCollection(String scheduleUrl);
+
+    Flowable<ScheduleHistory> getScheduleHistory(String scheduleUrl);
 
     Completable addOrDeleteScheduleCollection(ScheduleCollection item, boolean isAdd);
   }
