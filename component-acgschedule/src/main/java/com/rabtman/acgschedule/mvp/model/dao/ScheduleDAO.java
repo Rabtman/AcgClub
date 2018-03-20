@@ -23,7 +23,21 @@ public class ScheduleDAO {
     this.realmConfiguration = realmConfiguration;
   }
 
-  public Completable add(final ScheduleCollection item) {
+  public Completable addScheduleCollection(final ScheduleCollection item) {
+    return RxRealmUtils.exec(realmConfiguration, new Consumer<Realm>() {
+      @Override
+      public void accept(Realm realm) throws Exception {
+        realm.executeTransactionAsync(new Transaction() {
+          @Override
+          public void execute(Realm r) {
+            r.copyToRealmOrUpdate(item);
+          }
+        });
+      }
+    });
+  }
+
+  public Completable addScheduleHistory(final ScheduleHistory item) {
     return RxRealmUtils.exec(realmConfiguration, new Consumer<Realm>() {
       @Override
       public void accept(Realm realm) throws Exception {

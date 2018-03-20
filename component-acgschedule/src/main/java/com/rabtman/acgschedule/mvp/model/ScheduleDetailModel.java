@@ -17,6 +17,7 @@ import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Function;
 import javax.inject.Inject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -66,10 +67,21 @@ public class ScheduleDetailModel extends BaseModel implements ScheduleDetailCont
     return DAO.getScheduleHistoryByUrl(scheduleUrl);
   }
 
+  public Completable updateScheduleHistory(String scheduleUrl, final int lastPos) {
+    return DAO.getScheduleHistoryByUrl(scheduleUrl)
+        .flatMapCompletable(new Function<ScheduleHistory, Completable>() {
+          @Override
+          public Completable apply(ScheduleHistory scheduleHistory) throws Exception {
+            scheduleHistory.setLastRecord(lastPos);
+            return DAO.addScheduleHistory(scheduleHistory);
+          }
+        });
+  }
+
   @Override
   public Completable addOrDeleteScheduleCollection(ScheduleCollection item, boolean isAdd) {
     if (isAdd) {
-      return DAO.add(item);
+      return DAO.addScheduleCollection(item);
     } else {
       return DAO.deleteByUrl(item.getScheduleUrl());
     }

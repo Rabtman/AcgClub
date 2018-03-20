@@ -31,5 +31,7 @@ public interface ScheduleDetailContract {
     Flowable<ScheduleHistory> getScheduleHistory(String scheduleUrl);
 
     Completable addOrDeleteScheduleCollection(ScheduleCollection item, boolean isAdd);
+
+    Completable updateScheduleHistory(String scheduleUrl, final int lastPos);
   }
 }

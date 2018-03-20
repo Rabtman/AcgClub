@@ -76,7 +76,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   CardView layoutSceduleEpisode;
   @BindView(R2.id.rcv_schedule_detail)
   RecyclerView rcvScheduleDetail;
-  private RxPermissions rxPermissions = new RxPermissions(this);
+  private RxPermissions rxPermissions;
 
   @Override
   protected void setupActivityComponent(AppComponent appComponent) {
@@ -101,6 +101,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   protected void initData() {
     setToolBar(mToolBar, "");
     collapsingToolbarLayout.setTitleEnabled(false);
+    rxPermissions = new RxPermissions(this);
 
     String scheduleUrl = getIntent().getStringExtra(IntentConstant.SCHEDULE_DETAIL_URL);
     if (TextUtils.isEmpty(scheduleUrl)) {
@@ -108,6 +109,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
       return;
     }
     mPresenter.setCurrentScheduleUrl(scheduleUrl);
+    mPresenter.getLastReadRecord(rxPermissions, false);
     mPresenter.isCollected();
     mPresenter.getScheduleDetail();
   }
@@ -154,6 +156,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
     if (scheduleDetail.getScheduleEpisodes() != null
         && scheduleDetail.getScheduleEpisodes().size() > 1) {
       layoutSceduleEpisode.setVisibility(android.view.View.VISIBLE);
+      btnScheduleDetailRead.setVisibility(android.view.View.VISIBLE);
       List<ScheduleEpisode> data = scheduleDetail.getScheduleEpisodes()
           .subList(0, scheduleDetail.getScheduleEpisodes().size() - 1);
       ScheduleDetailEpisodeItemAdapter adapter = new ScheduleDetailEpisodeItemAdapter(data);
@@ -189,8 +192,8 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   }
 
   @OnClick(id.btn_schedule_detail_read)
-  public void start2NextScheduleVideo() {
-
+  public void getNextVideo() {
+    mPresenter.getLastReadRecord(rxPermissions, true);
   }
 
   @Override

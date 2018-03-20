@@ -1,11 +1,13 @@
 package com.rabtman.acgschedule.mvp.presenter;
 
 import android.Manifest.permission;
+import android.text.TextUtils;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.mvp.contract.ScheduleDetailContract;
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleCollection;
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleHistory;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail;
+import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail.ScheduleEpisode;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.ActivityScope;
@@ -16,6 +18,7 @@ import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.subscribers.ResourceSubscriber;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -33,6 +36,10 @@ public class ScheduleDetailPresenter extends
    * 当前番剧详情
    */
   private ScheduleDetail currentScheduleDetail;
+  /**
+   * 当前番剧播放记录
+   */
+  private ScheduleHistory currentScheduleHistory;
   /**
    * 番剧收藏对象
    */
@@ -82,28 +89,67 @@ public class ScheduleDetailPresenter extends
 
   /**
    * 获取番剧观看历史记录
+   *
+   * @param isManualClick 是否主动点击
    */
-  public void getLastReadRecord() {
-    addSubscribe(
-        mModel.getScheduleHistory(currentScheduleUrl)
-            .compose(RxUtil.<ScheduleHistory>rxSchedulerHelper())
-            .subscribeWith(new ResourceSubscriber<ScheduleHistory>() {
-              @Override
-              public void onNext(ScheduleHistory scheduleHistory) {
+  public void getLastReadRecord(final RxPermissions rxPermissions, final boolean isManualClick) {
+    //如果播放记录还没加载成功，则先加载
+    if (currentScheduleHistory == null) {
+      addSubscribe(
+          mModel.getScheduleHistory(currentScheduleUrl)
+              .compose(RxUtil.<ScheduleHistory>rxSchedulerHelper())
+              .subscribeWith(new ResourceSubscriber<ScheduleHistory>() {
+                @Override
+                public void onNext(ScheduleHistory scheduleHistory) {
+                  currentScheduleHistory = scheduleHistory;
+                }
 
-              }
+                @Override
+                public void onError(Throwable t) {
+                  t.printStackTrace();
+                  mView.showError(R.string.msg_error_unknown);
+                }
 
-              @Override
-              public void onError(Throwable t) {
+                @Override
+                public void onComplete() {
+                  //如果没有播放记录，则默认播放第一集
+                  if (currentScheduleHistory == null) {
+                    currentScheduleHistory = new ScheduleHistory();
+                    currentScheduleHistory.setLastRecord(-1);
+                  }
+                  //手动点击，则在家加载完记录后跳转到视频播放
+                  if (isManualClick) {
+                    checkPermission2ScheduleVideo(rxPermissions,
+                        getNextScheduleUrl(currentScheduleHistory.getLastRecord()));
+                  }
+                }
+              })
+      );
+    } else {
+      checkPermission2ScheduleVideo(rxPermissions,
+          getNextScheduleUrl(currentScheduleHistory.getLastRecord()));
+    }
+  }
 
-              }
-
-              @Override
-              public void onComplete() {
-
-              }
-            })
-    );
+  /**
+   * 根据历史记录获取当前应播放番剧
+   */
+  private String getNextScheduleUrl(int lastPos) {
+    if (currentScheduleDetail == null) {
+      return "";
+    }
+    List<ScheduleEpisode> scheduleEpisodes = currentScheduleDetail.getScheduleEpisodes();
+    if (scheduleEpisodes == null) {
+      return "";
+    }
+    if (scheduleEpisodes.size() <= 0) {
+      return "";
+    }
+    if ((lastPos + 1) >= (scheduleEpisodes.size() - 2)) {
+      return scheduleEpisodes.get(scheduleEpisodes.size() - 2).getLink();
+    } else {
+      return scheduleEpisodes.get(lastPos + 1).getLink();
+    }
   }
 
   /**
@@ -165,7 +211,26 @@ public class ScheduleDetailPresenter extends
     );
   }
 
+  public void updateScheduleReadRecord(int lastPos) {
+    mModel.updateScheduleHistory(currentScheduleUrl, lastPos)
+        .subscribe(new Action() {
+          @Override
+          public void run() throws Exception {
+
+          }
+        }, new Consumer<Throwable>() {
+          @Override
+          public void accept(Throwable throwable) throws Exception {
+
+          }
+        });
+  }
+
   public void checkPermission2ScheduleVideo(RxPermissions rxPermissions, final String videoUrl) {
+    if (TextUtils.isEmpty(videoUrl)) {
+      mView.showError(R.string.msg_error_url_null);
+      return;
+    }
     rxPermissions.request(permission.WRITE_EXTERNAL_STORAGE,
         permission.READ_PHONE_STATE,
         permission.ACCESS_NETWORK_STATE,
