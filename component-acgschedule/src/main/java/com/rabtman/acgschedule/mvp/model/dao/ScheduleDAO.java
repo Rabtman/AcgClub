@@ -86,11 +86,9 @@ public class ScheduleDAO {
       ScheduleHistory queryResult = realm.where(ScheduleHistory.class)
           .equalTo("scheduleUrl", url)
           .findFirst();
-      if (queryResult != null) {
-        return Flowable.just(realm.copyFromRealm(queryResult));
-      } else {
-        return Flowable.empty();
-      }
+      return Flowable.just(
+          queryResult == null ? new ScheduleHistory(url, -1) : realm.copyFromRealm(queryResult)
+      );
     }
   }
 

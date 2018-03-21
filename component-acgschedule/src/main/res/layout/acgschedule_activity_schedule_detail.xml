@@ -126,6 +126,7 @@
             app:elevation="16dp">
 
             <TextView
+              android:id="@+id/tv_schedule_detail_read"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
               android:layout_gravity="center"

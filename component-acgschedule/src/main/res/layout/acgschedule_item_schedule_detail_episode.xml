@@ -7,6 +7,6 @@
   android:layout_margin="6dp"
   android:background="@drawable/acgschedule_btn_episode"
   android:gravity="center"
-  android:textColor="@color/colorPrimary"
+  android:textColor="@color/grey400"
   android:textSize="15sp"
   tools:text="123" />

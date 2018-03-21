@@ -56,6 +56,8 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   ImageView btnScheduleDetailLike;
   @BindView(R2.id.btn_schedule_detail_read)
   CardView btnScheduleDetailRead;
+  @BindView(R2.id.tv_schedule_detail_read)
+  TextView tvScheduleDetailRead;
   @BindView(R2.id.img_schedule_title_bg)
   ImageView imgScheduleTitleBg;
   @BindView(R2.id.img_schedule_detail_icon)
@@ -76,6 +78,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   CardView layoutSceduleEpisode;
   @BindView(R2.id.rcv_schedule_detail)
   RecyclerView rcvScheduleDetail;
+  private ScheduleDetailEpisodeItemAdapter episodeItemAdapter;
   private RxPermissions rxPermissions;
 
   @Override
@@ -109,9 +112,14 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
       return;
     }
     mPresenter.setCurrentScheduleUrl(scheduleUrl);
-    mPresenter.getLastReadRecord(rxPermissions, false);
     mPresenter.isCollected();
     mPresenter.getScheduleDetail();
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    mPresenter.getLastReadRecord(rxPermissions, false);
   }
 
   @Override
@@ -159,18 +167,19 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
       btnScheduleDetailRead.setVisibility(android.view.View.VISIBLE);
       List<ScheduleEpisode> data = scheduleDetail.getScheduleEpisodes()
           .subList(0, scheduleDetail.getScheduleEpisodes().size() - 1);
-      ScheduleDetailEpisodeItemAdapter adapter = new ScheduleDetailEpisodeItemAdapter(data);
-      adapter.setOnItemClickListener(new OnItemClickListener() {
+      episodeItemAdapter = new ScheduleDetailEpisodeItemAdapter(data);
+      episodeItemAdapter.setOnItemClickListener(new OnItemClickListener() {
         @Override
         public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
           final ScheduleEpisode scheduleEpisode = (ScheduleEpisode) adapter.getData().get(position);
+          mPresenter.updateScheduleReadRecord(position);
           mPresenter.checkPermission2ScheduleVideo(rxPermissions, scheduleEpisode.getLink());
         }
       });
       GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
       layoutManager.setOrientation(GridLayoutManager.VERTICAL);
       rcvScheduleDetail.setLayoutManager(layoutManager);
-      rcvScheduleDetail.setAdapter(adapter);
+      rcvScheduleDetail.setAdapter(episodeItemAdapter);
       rcvScheduleDetail.setNestedScrollingEnabled(false);
     }
   }
@@ -194,6 +203,31 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   @OnClick(id.btn_schedule_detail_read)
   public void getNextVideo() {
     mPresenter.getLastReadRecord(rxPermissions, true);
+  }
+
+  @Override
+  public void showLastReadRecord(int pos) {
+    if (episodeItemAdapter != null) {
+      if (pos != -1) {
+        List<ScheduleEpisode> scheduleEpisodes = episodeItemAdapter.getData();
+        String episodeName;
+        if (pos + 1 >= scheduleEpisodes.size() - 1) {
+          episodeName = scheduleEpisodes.get(scheduleEpisodes.size() - 1).getName();
+        } else {
+          episodeName = scheduleEpisodes.get(pos + 1).getName();
+        }
+        StringBuilder episodeBuilder = new StringBuilder();
+        episodeBuilder.append("续看 ");
+        try {
+          Integer.parseInt(episodeName);
+          episodeBuilder.append("第").append(episodeName).append("话");
+        } catch (Exception e) {
+          episodeBuilder.append(episodeName);
+        }
+        tvScheduleDetailRead.setText(episodeBuilder.toString());
+      }
+      episodeItemAdapter.setRecordPos(pos);
+    }
   }
 
   @Override

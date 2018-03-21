@@ -20,6 +20,8 @@ public interface ScheduleDetailContract {
     void showCollectionView(boolean isCollected);
 
     void start2ScheduleVideo(String videoUrl);
+
+    void showLastReadRecord(int pos);
   }
 
   interface Model extends IModel {

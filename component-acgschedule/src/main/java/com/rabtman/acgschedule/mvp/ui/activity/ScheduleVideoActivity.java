@@ -1,5 +1,6 @@
 package com.rabtman.acgschedule.mvp.ui.activity;
 
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.PixelFormat;
 import android.os.Build;
@@ -104,6 +105,7 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
 
   @Override
   protected void onDestroy() {
+    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     webView.destroy();
     super.onDestroy();
   }

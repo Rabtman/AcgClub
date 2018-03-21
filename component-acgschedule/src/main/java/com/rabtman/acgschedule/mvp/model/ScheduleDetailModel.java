@@ -67,7 +67,7 @@ public class ScheduleDetailModel extends BaseModel implements ScheduleDetailCont
     return DAO.getScheduleHistoryByUrl(scheduleUrl);
   }
 
-  public Completable updateScheduleHistory(String scheduleUrl, final int lastPos) {
+  public Completable updateScheduleHistory(final String scheduleUrl, final int lastPos) {
     return DAO.getScheduleHistoryByUrl(scheduleUrl)
         .flatMapCompletable(new Function<ScheduleHistory, Completable>() {
           @Override

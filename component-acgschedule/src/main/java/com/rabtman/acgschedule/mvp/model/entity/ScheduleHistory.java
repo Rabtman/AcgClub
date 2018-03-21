@@ -13,6 +13,14 @@ public class ScheduleHistory extends RealmObject {
   private String scheduleUrl;
   private int lastRecord;
 
+  public ScheduleHistory() {
+  }
+
+  public ScheduleHistory(String scheduleUrl, int lastRecord) {
+    this.scheduleUrl = scheduleUrl;
+    this.lastRecord = lastRecord;
+  }
+
   public String getScheduleUrl() {
     return scheduleUrl;
   }

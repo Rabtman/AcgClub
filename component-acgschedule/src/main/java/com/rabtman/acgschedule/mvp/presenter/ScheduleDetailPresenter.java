@@ -82,6 +82,10 @@ public class ScheduleDetailPresenter extends
                 currentScheduleDetail = scheduleDetail;
 
                 mView.showScheduleDetail(scheduleDetail);
+
+                if (currentScheduleHistory != null) {
+                  mView.showLastReadRecord(currentScheduleHistory.getLastRecord());
+                }
               }
             })
     );
@@ -115,41 +119,66 @@ public class ScheduleDetailPresenter extends
                   //如果没有播放记录，则默认播放第一集
                   if (currentScheduleHistory == null) {
                     currentScheduleHistory = new ScheduleHistory();
+                    currentScheduleHistory.setScheduleUrl(currentScheduleUrl);
                     currentScheduleHistory.setLastRecord(-1);
                   }
                   //手动点击，则在家加载完记录后跳转到视频播放
                   if (isManualClick) {
-                    checkPermission2ScheduleVideo(rxPermissions,
-                        getNextScheduleUrl(currentScheduleHistory.getLastRecord()));
+                    checkPermission2ScheduleVideo(
+                        rxPermissions,
+                        getNextScheduleUrl(currentScheduleDetail,
+                            currentScheduleHistory.getLastRecord()));
                   }
                 }
               })
       );
     } else {
-      checkPermission2ScheduleVideo(rxPermissions,
-          getNextScheduleUrl(currentScheduleHistory.getLastRecord()));
+      if (isManualClick) {
+        checkPermission2ScheduleVideo(rxPermissions,
+            getNextScheduleUrl(currentScheduleDetail, currentScheduleHistory.getLastRecord()));
+      }
     }
   }
 
   /**
    * 根据历史记录获取当前应播放番剧
    */
-  private String getNextScheduleUrl(int lastPos) {
-    if (currentScheduleDetail == null) {
+  private String getNextScheduleUrl(ScheduleDetail scheduleDetail, int lastPos) {
+    if (!validScheduleDetail(scheduleDetail)) {
       return "";
     }
-    List<ScheduleEpisode> scheduleEpisodes = currentScheduleDetail.getScheduleEpisodes();
-    if (scheduleEpisodes == null) {
-      return "";
+    int nextPos = getNextPos(scheduleDetail, lastPos);
+
+    //获取地址的同时，更新历史记录
+    updateScheduleReadRecord(nextPos);
+
+    return scheduleDetail.getScheduleEpisodes().get(nextPos).getLink();
+  }
+
+  /**
+   * 获取下一个观看位置
+   */
+  private int getNextPos(ScheduleDetail scheduleDetail, int lastPos) {
+    if (!validScheduleDetail(scheduleDetail)) {
+      return -1;
     }
-    if (scheduleEpisodes.size() <= 0) {
-      return "";
-    }
+    List<ScheduleEpisode> scheduleEpisodes = scheduleDetail.getScheduleEpisodes();
     if ((lastPos + 1) >= (scheduleEpisodes.size() - 2)) {
-      return scheduleEpisodes.get(scheduleEpisodes.size() - 2).getLink();
+      return scheduleEpisodes.size() - 2;
     } else {
-      return scheduleEpisodes.get(lastPos + 1).getLink();
+      return lastPos + 1;
     }
+  }
+
+  /**
+   * 验证番剧信息有效性
+   */
+  private boolean validScheduleDetail(ScheduleDetail scheduleDetail) {
+    if (scheduleDetail == null) {
+      return false;
+    }
+    List<ScheduleEpisode> scheduleEpisodes = scheduleDetail.getScheduleEpisodes();
+    return scheduleEpisodes != null && scheduleEpisodes.size() > 0;
   }
 
   /**
@@ -211,21 +240,34 @@ public class ScheduleDetailPresenter extends
     );
   }
 
-  public void updateScheduleReadRecord(int lastPos) {
+  /**
+   * 记录上一次番剧观看位置
+   *
+   * @param lastPos 上一次观看位置
+   */
+  public void updateScheduleReadRecord(final int lastPos) {
     mModel.updateScheduleHistory(currentScheduleUrl, lastPos)
         .subscribe(new Action() {
           @Override
           public void run() throws Exception {
-
+            if (currentScheduleHistory == null) {
+              currentScheduleHistory = new ScheduleHistory();
+            }
+            currentScheduleHistory.setScheduleUrl(currentScheduleUrl);
+            currentScheduleHistory.setLastRecord(lastPos);
+            mView.showLastReadRecord(lastPos);
           }
         }, new Consumer<Throwable>() {
           @Override
           public void accept(Throwable throwable) throws Exception {
-
+            throwable.printStackTrace();
           }
         });
   }
 
+  /**
+   * 视频观看权限申请
+   */
   public void checkPermission2ScheduleVideo(RxPermissions rxPermissions, final String videoUrl) {
     if (TextUtils.isEmpty(videoUrl)) {
       mView.showError(R.string.msg_error_url_null);
