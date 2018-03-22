@@ -8,7 +8,6 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
@@ -23,6 +22,7 @@ import com.rabtman.acgcomic.base.constant.IntentConstant
 import com.rabtman.acgcomic.di.DaggerOacgComicDetailComponent
 import com.rabtman.acgcomic.di.OacgComicDetailModule
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract
+import com.rabtman.acgcomic.mvp.model.entity.ComicCache
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
 import com.rabtman.acgcomic.mvp.presenter.OacgComicDetailPresenter
@@ -76,6 +76,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
     lateinit internal var rcvOacgComicDetail: RecyclerView
 
     private var currentComicInfo: OacgComicItem? = null
+    private var episodeItemAdpater: OacgComicEpisodeItemAdapter? = null
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerOacgComicDetailComponent.builder()
@@ -101,7 +102,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         currentComicInfo = intent.getParcelableExtra(IntentConstant.OACG_COMIC_ITEM)
 
         currentComicInfo?.let { it ->
-            mPresenter.isCollected(it.id)
+            mPresenter.getCurrentComicCache(it.id, false)
             mPresenter.getOacgComicDetail(it.id)
         }
     }
@@ -114,9 +115,16 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         }
     }
 
-    override fun showCollectView(isCollected: Boolean) {
-        btnOacgComicLike.tag = isCollected
-        if (isCollected) {
+    @OnClick(R2.id.btn_oacg_comic_read)
+    fun continueComicRead() {
+        currentComicInfo?.let { it ->
+            mPresenter.getCurrentComicCache(it.id, true)
+        }
+    }
+
+    override fun showComicCacheStatus(comicCache: ComicCache) {
+        btnOacgComicLike.tag = comicCache.isCollect
+        if (comicCache.isCollect) {
             btnOacgComicLike.setImageDrawable(ContextCompat.getDrawable(baseContext, R.drawable.ic_heart_solid))
         } else {
             btnOacgComicLike.setImageDrawable(ContextCompat.getDrawable(baseContext, R.drawable.ic_heart))
@@ -151,20 +159,16 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
             tvOacgComicDetailProc.text = String.format(getString(R.string.acgcomic_label_comic_update), currentComicInfo?.comicLastOrderidx)
             //选集内容
             layoutSceduleEpisode.visibility = android.view.View.VISIBLE
-            val adapter = OacgComicEpisodeItemAdapter(comicInfos)
-            adapter.setOnItemClickListener({ adapter, _, position ->
+            episodeItemAdpater = OacgComicEpisodeItemAdapter(comicInfos)
+            episodeItemAdpater?.setOnItemClickListener({ adapter, _, position ->
                 val item = adapter.getItem(position) as OacgComicEpisode
-                RouterUtils.getInstance()
-                        .build(RouterConstants.PATH_COMIC_OACG_READ)
-                        .withString(IntentConstant.OACG_COMIC_ID, item.comicId)
-                        .withString(IntentConstant.OACG_COMIC_TITLE, currentComicInfo?.comicName)
-                        .withString(IntentConstant.OACG_COMIC_CHAPTERID, item.orderIdx)
-                        .navigation()
+                mPresenter.updateScheduleReadRecord(item.comicId, position)
+                start2ComicRead(item.comicId, item.orderIdx)
             })
             val layoutManager = GridLayoutManager(this, 4)
             layoutManager.orientation = GridLayoutManager.VERTICAL
             rcvOacgComicDetail.layoutManager = layoutManager
-            rcvOacgComicDetail.adapter = adapter
+            rcvOacgComicDetail.adapter = episodeItemAdpater
             rcvOacgComicDetail.isNestedScrollingEnabled = false
         }
         tvOacgComicDetailPopluar.text = String.format(getString(R.string.acgcomic_label_comic_popluar), currentComicInfo?.clickScore)
@@ -177,4 +181,12 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         }
     }
 
+    override fun start2ComicRead(id: String, lastChapterIndex: String) {
+        RouterUtils.getInstance()
+                .build(RouterConstants.PATH_COMIC_OACG_READ)
+                .withString(IntentConstant.OACG_COMIC_ID, id)
+                .withString(IntentConstant.OACG_COMIC_TITLE, currentComicInfo?.comicName)
+                .withString(IntentConstant.OACG_COMIC_CHAPTERID, lastChapterIndex)
+                .navigation()
+    }
 }

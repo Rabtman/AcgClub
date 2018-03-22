@@ -4,11 +4,13 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import butterknife.BindView
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.google.gson.Gson
 import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.base.constant.IntentConstant
 import com.rabtman.acgcomic.base.constant.SystemConstant
-import com.rabtman.acgcomic.mvp.model.dao.OacgComicDAO
+import com.rabtman.acgcomic.mvp.model.dao.ComicDAO
+import com.rabtman.acgcomic.mvp.model.entity.ComicCache
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
 import com.rabtman.acgcomic.mvp.ui.adapter.ComicCollectionAdapter
 import com.rabtman.common.base.SimpleFragment
@@ -38,10 +40,13 @@ class ComicCollectionFragment : SimpleFragment() {
         rcvOacgComicItem.layoutManager = GridLayoutManager(context, 3)
         rcvOacgComicItem.adapter = mAdapter
         mAdapter!!.setOnItemClickListener { adapter, view, position ->
-            val item = adapter.getItem(position) as OacgComicItem?
+            val item = adapter.getItem(position) as ComicCache?
             RouterUtils.getInstance()
                     .build(RouterConstants.PATH_COMIC_OACG_DETAIL)
-                    .withParcelable(IntentConstant.OACG_COMIC_ITEM, item)
+                    .withParcelable(
+                            IntentConstant.OACG_COMIC_ITEM,
+                            Gson().fromJson(item?.comicDetailJson, OacgComicItem::class.java)
+                    )
                     .navigation()
         }
         getOacgComicItems()
@@ -65,16 +70,16 @@ class ComicCollectionFragment : SimpleFragment() {
      * 获取收藏的所有番剧信息并显示出来
      */
     private fun getOacgComicItems() {
-        val dao = OacgComicDAO(
+        val dao = ComicDAO(
                 appComponent
                         .repositoryManager()
                         .obtainRealmConfig(SystemConstant.DB_NAME)
         )
-        mDisposable = dao.getOacgComicItems()
-                .compose(RxUtil.rxSchedulerHelper<List<OacgComicItem>>())
-                .subscribeWith(object : ResourceSubscriber<List<OacgComicItem>>() {
-                    override fun onNext(OacgComicItems: List<OacgComicItem>) {
-                        mAdapter!!.setNewData(OacgComicItems)
+        mDisposable = dao.getComicCacheList()
+                .compose(RxUtil.rxSchedulerHelper<List<ComicCache>>())
+                .subscribeWith(object : ResourceSubscriber<List<ComicCache>>() {
+                    override fun onNext(comicCacheList: List<ComicCache>) {
+                        mAdapter!!.setNewData(comicCacheList)
                     }
 
                     override fun onError(t: Throwable) {

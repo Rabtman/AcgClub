@@ -1,6 +1,6 @@
 package com.rabtman.acgcomic.mvp.model.dao
 
-import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
+import com.rabtman.acgcomic.mvp.model.entity.ComicCache
 import com.rabtman.common.utils.RxRealmUtils
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -10,41 +10,41 @@ import io.realm.RealmConfiguration
 /**
  * @author Rabtman
  */
-class OacgComicDAO(val config: RealmConfiguration) {
+class ComicDAO(val config: RealmConfiguration) {
 
-    fun saveOacgComicItem(item: OacgComicItem): Completable {
+    fun addComicCache(item: ComicCache): Completable {
         return RxRealmUtils.exec(config, { realm ->
             realm.executeTransactionAsync { r -> r.copyToRealmOrUpdate(item) }
         })
     }
 
-    fun deleteById(id: String): Completable {
+    fun deleteComicCacheById(id: String): Completable {
         return RxRealmUtils.exec(config, { realm ->
             realm.executeTransactionAsync { r ->
-                r.where(OacgComicItem::class.java)
-                        .equalTo("id", id)
+                r.where(ComicCache::class.java)
+                        .equalTo("comicId", id)
                         .findAll()
                         .deleteAllFromRealm()
             }
         })
     }
 
-    fun getOacgComicItemById(id: String): Flowable<OacgComicItem> {
+    fun getComicCacheById(id: String): Flowable<ComicCache> {
         Realm.getInstance(config).use { realm ->
-            val queryResult = realm.where(OacgComicItem::class.java)
-                    .equalTo("id", id)
+            val queryResult = realm.where(ComicCache::class.java)
+                    .equalTo("comicId", id)
                     .findFirst()
             return if (queryResult != null) {
                 Flowable.just(realm.copyFromRealm(queryResult))
             } else {
-                Flowable.empty()
+                Flowable.just(ComicCache())
             }
         }
     }
 
-    fun getOacgComicItems(): Flowable<List<OacgComicItem>> {
+    fun getComicCacheList(): Flowable<List<ComicCache>> {
         Realm.getInstance(config).use { realm ->
-            val queryResult = realm.where(OacgComicItem::class.java)
+            val queryResult = realm.where(ComicCache::class.java)
                     .findAll()
             return if (queryResult != null) {
                 Flowable.just(realm.copyFromRealm(queryResult))

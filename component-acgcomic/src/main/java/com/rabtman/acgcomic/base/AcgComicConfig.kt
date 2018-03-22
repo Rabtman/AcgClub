@@ -3,8 +3,7 @@ package com.rabtman.acgcomic.base
 import android.app.Application.ActivityLifecycleCallbacks
 import android.content.Context
 import com.rabtman.acgcomic.api.AcgComicService
-import com.rabtman.acgcomic.base.constant.SystemConstant.DB_NAME
-import com.rabtman.acgcomic.base.constant.SystemConstant.DB_VERSION
+import com.rabtman.acgcomic.base.constant.SystemConstant
 import com.rabtman.common.base.CommonApplicationLike.Lifecycle
 import com.rabtman.common.di.module.GlobeConfigModule.Builder
 import com.rabtman.common.integration.ConfigModule
@@ -29,8 +28,8 @@ class AcgComicConfig : ConfigModule {
         repositoryManager.injectRetrofitService(AcgComicService::class.java)
         repositoryManager.injectRealmConfigs(
                 RealmConfiguration.Builder()
-                        .name(DB_NAME)
-                        .schemaVersion(DB_VERSION)
+                        .name(SystemConstant.DB_NAME)
+                        .schemaVersion(SystemConstant.DB_VERSION)
                         .modules(Realm.getDefaultModule(), AcgComicRealmModule())
                         .build()
         )

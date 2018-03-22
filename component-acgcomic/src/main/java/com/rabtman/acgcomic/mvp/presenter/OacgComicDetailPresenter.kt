@@ -4,6 +4,7 @@ import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract.Model
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract.View
+import com.rabtman.acgcomic.mvp.model.entity.ComicCache
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
 import com.rabtman.common.base.CommonSubscriber
@@ -22,6 +23,9 @@ class OacgComicDetailPresenter @Inject
 constructor(model: OacgComicDetailContract.Model,
             rootView: OacgComicDetailContract.View) : BasePresenter<Model, View>(model, rootView) {
 
+    private var currentComicEpisodes: List<OacgComicEpisode>? = null
+    private var currentComicCache: ComicCache = ComicCache()
+
     fun getOacgComicDetail(comicId: String) {
         addSubscribe(
                 mModel.getComicDetail(comicId.toInt())
@@ -38,6 +42,7 @@ constructor(model: OacgComicDetailContract.Model,
 
                             override fun onNext(comicEpisodes: List<OacgComicEpisode>) {
                                 LogUtil.d("getOacgComicDetail" + comicEpisodes.toString())
+                                currentComicEpisodes = comicEpisodes
                                 mView.showComicDetail(comicEpisodes)
                             }
                         })
@@ -45,29 +50,109 @@ constructor(model: OacgComicDetailContract.Model,
     }
 
     /**
-     * 查询是否已经收藏过该漫画
+     * 根据历史记录获取当前应播放番剧
      */
-    fun isCollected(comicInfoId: String) {
+    private fun getNextChapterIndex(comicEpisodes: List<OacgComicEpisode>, lastChapterPos: Int): String {
+        return if (!validScheduleDetail(comicEpisodes)) {
+            ""
+        } else {
+            val nextChapterPos = getNextChapterPos(comicEpisodes, lastChapterPos)
+
+            //获取地址的同时，更新历史记录
+            updateScheduleReadRecord(comicEpisodes[nextChapterPos].comicId, nextChapterPos)
+
+            comicEpisodes[nextChapterPos].orderIdx
+        }
+    }
+
+    /**
+     * 获取下一个观看位置
+     */
+    private fun getNextChapterPos(comicEpisodes: List<OacgComicEpisode>, lastPos: Int): Int {
+        return if (!validScheduleDetail(comicEpisodes)) {
+            -1
+        } else {
+            if (lastPos >= comicEpisodes.size - 1) {
+                comicEpisodes.size - 1
+            } else {
+                lastPos + 1
+            }
+        }
+    }
+
+    /**
+     * 章节信息空校验
+     */
+    private fun validScheduleDetail(comicEpisodes: List<OacgComicEpisode>?): Boolean {
+        return comicEpisodes != null && comicEpisodes.isNotEmpty()
+    }
+
+    /**
+     * 记录上一次漫画观看章节
+     *
+     * @param lastChapterPos 上一次观看章节位置
+     */
+    fun updateScheduleReadRecord(comicId: String, lastChapterPos: Int) {
         addSubscribe(
-                mModel.getLocalOacgComicItemById(comicInfoId)
-                        .compose(RxUtil.rxSchedulerHelper())
-                        .subscribeWith(object : ResourceSubscriber<OacgComicItem>() {
-
-                            private var isCollected = false
-
-                            override fun onNext(item: OacgComicItem?) {
-                                isCollected = (item != null)
-                            }
-
-                            override fun onComplete() {
-                                mView.showCollectView(isCollected)
-                            }
-
-                            override fun onError(t: Throwable?) {
-                            }
-
-                        })
+                mModel.updateComicLastChapter(comicId, lastChapterPos)
+                        .subscribe({
+                            currentComicCache.comicId = comicId
+                            currentComicCache.chapterPos = lastChapterPos
+                            mView.showComicCacheStatus(currentComicCache)
+                        }, { throwable -> throwable.printStackTrace() })
         )
+    }
+
+    /**
+     * 查询该漫画的缓存信息
+     * @param isManualClick 是否主动点击
+     */
+    fun getCurrentComicCache(comicId: String, isManualClick: Boolean) {
+        if (currentComicCache.comicId.isEmpty()) {
+            addSubscribe(
+                    mModel.getComicCacheById(comicId)
+                            .compose(RxUtil.rxSchedulerHelper())
+                            .subscribeWith(object : ResourceSubscriber<ComicCache>() {
+
+                                override fun onNext(item: ComicCache) {
+                                    currentComicCache = item
+                                    mView.showComicCacheStatus(item)
+                                }
+
+                                override fun onComplete() {
+                                    currentComicEpisodes?.let { comicEpisodes ->
+                                        if (isManualClick) {
+                                            mView.start2ComicRead(
+                                                    comicId,
+                                                    getNextChapterIndex(
+                                                            comicEpisodes,
+                                                            getNextChapterPos(comicEpisodes, currentComicCache.chapterPos)
+                                                    )
+                                            )
+                                        }
+                                    }
+                                }
+
+                                override fun onError(t: Throwable) {
+                                    t.printStackTrace()
+                                    mView.showError(R.string.msg_error_unknown)
+                                }
+
+                            })
+            )
+        } else {
+            currentComicEpisodes?.let { comicEpisodes ->
+                if (isManualClick) {
+                    mView.start2ComicRead(
+                            comicId,
+                            getNextChapterIndex(
+                                    comicEpisodes,
+                                    getNextChapterPos(comicEpisodes, currentComicCache.chapterPos)
+                            )
+                    )
+                }
+            }
+        }
     }
 
     /**
@@ -75,9 +160,10 @@ constructor(model: OacgComicDetailContract.Model,
      */
     fun collectOrCancelComic(comicInfo: OacgComicItem, isCollected: Boolean) {
         addSubscribe(
-                mModel.addOrDeleteLocalOacgComicItem(comicInfo, isCollected.not())
+                mModel.collectComic(comicInfo, isCollected.not())
                         .subscribe({
-                            mView.showCollectView(isCollected.not())
+                            currentComicCache.isCollect = isCollected.not()
+                            mView.showComicCacheStatus(currentComicCache)
                             if (isCollected.not()) {
                                 mView.showMsg(R.string.msg_success_collect_add)
                             } else {

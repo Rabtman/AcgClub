@@ -3,8 +3,6 @@ package com.rabtman.acgcomic.mvp.model.entity
 import android.os.Parcel
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import io.realm.RealmObject
-import io.realm.annotations.PrimaryKey
 
 
 /**
@@ -21,8 +19,8 @@ data class OacgComicPage(
         @SerializedName("len") val len: Int = 0
 )
 
-open class OacgComicItem(
-        @PrimaryKey @SerializedName("id") var id: String = "",
+data class OacgComicItem(
+        @SerializedName("id") var id: String = "",
         @SerializedName("comic_name") var comicName: String = "",
         @SerializedName("comic_pic_240_320") var comicPicUrl: String = "",
         @SerializedName("comic_desc") var comicDesc: String = "",
@@ -34,7 +32,7 @@ open class OacgComicItem(
         @SerializedName("comic_theme_id_1") var comicThemeId1: String = "",
         @SerializedName("comic_theme_id_2") var comicThemeId2: String = "",
         @SerializedName("comic_theme_id_3") var comicThemeId3: String = ""
-) : RealmObject(), Parcelable {
+) : Parcelable {
 
     constructor(source: Parcel) : this(
             source.readString(),

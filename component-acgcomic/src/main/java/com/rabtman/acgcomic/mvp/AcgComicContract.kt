@@ -50,15 +50,19 @@ interface OacgComicDetailContract {
     interface View : IView {
         fun showComicDetail(comicInfos: List<OacgComicEpisode>?)
 
-        fun showCollectView(isCollected: Boolean)
+        fun showComicCacheStatus(comicCache: ComicCache)
+
+        fun start2ComicRead(id: String, lastChapterIndex: String)
     }
 
     interface Model : IModel {
         fun getComicDetail(comicId: Int): Flowable<List<OacgComicEpisode>>
 
-        fun getLocalOacgComicItemById(comicInfoId: String): Flowable<OacgComicItem>
+        fun getComicCacheById(comicId: String): Flowable<ComicCache>
 
-        fun addOrDeleteLocalOacgComicItem(comicInfo: OacgComicItem, isAdd: Boolean): Completable
+        fun collectComic(comicItem: OacgComicItem, isAdd: Boolean): Completable
+
+        fun updateComicLastChapter(comicId: String, lastChapterPos: Int): Completable
     }
 }
 

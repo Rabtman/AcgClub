@@ -1,6 +1,9 @@
 package com.rabtman.common.utils;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 
 /**
  * @author Rabtman
@@ -11,18 +14,25 @@ public class LogUtil {
   private static boolean mIsDebug = true;
 
   public static void init(Boolean isDebug) {
-    mIsDebug = isDebug;
+    init(isDebug, mTag);
   }
 
   public static void init(Boolean isDebug, String tag) {
     mIsDebug = isDebug;
     mTag = tag;
+    FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+        .tag(mTag)
+        .build();
+    Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
+      @Override
+      public boolean isLoggable(int priority, String tag) {
+        return mIsDebug;
+      }
+    });
   }
 
   public static void e(String tag, Object o) {
-    if (mIsDebug) {
-      Logger.e(tag, o);
-    }
+    Logger.e(tag, o);
   }
 
   public static void e(Object o) {
@@ -30,9 +40,7 @@ public class LogUtil {
   }
 
   public static void w(String tag, Object o) {
-    if (mIsDebug) {
-      Logger.w(tag, o);
-    }
+    Logger.w(tag, o);
   }
 
   public static void w(Object o) {
@@ -40,14 +48,10 @@ public class LogUtil {
   }
 
   public static void d(String msg) {
-    if (mIsDebug) {
-      Logger.d(msg);
-    }
+    Logger.d(msg);
   }
 
   public static void i(String msg) {
-    if (mIsDebug) {
-      Logger.i(msg);
-    }
+    Logger.i(msg);
   }
 }

@@ -246,23 +246,25 @@ public class ScheduleDetailPresenter extends
    * @param lastPos 上一次观看位置
    */
   public void updateScheduleReadRecord(final int lastPos) {
-    mModel.updateScheduleHistory(currentScheduleUrl, lastPos)
-        .subscribe(new Action() {
-          @Override
-          public void run() throws Exception {
-            if (currentScheduleHistory == null) {
-              currentScheduleHistory = new ScheduleHistory();
-            }
-            currentScheduleHistory.setScheduleUrl(currentScheduleUrl);
-            currentScheduleHistory.setLastRecord(lastPos);
-            mView.showLastReadRecord(lastPos);
-          }
-        }, new Consumer<Throwable>() {
-          @Override
-          public void accept(Throwable throwable) throws Exception {
-            throwable.printStackTrace();
-          }
-        });
+    addSubscribe(
+        mModel.updateScheduleHistory(currentScheduleUrl, lastPos)
+            .subscribe(new Action() {
+              @Override
+              public void run() throws Exception {
+                if (currentScheduleHistory == null) {
+                  currentScheduleHistory = new ScheduleHistory();
+                }
+                currentScheduleHistory.setScheduleUrl(currentScheduleUrl);
+                currentScheduleHistory.setLastRecord(lastPos);
+                mView.showLastReadRecord(lastPos);
+              }
+            }, new Consumer<Throwable>() {
+              @Override
+              public void accept(Throwable throwable) throws Exception {
+                throwable.printStackTrace();
+              }
+            })
+    );
   }
 
   /**

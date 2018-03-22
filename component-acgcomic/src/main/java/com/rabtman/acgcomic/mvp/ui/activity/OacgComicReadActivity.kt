@@ -30,7 +30,7 @@ import com.rabtman.router.RouterConstants
  * @author Rabtman
  */
 @Route(path = RouterConstants.PATH_COMIC_OACG_READ)
-class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), OacgComicEpisodeDetailContract.View, View.OnClickListener {
+class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), OacgComicEpisodeDetailContract.View {
 
     //漫画阅读控制栏
     @BindView(R2.id.layout_comic_top)
@@ -141,16 +141,19 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
         mPresenter.getEpisodeDetail(intent.getStringExtra(IntentConstant.OACG_COMIC_CHAPTERID).toInt())
     }
 
-    @OnClick(R2.id.btn_comic_back, R2.id.btn_comic_before, R2.id.btn_comic_next)
-    override fun onClick(view: View?) {
-        if (view == null) return
-        if (view.id == R.id.btn_comic_back) {
-            finish()
-        } else if (view.id == R.id.btn_comic_before) {
-            mPresenter.getPreEpisodeDetail()
-        } else if (view.id == R.id.btn_comic_next) {
-            mPresenter.getNextEpisodeDetail()
-        }
+    @OnClick(R2.id.btn_comic_back)
+    fun onBack() {
+        finish()
+    }
+
+    @OnClick(R2.id.btn_comic_before)
+    fun preComicEpisode() {
+        mPresenter.getPreEpisodeDetail()
+    }
+
+    @OnClick(R2.id.btn_comic_next)
+    fun nextComicEpisode() {
+        mPresenter.getNextEpisodeDetail()
     }
 
     override fun showEpisodeDetail(episodePage: OacgComicEpisodePage) {
