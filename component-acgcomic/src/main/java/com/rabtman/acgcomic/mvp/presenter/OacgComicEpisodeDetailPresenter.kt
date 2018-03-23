@@ -19,7 +19,9 @@ class OacgComicEpisodeDetailPresenter @Inject
 constructor(model: OacgComicEpisodeDetailContract.Model,
             rootView: OacgComicEpisodeDetailContract.View) : BasePresenter<OacgComicEpisodeDetailContract.Model, OacgComicEpisodeDetailContract.View>(model, rootView) {
     //当前漫画id
-    private var currentComicId = "-1"
+    private var curComicId = "-1"
+    //当前话
+    private var curIndex = 0
     //上一话
     private var preIndex = 0
     //下一话
@@ -28,7 +30,7 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
     private var currentComicCache: ComicCache = ComicCache()
 
     fun setComicId(comicId: String) {
-        currentComicId = comicId
+        curComicId = comicId
     }
 
     /**
@@ -50,7 +52,7 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
      */
     fun getEpisodeDetail(chapterIndex: Int) {
         addSubscribe(
-                mModel.getEpisodeDetail(currentComicId.toInt(), chapterIndex)
+                mModel.getEpisodeDetail(curComicId.toInt(), chapterIndex)
                         .compose(RxUtil.rxSchedulerHelper<OacgComicEpisodePage>())
                         .subscribeWith(object : CommonSubscriber<OacgComicEpisodePage>(mView) {
                             override fun onStart() {
@@ -64,6 +66,7 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
 
                             override fun onNext(comicEpisodePage: OacgComicEpisodePage) {
                                 preIndex = comicEpisodePage.preIndex.toInt()
+                                curIndex = comicEpisodePage.currIndex.toInt()
                                 nextIndex = comicEpisodePage.nextIndex.toInt()
 
                                 mView.showEpisodeDetail(comicEpisodePage)
@@ -77,7 +80,7 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
      */
     fun getCurrentComicCache() {
         addSubscribe(
-                mModel.getComicCacheById(currentComicId)
+                mModel.getComicCacheById(curComicId)
                         .compose(RxUtil.rxSchedulerHelper())
                         .subscribeWith(object : ResourceSubscriber<ComicCache>() {
 

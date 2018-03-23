@@ -1,8 +1,12 @@
-package com.rabtman.acgcomic.mvp
+package com.rabtman.acgcomic.mvp.model
 
 import com.google.gson.Gson
 import com.rabtman.acgcomic.api.AcgComicService
 import com.rabtman.acgcomic.base.constant.SystemConstant
+import com.rabtman.acgcomic.mvp.DmzjComicContract
+import com.rabtman.acgcomic.mvp.OacgComicContract
+import com.rabtman.acgcomic.mvp.OacgComicDetailContract
+import com.rabtman.acgcomic.mvp.OacgComicEpisodeDetailContract
 import com.rabtman.acgcomic.mvp.model.dao.ComicDAO
 import com.rabtman.acgcomic.mvp.model.entity.*
 import com.rabtman.common.base.mvp.BaseModel
