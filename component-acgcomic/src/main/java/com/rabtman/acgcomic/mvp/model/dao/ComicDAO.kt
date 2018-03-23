@@ -37,7 +37,7 @@ class ComicDAO(val config: RealmConfiguration) {
             return if (queryResult != null) {
                 Flowable.just(realm.copyFromRealm(queryResult))
             } else {
-                Flowable.just(ComicCache())
+                Flowable.just(ComicCache(comicId = id))
             }
         }
     }

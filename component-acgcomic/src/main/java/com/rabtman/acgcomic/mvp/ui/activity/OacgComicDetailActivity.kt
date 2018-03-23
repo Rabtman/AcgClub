@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.text.TextUtils
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
@@ -50,6 +51,8 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
     lateinit internal var btnOacgComicLike: ImageView
     @BindView(R2.id.btn_oacg_comic_read)
     lateinit internal var btnOacgComicRead: CardView
+    @BindView(R2.id.tv_oacg_comic_read)
+    lateinit internal var tvOacgComicRead: TextView
     @BindView(R2.id.collapsing_toolbar)
     lateinit internal var collapsingToolbarLayout: CollapsingToolbarLayout
     @BindView(R2.id.img_oacg_comic_title_bg)
@@ -76,7 +79,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
     lateinit internal var rcvOacgComicDetail: RecyclerView
 
     private var currentComicInfo: OacgComicItem? = null
-    private var episodeItemAdpater: OacgComicEpisodeItemAdapter? = null
+    private lateinit var episodeItemAdpater: OacgComicEpisodeItemAdapter
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerOacgComicDetailComponent.builder()
@@ -94,6 +97,12 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         StatusBarUtil.setTranslucentForImageView(this, 0, mToolBar)
     }
 
+    override fun onResume() {
+        super.onResume()
+        currentComicInfo?.let { it ->
+            mPresenter.getCurrentComicCache(it.id, false)
+        }
+    }
 
     override fun initData() {
         setToolBar(mToolBar, "")
@@ -102,7 +111,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         currentComicInfo = intent.getParcelableExtra(IntentConstant.OACG_COMIC_ITEM)
 
         currentComicInfo?.let { it ->
-            mPresenter.getCurrentComicCache(it.id, false)
+            episodeItemAdpater = OacgComicEpisodeItemAdapter()
             mPresenter.getOacgComicDetail(it.id)
         }
     }
@@ -123,11 +132,27 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
     }
 
     override fun showComicCacheStatus(comicCache: ComicCache) {
-        btnOacgComicLike.tag = comicCache.isCollect
-        if (comicCache.isCollect) {
-            btnOacgComicLike.setImageDrawable(ContextCompat.getDrawable(baseContext, R.drawable.ic_heart_solid))
-        } else {
-            btnOacgComicLike.setImageDrawable(ContextCompat.getDrawable(baseContext, R.drawable.ic_heart))
+        //是否有收藏
+        if (btnOacgComicLike.tag != comicCache.isCollect) {
+            btnOacgComicLike.tag = comicCache.isCollect
+            btnOacgComicLike.setImageDrawable(
+                    ContextCompat.getDrawable(
+                            baseContext,
+                            if (comicCache.isCollect) {
+                                R.drawable.ic_heart_solid
+                            } else {
+                                R.drawable.ic_heart
+                            }
+                    )
+            )
+        }
+        //更新历史观看记录
+        if (comicCache.chapterPos != -1 && episodeItemAdpater.data.isNotEmpty()) {
+            tvOacgComicRead.text = String.format(
+                    getString(R.string.acgcomic_label_comic_continue),
+                    episodeItemAdpater.data[comicCache.chapterPos].orderTitle
+            )
+            episodeItemAdpater.setRecordPos(comicCache.chapterPos)
         }
     }
 
@@ -156,11 +181,12 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         if (comicInfos == null || comicInfos.isEmpty()) {
             tvOacgComicDetailProc.setText(R.string.acgcomic_label_comic_no_proc)
         } else {
+            btnOacgComicRead.visibility = View.VISIBLE
             tvOacgComicDetailProc.text = String.format(getString(R.string.acgcomic_label_comic_update), currentComicInfo?.comicLastOrderidx)
             //选集内容
             layoutSceduleEpisode.visibility = android.view.View.VISIBLE
-            episodeItemAdpater = OacgComicEpisodeItemAdapter(comicInfos)
-            episodeItemAdpater?.setOnItemClickListener({ adapter, _, position ->
+            episodeItemAdpater.setNewData(comicInfos)
+            episodeItemAdpater.setOnItemClickListener({ adapter, _, position ->
                 val item = adapter.getItem(position) as OacgComicEpisode
                 mPresenter.updateScheduleReadRecord(item.comicId, position)
                 start2ComicRead(item.comicId, item.orderIdx)

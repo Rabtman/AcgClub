@@ -70,10 +70,16 @@ interface OacgComicEpisodeDetailContract {
 
     interface View : IView {
         fun showEpisodeDetail(episodePage: OacgComicEpisodePage)
+
+        fun showComicCache(comicCache: ComicCache)
     }
 
     interface Model : IModel {
         fun getEpisodeDetail(comicId: Int, chapterIndex: Int): Flowable<OacgComicEpisodePage>
+
+        fun getComicCacheById(comicId: String): Flowable<ComicCache>
+
+        fun updateComicLastRecord(comicId: String, lastChapterPos: Int, lastPagePos: Int): Completable
     }
 }
 

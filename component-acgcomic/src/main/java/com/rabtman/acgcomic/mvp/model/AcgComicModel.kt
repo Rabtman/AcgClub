@@ -84,9 +84,23 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
 @ActivityScope
 class OacgComicEpisodeDetailModel @Inject
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), OacgComicEpisodeDetailContract.Model {
+    private val DAO = ComicDAO(mRepositoryManager.obtainRealmConfig(SystemConstant.DB_NAME))
 
     override fun getEpisodeDetail(comicId: Int, chapterIndex: Int): Flowable<OacgComicEpisodePage> {
         return mRepositoryManager.obtainRetrofitService(AcgComicService::class.java)
                 .getOacgEpisodeDetail(comicId, chapterIndex)
+    }
+
+    override fun getComicCacheById(comicId: String): Flowable<ComicCache> {
+        return DAO.getComicCacheById(comicId)
+    }
+
+    override fun updateComicLastRecord(comicId: String, lastChapterPos: Int, lastPagePos: Int): Completable {
+        return DAO.getComicCacheById(comicId)
+                .flatMapCompletable({ comicCache ->
+                    comicCache.chapterPos = lastChapterPos
+                    comicCache.pagePos = lastPagePos
+                    DAO.addComicCache(comicCache)
+                })
     }
 }

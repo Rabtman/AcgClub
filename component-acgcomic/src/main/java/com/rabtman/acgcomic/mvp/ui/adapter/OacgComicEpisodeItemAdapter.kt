@@ -10,7 +10,7 @@ import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
  * @author Rabtman
  */
 
-class OacgComicEpisodeItemAdapter(data: List<OacgComicEpisode>) : BaseQuickAdapter<OacgComicEpisode, BaseViewHolder>(R.layout.acgcomic_item_oacg_comic_episode, data) {
+class OacgComicEpisodeItemAdapter : BaseQuickAdapter<OacgComicEpisode, BaseViewHolder>(R.layout.acgcomic_item_oacg_comic_episode, null) {
 
     //上次观看记录
     private var mLastRecordPos: Int = -1

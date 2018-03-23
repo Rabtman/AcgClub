@@ -10,7 +10,6 @@ import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
-import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxUtil
 import io.reactivex.subscribers.ResourceSubscriber
 import javax.inject.Inject
@@ -41,9 +40,11 @@ constructor(model: OacgComicDetailContract.Model,
                             }
 
                             override fun onNext(comicEpisodes: List<OacgComicEpisode>) {
-                                LogUtil.d("getOacgComicDetail" + comicEpisodes.toString())
                                 currentComicEpisodes = comicEpisodes
                                 mView.showComicDetail(comicEpisodes)
+                                if (currentComicCache.chapterPos != -1) {
+                                    mView.showComicCacheStatus(currentComicCache)
+                                }
                             }
                         })
         )
@@ -96,7 +97,6 @@ constructor(model: OacgComicDetailContract.Model,
         addSubscribe(
                 mModel.updateComicLastChapter(comicId, lastChapterPos)
                         .subscribe({
-                            currentComicCache.comicId = comicId
                             currentComicCache.chapterPos = lastChapterPos
                             mView.showComicCacheStatus(currentComicCache)
                         }, { throwable -> throwable.printStackTrace() })
@@ -116,18 +116,15 @@ constructor(model: OacgComicDetailContract.Model,
 
                                 override fun onNext(item: ComicCache) {
                                     currentComicCache = item
-                                    mView.showComicCacheStatus(item)
                                 }
 
                                 override fun onComplete() {
                                     currentComicEpisodes?.let { comicEpisodes ->
+                                        mView.showComicCacheStatus(currentComicCache)
                                         if (isManualClick) {
                                             mView.start2ComicRead(
                                                     comicId,
-                                                    getNextChapterIndex(
-                                                            comicEpisodes,
-                                                            getNextChapterPos(comicEpisodes, currentComicCache.chapterPos)
-                                                    )
+                                                    getNextChapterIndex(comicEpisodes, currentComicCache.chapterPos)
                                             )
                                         }
                                     }
@@ -142,13 +139,11 @@ constructor(model: OacgComicDetailContract.Model,
             )
         } else {
             currentComicEpisodes?.let { comicEpisodes ->
+                mView.showComicCacheStatus(currentComicCache)
                 if (isManualClick) {
                     mView.start2ComicRead(
                             comicId,
-                            getNextChapterIndex(
-                                    comicEpisodes,
-                                    getNextChapterPos(comicEpisodes, currentComicCache.chapterPos)
-                            )
+                            getNextChapterIndex(comicEpisodes, currentComicCache.chapterPos)
                     )
                 }
             }

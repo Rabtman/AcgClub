@@ -5,7 +5,6 @@ import com.rabtman.acgcomic.mvp.model.entity.OacgComicPage
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.FragmentScope
-import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxUtil
 import javax.inject.Inject
 
@@ -50,7 +49,6 @@ class OacgComicPresenter
                             }
 
                             override fun onNext(oacgComicPage: OacgComicPage) {
-                                LogUtil.d("getComicInfos" + oacgComicPage.toString())
                                 mView.showComicInfos(oacgComicPage.oacgComicItems)
                             }
                         })

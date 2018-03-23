@@ -39,8 +39,7 @@
 
     <activity
       android:name=".mvp.ui.activity.OacgComicReadActivity"
-      android:screenOrientation="portrait"
-      android:theme="@style/AppFullScreenTheme" />
+      android:screenOrientation="portrait" />
 
     <meta-data
       android:name="com.rabtman.acgcomic.base.AcgComicConfig"

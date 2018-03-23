@@ -141,12 +141,14 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_toRightOf="@id/img_card"
+            android:visibility="gone"
             app:cardBackgroundColor="@color/colorStress"
             app:cardCornerRadius="20dp"
             app:cardUseCompatPadding="true"
             app:elevation="16dp">
 
             <TextView
+              android:id="@+id/tv_oacg_comic_read"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
               android:layout_gravity="center"

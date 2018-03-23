@@ -19,12 +19,16 @@ import com.rabtman.acgcomic.base.constant.IntentConstant
 import com.rabtman.acgcomic.di.DaggerOacgComicEpisodeDetailComponent
 import com.rabtman.acgcomic.di.OacgComicEpisodeDetailModule
 import com.rabtman.acgcomic.mvp.OacgComicEpisodeDetailContract
+import com.rabtman.acgcomic.mvp.model.entity.ComicCache
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisodePage
 import com.rabtman.acgcomic.mvp.presenter.OacgComicEpisodeDetailPresenter
 import com.rabtman.acgcomic.mvp.ui.adapter.OacgComicReadAdapter
 import com.rabtman.common.base.BaseActivity
 import com.rabtman.common.di.component.AppComponent
+import com.rabtman.common.utils.LogUtil
 import com.rabtman.router.RouterConstants
+import kotlin.concurrent.timerTask
+
 
 /**
  * @author Rabtman
@@ -85,6 +89,20 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
         return R.layout.acgcomic_activity_oacg_comic_content
     }
 
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+        if (hasFocus) {
+            val decorView = window.decorView
+            //沉浸
+            decorView.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    or View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    or View.SYSTEM_UI_FLAG_FULLSCREEN
+                    or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY)
+        }
+    }
+
     override fun setStatusBar() {}
 
     override fun initData() {
@@ -100,6 +118,7 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
         rcvOacgComicContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
+                LogUtil.d("newState:" + newState)
                 val pageNo = layoutManager.findFirstVisibleItemPosition()
                 if (maxPage > 0 && maxPage == layoutManager.findLastCompletelyVisibleItemPosition() + 1) {
                     currentPage = maxPage - 1
@@ -137,7 +156,7 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
 
         })
 
-        mPresenter.setComicId(intent.getStringExtra(IntentConstant.OACG_COMIC_ID).toInt())
+        mPresenter.setComicId(intent.getStringExtra(IntentConstant.OACG_COMIC_ID))
         mPresenter.getEpisodeDetail(intent.getStringExtra(IntentConstant.OACG_COMIC_CHAPTERID).toInt())
     }
 
@@ -184,6 +203,14 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
             tvComicPos.text = "1"
         }
         tvComicCount.text = maxPage.toString()
+    }
+
+    private val comicCacheTask = timerTask {
+
+    }
+
+    override fun showComicCache(comicCache: ComicCache) {
+
     }
 
     /**
