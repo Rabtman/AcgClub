@@ -5,7 +5,6 @@ import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.*
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import butterknife.BindView
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -111,12 +110,6 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
         mLayoutManager = LinearLayoutManager(this.context)
         mRcvComicMain?.layoutManager = mLayoutManager
         mRcvComicMain?.adapter = mOacgComicItemAdapter
-        mRcvComicMain?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                Log.d("onscroll", "recyclerview------>x:$dx ,y:$dy")
-            }
-        })
 
         //下拉刷新
         mSwipeRefresh?.setOnRefreshListener({ mPresenter.getComicInfos() })

@@ -6,7 +6,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.rabtman.acgschedule.R;
-import com.rabtman.acgschedule.mvp.model.entity.ScheduleCollection;
+import com.rabtman.acgschedule.mvp.model.entity.ScheduleCache;
 import com.rabtman.common.imageloader.ImageLoader;
 import com.rabtman.common.imageloader.glide.GlideImageConfig;
 import com.rabtman.common.imageloader.glide.transformations.RoundedCornersTransformation;
@@ -17,7 +17,7 @@ import com.rabtman.common.utils.DimenUtils;
  */
 
 public class ScheduleCollectionAdapter extends
-    BaseQuickAdapter<ScheduleCollection, BaseViewHolder> {
+    BaseQuickAdapter<ScheduleCache, BaseViewHolder> {
 
   private ImageLoader mImageLoader;
 
@@ -28,7 +28,7 @@ public class ScheduleCollectionAdapter extends
 
 
   @Override
-  protected void convert(BaseViewHolder helper, ScheduleCollection item) {
+  protected void convert(BaseViewHolder helper, ScheduleCache item) {
     helper.setText(R.id.tv_schedule_collection_name, item.getName());
     mImageLoader.loadImage(mContext,
         GlideImageConfig

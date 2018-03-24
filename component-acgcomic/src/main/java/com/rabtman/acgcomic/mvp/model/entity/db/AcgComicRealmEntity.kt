@@ -1,4 +1,4 @@
-package com.rabtman.acgcomic.mvp.model.entity
+package com.rabtman.acgcomic.mvp.model.entity.db
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
@@ -26,6 +26,10 @@ open class ComicCache(
         var comicDetailJson: String = "",
         var comicSource: String = "",
         var isCollect: Boolean = false,
-        var chapterPos: Int = -1,
+        var chapterPos: Int = 0,
         var pagePos: Int = 0
-) : RealmObject()
+) : RealmObject() {
+    override fun toString(): String {
+        return "ComicCache(comicId='$comicId', comicName='$comicName', comicImgUrl='$comicImgUrl', comicDetailJson='$comicDetailJson', comicSource='$comicSource', isCollect=$isCollect, chapterPos=$chapterPos, pagePos=$pagePos)"
+    }
+}

@@ -10,8 +10,6 @@ import com.rabtman.common.integration.ConfigModule
 import com.rabtman.common.integration.IRepositoryManager
 import io.realm.Realm
 import io.realm.RealmConfiguration
-import okhttp3.logging.HttpLoggingInterceptor
-import okhttp3.logging.HttpLoggingInterceptor.Level
 
 /**
  * @author Rabtman
@@ -20,8 +18,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level
 class AcgComicConfig : ConfigModule {
 
     override fun applyOptions(context: Context, builder: Builder) {
-        builder.addInterceptor(HttpLoggingInterceptor().setLevel(Level.BODY))
-
+        //builder.addInterceptor(HttpLoggingInterceptor().setLevel(Level.BODY))
     }
 
     override fun registerComponents(context: Context, repositoryManager: IRepositoryManager) {

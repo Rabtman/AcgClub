@@ -10,8 +10,8 @@ import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.base.constant.IntentConstant
 import com.rabtman.acgcomic.base.constant.SystemConstant
 import com.rabtman.acgcomic.mvp.model.dao.ComicDAO
-import com.rabtman.acgcomic.mvp.model.entity.ComicCache
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
+import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.acgcomic.mvp.ui.adapter.ComicCollectionAdapter
 import com.rabtman.common.base.SimpleFragment
 import com.rabtman.common.utils.RxUtil
@@ -28,7 +28,7 @@ class ComicCollectionFragment : SimpleFragment() {
 
     @BindView(R2.id.rcv_comic_collection)
     internal lateinit var rcvOacgComicItem: RecyclerView
-    private var mAdapter: ComicCollectionAdapter? = null
+    private lateinit var mAdapter: ComicCollectionAdapter
     private var mDisposable: Disposable? = null
 
     override fun getLayoutId(): Int {
@@ -39,7 +39,7 @@ class ComicCollectionFragment : SimpleFragment() {
         mAdapter = ComicCollectionAdapter(appComponent.imageLoader())
         rcvOacgComicItem.layoutManager = GridLayoutManager(context, 3)
         rcvOacgComicItem.adapter = mAdapter
-        mAdapter!!.setOnItemClickListener { adapter, view, position ->
+        mAdapter.setOnItemClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as ComicCache?
             RouterUtils.getInstance()
                     .build(RouterConstants.PATH_COMIC_OACG_DETAIL)
@@ -79,7 +79,7 @@ class ComicCollectionFragment : SimpleFragment() {
                 .compose(RxUtil.rxSchedulerHelper<List<ComicCache>>())
                 .subscribeWith(object : ResourceSubscriber<List<ComicCache>>() {
                     override fun onNext(comicCacheList: List<ComicCache>) {
-                        mAdapter!!.setNewData(comicCacheList)
+                        mAdapter.setNewData(comicCacheList)
                     }
 
                     override fun onError(t: Throwable) {

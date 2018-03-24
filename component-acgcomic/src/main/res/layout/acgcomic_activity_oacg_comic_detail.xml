@@ -157,7 +157,7 @@
               android:ellipsize="end"
               android:gravity="center"
               android:maxLines="1"
-              android:text="开始阅读"
+              android:text="@string/acgcomic_label_comic_start"
               android:textColor="@android:color/white" />
           </android.support.v7.widget.CardView>
 

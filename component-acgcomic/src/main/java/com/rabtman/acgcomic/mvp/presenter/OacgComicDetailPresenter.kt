@@ -4,9 +4,9 @@ import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract.Model
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract.View
-import com.rabtman.acgcomic.mvp.model.entity.ComicCache
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
+import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
@@ -51,37 +51,6 @@ constructor(model: OacgComicDetailContract.Model,
     }
 
     /**
-     * 根据历史记录获取当前应播放番剧
-     */
-    private fun getNextChapterIndex(comicEpisodes: List<OacgComicEpisode>, lastChapterPos: Int): String {
-        return if (!validScheduleDetail(comicEpisodes)) {
-            ""
-        } else {
-            val nextChapterPos = getNextChapterPos(comicEpisodes, lastChapterPos)
-
-            //获取地址的同时，更新历史记录
-            updateScheduleReadRecord(comicEpisodes[nextChapterPos].comicId, nextChapterPos)
-
-            comicEpisodes[nextChapterPos].orderIdx
-        }
-    }
-
-    /**
-     * 获取下一个观看位置
-     */
-    private fun getNextChapterPos(comicEpisodes: List<OacgComicEpisode>, lastPos: Int): Int {
-        return if (!validScheduleDetail(comicEpisodes)) {
-            -1
-        } else {
-            if (lastPos >= comicEpisodes.size - 1) {
-                comicEpisodes.size - 1
-            } else {
-                lastPos + 1
-            }
-        }
-    }
-
-    /**
      * 章节信息空校验
      */
     private fun validScheduleDetail(comicEpisodes: List<OacgComicEpisode>?): Boolean {
@@ -93,7 +62,7 @@ constructor(model: OacgComicDetailContract.Model,
      *
      * @param lastChapterPos 上一次观看章节位置
      */
-    fun updateScheduleReadRecord(comicId: String, lastChapterPos: Int) {
+    fun updateScheduleReadChapter(comicId: String, lastChapterPos: Int) {
         addSubscribe(
                 mModel.updateComicLastChapter(comicId, lastChapterPos)
                         .subscribe({
@@ -108,7 +77,15 @@ constructor(model: OacgComicDetailContract.Model,
      * @param isManualClick 是否主动点击
      */
     fun getCurrentComicCache(comicId: String, isManualClick: Boolean) {
-        if (currentComicCache.comicId.isEmpty()) {
+        if (currentComicCache.comicId.isNotEmpty() && isManualClick) {
+            currentComicEpisodes?.let { comicEpisodes ->
+                mView.showComicCacheStatus(currentComicCache)
+                mView.start2ComicRead(
+                        comicId,
+                        comicEpisodes[currentComicCache.chapterPos].orderIdx
+                )
+            }
+        } else {
             addSubscribe(
                     mModel.getComicCacheById(comicId)
                             .compose(RxUtil.rxSchedulerHelper())
@@ -124,7 +101,7 @@ constructor(model: OacgComicDetailContract.Model,
                                         if (isManualClick) {
                                             mView.start2ComicRead(
                                                     comicId,
-                                                    getNextChapterIndex(comicEpisodes, currentComicCache.chapterPos)
+                                                    comicEpisodes[currentComicCache.chapterPos].orderIdx
                                             )
                                         }
                                     }
@@ -137,16 +114,6 @@ constructor(model: OacgComicDetailContract.Model,
 
                             })
             )
-        } else {
-            currentComicEpisodes?.let { comicEpisodes ->
-                mView.showComicCacheStatus(currentComicCache)
-                if (isManualClick) {
-                    mView.start2ComicRead(
-                            comicId,
-                            getNextChapterIndex(comicEpisodes, currentComicCache.chapterPos)
-                    )
-                }
-            }
         }
     }
 

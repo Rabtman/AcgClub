@@ -19,7 +19,6 @@ import com.rabtman.acgcomic.base.constant.IntentConstant
 import com.rabtman.acgcomic.di.DaggerOacgComicEpisodeDetailComponent
 import com.rabtman.acgcomic.di.OacgComicEpisodeDetailModule
 import com.rabtman.acgcomic.mvp.OacgComicEpisodeDetailContract
-import com.rabtman.acgcomic.mvp.model.entity.ComicCache
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisodePage
 import com.rabtman.acgcomic.mvp.presenter.OacgComicEpisodeDetailPresenter
 import com.rabtman.acgcomic.mvp.ui.adapter.OacgComicReadAdapter
@@ -27,7 +26,6 @@ import com.rabtman.common.base.BaseActivity
 import com.rabtman.common.di.component.AppComponent
 import com.rabtman.common.utils.LogUtil
 import com.rabtman.router.RouterConstants
-import kotlin.concurrent.timerTask
 
 
 /**
@@ -71,9 +69,9 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
     lateinit var layoutManager: LinearLayoutManager
     private lateinit var oacgComicReadAdapter: OacgComicReadAdapter
     //当前漫画名称
-    private var currentComicTitle = ""
-    //当前漫画页数
-    private var currentPage = 0
+    private var curComicTitle = ""
+    //当前漫画页面下标
+    private var curPagePos = 0
     //当前漫画总页数
     private var maxPage = 0
 
@@ -106,7 +104,7 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
     override fun setStatusBar() {}
 
     override fun initData() {
-        currentComicTitle = intent.getStringExtra(IntentConstant.OACG_COMIC_TITLE)
+        curComicTitle = intent.getStringExtra(IntentConstant.OACG_COMIC_TITLE)
 
         oacgComicReadAdapter = OacgComicReadAdapter(mAppComponent.imageLoader())
         oacgComicReadAdapter.setOnItemClickListener { _, _, _ ->
@@ -119,15 +117,20 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 LogUtil.d("newState:" + newState)
-                val pageNo = layoutManager.findFirstVisibleItemPosition()
+
+                val pos = layoutManager.findFirstVisibleItemPosition()
                 if (maxPage > 0 && maxPage == layoutManager.findLastCompletelyVisibleItemPosition() + 1) {
-                    currentPage = maxPage - 1
+                    curPagePos = maxPage - 1
                     seekComicProc.progress = maxPage - 1
                     tvComicPos.text = maxPage.toString()
-                } else if (currentPage != pageNo) {
-                    currentPage = pageNo
-                    seekComicProc.progress = pageNo
-                    tvComicPos.text = (pageNo + 1).toString()
+                } else if (curPagePos != pos) {
+                    curPagePos = pos
+                    seekComicProc.progress = pos
+                    tvComicPos.text = (pos + 1).toString()
+                }
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    mPresenter.updateScheduleReadRecord(curPagePos)
                 }
             }
         })
@@ -137,17 +140,18 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
                 //先停止滑动
                 rcvOacgComicContent.stopScroll()
                 tvComicPosTip.visibility = View.VISIBLE
-                tvComicPosTip.text = (currentPage + 1).toString()
+                tvComicPosTip.text = (curPagePos + 1).toString()
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
-                rcvOacgComicContent.scrollToPosition(currentPage)
+                rcvOacgComicContent.scrollToPosition(curPagePos)
+                mPresenter.updateScheduleReadRecord(curPagePos)
                 tvComicPosTip.visibility = View.GONE
             }
 
             override fun onProgressChanged(seekbar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
-                    currentPage = progress
+                    curPagePos = progress
                     val displayPos = (progress + 1).toString()
                     tvComicPosTip.text = displayPos
                     tvComicPos.text = displayPos
@@ -156,8 +160,9 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
 
         })
 
-        mPresenter.setComicId(intent.getStringExtra(IntentConstant.OACG_COMIC_ID))
-        mPresenter.getEpisodeDetail(intent.getStringExtra(IntentConstant.OACG_COMIC_CHAPTERID).toInt())
+        mPresenter.setIntentData(intent.getStringExtra(IntentConstant.OACG_COMIC_ID),
+                intent.getStringExtra(IntentConstant.OACG_COMIC_CHAPTERID))
+        mPresenter.getCurrentComicCache()
     }
 
     @OnClick(R2.id.btn_comic_back)
@@ -175,7 +180,7 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
         mPresenter.getNextEpisodeDetail()
     }
 
-    override fun showEpisodeDetail(episodePage: OacgComicEpisodePage) {
+    override fun showEpisodeDetail(episodePage: OacgComicEpisodePage, lastPagePos: Int) {
         layoutComicBottom.visibility = View.VISIBLE
         //是否存在上一话
         if (episodePage.preIndex.toInt() <= 0) {
@@ -189,7 +194,7 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
         } else {
             btnComicNext.visibility = View.VISIBLE
         }
-        tvComicTitle.text = currentComicTitle
+        tvComicTitle.text = curComicTitle
         tvComicTitle.append(" ${episodePage.currTitle}")
         oacgComicReadAdapter.setNewData(episodePage.pageContent)
         if (episodePage.pageContent == null || episodePage.pageContent.isEmpty()) {
@@ -197,20 +202,12 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
         } else {
             maxPage = episodePage.pageContent.size
             //每次刷新重置控件
-            rcvOacgComicContent.scrollToPosition(0)
-            seekComicProc.progress = 1
+            rcvOacgComicContent.scrollToPosition(lastPagePos)
+            seekComicProc.progress = lastPagePos
             seekComicProc.max = maxPage - 1
-            tvComicPos.text = "1"
+            tvComicPos.text = (lastPagePos + 1).toString()
         }
         tvComicCount.text = maxPage.toString()
-    }
-
-    private val comicCacheTask = timerTask {
-
-    }
-
-    override fun showComicCache(comicCache: ComicCache) {
-
     }
 
     /**

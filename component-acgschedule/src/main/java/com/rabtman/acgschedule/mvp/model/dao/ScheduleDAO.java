@@ -1,7 +1,6 @@
 package com.rabtman.acgschedule.mvp.model.dao;
 
-import com.rabtman.acgschedule.mvp.model.entity.ScheduleCollection;
-import com.rabtman.acgschedule.mvp.model.entity.ScheduleHistory;
+import com.rabtman.acgschedule.mvp.model.entity.ScheduleCache;
 import com.rabtman.common.utils.RxRealmUtils;
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
@@ -23,7 +22,7 @@ public class ScheduleDAO {
     this.realmConfiguration = realmConfiguration;
   }
 
-  public Completable addScheduleCollection(final ScheduleCollection item) {
+  public Completable addScheduleCache(final ScheduleCache item) {
     return RxRealmUtils.exec(realmConfiguration, new Consumer<Realm>() {
       @Override
       public void accept(Realm realm) throws Exception {
@@ -37,28 +36,14 @@ public class ScheduleDAO {
     });
   }
 
-  public Completable addScheduleHistory(final ScheduleHistory item) {
+  public Completable deleteScheduleCacheByUrl(final String url) {
     return RxRealmUtils.exec(realmConfiguration, new Consumer<Realm>() {
       @Override
       public void accept(Realm realm) throws Exception {
         realm.executeTransactionAsync(new Transaction() {
           @Override
           public void execute(Realm r) {
-            r.copyToRealmOrUpdate(item);
-          }
-        });
-      }
-    });
-  }
-
-  public Completable deleteByUrl(final String url) {
-    return RxRealmUtils.exec(realmConfiguration, new Consumer<Realm>() {
-      @Override
-      public void accept(Realm realm) throws Exception {
-        realm.executeTransactionAsync(new Transaction() {
-          @Override
-          public void execute(Realm r) {
-            r.where(ScheduleCollection.class)
+            r.where(ScheduleCache.class)
                 .equalTo("scheduleUrl", url)
                 .findAll()
                 .deleteAllFromRealm();
@@ -68,33 +53,20 @@ public class ScheduleDAO {
     });
   }
 
-  public Flowable<ScheduleCollection> getScheduleCollectionByUrl(String url) {
+  public Flowable<ScheduleCache> getScheduleCacheByUrl(String url) {
     try (final Realm realm = Realm.getInstance(realmConfiguration)) {
-      ScheduleCollection queryResult = realm.where(ScheduleCollection.class)
-          .equalTo("scheduleUrl", url)
-          .findFirst();
-      if (queryResult != null) {
-        return Flowable.just(realm.copyFromRealm(queryResult));
-      } else {
-        return Flowable.empty();
-      }
-    }
-  }
-
-  public Flowable<ScheduleHistory> getScheduleHistoryByUrl(String url) {
-    try (final Realm realm = Realm.getInstance(realmConfiguration)) {
-      ScheduleHistory queryResult = realm.where(ScheduleHistory.class)
+      ScheduleCache queryResult = realm.where(ScheduleCache.class)
           .equalTo("scheduleUrl", url)
           .findFirst();
       return Flowable.just(
-          queryResult == null ? new ScheduleHistory(url, -1) : realm.copyFromRealm(queryResult)
+          queryResult == null ? new ScheduleCache(url, -1) : realm.copyFromRealm(queryResult)
       );
     }
   }
 
-  public Flowable<List<ScheduleCollection>> getScheduleCollections() {
+  public Flowable<List<ScheduleCache>> getScheduleCaches() {
     try (final Realm realm = Realm.getInstance(realmConfiguration)) {
-      RealmResults<ScheduleCollection> queryResult = realm.where(ScheduleCollection.class)
+      RealmResults<ScheduleCache> queryResult = realm.where(ScheduleCache.class)
           .findAll();
       if (queryResult != null) {
         return Flowable.just(realm.copyFromRealm(queryResult));

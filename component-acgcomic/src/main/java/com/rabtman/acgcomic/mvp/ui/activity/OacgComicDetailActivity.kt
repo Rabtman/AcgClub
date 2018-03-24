@@ -23,9 +23,9 @@ import com.rabtman.acgcomic.base.constant.IntentConstant
 import com.rabtman.acgcomic.di.DaggerOacgComicDetailComponent
 import com.rabtman.acgcomic.di.OacgComicDetailModule
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract
-import com.rabtman.acgcomic.mvp.model.entity.ComicCache
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
+import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.acgcomic.mvp.presenter.OacgComicDetailPresenter
 import com.rabtman.acgcomic.mvp.ui.adapter.OacgComicEpisodeItemAdapter
 import com.rabtman.common.base.BaseActivity
@@ -147,12 +147,16 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
             )
         }
         //更新历史观看记录
-        if (comicCache.chapterPos != -1 && episodeItemAdpater.data.isNotEmpty()) {
-            tvOacgComicRead.text = String.format(
-                    getString(R.string.acgcomic_label_comic_continue),
-                    episodeItemAdpater.data[comicCache.chapterPos].orderTitle
-            )
-            episodeItemAdpater.setRecordPos(comicCache.chapterPos)
+        if (episodeItemAdpater.data.isNotEmpty()) {
+            if (comicCache.chapterPos == 0 && comicCache.pagePos == 0) {
+                tvOacgComicRead.text = getString(R.string.acgcomic_label_comic_start)
+            } else {
+                tvOacgComicRead.text = String.format(
+                        getString(R.string.acgcomic_label_comic_continue),
+                        episodeItemAdpater.data[comicCache.chapterPos].orderTitle
+                )
+                episodeItemAdpater.setRecordPos(comicCache.chapterPos)
+            }
         }
     }
 
@@ -188,7 +192,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
             episodeItemAdpater.setNewData(comicInfos)
             episodeItemAdpater.setOnItemClickListener({ adapter, _, position ->
                 val item = adapter.getItem(position) as OacgComicEpisode
-                mPresenter.updateScheduleReadRecord(item.comicId, position)
+                mPresenter.updateScheduleReadChapter(item.comicId, position)
                 start2ComicRead(item.comicId, item.orderIdx)
             })
             val layoutManager = GridLayoutManager(this, 4)

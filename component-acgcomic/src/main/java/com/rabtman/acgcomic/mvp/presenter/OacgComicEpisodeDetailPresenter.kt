@@ -1,14 +1,16 @@
 package com.rabtman.acgcomic.mvp.presenter
 
-import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.mvp.OacgComicEpisodeDetailContract
-import com.rabtman.acgcomic.mvp.model.entity.ComicCache
+import com.rabtman.acgcomic.mvp.model.dto.ComicReadRecord
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisodePage
+import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
+import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxUtil
-import io.reactivex.subscribers.ResourceSubscriber
+import io.reactivex.Flowable
+import io.reactivex.functions.BiFunction
 import javax.inject.Inject
 
 /**
@@ -29,8 +31,9 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
 
     private var currentComicCache: ComicCache = ComicCache()
 
-    fun setComicId(comicId: String) {
+    fun setIntentData(comicId: String, comicChapter: String) {
         curComicId = comicId
+        curIndex = comicChapter.toInt()
     }
 
     /**
@@ -54,6 +57,9 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
         addSubscribe(
                 mModel.getEpisodeDetail(curComicId.toInt(), chapterIndex)
                         .compose(RxUtil.rxSchedulerHelper<OacgComicEpisodePage>())
+                        .doOnNext { episodePage ->
+                            LogUtil.d("doAfterNext")
+                        }
                         .subscribeWith(object : CommonSubscriber<OacgComicEpisodePage>(mView) {
                             override fun onStart() {
                                 super.onStart()
@@ -68,8 +74,8 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
                                 preIndex = comicEpisodePage.preIndex.toInt()
                                 curIndex = comicEpisodePage.currIndex.toInt()
                                 nextIndex = comicEpisodePage.nextIndex.toInt()
-
-                                mView.showEpisodeDetail(comicEpisodePage)
+                                LogUtil.d("showEpisodeDetail")
+                                mView.showEpisodeDetail(comicEpisodePage, 0)
                             }
                         })
         )
@@ -80,23 +86,30 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
      */
     fun getCurrentComicCache() {
         addSubscribe(
-                mModel.getComicCacheById(curComicId)
-                        .compose(RxUtil.rxSchedulerHelper())
-                        .subscribeWith(object : ResourceSubscriber<ComicCache>() {
-
-                            override fun onNext(item: ComicCache) {
-                                currentComicCache = item
+                Flowable.zip(
+                        mModel.getComicCacheByChapter(curComicId, curIndex - 1),
+                        mModel.getEpisodeDetail(curComicId.toInt(), curIndex),
+                        BiFunction<ComicCache, OacgComicEpisodePage, ComicReadRecord> { comicCache, pageData ->
+                            ComicReadRecord(pageData, comicCache)
+                        }
+                ).compose(RxUtil.rxSchedulerHelper())
+                        .subscribeWith(object : CommonSubscriber<ComicReadRecord>(mView) {
+                            override fun onStart() {
+                                mView.showLoading()
+                                super.onStart()
                             }
 
                             override fun onComplete() {
-
+                                mView.hideLoading()
                             }
 
-                            override fun onError(t: Throwable) {
-                                t.printStackTrace()
-                                mView.showError(R.string.msg_error_unknown)
+                            override fun onNext(comicReadRecord: ComicReadRecord) {
+                                val pageData = comicReadRecord.pageData
+                                preIndex = pageData.preIndex.toInt()
+                                curIndex = pageData.currIndex.toInt()
+                                nextIndex = pageData.nextIndex.toInt()
+                                mView.showEpisodeDetail(pageData, comicReadRecord.cache.pagePos)
                             }
-
                         })
         )
     }
@@ -108,7 +121,11 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
      * @param lastPagePos 上一次观看页面位置
      */
     fun updateScheduleReadRecord(lastPagePos: Int) {
-
+        addSubscribe(
+                mModel.updateComicLastRecord(curComicId, curIndex - 1, lastPagePos)
+                        .subscribe({
+                        }, { throwable -> throwable.printStackTrace() })
+        )
     }
 
 }

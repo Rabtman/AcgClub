@@ -1,6 +1,13 @@
 package com.rabtman.acgcomic.di
 
-import com.rabtman.acgcomic.mvp.*
+import com.rabtman.acgcomic.mvp.DmzjComicContract
+import com.rabtman.acgcomic.mvp.OacgComicContract
+import com.rabtman.acgcomic.mvp.OacgComicDetailContract
+import com.rabtman.acgcomic.mvp.OacgComicEpisodeDetailContract
+import com.rabtman.acgcomic.mvp.model.DmzjComicModel
+import com.rabtman.acgcomic.mvp.model.OacgComicDetailModel
+import com.rabtman.acgcomic.mvp.model.OacgComicEpisodeDetailModel
+import com.rabtman.acgcomic.mvp.model.OacgComicModel
 import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.di.scope.FragmentScope
 import dagger.Module

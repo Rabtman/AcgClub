@@ -12,7 +12,7 @@ import com.rabtman.acgschedule.R2;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
 import com.rabtman.acgschedule.base.constant.SystemConstant;
 import com.rabtman.acgschedule.mvp.model.dao.ScheduleDAO;
-import com.rabtman.acgschedule.mvp.model.entity.ScheduleCollection;
+import com.rabtman.acgschedule.mvp.model.entity.ScheduleCache;
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleCollectionAdapter;
 import com.rabtman.common.base.SimpleFragment;
 import com.rabtman.common.utils.RxUtil;
@@ -46,7 +46,7 @@ public class ScheduleCollectionFragment extends SimpleFragment {
     mAdapter.setOnItemClickListener(new OnItemClickListener() {
       @Override
       public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        ScheduleCollection item = (ScheduleCollection) adapter.getItem(position);
+        ScheduleCache item = (ScheduleCache) adapter.getItem(position);
         RouterUtils.getInstance()
             .build(RouterConstants.PATH_SCHEDULE_DETAIL)
             .withString(IntentConstant.SCHEDULE_DETAIL_URL, item.getScheduleUrl())
@@ -81,12 +81,12 @@ public class ScheduleCollectionFragment extends SimpleFragment {
             .repositoryManager()
             .obtainRealmConfig(SystemConstant.DB_NAME)
     );
-    mDisposable = dao.getScheduleCollections()
-        .compose(RxUtil.<List<ScheduleCollection>>rxSchedulerHelper())
-        .subscribeWith(new ResourceSubscriber<List<ScheduleCollection>>() {
+    mDisposable = dao.getScheduleCaches()
+        .compose(RxUtil.<List<ScheduleCache>>rxSchedulerHelper())
+        .subscribeWith(new ResourceSubscriber<List<ScheduleCache>>() {
           @Override
-          public void onNext(List<ScheduleCollection> scheduleCollections) {
-            mAdapter.setNewData(scheduleCollections);
+          public void onNext(List<ScheduleCache> scheduleCaches) {
+            mAdapter.setNewData(scheduleCaches);
           }
 
           @Override

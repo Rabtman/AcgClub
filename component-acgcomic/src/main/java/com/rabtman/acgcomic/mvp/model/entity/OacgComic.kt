@@ -92,11 +92,11 @@ data class OacgComicEpisodePage(
         @SerializedName("page_arr") val pageContent: List<PageContent>?,
         @SerializedName("comic_id") val comicId: String = "",
         @SerializedName("comic_name") val comicName: String = "",
-        @SerializedName("pre_index") val preIndex: String = "",
+        @SerializedName("pre_index") val preIndex: String = "-1",
         @SerializedName("pre_title") val preTitle: String = "",
-        @SerializedName("curr_index") val currIndex: String = "",
+        @SerializedName("curr_index") val currIndex: String = "-1",
         @SerializedName("curr_title") val currTitle: String = "",
-        @SerializedName("next_index") val nextIndex: String = "",
+        @SerializedName("next_index") val nextIndex: String = "-1",
         @SerializedName("next_title") val nextTitle: String = ""
 ) {
     data class PageContent(

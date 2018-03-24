@@ -9,6 +9,7 @@ import com.rabtman.acgcomic.mvp.OacgComicDetailContract
 import com.rabtman.acgcomic.mvp.OacgComicEpisodeDetailContract
 import com.rabtman.acgcomic.mvp.model.dao.ComicDAO
 import com.rabtman.acgcomic.mvp.model.entity.*
+import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.common.base.mvp.BaseModel
 import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.di.scope.FragmentScope
@@ -78,8 +79,11 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     override fun updateComicLastChapter(comicId: String, lastChapterPos: Int): Completable {
         return DAO.getComicCacheById(comicId)
                 .flatMapCompletable({ comicCache ->
-                    comicCache.chapterPos = lastChapterPos
-                    comicCache.pagePos = 0
+                    //如果不是不是上一次观看的章节，则重置观看的页面位置
+                    if (comicCache.chapterPos != lastChapterPos) {
+                        comicCache.chapterPos = lastChapterPos
+                        comicCache.pagePos = 0
+                    }
                     DAO.addComicCache(comicCache)
                 })
     }
@@ -95,8 +99,8 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                 .getOacgEpisodeDetail(comicId, chapterIndex)
     }
 
-    override fun getComicCacheById(comicId: String): Flowable<ComicCache> {
-        return DAO.getComicCacheById(comicId)
+    override fun getComicCacheByChapter(comicId: String, chapterPos: Int): Flowable<ComicCache> {
+        return DAO.getComicCacheByChapter(comicId, chapterPos)
     }
 
     override fun updateComicLastRecord(comicId: String, lastChapterPos: Int, lastPagePos: Int): Completable {

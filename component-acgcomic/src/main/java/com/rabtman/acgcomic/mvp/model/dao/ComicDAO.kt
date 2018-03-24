@@ -1,6 +1,6 @@
 package com.rabtman.acgcomic.mvp.model.dao
 
-import com.rabtman.acgcomic.mvp.model.entity.ComicCache
+import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.common.utils.RxRealmUtils
 import io.reactivex.Completable
 import io.reactivex.Flowable
@@ -38,6 +38,20 @@ class ComicDAO(val config: RealmConfiguration) {
                 Flowable.just(realm.copyFromRealm(queryResult))
             } else {
                 Flowable.just(ComicCache(comicId = id))
+            }
+        }
+    }
+
+    fun getComicCacheByChapter(id: String, chapterPos: Int): Flowable<ComicCache> {
+        Realm.getInstance(config).use { realm ->
+            val queryResult = realm.where(ComicCache::class.java)
+                    .equalTo("comicId", id)
+                    .equalTo("chapterPos", chapterPos)
+                    .findFirst()
+            return if (queryResult != null) {
+                Flowable.just(realm.copyFromRealm(queryResult))
+            } else {
+                Flowable.just(ComicCache(comicId = id, chapterPos = chapterPos))
             }
         }
     }

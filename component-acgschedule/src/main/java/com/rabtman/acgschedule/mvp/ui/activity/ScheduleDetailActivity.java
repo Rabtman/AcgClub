@@ -25,6 +25,7 @@ import com.rabtman.acgschedule.base.constant.IntentConstant;
 import com.rabtman.acgschedule.di.component.DaggerScheduleDetailComponent;
 import com.rabtman.acgschedule.di.module.ScheduleDetailModule;
 import com.rabtman.acgschedule.mvp.contract.ScheduleDetailContract.View;
+import com.rabtman.acgschedule.mvp.model.entity.ScheduleCache;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail.ScheduleEpisode;
 import com.rabtman.acgschedule.mvp.presenter.ScheduleDetailPresenter;
@@ -111,15 +112,15 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
       showError(R.string.msg_error_url_null);
       return;
     }
+    btnScheduleDetailLike.setTag(false);
     mPresenter.setCurrentScheduleUrl(scheduleUrl);
-    mPresenter.isCollected();
     mPresenter.getScheduleDetail();
   }
 
   @Override
   protected void onResume() {
     super.onResume();
-    mPresenter.getLastReadRecord(rxPermissions, false);
+    mPresenter.getCurrentScheduleCache(rxPermissions, false);
   }
 
   @Override
@@ -202,19 +203,34 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
 
   @OnClick(id.btn_schedule_detail_read)
   public void getNextVideo() {
-    mPresenter.getLastReadRecord(rxPermissions, true);
+    mPresenter.getCurrentScheduleCache(rxPermissions, true);
   }
 
   @Override
-  public void showLastReadRecord(int pos) {
+  public void showScheduleCacheStatus(ScheduleCache scheduleCache) {
+    //是否有收藏
+    if ((Boolean) btnScheduleDetailLike.getTag() != scheduleCache.isCollect()) {
+      btnScheduleDetailLike.setTag(scheduleCache.isCollect());
+      if (scheduleCache.isCollect()) {
+        btnScheduleDetailLike
+            .setImageDrawable(
+                ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_heart_solid));
+      } else {
+        btnScheduleDetailLike
+            .setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_heart));
+      }
+    }
+
+    //更新上一次观看状态
     if (episodeItemAdapter != null) {
-      if (pos != -1) {
+      int lastWatchPos = scheduleCache.getLastWatchPos();
+      if (lastWatchPos != -1) {
         List<ScheduleEpisode> scheduleEpisodes = episodeItemAdapter.getData();
         String episodeName;
-        if (pos + 1 >= scheduleEpisodes.size() - 1) {
+        if (lastWatchPos + 1 >= scheduleEpisodes.size() - 1) {
           episodeName = scheduleEpisodes.get(scheduleEpisodes.size() - 1).getName();
         } else {
-          episodeName = scheduleEpisodes.get(pos + 1).getName();
+          episodeName = scheduleEpisodes.get(lastWatchPos + 1).getName();
         }
         StringBuilder episodeBuilder = new StringBuilder();
         episodeBuilder.append("续看 ");
@@ -226,19 +242,8 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
         }
         tvScheduleDetailRead.setText(episodeBuilder.toString());
       }
-      episodeItemAdapter.setRecordPos(pos);
+      episodeItemAdapter.setRecordPos(lastWatchPos);
     }
   }
 
-  @Override
-  public void showCollectionView(boolean isCollected) {
-    btnScheduleDetailLike.setTag(isCollected);
-    if (isCollected) {
-      btnScheduleDetailLike
-          .setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_heart_solid));
-    } else {
-      btnScheduleDetailLike
-          .setImageDrawable(ContextCompat.getDrawable(getBaseContext(), R.drawable.ic_heart));
-    }
-  }
 }

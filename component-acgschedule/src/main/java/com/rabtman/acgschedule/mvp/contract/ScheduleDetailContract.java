@@ -1,7 +1,6 @@
 package com.rabtman.acgschedule.mvp.contract;
 
-import com.rabtman.acgschedule.mvp.model.entity.ScheduleCollection;
-import com.rabtman.acgschedule.mvp.model.entity.ScheduleHistory;
+import com.rabtman.acgschedule.mvp.model.entity.ScheduleCache;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail;
 import com.rabtman.common.base.mvp.IModel;
 import com.rabtman.common.base.mvp.IView;
@@ -17,23 +16,19 @@ public interface ScheduleDetailContract {
 
     void showScheduleDetail(ScheduleDetail scheduleDetail);
 
-    void showCollectionView(boolean isCollected);
-
     void start2ScheduleVideo(String videoUrl);
 
-    void showLastReadRecord(int pos);
+    void showScheduleCacheStatus(ScheduleCache scheduleCache);
   }
 
   interface Model extends IModel {
 
     Flowable<ScheduleDetail> getScheduleDetail(String url);
 
-    Flowable<ScheduleCollection> getScheduleCollection(String scheduleUrl);
+    Flowable<ScheduleCache> getScheduleCacheByUrl(String scheduleUrl);
 
-    Flowable<ScheduleHistory> getScheduleHistory(String scheduleUrl);
+    Completable collectSchedule(ScheduleCache item, boolean isAdd);
 
-    Completable addOrDeleteScheduleCollection(ScheduleCollection item, boolean isAdd);
-
-    Completable updateScheduleHistory(String scheduleUrl, final int lastPos);
+    Completable updateScheduleWatchRecord(String scheduleUrl, final int lastWatchPos);
   }
 }
