@@ -39,7 +39,7 @@ class ComicCollectionFragment : SimpleFragment() {
         mAdapter = ComicCollectionAdapter(appComponent.imageLoader())
         rcvOacgComicItem.layoutManager = GridLayoutManager(context, 3)
         rcvOacgComicItem.adapter = mAdapter
-        mAdapter.setOnItemClickListener { adapter, view, position ->
+        mAdapter.setOnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as ComicCache?
             RouterUtils.getInstance()
                     .build(RouterConstants.PATH_COMIC_OACG_DETAIL)

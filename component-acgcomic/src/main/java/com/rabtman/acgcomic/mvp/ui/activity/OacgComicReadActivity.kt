@@ -24,7 +24,6 @@ import com.rabtman.acgcomic.mvp.presenter.OacgComicEpisodeDetailPresenter
 import com.rabtman.acgcomic.mvp.ui.adapter.OacgComicReadAdapter
 import com.rabtman.common.base.BaseActivity
 import com.rabtman.common.di.component.AppComponent
-import com.rabtman.common.utils.LogUtil
 import com.rabtman.router.RouterConstants
 
 
@@ -116,8 +115,6 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
         rcvOacgComicContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                LogUtil.d("newState:" + newState)
-
                 val pos = layoutManager.findFirstVisibleItemPosition()
                 if (maxPage > 0 && maxPage == layoutManager.findLastCompletelyVisibleItemPosition() + 1) {
                     curPagePos = maxPage - 1
@@ -162,7 +159,7 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
 
         mPresenter.setIntentData(intent.getStringExtra(IntentConstant.OACG_COMIC_ID),
                 intent.getStringExtra(IntentConstant.OACG_COMIC_CHAPTERID))
-        mPresenter.getCurrentComicCache()
+        mPresenter.getEpisodeDetailAndCache()
     }
 
     @OnClick(R2.id.btn_comic_back)
@@ -172,11 +169,13 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
 
     @OnClick(R2.id.btn_comic_before)
     fun preComicEpisode() {
+        rcvOacgComicContent.stopScroll()
         mPresenter.getPreEpisodeDetail()
     }
 
     @OnClick(R2.id.btn_comic_next)
     fun nextComicEpisode() {
+        rcvOacgComicContent.stopScroll()
         mPresenter.getNextEpisodeDetail()
     }
 

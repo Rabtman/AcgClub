@@ -79,7 +79,7 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
         val topicView = RecyclerView(this.context)
         topicView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
         topicAdapter = ComicMenuAdapter(topic)
-        topicAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        topicAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
                 mMenuComicMain.setTabText(if (position == 0) headers[0] else topic[position])
@@ -93,7 +93,7 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
         val groupView = RecyclerView(this.context)
         groupView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
         groupAdapter = ComicMenuAdapter(groups)
-        groupAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        groupAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
                 mMenuComicMain.setTabText(if (position == 0) headers[1] else groups[position])
@@ -107,7 +107,7 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
         val statusView = RecyclerView(this.context)
         statusView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
         statusAdapter = ComicMenuAdapter(status)
-        statusAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        statusAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
                 mMenuComicMain.setTabText(if (position == 0) headers[2] else status[position])
@@ -121,7 +121,7 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
         val areaView = RecyclerView(this.context)
         areaView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
         areaAdapter = ComicMenuAdapter(area)
-        areaAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        areaAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
                 mMenuComicMain.setTabText(if (position == 0) headers[3] else area[position])

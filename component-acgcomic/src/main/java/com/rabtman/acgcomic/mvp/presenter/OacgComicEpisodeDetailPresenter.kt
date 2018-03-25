@@ -29,8 +29,6 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
     //下一话
     private var nextIndex = 0
 
-    private var currentComicCache: ComicCache = ComicCache()
-
     fun setIntentData(comicId: String, comicChapter: String) {
         curComicId = comicId
         curIndex = comicChapter.toInt()
@@ -53,13 +51,10 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
     /**
      * 加载漫画详细内容
      */
-    fun getEpisodeDetail(chapterIndex: Int) {
+    private fun getEpisodeDetail(chapterIndex: Int) {
         addSubscribe(
                 mModel.getEpisodeDetail(curComicId.toInt(), chapterIndex)
                         .compose(RxUtil.rxSchedulerHelper<OacgComicEpisodePage>())
-                        .doOnNext { episodePage ->
-                            LogUtil.d("doAfterNext")
-                        }
                         .subscribeWith(object : CommonSubscriber<OacgComicEpisodePage>(mView) {
                             override fun onStart() {
                                 super.onStart()
@@ -71,6 +66,9 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
                             }
 
                             override fun onNext(comicEpisodePage: OacgComicEpisodePage) {
+                                if (curIndex != chapterIndex) { //改变章节，则更新数据库记录
+                                    updateScheduleReadRecord(chapterIndex - 1, 0)
+                                }
                                 preIndex = comicEpisodePage.preIndex.toInt()
                                 curIndex = comicEpisodePage.currIndex.toInt()
                                 nextIndex = comicEpisodePage.nextIndex.toInt()
@@ -82,9 +80,9 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
     }
 
     /**
-     * 查询该漫画的缓存信息
+     * 加载漫画详情及其缓存信息
      */
-    fun getCurrentComicCache() {
+    fun getEpisodeDetailAndCache() {
         addSubscribe(
                 Flowable.zip(
                         mModel.getComicCacheByChapter(curComicId, curIndex - 1),
@@ -114,15 +112,19 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
         )
     }
 
+    fun updateScheduleReadRecord(lastPagePos: Int) {
+        updateScheduleReadRecord(curIndex - 1, lastPagePos)
+    }
+
     /**
      * 记录上一次漫画观看章节页数
      *
      * @param lastChapterPos 上一次观看章节位置
      * @param lastPagePos 上一次观看页面位置
      */
-    fun updateScheduleReadRecord(lastPagePos: Int) {
+    fun updateScheduleReadRecord(lastChapterPos: Int, lastPagePos: Int) {
         addSubscribe(
-                mModel.updateComicLastRecord(curComicId, curIndex - 1, lastPagePos)
+                mModel.updateComicLastRecord(curComicId, lastChapterPos, lastPagePos)
                         .subscribe({
                         }, { throwable -> throwable.printStackTrace() })
         )

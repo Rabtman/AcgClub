@@ -77,7 +77,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
         val typeView = RecyclerView(this.context)
         typeView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
         typeAdapter = ComicMenuAdapter(type)
-        typeAdapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
+        typeAdapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
                 mMenuComicMain.setTabText(if (position == 0) headers[0] else type[position])
