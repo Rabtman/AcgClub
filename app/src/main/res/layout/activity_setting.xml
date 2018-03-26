@@ -1,71 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:orientation="vertical"
-  app:divider="@drawable/shape_divider_horizontal"
-  app:showDividers="middle|end">
+  android:orientation="vertical">
 
   <include layout="@layout/view_toolbar" />
 
-  <RelativeLayout
-    android:layout_width="wrap_content"
+  <android.support.v7.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    android:layout_gravity="center">
-    <ImageView
-      android:id="@+id/img_setting_icon"
-      android:layout_width="100dp"
-      android:layout_height="100dp"
-      android:layout_marginTop="32dp"
-      android:layout_centerHorizontal="true"
-      android:src="@mipmap/ic_launcher_round" />
-    <TextView
-      android:id="@+id/tv_setting_version"
-      style="@style/Base.TextAppearance.AppCompat.Body1"
+    android:layout_margin="16dp"
+    android:background="@drawable/background_common_shadow"
+    android:orientation="vertical"
+    app:divider="@drawable/shape_divider_horizontal"
+    app:showDividers="middle|end">
+
+    <RelativeLayout
+      android:id="@+id/layout_head"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginTop="8dp"
-      android:layout_below="@id/img_setting_icon"
-      android:layout_centerHorizontal="true"
-      android:textSize="16sp"
-      tools:text="v2.3.0" />
-  </RelativeLayout>
+      android:layout_marginEnd="8dp"
+      android:layout_gravity="center_horizontal"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/toolbar">
+      <ImageView
+        android:id="@+id/img_setting_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:src="@mipmap/ic_launcher_round" />
+      <TextView
+        android:id="@+id/tv_setting_version"
+        style="@style/Base.TextAppearance.AppCompat.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/img_setting_icon"
+        android:layout_centerHorizontal="true"
+        android:textSize="16sp"
+        tools:text="v2.3.0" />
+    </RelativeLayout>
 
-  <TextView
-    android:id="@+id/tv_setting_opinion"
-    style="@style/Base.TextAppearance.AppCompat.Body1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:background="@android:color/white"
-    android:drawableRight="@drawable/ic_arrow_right_grey"
-    android:gravity="center_vertical"
-    android:text="@string/setting_opinion" />
+    <TextView
+      android:id="@+id/tv_setting_opinion"
+      style="@style/Base.TextAppearance.AppCompat.Body1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="16dp"
+      android:background="@android:color/white"
+      android:drawableRight="@drawable/ic_arrow_right_grey"
+      android:gravity="center_vertical"
+      android:text="@string/setting_opinion" />
 
-  <TextView
-    android:id="@+id/tv_setting_update"
-    style="@style/Base.TextAppearance.AppCompat.Body1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:background="@android:color/white"
-    android:drawableRight="@drawable/ic_arrow_right_grey"
-    android:gravity="center_vertical"
-    android:text="@string/setting_update" />
+    <TextView
+      android:id="@+id/tv_setting_update"
+      style="@style/Base.TextAppearance.AppCompat.Body1"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="16dp"
+      android:background="@android:color/white"
+      android:drawableRight="@drawable/ic_arrow_right_grey"
+      android:gravity="center_vertical"
+      android:text="@string/setting_update" />
 
-  <TextView
-    android:id="@+id/tv_setting_about"
-    style="@style/Base.TextAppearance.AppCompat.Body2"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="16dp"
-    android:background="@android:color/white"
-    android:drawableRight="@drawable/ic_arrow_right_grey"
-    android:gravity="center_vertical"
-    android:text="@string/setting_about" />
-
-
-</android.support.v7.widget.LinearLayoutCompat>
+    <TextView
+      android:id="@+id/tv_setting_about"
+      style="@style/Base.TextAppearance.AppCompat.Body2"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="16dp"
+      android:background="@android:color/white"
+      android:drawableRight="@drawable/ic_arrow_right_grey"
+      android:gravity="center_vertical"
+      android:text="@string/setting_about" />
+  </android.support.v7.widget.LinearLayoutCompat>
+</LinearLayout>
