@@ -5,6 +5,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -30,8 +31,8 @@ public class SettingActivity extends SimpleActivity {
   TextView tvSettingVersion;
   @BindView(R.id.tv_setting_opinion)
   TextView tvSettingOpinion;
-  @BindView(R.id.tv_setting_update)
-  TextView tvSettingUpdate;
+  @BindView(R.id.layout_setting_update)
+  RelativeLayout tvSettingUpdate;
   @BindView(R.id.tv_setting_about)
   TextView tvSettingAbout;
 
@@ -44,16 +45,16 @@ public class SettingActivity extends SimpleActivity {
   @Override
   protected void initData() {
     setToolBar(mToolBar, getString(R.string.nav_setting));
-    tvSettingVersion.setText("v" + BuildConfig.VERSION_NAME);
+    tvSettingVersion.setText("当前版本号 v" + BuildConfig.VERSION_NAME);
   }
 
-  @OnClick({R.id.tv_setting_update, R.id.tv_setting_opinion, R.id.tv_setting_about})
+  @OnClick({R.id.layout_setting_update, R.id.tv_setting_opinion, R.id.tv_setting_about})
   public void onViewClicked(View view) {
     switch (view.getId()) {
       case R.id.tv_setting_opinion:
         FeedbackAPI.openFeedbackActivity();
         break;
-      case R.id.tv_setting_update:
+      case R.id.layout_setting_update:
         Intent updateAppIntent = new Intent(this, UpdateAppService.class);
         updateAppIntent.putExtra(IntentConstant.CHECK_APP_UPDATE_MANUAL, true);
         break;

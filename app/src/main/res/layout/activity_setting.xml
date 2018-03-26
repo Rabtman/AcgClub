@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -8,73 +8,80 @@
 
   <include layout="@layout/view_toolbar" />
 
-  <android.support.v7.widget.LinearLayoutCompat
+  <TextView
+    android:id="@+id/label_normal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/toolbar"
+    android:padding="8dp"
+    android:text="常规" />
+
+  <android.support.v7.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:background="@drawable/background_common_shadow"
-    android:orientation="vertical"
-    app:divider="@drawable/shape_divider_horizontal"
-    app:showDividers="middle|end">
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_below="@id/label_normal"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="true">
 
-    <RelativeLayout
-      android:id="@+id/layout_head"
-      android:layout_width="wrap_content"
+    <android.support.v7.widget.LinearLayoutCompat
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
-      android:layout_gravity="center_horizontal"
-      app:layout_constraintLeft_toLeftOf="parent"
-      app:layout_constraintRight_toRightOf="parent"
-      app:layout_constraintTop_toBottomOf="@id/toolbar">
-      <ImageView
-        android:id="@+id/img_setting_icon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_launcher_round" />
+      android:orientation="vertical"
+      app:divider="@drawable/shape_divider_horizontal"
+      app:showDividers="middle|end">
+
       <TextView
-        android:id="@+id/tv_setting_version"
-        style="@style/Base.TextAppearance.AppCompat.Body1"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_setting_opinion"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_below="@id/img_setting_icon"
-        android:layout_centerHorizontal="true"
-        android:textSize="16sp"
-        tools:text="v2.3.0" />
-    </RelativeLayout>
+        android:padding="12dp"
+        android:background="@android:color/white"
+        android:drawableRight="@drawable/ic_arrow_right_grey"
+        android:gravity="center_vertical"
+        android:text="@string/setting_opinion" />
 
-    <TextView
-      android:id="@+id/tv_setting_opinion"
-      style="@style/Base.TextAppearance.AppCompat.Body1"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:padding="16dp"
-      android:background="@android:color/white"
-      android:drawableRight="@drawable/ic_arrow_right_grey"
-      android:gravity="center_vertical"
-      android:text="@string/setting_opinion" />
+      <RelativeLayout
+        android:id="@+id/layout_setting_update"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp">
+        <ImageView
+          android:id="@+id/img_arrow"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentRight="true"
+          android:layout_centerVertical="true"
+          android:src="@drawable/ic_arrow_right_grey" />
 
-    <TextView
-      android:id="@+id/tv_setting_update"
-      style="@style/Base.TextAppearance.AppCompat.Body1"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:padding="16dp"
-      android:background="@android:color/white"
-      android:drawableRight="@drawable/ic_arrow_right_grey"
-      android:gravity="center_vertical"
-      android:text="@string/setting_update" />
+        <TextView
+          android:id="@+id/tv_setting_version"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
+          android:layout_toLeftOf="@+id/img_arrow"
+          tools:text="当前版本号 v2.3.0" />
 
-    <TextView
-      android:id="@+id/tv_setting_about"
-      style="@style/Base.TextAppearance.AppCompat.Body2"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:padding="16dp"
-      android:background="@android:color/white"
-      android:drawableRight="@drawable/ic_arrow_right_grey"
-      android:gravity="center_vertical"
-      android:text="@string/setting_about" />
-  </android.support.v7.widget.LinearLayoutCompat>
-</LinearLayout>
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
+          android:background="@android:color/white"
+          android:text="@string/setting_update" />
+      </RelativeLayout>
+
+      <TextView
+        android:id="@+id/tv_setting_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:background="@android:color/white"
+        android:drawableRight="@drawable/ic_arrow_right_grey"
+        android:gravity="center_vertical"
+        android:text="@string/setting_about" />
+
+
+    </android.support.v7.widget.LinearLayoutCompat>
+  </android.support.v7.widget.CardView>
+</RelativeLayout>
