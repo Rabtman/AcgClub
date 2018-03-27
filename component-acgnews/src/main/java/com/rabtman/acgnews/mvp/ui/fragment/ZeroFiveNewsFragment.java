@@ -1,7 +1,6 @@
 package com.rabtman.acgnews.mvp.ui.fragment;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +12,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter.RequestLoadMoreListener;
 import com.rabtman.acgnews.R;
 import com.rabtman.acgnews.R2;
 import com.rabtman.acgnews.base.constant.IntentConstant;
-import com.rabtman.acgnews.base.constant.SystemConstant;
 import com.rabtman.acgnews.di.component.DaggerAcgNewsItemComponent;
 import com.rabtman.acgnews.di.module.AcgNewsItemModule;
 import com.rabtman.acgnews.mvp.contract.AcgNewsContract.View;
@@ -28,16 +26,15 @@ import java.util.List;
 
 /**
  * @author Rabtman
+ * 羁绊资讯
  */
-public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> implements
+public class ZeroFiveNewsFragment extends BaseFragment<AcgNewsItemPresenter> implements
     View {
 
   @BindView(R2.id.rcv_news_item)
   RecyclerView rcvNewsItem;
   @BindView(R2.id.swipe_refresh_news)
   SwipeRefreshLayout swipeRefresh;
-  //当前资讯类型地址id
-  private int typeUrlId;
   private AcgNewsItemAdapter mAdapter;
 
   @Override
@@ -56,17 +53,6 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
 
   @Override
   protected void initData() {
-    Bundle bundle = getArguments();
-    String title = bundle.getString(IntentConstant.ACG_NEWS_TITLE, "");
-    int titlePos = SystemConstant.ACG_NEWS_TITLE.indexOf(title);
-    if (titlePos == 0) {
-      typeUrlId = R.string.acgnews_url_dmxw;
-    } else if (titlePos == 1) {
-      typeUrlId = R.string.acgnews_url_yjdt;
-    } else if (titlePos == 2) {
-      typeUrlId = R.string.acgnews_url_qtrd;
-    }
-
     mAdapter = new AcgNewsItemAdapter(getAppComponent().imageLoader());
     mAdapter.setOnItemClickListener(new OnItemClickListener() {
       @Override
@@ -102,7 +88,7 @@ public class AcgNewsItemFragment extends BaseFragment<AcgNewsItemPresenter> impl
 
   @Override
   public String getNewsUrl(int pageNo) {
-    return getString(typeUrlId, pageNo);
+    return getString(R.string.acgnews_url_zero_five, pageNo);
   }
 
   @Override

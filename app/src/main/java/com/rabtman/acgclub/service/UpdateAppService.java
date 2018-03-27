@@ -61,6 +61,7 @@ public class UpdateAppService extends Service {
                       Toast.LENGTH_SHORT
                   ).show();
                 }
+                return;
               }
               showUpdateDialog(versionInfo);
             } else if (isManual) {

@@ -2,9 +2,7 @@
   <string name="acgnews_menu_share">分享</string>
 
   <!-- 动漫资讯-->
-  <string name="acgnews_url_dmxw">xw/dmxw/list_527_%1$d.html</string>
-  <string name="acgnews_url_yjdt">xw/yjdt/list_528_%1$d.html</string>
-  <string name="acgnews_url_qtrd">xw/qtrd/list_529_%1$d.html</string>
+  <string name="acgnews_url_zero_five">zx/list_526_%1$d.html</string>
 
 
   <string name="acgnews_update_time">更新于 %1$s</string>

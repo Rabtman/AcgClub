@@ -35,7 +35,7 @@ public class AcgNewsMainPageAdapter extends FragmentPagerAdapter {
 
   @Override
   public CharSequence getPageTitle(int position) {
-    return SystemConstant.ACG_NEWS_TITLE.get(position);
+    return SystemConstant.ACG_NEWS_TITLE[position];
   }
 
   @Override
