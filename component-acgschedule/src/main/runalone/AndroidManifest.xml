@@ -38,6 +38,9 @@
       android:name="com.rabtman.acgschedule.mvp.ui.activity.ScheduleNewActivity"
       android:screenOrientation="portrait" />
     <activity
+      android:name="com.rabtman.acgschedule.mvp.ui.activity.ScheduleOtherActivity"
+      android:screenOrientation="portrait" />
+    <activity
       android:configChanges="orientation|screenSize|keyboardHidden"
       android:name="com.rabtman.acgschedule.mvp.ui.activity.ScheduleVideoActivity"
       android:screenOrientation="landscape" />

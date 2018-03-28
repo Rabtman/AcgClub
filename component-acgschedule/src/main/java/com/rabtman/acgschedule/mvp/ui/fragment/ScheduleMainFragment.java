@@ -30,6 +30,7 @@ import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleWeek;
 import com.rabtman.acgschedule.mvp.presenter.ScheduleMainPresenter;
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleDetailActivity;
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleNewActivity;
+import com.rabtman.acgschedule.mvp.ui.activity.ScheduleOtherActivity;
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleTimeActivity;
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleVideoActivity;
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleBannerViewHolder;
@@ -188,7 +189,12 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
   }
 
   private void startToScheduleDetail(String url) {
-    Intent intent = new Intent(getContext(), ScheduleDetailActivity.class);
+    Intent intent;
+    if (url.contains("anime")) {
+      intent = new Intent(getContext(), ScheduleDetailActivity.class);
+    } else {
+      intent = new Intent(getContext(), ScheduleOtherActivity.class);
+    }
     intent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL, url);
     startActivity(intent);
   }

@@ -6,7 +6,6 @@ import com.rabtman.acgnews.mvp.model.jsoup.AcgNewsPage;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.FragmentScope;
-import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
 import javax.inject.Inject;
 
@@ -44,7 +43,6 @@ public class AcgNewsItemPresenter extends
 
               @Override
               public void onNext(AcgNewsPage acgNewsPage) {
-                LogUtil.d("getAcgNewsList" + acgNewsPage.toString());
                 mView.showAcgNews(acgNewsPage.getAcgNewsList());
               }
             })
@@ -58,8 +56,6 @@ public class AcgNewsItemPresenter extends
             .subscribeWith(new CommonSubscriber<AcgNewsPage>(mView) {
               @Override
               public void onNext(AcgNewsPage acgNewsPage) {
-                LogUtil.d("getMoreAcgNewsList");
-                LogUtil.d("" + acgNewsPage.toString());
                 int pageCount;
                 try {
                   pageCount = Integer.parseInt(acgNewsPage.getPageCount());
