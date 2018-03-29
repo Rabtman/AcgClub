@@ -57,7 +57,7 @@ public class ScheduleOtherPage {
         '}';
   }
 
-  @Selector("div div div.img3Wrap ul li")
+  @Selector("div div div.img3Wrap ul li:has(h4)")
   public static class ScheduleOtherItem {
 
     @Attr(query = "a img", attr = "src")

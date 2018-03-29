@@ -143,6 +143,7 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
   @Override
   public void showScheduleVideo(String videoLink, String videoUrl) {
     if (TextUtils.isEmpty(videoLink)) {
+      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
       webView.loadUrl(videoUrl);
     } else {
       webView.loadUrl(videoLink);
