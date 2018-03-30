@@ -162,7 +162,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
     }
 
     override fun showComicInfos(comicInfos: List<OacgComicItem>?) {
-        mRcvComicMain?.scrollBy(0, headerSearchView.height)
+        mRcvComicMain?.scrollToPosition(0)
         mOacgComicItemAdapter?.setNewData(comicInfos)
         //mRcvComicMain?.scrollBy(0, 0)
     }

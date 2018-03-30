@@ -19,6 +19,6 @@
     android:id="@+id/img_oacg_comic_read"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:src="@mipmap/ic_launcher"
+    tools:src="@drawable/ic_launcher"
     tools:visibility="invisible" />
 </FrameLayout>

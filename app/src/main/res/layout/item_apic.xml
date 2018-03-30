@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="100dp"
-        tools:src="@mipmap/ic_launcher" />
+        tools:src="@drawable/ic_launcher" />
 
       <TextView
         android:id="@+id/pic_title"
