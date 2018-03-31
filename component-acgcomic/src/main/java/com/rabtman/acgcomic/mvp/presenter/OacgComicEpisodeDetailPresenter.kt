@@ -7,7 +7,6 @@ import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
-import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxUtil
 import io.reactivex.Flowable
 import io.reactivex.functions.BiFunction
@@ -65,6 +64,11 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
                                 mView.hideLoading()
                             }
 
+                            override fun onError(e: Throwable?) {
+                                super.onError(e)
+                                mView.hideLoading()
+                            }
+
                             override fun onNext(comicEpisodePage: OacgComicEpisodePage) {
                                 if (curIndex != chapterIndex) { //改变章节，则更新数据库记录
                                     updateScheduleReadRecord(chapterIndex - 1, 0)
@@ -72,7 +76,6 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
                                 preIndex = comicEpisodePage.preIndex.toInt()
                                 curIndex = comicEpisodePage.currIndex.toInt()
                                 nextIndex = comicEpisodePage.nextIndex.toInt()
-                                LogUtil.d("showEpisodeDetail")
                                 mView.showEpisodeDetail(comicEpisodePage, 0)
                             }
                         })
@@ -98,6 +101,11 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
                             }
 
                             override fun onComplete() {
+                                mView.hideLoading()
+                            }
+
+                            override fun onError(e: Throwable?) {
+                                super.onError(e)
                                 mView.hideLoading()
                             }
 

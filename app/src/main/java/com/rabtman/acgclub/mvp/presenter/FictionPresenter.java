@@ -6,7 +6,6 @@ import com.rabtman.acgclub.mvp.model.jsoup.Fiction;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.FragmentScope;
-import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
 import javax.inject.Inject;
 
@@ -40,7 +39,6 @@ public class FictionPresenter extends
 
               @Override
               public void onNext(Fiction fictionRecent) {
-                LogUtil.d("getFictionRecent" + fictionRecent.toString());
                 mView.showFictionRecent(fictionRecent);
               }
             })

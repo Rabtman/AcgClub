@@ -4,6 +4,8 @@ import com.rabtman.acgcomic.mvp.OacgComicContract
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicPage
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
+import com.rabtman.common.base.pagestatusmanager.PageStatusListener
+import com.rabtman.common.base.pagestatusmanager.PageStatusManager
 import com.rabtman.common.di.scope.FragmentScope
 import com.rabtman.common.utils.RxUtil
 import javax.inject.Inject
@@ -25,6 +27,10 @@ class OacgComicPresenter
      */
     private var pageNo = 0
 
+    private var pageManager = PageStatusManager.generate(mView, object : PageStatusListener() {
+
+    })
+
     /**
      * 记录选择的菜单项，并刷新数据
      */
@@ -41,15 +47,21 @@ class OacgComicPresenter
                         .subscribeWith(object : CommonSubscriber<OacgComicPage>(mView) {
                             override fun onStart() {
                                 super.onStart()
-                                mView.showLoading()
+                                pageManager.showLoading()
                             }
 
-                            override fun onComplete() {
-                                mView.hideLoading()
+                            override fun onError(e: Throwable?) {
+                                super.onError(e)
+                                pageManager.showRetry()
                             }
 
                             override fun onNext(oacgComicPage: OacgComicPage) {
-                                mView.showComicInfos(oacgComicPage.oacgComicItems)
+                                if (oacgComicPage.oacgComicItems == null || oacgComicPage.oacgComicItems.isEmpty()) {
+                                    pageManager.showEmpty()
+                                } else {
+                                    mView.showComicInfos(oacgComicPage.oacgComicItems)
+                                    pageManager.showContent()
+                                }
                             }
                         })
         )
@@ -85,6 +97,11 @@ class OacgComicPresenter
                             }
 
                             override fun onComplete() {
+                                mView.hideLoading()
+                            }
+
+                            override fun onError(e: Throwable?) {
+                                super.onError(e)
                                 mView.hideLoading()
                             }
 

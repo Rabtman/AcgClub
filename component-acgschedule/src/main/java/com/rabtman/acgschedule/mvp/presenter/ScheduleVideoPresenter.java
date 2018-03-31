@@ -6,7 +6,6 @@ import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleVideo;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.ActivityScope;
-import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
 import javax.inject.Inject;
 
@@ -40,7 +39,6 @@ public class ScheduleVideoPresenter extends
 
               @Override
               public void onNext(ScheduleVideo scheduleVideo) {
-                LogUtil.d("getScheduleVideo" + scheduleVideo.toString());
                 if (TextUtils.isEmpty(scheduleVideo.getVideoUrl())) {
                   mView.showScheduleVideo(videoUrl,
                       scheduleVideo.getVideoHtml());

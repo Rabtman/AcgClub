@@ -8,7 +8,6 @@ import com.rabtman.acgnews.mvp.model.jsoup.AcgNewsDetail;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.ActivityScope;
-import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import io.reactivex.annotations.NonNull;
@@ -68,7 +67,6 @@ public class AcgNewsDetailPresenter extends
 
               @Override
               public void onNext(AcgNewsDetail acgNewsDetail) {
-                LogUtil.d("getScheduleDetail" + acgNewsDetail.toString());
                 mView.showNewsDetail(acgNewsDetail);
               }
             })

@@ -71,7 +71,6 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
       } else {
         mView.showError(R.string.msg_error_unknown);
       }
-      mView.hideLoading();
     } else if (mContext != null) {
       if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
         Toasty.error(mContext, mErrorMsg, Toast.LENGTH_SHORT).show();

@@ -13,7 +13,10 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.hss01248.dialog.StyledDialog;
 import com.rabtman.common.base.mvp.IView;
+import com.rabtman.common.base.pagestatusmanager.PageStatusListener;
+import com.rabtman.common.base.pagestatusmanager.PageStatusManager;
 import com.rabtman.common.di.component.AppComponent;
+import com.rabtman.common.utils.LogUtil;
 import es.dmoral.toasty.Toasty;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -26,6 +29,7 @@ public abstract class SimpleFragment extends SupportFragment implements
   protected boolean isInited = false;
   protected boolean isVisible = false;
   private SwipeRefreshLayout mSwipeRefreshLayout;
+  private PageStatusManager mPageStatusManager;
   private Dialog mLoadingDialog;
   private Unbinder mUnBinder;
 
@@ -54,6 +58,7 @@ public abstract class SimpleFragment extends SupportFragment implements
   public void onLazyInitView(@Nullable Bundle savedInstanceState) {
     super.onLazyInitView(savedInstanceState);
     isInited = true;
+    //initPageStatusManager();
     initData();
   }
 
@@ -81,6 +86,51 @@ public abstract class SimpleFragment extends SupportFragment implements
 
   protected void setSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout) {
     mSwipeRefreshLayout = swipeRefreshLayout;
+  }
+
+  private void initPageStatusManager() {
+    mPageStatusManager = PageStatusManager.generate(mActivity, new PageStatusListener() {
+      @Override
+      public void onRetry(View retryView) {
+        onPageRetry(retryView);
+      }
+    });
+  }
+
+  @Override
+  public void showPageLoading() {
+    if (mPageStatusManager != null) {
+      LogUtil.d(this.getClass().getName() + "showPageLoading");
+      mPageStatusManager.showLoading();
+    }
+  }
+
+  @Override
+  public void showPageEmpty() {
+    if (mPageStatusManager != null) {
+      mPageStatusManager.showEmpty();
+    }
+  }
+
+  @Override
+  public void showPageError() {
+    if (mPageStatusManager != null) {
+      mPageStatusManager.showRetry();
+    }
+  }
+
+  @Override
+  public void showPageContent() {
+    if (mPageStatusManager != null) {
+      mPageStatusManager.showContent();
+    }
+  }
+
+  /**
+   * 页面重试
+   */
+  protected void onPageRetry(View retryView) {
+
   }
 
   @Override

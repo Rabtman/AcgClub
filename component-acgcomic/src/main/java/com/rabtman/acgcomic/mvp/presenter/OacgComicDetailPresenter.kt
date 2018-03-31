@@ -39,6 +39,11 @@ constructor(model: OacgComicDetailContract.Model,
                                 mView.hideLoading()
                             }
 
+                            override fun onError(e: Throwable?) {
+                                super.onError(e)
+                                mView.hideLoading()
+                            }
+
                             override fun onNext(comicEpisodes: List<OacgComicEpisode>) {
                                 currentComicEpisodes = comicEpisodes
                                 mView.showComicDetail(comicEpisodes)
@@ -48,13 +53,6 @@ constructor(model: OacgComicDetailContract.Model,
                             }
                         })
         )
-    }
-
-    /**
-     * 章节信息空校验
-     */
-    private fun validScheduleDetail(comicEpisodes: List<OacgComicEpisode>?): Boolean {
-        return comicEpisodes != null && comicEpisodes.isNotEmpty()
     }
 
     /**

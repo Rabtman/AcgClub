@@ -5,7 +5,6 @@ import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleNew;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.ActivityScope;
-import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
 import java.util.Calendar;
 import javax.inject.Inject;
@@ -42,7 +41,6 @@ public class ScheduleNewPresenter extends
 
               @Override
               public void onNext(ScheduleNew scheduleNew) {
-                LogUtil.d("getScheduleNewList" + scheduleNew.toString());
                 mView.showScheduleNew(scheduleNew);
               }
             })

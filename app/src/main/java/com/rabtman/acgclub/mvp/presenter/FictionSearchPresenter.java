@@ -6,7 +6,6 @@ import com.rabtman.acgclub.mvp.model.jsoup.Fiction;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.ActivityScope;
-import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
 import javax.inject.Inject;
 
@@ -41,7 +40,6 @@ public class FictionSearchPresenter extends
 
               @Override
               public void onNext(Fiction searchResult) {
-                LogUtil.d("searchFiction" + searchResult.toString());
                 mView.showSearchResult(searchResult);
               }
             })

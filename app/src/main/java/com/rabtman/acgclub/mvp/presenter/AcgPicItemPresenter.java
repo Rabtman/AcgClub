@@ -6,7 +6,6 @@ import com.rabtman.acgclub.mvp.model.jsoup.APic;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.FragmentScope;
-import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
 import javax.inject.Inject;
 
@@ -44,7 +43,6 @@ public class AcgPicItemPresenter extends
 
               @Override
               public void onNext(APic aPicPage) {
-                LogUtil.d("getAcgPicList" + aPicPage.toString());
                 mView.showPictures(aPicPage.getPicInfos());
               }
             })
@@ -59,8 +57,6 @@ public class AcgPicItemPresenter extends
             .subscribeWith(new CommonSubscriber<APic>(mView) {
               @Override
               public void onNext(APic aPicPage) {
-                LogUtil.d("getMoreAcgPicList");
-                LogUtil.d("" + aPicPage.toString());
                 mView.showMorePictures(aPicPage.getPicInfos(),
                     pageNo < aPicPage.getPageCount());
               }

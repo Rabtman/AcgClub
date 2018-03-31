@@ -5,7 +5,6 @@ import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.FragmentScope;
-import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
 import javax.inject.Inject;
 
@@ -41,7 +40,6 @@ public class ScheduleMainPresenter extends
 
               @Override
               public void onNext(DilidiliInfo dilidiliInfo) {
-                LogUtil.d("getDilidiliInfo");
                 mView.showDilidiliInfo(dilidiliInfo);
               }
             })

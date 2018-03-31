@@ -17,7 +17,6 @@ import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.mvp.model.entity.VersionInfo;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.utils.IntentUtils;
-import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
 import es.dmoral.toasty.Toasty;
 
@@ -51,7 +50,6 @@ public class UpdateAppService extends Service {
         .subscribeWith(new CommonSubscriber<VersionInfo>(getBaseContext()) {
           @Override
           public void onNext(VersionInfo versionInfo) {
-            LogUtil.d("getVersionInfo:\n" + versionInfo.toString());
             if (versionInfo.getVersionCode() > BuildConfig.VERSION_CODE) { //比对版本信息
               if (TextUtils.isEmpty(versionInfo.getAppLink())) { //判断下载地址是否为空
                 if (isManual) { //如果是手动检查更新，则弹出异常提示

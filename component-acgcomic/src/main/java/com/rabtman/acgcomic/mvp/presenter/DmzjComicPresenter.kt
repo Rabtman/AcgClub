@@ -5,7 +5,6 @@ import com.rabtman.acgcomic.mvp.model.entity.DmzjComicItem
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.FragmentScope
-import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxUtil
 import javax.inject.Inject
 
@@ -51,8 +50,12 @@ class DmzjComicPresenter
                                 mView.hideLoading()
                             }
 
+                            override fun onError(e: Throwable?) {
+                                super.onError(e)
+                                mView.hideLoading()
+                            }
+
                             override fun onNext(comicItems: List<DmzjComicItem>) {
-                                LogUtil.d("getComicInfos" + comicItems.toString())
                                 mView.showComicInfos(comicItems)
                             }
                         })
@@ -66,7 +69,6 @@ class DmzjComicPresenter
                         .compose(RxUtil.rxSchedulerHelper<List<DmzjComicItem>>())
                         .subscribeWith(object : CommonSubscriber<List<DmzjComicItem>>(mView) {
                             override fun onNext(comicItems: List<DmzjComicItem>) {
-                                LogUtil.d("getMoreComicInfos" + comicItems.toString())
                                 mView.showMoreComicInfos(comicItems, comicItems.isNotEmpty())
                             }
 

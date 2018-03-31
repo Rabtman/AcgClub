@@ -10,7 +10,6 @@ import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.ActivityScope;
 import com.rabtman.common.utils.FileUtils;
-import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -58,7 +57,6 @@ public class APicDetailPresenter extends
 
               @Override
               public void onNext(APicDetail acgNewsDetail) {
-                LogUtil.d("getScheduleDetail" + acgNewsDetail.toString());
                 mView.showAPictures(acgNewsDetail);
               }
             })

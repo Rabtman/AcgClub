@@ -4,7 +4,6 @@ import com.fcannizzaro.jsoup.annotations.interfaces.Attr;
 import com.fcannizzaro.jsoup.annotations.interfaces.Items;
 import com.fcannizzaro.jsoup.annotations.interfaces.Selector;
 import com.fcannizzaro.jsoup.annotations.interfaces.Text;
-import com.rabtman.common.utils.LogUtil;
 import java.util.List;
 
 /**
@@ -31,7 +30,6 @@ public class APic {
     try {
       return Integer.parseInt(count);
     } catch (Exception e) {
-      LogUtil.d("pageCount:" + count);
       e.printStackTrace();
       return 1;
     }
