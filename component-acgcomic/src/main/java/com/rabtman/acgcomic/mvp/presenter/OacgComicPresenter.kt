@@ -27,10 +27,6 @@ class OacgComicPresenter
      */
     private var pageNo = 0
 
-    private var pageManager = PageStatusManager.generate(mView, object : PageStatusListener() {
-
-    })
-
     /**
      * 记录选择的菜单项，并刷新数据
      */
@@ -40,6 +36,10 @@ class OacgComicPresenter
     }
 
     fun getComicInfos() {
+        val pageManager = PageStatusManager.generate(mView, object : PageStatusListener() {
+
+        })
+
         pageNo = 0
         addSubscribe(
                 mModel.getComicInfos(selectedType, pageNo)

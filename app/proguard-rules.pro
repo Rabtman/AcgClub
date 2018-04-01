@@ -614,3 +614,7 @@ public void xxxxxx(**);
 -keep class com.chad.library.adapter.** {
    *;
 }
+
+#LoadSir
+-dontwarn com.kingja.loadsir.**
+-keep class com.kingja.loadsir.** {*;}
