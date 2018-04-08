@@ -12,11 +12,14 @@ import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.hss01248.dialog.StyledDialog;
+import com.kingja.loadsir.callback.Callback.OnReloadListener;
+import com.kingja.loadsir.core.LoadService;
+import com.kingja.loadsir.core.LoadSir;
 import com.rabtman.common.base.mvp.IView;
-import com.rabtman.common.base.pagestatusmanager.PageStatusListener;
-import com.rabtman.common.base.pagestatusmanager.PageStatusManager;
+import com.rabtman.common.base.widget.loadsir.EmptyCallback;
+import com.rabtman.common.base.widget.loadsir.LoadingCallback;
+import com.rabtman.common.base.widget.loadsir.RetryCallback;
 import com.rabtman.common.di.component.AppComponent;
-import com.rabtman.common.utils.LogUtil;
 import es.dmoral.toasty.Toasty;
 import me.yokeyword.fragmentation.SupportFragment;
 
@@ -28,8 +31,8 @@ public abstract class SimpleFragment extends SupportFragment implements
   protected Context mContext;
   protected boolean isInited = false;
   protected boolean isVisible = false;
+  protected LoadService mLoadService;
   private SwipeRefreshLayout mSwipeRefreshLayout;
-  private PageStatusManager mPageStatusManager;
   private Dialog mLoadingDialog;
   private Unbinder mUnBinder;
 
@@ -45,6 +48,12 @@ public abstract class SimpleFragment extends SupportFragment implements
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     mView = inflater.inflate(getLayoutId(), null);
+    mLoadService = LoadSir.getDefault().register(mView, new OnReloadListener() {
+      @Override
+      public void onReload(View v) {
+        onPageRetry(v);
+      }
+    });
     return mView;
   }
 
@@ -58,7 +67,6 @@ public abstract class SimpleFragment extends SupportFragment implements
   public void onLazyInitView(@Nullable Bundle savedInstanceState) {
     super.onLazyInitView(savedInstanceState);
     isInited = true;
-    //initPageStatusManager();
     initData();
   }
 
@@ -88,48 +96,38 @@ public abstract class SimpleFragment extends SupportFragment implements
     mSwipeRefreshLayout = swipeRefreshLayout;
   }
 
-  private void initPageStatusManager() {
-    mPageStatusManager = PageStatusManager.generate(mActivity, new PageStatusListener() {
-      @Override
-      public void onRetry(View retryView) {
-        onPageRetry(retryView);
-      }
-    });
-  }
-
   @Override
   public void showPageLoading() {
-    if (mPageStatusManager != null) {
-      LogUtil.d(this.getClass().getName() + "showPageLoading");
-      mPageStatusManager.showLoading();
+    if (mLoadService != null) {
+      mLoadService.showCallback(LoadingCallback.class);
     }
   }
 
   @Override
   public void showPageEmpty() {
-    if (mPageStatusManager != null) {
-      mPageStatusManager.showEmpty();
+    if (mLoadService != null) {
+      mLoadService.showCallback(EmptyCallback.class);
     }
   }
 
   @Override
   public void showPageError() {
-    if (mPageStatusManager != null) {
-      mPageStatusManager.showRetry();
+    if (mLoadService != null) {
+      mLoadService.showCallback(RetryCallback.class);
     }
   }
 
   @Override
   public void showPageContent() {
-    if (mPageStatusManager != null) {
-      mPageStatusManager.showContent();
+    if (mLoadService != null) {
+      mLoadService.showSuccess();
     }
   }
 
   /**
    * 页面重试
    */
-  protected void onPageRetry(View retryView) {
+  protected void onPageRetry(View v) {
 
   }
 

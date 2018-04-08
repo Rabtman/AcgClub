@@ -3,10 +3,12 @@ package com.rabtman.common.base;
 import android.app.Application;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hss01248.dialog.StyledDialog;
+import com.kingja.loadsir.core.LoadSir;
 import com.rabtman.common.BuildConfig;
 import com.rabtman.common.R;
-import com.rabtman.common.base.pagestatusmanager.PageStatusConfig;
-import com.rabtman.common.base.pagestatusmanager.PageStatusManager;
+import com.rabtman.common.base.widget.loadsir.EmptyCallback;
+import com.rabtman.common.base.widget.loadsir.LoadingCallback;
+import com.rabtman.common.base.widget.loadsir.RetryCallback;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.di.component.DaggerAppComponent;
 import com.rabtman.common.di.module.AppModule;
@@ -88,14 +90,13 @@ public class CommonApplicationLike implements IApplicationLike {
     //log
     LogUtil.init(BuildConfig.DEBUG);
 
-    //page status init
-    PageStatusManager.initConfig(
-        new PageStatusConfig.Builder()
-            .loadingLayoutId(R.layout.view_loading_page)
-            .emptyLayoutId(R.layout.view_empty_page)
-            .retryLayoutId(R.layout.view_retry_page)
-            .build()
-    );
+    //loadsir init
+    LoadSir.beginBuilder()
+        .addCallback(new LoadingCallback())
+        .addCallback(new EmptyCallback())
+        .addCallback(new RetryCallback())
+        .setDefaultCallback(LoadingCallback.class)
+        .commit();
 
     mApplication.registerActivityLifecycleCallbacks(mActivityLifecycle);
 
