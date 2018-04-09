@@ -33,9 +33,9 @@ public class AcgNewsDetailModel extends BaseModel implements AcgNewsDetailContra
       @Override
       public void subscribe(@NonNull FlowableEmitter<AcgNewsDetail> e) throws Exception {
         Element html = Jsoup.connect(url).timeout(10000).get();
-        if(html == null){
+        if (html == null) {
           e.onError(new Throwable("element html is null"));
-        }else {
+        } else {
           AcgNewsDetail acgNewsDetail = JP.from(html, AcgNewsDetail.class);
           e.onNext(acgNewsDetail);
           e.onComplete();

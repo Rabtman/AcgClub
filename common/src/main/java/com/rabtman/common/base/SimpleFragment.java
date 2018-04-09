@@ -48,13 +48,31 @@ public abstract class SimpleFragment extends SupportFragment implements
   public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     mView = inflater.inflate(getLayoutId(), null);
-    mLoadService = LoadSir.getDefault().register(mView, new OnReloadListener() {
-      @Override
-      public void onReload(View v) {
-        onPageRetry(v);
-      }
-    });
+    if (useLoadSir()) {
+      mLoadService = LoadSir.getDefault().register(registerTarget(), new OnReloadListener() {
+        @Override
+        public void onReload(View v) {
+          onPageRetry(v);
+        }
+      });
+      return mLoadService.getLoadLayout();
+    } else {
+      return mView;
+    }
+  }
+
+  /**
+   * loadsir注册目标
+   */
+  protected Object registerTarget() {
     return mView;
+  }
+
+  /**
+   * 是否使用loadsir，默认不使用
+   */
+  protected boolean useLoadSir() {
+    return false;
   }
 
   @Override

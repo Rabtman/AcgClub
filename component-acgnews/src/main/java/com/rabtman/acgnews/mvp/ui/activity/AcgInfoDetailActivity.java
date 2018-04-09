@@ -1,6 +1,7 @@
 package com.rabtman.acgnews.mvp.ui.activity;
 
 import android.content.Intent;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.Toolbar.OnMenuItemClickListener;
 import android.view.Menu;
@@ -41,6 +42,8 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
 
   @BindView(R2.id.toolbar)
   Toolbar mToolBar;
+  @BindView(R2.id.layout_content)
+  NestedScrollView layoutContent;
   @BindView(R2.id.tv_acg_detail_content)
   TextView tvAcgDetailContent;
   @BindView(R2.id.tv_acg_detail_title)
@@ -63,6 +66,16 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
   @Override
   protected int getLayoutId() {
     return R.layout.acgnews_activity_acginfo_detail;
+  }
+
+  @Override
+  protected Object registerTarget() {
+    return layoutContent;
+  }
+
+  @Override
+  protected boolean useLoadSir() {
+    return true;
   }
 
   @Override

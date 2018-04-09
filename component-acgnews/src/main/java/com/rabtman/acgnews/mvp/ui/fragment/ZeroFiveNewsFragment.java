@@ -52,6 +52,11 @@ public class ZeroFiveNewsFragment extends BaseFragment<AcgNewsItemPresenter> imp
   }
 
   @Override
+  protected boolean useLoadSir() {
+    return true;
+  }
+
+  @Override
   protected void initData() {
     mAdapter = new AcgNewsItemAdapter(getAppComponent().imageLoader());
     mAdapter.setOnItemClickListener(new OnItemClickListener() {

@@ -54,20 +54,17 @@ public class AcgNewsDetailPresenter extends
         mModel.getAcgNewsDetail(url)
             .compose(RxUtil.<AcgNewsDetail>rxSchedulerHelper())
             .subscribeWith(new CommonSubscriber<AcgNewsDetail>(mView) {
-              @Override
-              protected void onStart() {
-                super.onStart();
-                mView.showLoading();
-              }
 
               @Override
-              public void onComplete() {
-                mView.hideLoading();
+              public void onError(Throwable e) {
+                super.onError(e);
+                mView.showPageError();
               }
 
               @Override
               public void onNext(AcgNewsDetail acgNewsDetail) {
                 mView.showNewsDetail(acgNewsDetail);
+                mView.showPageContent();
               }
             })
     );

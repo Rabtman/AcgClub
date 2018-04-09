@@ -4,7 +4,8 @@
   android:id="@+id/ddm_comic_menu"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  app:dddividerColor="@color/grey500"
+  android:background="@color/grey100"
+  app:dddividerColor="@color/grey300"
   app:ddmaskColor="@color/mask_color"
   app:ddmenuBackgroundColor="@android:color/white"
   app:ddmenuMenuHeightPercent="0.5"
@@ -13,4 +14,4 @@
   app:ddmenuUnselectedIcon="@drawable/ic_drop_down_unselected"
   app:ddtextSelectedColor="@color/colorPrimaryDark"
   app:ddtextUnselectedColor="@color/drop_down_unselected"
-  app:ddunderlineColor="@color/grey500" />
+  app:ddunderlineColor="@color/grey300" />

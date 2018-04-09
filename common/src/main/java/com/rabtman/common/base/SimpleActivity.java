@@ -44,14 +44,30 @@ public abstract class SimpleActivity extends SupportActivity implements
     mContext = this;
     mAppComponent = mApplication.getAppComponent();
     setStatusBar();
-    mLoadService = LoadSir.getDefault().register(this, new OnReloadListener() {
-      @Override
-      public void onReload(View v) {
-        onPageRetry(v);
-      }
-    });
+    if (useLoadSir()) {
+      mLoadService = LoadSir.getDefault().register(registerTarget(), new OnReloadListener() {
+        @Override
+        public void onReload(View v) {
+          onPageRetry(v);
+        }
+      });
+    }
     onViewCreated();
     initData();
+  }
+
+  /**
+   * loadsir注册目标，默认为自身acitivity
+   */
+  protected Object registerTarget() {
+    return this;
+  }
+
+  /**
+   * 是否使用loadsir，默认不使用
+   */
+  protected boolean useLoadSir() {
+    return false;
   }
 
   @Override

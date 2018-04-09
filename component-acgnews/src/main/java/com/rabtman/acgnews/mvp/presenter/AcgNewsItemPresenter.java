@@ -30,10 +30,11 @@ public class AcgNewsItemPresenter extends
         mModel.getAcgNews(HtmlConstant.BASE_URL + mView.getNewsUrl(pageNo))
             .compose(RxUtil.<AcgNewsPage>rxSchedulerHelper())
             .subscribeWith(new CommonSubscriber<AcgNewsPage>(mView) {
+
               @Override
-              protected void onStart() {
-                super.onStart();
-                mView.showLoading();
+              public void onError(Throwable e) {
+                super.onError(e);
+                mView.showPageError();
               }
 
               @Override
@@ -43,7 +44,12 @@ public class AcgNewsItemPresenter extends
 
               @Override
               public void onNext(AcgNewsPage acgNewsPage) {
-                mView.showAcgNews(acgNewsPage.getAcgNewsList());
+                if (acgNewsPage.getAcgNewsList().size() > 0) {
+                  mView.showAcgNews(acgNewsPage.getAcgNewsList());
+                  mView.showPageContent();
+                } else {
+                  mView.showPageEmpty();
+                }
               }
             })
     );
