@@ -28,19 +28,20 @@ public class ScheduleMainPresenter extends
             .compose(RxUtil.<DilidiliInfo>rxSchedulerHelper())
             .subscribeWith(new CommonSubscriber<DilidiliInfo>(mView) {
               @Override
-              protected void onStart() {
-                super.onStart();
-                mView.showLoading();
-              }
-
-              @Override
               public void onComplete() {
                 mView.hideLoading();
               }
 
               @Override
+              public void onError(Throwable e) {
+                super.onError(e);
+                mView.showPageError();
+              }
+
+              @Override
               public void onNext(DilidiliInfo dilidiliInfo) {
                 mView.showDilidiliInfo(dilidiliInfo);
+                mView.showPageContent();
               }
             })
     );

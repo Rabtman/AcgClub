@@ -51,6 +51,16 @@ public class ScheduleNewActivity extends BaseActivity<ScheduleNewPresenter> impl
   }
 
   @Override
+  protected boolean useLoadSir() {
+    return true;
+  }
+
+  @Override
+  protected Object registerTarget() {
+    return rcvScheduleNew;
+  }
+
+  @Override
   protected void initData() {
     setToolBar(toolbar, "本季新番");
 

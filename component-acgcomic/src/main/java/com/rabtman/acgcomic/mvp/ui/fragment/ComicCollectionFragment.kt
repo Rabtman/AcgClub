@@ -66,6 +66,10 @@ class ComicCollectionFragment : SimpleFragment() {
         super.onPause()
     }
 
+    override fun useLoadSir(): Boolean {
+        return true
+    }
+
     /**
      * 获取收藏的所有番剧信息并显示出来
      */
@@ -80,10 +84,16 @@ class ComicCollectionFragment : SimpleFragment() {
                 .subscribeWith(object : ResourceSubscriber<List<ComicCache>>() {
                     override fun onNext(comicCacheList: List<ComicCache>) {
                         mAdapter.setNewData(comicCacheList)
+                        if (comicCacheList.isNotEmpty()) {
+                            showPageContent()
+                        } else {
+                            showPageEmpty()
+                        }
                     }
 
                     override fun onError(t: Throwable) {
                         showError(R.string.msg_error_data_null)
+                        showPageError()
                     }
 
                     override fun onComplete() {

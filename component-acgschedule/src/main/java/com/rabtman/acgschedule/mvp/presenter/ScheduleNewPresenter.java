@@ -29,19 +29,24 @@ public class ScheduleNewPresenter extends
             .compose(RxUtil.<ScheduleNew>rxSchedulerHelper())
             .subscribeWith(new CommonSubscriber<ScheduleNew>(mView) {
               @Override
-              protected void onStart() {
-                super.onStart();
-                mView.showLoading();
-              }
-
-              @Override
               public void onComplete() {
                 mView.hideLoading();
               }
 
               @Override
+              public void onError(Throwable e) {
+                super.onError(e);
+                mView.showPageError();
+              }
+
+              @Override
               public void onNext(ScheduleNew scheduleNew) {
                 mView.showScheduleNew(scheduleNew);
+                if (scheduleNew.getScheduleNewItems().size() > 0) {
+                  mView.showPageContent();
+                } else {
+                  mView.showPageEmpty();
+                }
               }
             })
     );

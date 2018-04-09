@@ -19,6 +19,7 @@ public class RouterConstants {
   public static final String PATH_SCHEDULE_MAIN = "/acgschedule/main";
   public static final String PATH_SCHEDULE_TIME = "/acgschedule/time";
   public static final String PATH_SCHEDULE_NEW = "/acgschedule/new";
+  public static final String PATH_SCHEDULE_OTHER = "/acgschedule/other";
   public static final String PATH_SCHEDULE_VIDEO = "/acgschedule/video";
   public static final String PATH_SCHEDULE_DETAIL = "/acgschedule/detail";
   public static final String PATH_SCHEDULE_COLLECTION = "/acgschedule/collection";

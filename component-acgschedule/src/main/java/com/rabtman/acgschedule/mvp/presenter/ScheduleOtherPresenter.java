@@ -42,19 +42,24 @@ public class ScheduleOtherPresenter extends
             .compose(RxUtil.<ScheduleOtherPage>rxSchedulerHelper())
             .subscribeWith(new CommonSubscriber<ScheduleOtherPage>(mView) {
               @Override
-              protected void onStart() {
-                super.onStart();
-                mView.showLoading();
-              }
-
-              @Override
               public void onComplete() {
                 mView.hideLoading();
               }
 
               @Override
+              public void onError(Throwable e) {
+                super.onError(e);
+                mView.showPageError();
+              }
+
+              @Override
               public void onNext(ScheduleOtherPage scheduleOther) {
                 mView.showScheduleOther(scheduleOther);
+                if (scheduleOther.getScheduleOtherItems().size() > 0) {
+                  mView.showPageContent();
+                } else {
+                  mView.showPageEmpty();
+                }
               }
             })
     );

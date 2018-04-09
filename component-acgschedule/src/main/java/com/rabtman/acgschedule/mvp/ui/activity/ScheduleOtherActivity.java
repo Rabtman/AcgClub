@@ -29,7 +29,7 @@ import com.rabtman.router.RouterConstants;
 /**
  * @author Rabtman
  */
-@Route(path = RouterConstants.PATH_SCHEDULE_NEW)
+@Route(path = RouterConstants.PATH_SCHEDULE_OTHER)
 public class ScheduleOtherActivity extends BaseActivity<ScheduleOtherPresenter> implements
     View {
 
@@ -53,6 +53,16 @@ public class ScheduleOtherActivity extends BaseActivity<ScheduleOtherPresenter> 
   @Override
   protected int getLayoutId() {
     return R.layout.acgschedule_activity_schedule_other;
+  }
+
+  @Override
+  protected boolean useLoadSir() {
+    return true;
+  }
+
+  @Override
+  protected Object registerTarget() {
+    return rcvScheduleOther;
   }
 
   @Override

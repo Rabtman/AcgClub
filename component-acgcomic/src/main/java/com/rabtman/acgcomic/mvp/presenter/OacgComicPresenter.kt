@@ -4,8 +4,6 @@ import com.rabtman.acgcomic.mvp.OacgComicContract
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicPage
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
-import com.rabtman.common.base.pagestatusmanager.PageStatusListener
-import com.rabtman.common.base.pagestatusmanager.PageStatusManager
 import com.rabtman.common.di.scope.FragmentScope
 import com.rabtman.common.utils.RxUtil
 import javax.inject.Inject
@@ -36,31 +34,28 @@ class OacgComicPresenter
     }
 
     fun getComicInfos() {
-        val pageManager = PageStatusManager.generate(mView, object : PageStatusListener() {
-
-        })
-
         pageNo = 0
         addSubscribe(
                 mModel.getComicInfos(selectedType, pageNo)
                         .compose(RxUtil.rxSchedulerHelper<OacgComicPage>())
                         .subscribeWith(object : CommonSubscriber<OacgComicPage>(mView) {
-                            override fun onStart() {
-                                super.onStart()
-                                pageManager.showLoading()
+
+                            override fun onComplete() {
+                                super.onComplete()
+                                mView.hideLoading()
                             }
 
                             override fun onError(e: Throwable?) {
                                 super.onError(e)
-                                pageManager.showRetry()
+                                mView.showPageError()
                             }
 
                             override fun onNext(oacgComicPage: OacgComicPage) {
                                 if (oacgComicPage.oacgComicItems == null || oacgComicPage.oacgComicItems.isEmpty()) {
-                                    pageManager.showEmpty()
+                                    mView.showPageEmpty()
                                 } else {
                                     mView.showComicInfos(oacgComicPage.oacgComicItems)
-                                    pageManager.showContent()
+                                    mView.showPageContent()
                                 }
                             }
                         })

@@ -57,6 +57,11 @@ public class ScheduleCollectionFragment extends SimpleFragment {
   }
 
   @Override
+  protected boolean useLoadSir() {
+    return true;
+  }
+
+  @Override
   public void onResume() {
     super.onResume();
     if (isInited && isVisible) {
@@ -87,11 +92,17 @@ public class ScheduleCollectionFragment extends SimpleFragment {
           @Override
           public void onNext(List<ScheduleCache> scheduleCaches) {
             mAdapter.setNewData(scheduleCaches);
+            if (scheduleCaches.size() > 0) {
+              showPageContent();
+            } else {
+              showPageEmpty();
+            }
           }
 
           @Override
           public void onError(Throwable t) {
             showError(R.string.msg_error_data_null);
+            showPageError();
           }
 
           @Override

@@ -71,6 +71,10 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
         mPresenter.getComicInfos()
     }
 
+    override fun useLoadSir(): Boolean {
+        return true
+    }
+
     //初始化菜单布局
     private fun initDropDownMenu() {
         //分类
