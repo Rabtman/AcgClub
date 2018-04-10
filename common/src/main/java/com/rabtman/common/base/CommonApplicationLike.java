@@ -7,7 +7,9 @@ import com.kingja.loadsir.core.LoadSir;
 import com.rabtman.common.BuildConfig;
 import com.rabtman.common.R;
 import com.rabtman.common.base.widget.loadsir.EmptyCallback;
+import com.rabtman.common.base.widget.loadsir.EmptyCollectionCallback;
 import com.rabtman.common.base.widget.loadsir.LoadingCallback;
+import com.rabtman.common.base.widget.loadsir.PlaceholderCallback;
 import com.rabtman.common.base.widget.loadsir.RetryCallback;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.di.component.DaggerAppComponent;
@@ -94,6 +96,8 @@ public class CommonApplicationLike implements IApplicationLike {
     LoadSir.beginBuilder()
         .addCallback(new LoadingCallback())
         .addCallback(new EmptyCallback())
+        .addCallback(new EmptyCollectionCallback())
+        .addCallback(new PlaceholderCallback())
         .addCallback(new RetryCallback())
         .setDefaultCallback(LoadingCallback.class)
         .commit();

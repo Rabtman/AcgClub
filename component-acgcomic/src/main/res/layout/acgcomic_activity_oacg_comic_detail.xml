@@ -181,7 +181,8 @@
             android:layout_alignParentRight="true"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
-            android:src="@drawable/ic_heart" />
+            android:src="@drawable/ic_heart"
+            android:visibility="invisible" />
 
           <TextView
             android:id="@+id/toolbar_title"

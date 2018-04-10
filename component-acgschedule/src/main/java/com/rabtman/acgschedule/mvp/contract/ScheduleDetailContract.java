@@ -29,6 +29,6 @@ public interface ScheduleDetailContract {
 
     Completable collectSchedule(ScheduleCache item, boolean isAdd);
 
-    Completable updateScheduleWatchRecord(String scheduleUrl, final int lastWatchPos);
+    Completable updateScheduleWatchRecord(ScheduleCache item, int lastWatchPos);
   }
 }

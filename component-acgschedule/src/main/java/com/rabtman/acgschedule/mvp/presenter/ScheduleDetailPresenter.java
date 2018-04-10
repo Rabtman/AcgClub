@@ -35,6 +35,10 @@ public class ScheduleDetailPresenter extends
    */
   private ScheduleDetail currentScheduleDetail;
   /**
+   * 本地缓存加载标识
+   */
+  private boolean loadCache = false;
+  /**
    * 当前番剧的本地缓存
    */
   private ScheduleCache curScheduleCache = new ScheduleCache();
@@ -54,15 +58,16 @@ public class ScheduleDetailPresenter extends
         mModel.getScheduleDetail(currentScheduleUrl)
             .compose(RxUtil.<ScheduleDetail>rxSchedulerHelper())
             .subscribeWith(new CommonSubscriber<ScheduleDetail>(mView) {
-              @Override
-              protected void onStart() {
-                super.onStart();
-                mView.showLoading();
-              }
 
               @Override
               public void onComplete() {
                 mView.hideLoading();
+              }
+
+              @Override
+              public void onError(Throwable e) {
+                super.onError(e);
+                mView.showPageError();
               }
 
               @Override
@@ -74,8 +79,9 @@ public class ScheduleDetailPresenter extends
                 currentScheduleDetail = scheduleDetail;
 
                 mView.showScheduleDetail(scheduleDetail);
+                mView.showPageContent();
 
-                if (curScheduleCache.getLastWatchPos() != -1) {
+                if (loadCache) {
                   mView.showScheduleCacheStatus(curScheduleCache);
                 }
               }
@@ -100,8 +106,9 @@ public class ScheduleDetailPresenter extends
               .compose(RxUtil.<ScheduleCache>rxSchedulerHelper())
               .subscribeWith(new ResourceSubscriber<ScheduleCache>() {
                 @Override
-                public void onNext(ScheduleCache ScheduleCache) {
-                  curScheduleCache = ScheduleCache;
+                public void onNext(ScheduleCache scheduleCache) {
+                  curScheduleCache.setCollect(scheduleCache.isCollect());
+                  curScheduleCache.setLastWatchPos(scheduleCache.getLastWatchPos());
                 }
 
                 @Override
@@ -112,6 +119,10 @@ public class ScheduleDetailPresenter extends
 
                 @Override
                 public void onComplete() {
+                  loadCache = true;
+                  if (!TextUtils.isEmpty(curScheduleCache.getScheduleUrl())) {
+                    mView.showScheduleCacheStatus(curScheduleCache);
+                  }
                   //手动点击，则在加载完记录后跳转到视频播放
                   if (isManualClick) {
                     checkPermission2ScheduleVideo(
@@ -204,7 +215,7 @@ public class ScheduleDetailPresenter extends
    */
   public void updateScheduleReadRecord(final int lastWatchPos) {
     addSubscribe(
-        mModel.updateScheduleWatchRecord(currentScheduleUrl, lastWatchPos)
+        mModel.updateScheduleWatchRecord(curScheduleCache, lastWatchPos)
             .subscribe(new Action() {
               @Override
               public void run() throws Exception {

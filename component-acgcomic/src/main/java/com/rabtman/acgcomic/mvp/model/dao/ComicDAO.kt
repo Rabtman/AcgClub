@@ -56,9 +56,10 @@ class ComicDAO(val config: RealmConfiguration) {
         }
     }
 
-    fun getComicCacheList(): Flowable<List<ComicCache>> {
+    fun getComicCollectCaches(): Flowable<List<ComicCache>> {
         Realm.getInstance(config).use { realm ->
             val queryResult = realm.where(ComicCache::class.java)
+                    .equalTo("isCollect", true)
                     .findAll()
             return if (queryResult != null) {
                 Flowable.just(realm.copyFromRealm(queryResult))

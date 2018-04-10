@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/ll_placeholder"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:paddingTop="@dimen/toolbar_height">
+
+  <ImageView
+    android:id="@+id/img_placeholder"
+    android:layout_width="100dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="12dp"
+    android:layout_marginBottom="24dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:background="#dedede"
+    app:layout_constraintBottom_toTopOf="@+id/tv_placeholder_4"
+    app:layout_constraintEnd_toStartOf="@+id/tv_placeholder_1"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:id="@+id/tv_placeholder_1"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="28dp"
+    android:layout_marginEnd="12dp"
+    android:background="#dedede"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@+id/img_placeholder"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+    android:id="@+id/tv_placeholder_2"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="9dp"
+    android:background="#dedede"
+    app:layout_constraintEnd_toEndOf="@+id/tv_placeholder_1"
+    app:layout_constraintStart_toStartOf="@+id/tv_placeholder_1"
+    app:layout_constraintTop_toBottomOf="@+id/tv_placeholder_1" />
+
+  <TextView
+    android:id="@+id/tv_placeholder_3"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="9dp"
+    android:background="#dedede"
+    app:layout_constraintEnd_toEndOf="@+id/tv_placeholder_2"
+    app:layout_constraintStart_toStartOf="@+id/tv_placeholder_2"
+    app:layout_constraintTop_toBottomOf="@+id/tv_placeholder_2" />
+
+  <TextView
+    android:id="@+id/tv_placeholder_4"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="23dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:background="#dedede"
+    app:layout_constraintBottom_toTopOf="@+id/tv_placeholder_5"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/img_placeholder" />
+
+  <TextView
+    android:id="@+id/tv_placeholder_5"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginBottom="24dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:background="#dedede"
+    app:layout_constraintBottom_toTopOf="@+id/tv_placeholder_6"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tv_placeholder_4" />
+
+  <TextView
+    android:id="@+id/tv_placeholder_6"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginBottom="24dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:background="#dedede"
+    app:layout_constraintBottom_toTopOf="@+id/tv_placeholder_7"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tv_placeholder_5" />
+
+  <TextView
+    android:id="@+id/tv_placeholder_7"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginBottom="97dp"
+    android:layout_marginStart="12dp"
+    android:layout_marginEnd="12dp"
+    android:background="#dedede"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/tv_placeholder_6" />
+
+</android.support.constraint.ConstraintLayout>

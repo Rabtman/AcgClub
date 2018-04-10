@@ -9,7 +9,7 @@
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
     android:paddingTop="20dp"
-    android:text="报告主人！这里什么都没有(・-・*)"
+    android:text="主人，你还没有添加过收藏哦(｡•ˇ‸ˇ•｡)"
     android:textColor="#666666"
     android:textSize="15sp" />
 
@@ -19,5 +19,5 @@
     android:layout_height="wrap_content"
     android:layout_above="@id/tv_page_empty"
     android:layout_centerInParent="true"
-    android:src="@drawable/ic_empty" />
+    android:src="@drawable/ic_empty_box" />
 </RelativeLayout>

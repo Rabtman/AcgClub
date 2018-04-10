@@ -14,6 +14,7 @@ import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.acgcomic.mvp.ui.adapter.ComicCollectionAdapter
 import com.rabtman.common.base.SimpleFragment
+import com.rabtman.common.base.widget.loadsir.EmptyCollectionCallback
 import com.rabtman.common.utils.RxUtil
 import com.rabtman.router.RouterConstants
 import com.rabtman.router.RouterUtils
@@ -79,7 +80,7 @@ class ComicCollectionFragment : SimpleFragment() {
                         .repositoryManager()
                         .obtainRealmConfig(SystemConstant.DB_NAME)
         )
-        mDisposable = dao.getComicCacheList()
+        mDisposable = dao.getComicCollectCaches()
                 .compose(RxUtil.rxSchedulerHelper<List<ComicCache>>())
                 .subscribeWith(object : ResourceSubscriber<List<ComicCache>>() {
                     override fun onNext(comicCacheList: List<ComicCache>) {
@@ -100,5 +101,11 @@ class ComicCollectionFragment : SimpleFragment() {
 
                     }
                 })
+    }
+
+    override fun showPageEmpty() {
+        if (mLoadService != null) {
+            mLoadService.showCallback(EmptyCollectionCallback::class.java)
+        }
     }
 }

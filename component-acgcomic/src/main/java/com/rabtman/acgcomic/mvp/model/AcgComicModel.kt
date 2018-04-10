@@ -63,7 +63,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     override fun collectComic(comicItem: OacgComicItem, isAdd: Boolean): Completable {
         return DAO.getComicCacheById(comicItem.id)
                 .flatMapCompletable({ comicCache ->
-                    if (comicCache.comicId.isEmpty()) {
+                    if (comicCache.comicDetailJson.isEmpty()) {
                         comicCache.comicId = comicItem.id
                         comicCache.comicName = comicItem.comicName
                         comicCache.comicImgUrl = comicItem.comicPicUrl

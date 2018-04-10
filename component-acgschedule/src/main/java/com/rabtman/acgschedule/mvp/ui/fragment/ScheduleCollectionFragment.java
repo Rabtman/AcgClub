@@ -15,6 +15,7 @@ import com.rabtman.acgschedule.mvp.model.dao.ScheduleDAO;
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleCache;
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleCollectionAdapter;
 import com.rabtman.common.base.SimpleFragment;
+import com.rabtman.common.base.widget.loadsir.EmptyCollectionCallback;
 import com.rabtman.common.utils.RxUtil;
 import com.rabtman.router.RouterConstants;
 import com.rabtman.router.RouterUtils;
@@ -86,7 +87,7 @@ public class ScheduleCollectionFragment extends SimpleFragment {
             .repositoryManager()
             .obtainRealmConfig(SystemConstant.DB_NAME)
     );
-    mDisposable = dao.getScheduleCaches()
+    mDisposable = dao.getScheduleCollectCaches()
         .compose(RxUtil.<List<ScheduleCache>>rxSchedulerHelper())
         .subscribeWith(new ResourceSubscriber<List<ScheduleCache>>() {
           @Override
@@ -110,5 +111,12 @@ public class ScheduleCollectionFragment extends SimpleFragment {
 
           }
         });
+  }
+
+  @Override
+  public void showPageEmpty() {
+    if (mLoadService != null) {
+      mLoadService.showCallback(EmptyCollectionCallback.class);
+    }
   }
 }

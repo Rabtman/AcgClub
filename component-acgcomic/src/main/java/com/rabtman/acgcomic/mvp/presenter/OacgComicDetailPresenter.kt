@@ -30,23 +30,19 @@ constructor(model: OacgComicDetailContract.Model,
                 mModel.getComicDetail(comicId.toInt())
                         .compose(RxUtil.rxSchedulerHelper<List<OacgComicEpisode>>())
                         .subscribeWith(object : CommonSubscriber<List<OacgComicEpisode>>(mView) {
-                            override fun onStart() {
-                                super.onStart()
-                                mView.showLoading()
-                            }
-
                             override fun onComplete() {
                                 mView.hideLoading()
                             }
 
                             override fun onError(e: Throwable?) {
                                 super.onError(e)
-                                mView.hideLoading()
+                                mView.showPageError()
                             }
 
                             override fun onNext(comicEpisodes: List<OacgComicEpisode>) {
                                 currentComicEpisodes = comicEpisodes
                                 mView.showComicDetail(comicEpisodes)
+                                mView.showPageContent()
                                 if (currentComicCache.chapterPos != -1) {
                                     mView.showComicCacheStatus(currentComicCache)
                                 }

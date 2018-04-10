@@ -17,6 +17,8 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.jaeger.library.StatusBarUtil;
+import com.kingja.loadsir.callback.Callback.OnReloadListener;
+import com.kingja.loadsir.core.LoadSir;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.R2;
@@ -31,6 +33,9 @@ import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail.ScheduleEpisode;
 import com.rabtman.acgschedule.mvp.presenter.ScheduleDetailPresenter;
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleDetailEpisodeItemAdapter;
 import com.rabtman.common.base.BaseActivity;
+import com.rabtman.common.base.widget.loadsir.EmptyCallback;
+import com.rabtman.common.base.widget.loadsir.PlaceholderCallback;
+import com.rabtman.common.base.widget.loadsir.RetryCallback;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.imageloader.glide.GlideImageConfig;
 import com.rabtman.common.imageloader.glide.transformations.BlurTransformation;
@@ -103,6 +108,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
 
   @Override
   protected void initData() {
+    initPageStatus();
     setToolBar(mToolBar, "");
     collapsingToolbarLayout.setTitleEnabled(false);
     rxPermissions = new RxPermissions(this);
@@ -121,6 +127,21 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   protected void onResume() {
     super.onResume();
     mPresenter.getCurrentScheduleCache(rxPermissions, false);
+  }
+
+  private void initPageStatus() {
+    mLoadService = new LoadSir.Builder()
+        .addCallback(new PlaceholderCallback())
+        .addCallback(new EmptyCallback())
+        .addCallback(new RetryCallback())
+        .setDefaultCallback(PlaceholderCallback.class)
+        .build()
+        .register(this, new OnReloadListener() {
+          @Override
+          public void onReload(android.view.View v) {
+
+          }
+        });
   }
 
   @Override

@@ -9,7 +9,7 @@ import io.realm.annotations.PrimaryKey
 
 /**
  * 漫画本地储存信息
- * @param comicUrl 漫画地址
+ * @param comicId 漫画id
  * @param comicName 漫画名
  * @param comicImgUrl 漫画封面地址
  * @param comicDetailJson 漫画详细内容json

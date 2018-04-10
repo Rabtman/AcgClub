@@ -15,6 +15,7 @@ import butterknife.BindView
 import butterknife.OnClick
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.jaeger.library.StatusBarUtil
+import com.kingja.loadsir.core.LoadSir
 import com.ms.square.android.expandabletextview.ExpandableTextView
 import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.R2
@@ -29,6 +30,9 @@ import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.acgcomic.mvp.presenter.OacgComicDetailPresenter
 import com.rabtman.acgcomic.mvp.ui.adapter.OacgComicEpisodeItemAdapter
 import com.rabtman.common.base.BaseActivity
+import com.rabtman.common.base.widget.loadsir.EmptyCallback
+import com.rabtman.common.base.widget.loadsir.PlaceholderCallback
+import com.rabtman.common.base.widget.loadsir.RetryCallback
 import com.rabtman.common.di.component.AppComponent
 import com.rabtman.common.imageloader.glide.GlideImageConfig
 import com.rabtman.common.imageloader.glide.transformations.BlurTransformation
@@ -105,6 +109,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
     }
 
     override fun initData() {
+        initPageStatus()
         setToolBar(mToolBar, "")
         collapsingToolbarLayout.isTitleEnabled = false
 
@@ -114,6 +119,20 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
             episodeItemAdpater = OacgComicEpisodeItemAdapter()
             mPresenter.getOacgComicDetail(it.id)
         }
+    }
+
+    private fun initPageStatus() {
+        mLoadService = LoadSir.Builder()
+                .addCallback(PlaceholderCallback())
+                .addCallback(EmptyCallback())
+                .addCallback(RetryCallback())
+                .setDefaultCallback(PlaceholderCallback::class.java)
+                .build()
+                .register(this, { v ->
+                    currentComicInfo?.let { it ->
+                        mPresenter.getOacgComicDetail(it.id)
+                    }
+                })
     }
 
     @OnClick(R2.id.btn_oacg_comic_like)
@@ -185,6 +204,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         if (comicInfos == null || comicInfos.isEmpty()) {
             tvOacgComicDetailProc.setText(R.string.acgcomic_label_comic_no_proc)
         } else {
+            btnOacgComicLike.visibility = View.VISIBLE
             btnOacgComicRead.visibility = View.VISIBLE
             tvOacgComicDetailProc.text = String.format(getString(R.string.acgcomic_label_comic_update), currentComicInfo?.comicLastOrderidx)
             //选集内容

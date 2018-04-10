@@ -62,11 +62,14 @@ public class ScheduleDetailModel extends BaseModel implements ScheduleDetailCont
     return DAO.getScheduleCacheByUrl(scheduleUrl);
   }
 
-  public Completable updateScheduleWatchRecord(final String scheduleUrl, final int lastWatchPos) {
-    return DAO.getScheduleCacheByUrl(scheduleUrl)
+  public Completable updateScheduleWatchRecord(final ScheduleCache item, final int lastWatchPos) {
+    return DAO.getScheduleCacheByUrl(item.getScheduleUrl())
         .flatMapCompletable(new Function<ScheduleCache, Completable>() {
           @Override
           public Completable apply(ScheduleCache scheduleCache) throws Exception {
+            if (TextUtils.isEmpty(scheduleCache.getScheduleUrl())) {
+              scheduleCache = item;
+            }
             scheduleCache.setLastWatchPos(lastWatchPos);
             return DAO.addScheduleCache(scheduleCache);
           }
