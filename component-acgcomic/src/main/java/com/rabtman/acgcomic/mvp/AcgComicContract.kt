@@ -4,7 +4,6 @@ import com.rabtman.acgcomic.mvp.model.entity.*
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.common.base.mvp.IModel
 import com.rabtman.common.base.mvp.IView
-import io.reactivex.Completable
 import io.reactivex.Flowable
 
 /**
@@ -61,9 +60,9 @@ interface OacgComicDetailContract {
 
         fun getComicCacheById(comicId: String): Flowable<ComicCache>
 
-        fun collectComic(comicItem: OacgComicItem, isAdd: Boolean): Completable
+        fun collectComic(comicItem: OacgComicItem, isAdd: Boolean): Flowable<ComicCache>
 
-        fun updateComicLastChapter(comicId: String, lastChapterPos: Int): Completable
+        fun updateComicLastChapter(comicId: String, lastChapterPos: Int): Flowable<ComicCache>
     }
 }
 
@@ -81,7 +80,7 @@ interface OacgComicEpisodeDetailContract {
         /**
          * 保存最近一次漫画观看记录
          */
-        fun updateComicLastRecord(comicId: String, lastChapterPos: Int, lastPagePos: Int): Completable
+        fun updateComicLastRecord(comicId: String, lastChapterPos: Int, lastPagePos: Int): Flowable<ComicCache>
     }
 }
 

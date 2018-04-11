@@ -18,7 +18,7 @@ import io.realm.RealmConfiguration
 class AcgComicConfig : ConfigModule {
 
     override fun applyOptions(context: Context, builder: Builder) {
-        //builder.addInterceptor(HttpLoggingInterceptor().setLevel(Level.BODY))
+
     }
 
     override fun registerComponents(context: Context, repositoryManager: IRepositoryManager) {

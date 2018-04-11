@@ -33,7 +33,10 @@ class OacgComicEpisodeItemAdapter : BaseQuickAdapter<OacgComicEpisode, BaseViewH
      * @param pos 最近一次观看记录的位置
      */
     fun setRecordPos(pos: Int) {
+        if (mLastRecordPos != -1) {
+            notifyItemChanged(mLastRecordPos)
+        }
         mLastRecordPos = pos
-        notifyDataSetChanged()
+        notifyItemChanged(pos)
     }
 }

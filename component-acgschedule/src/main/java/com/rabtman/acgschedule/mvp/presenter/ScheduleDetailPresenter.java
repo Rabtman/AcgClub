@@ -13,7 +13,6 @@ import com.rabtman.common.di.scope.ActivityScope;
 import com.rabtman.common.utils.RxUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import io.reactivex.annotations.NonNull;
-import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.subscribers.ResourceSubscriber;
 import java.util.List;
@@ -183,9 +182,10 @@ public class ScheduleDetailPresenter extends
   public void collectOrCancelSchedule(final boolean isCollected) {
     addSubscribe(
         mModel.collectSchedule(curScheduleCache, !isCollected)
-            .subscribe(new Action() {
+            .compose(RxUtil.<ScheduleCache>rxSchedulerHelper())
+            .subscribe(new Consumer<ScheduleCache>() {
               @Override
-              public void run() throws Exception {
+              public void accept(ScheduleCache scheduleCache) throws Exception {
                 curScheduleCache.setCollect(!isCollected);
                 mView.showScheduleCacheStatus(curScheduleCache);
                 if (!isCollected) {
@@ -216,9 +216,10 @@ public class ScheduleDetailPresenter extends
   public void updateScheduleReadRecord(final int lastWatchPos) {
     addSubscribe(
         mModel.updateScheduleWatchRecord(curScheduleCache, lastWatchPos)
-            .subscribe(new Action() {
+            .compose(RxUtil.<ScheduleCache>rxSchedulerHelper())
+            .subscribe(new Consumer<ScheduleCache>() {
               @Override
-              public void run() throws Exception {
+              public void accept(ScheduleCache scheduleCache) throws Exception {
                 curScheduleCache.setLastWatchPos(lastWatchPos);
                 mView.showScheduleCacheStatus(curScheduleCache);
               }

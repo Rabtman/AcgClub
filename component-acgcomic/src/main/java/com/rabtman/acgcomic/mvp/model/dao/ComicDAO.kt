@@ -1,10 +1,9 @@
 package com.rabtman.acgcomic.mvp.model.dao
 
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
+import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxRealmUtils
-import io.reactivex.Completable
 import io.reactivex.Flowable
-import io.realm.Realm
 import io.realm.RealmConfiguration
 
 /**
@@ -12,60 +11,70 @@ import io.realm.RealmConfiguration
  */
 class ComicDAO(val config: RealmConfiguration) {
 
-    fun addComicCache(item: ComicCache): Completable {
-        return RxRealmUtils.exec(config, { realm ->
-            realm.executeTransactionAsync { r -> r.copyToRealmOrUpdate(item) }
+    fun addComicCache(item: ComicCache): Flowable<ComicCache> {
+        return RxRealmUtils.flowableExec<ComicCache>(config, { pair ->
+            pair.second.executeTransaction { r ->
+                LogUtil.d("addComicCache")
+                pair.first.onNext(r.copyFromRealm(r.copyToRealmOrUpdate(item)))
+                pair.first.onComplete()
+            }
         })
     }
 
-    fun deleteComicCacheById(id: String): Completable {
-        return RxRealmUtils.exec(config, { realm ->
-            realm.executeTransactionAsync { r ->
-                r.where(ComicCache::class.java)
+    fun deleteComicCacheById(id: String): Flowable<Boolean> {
+        return RxRealmUtils.flowableExec<Boolean>(config, { pair ->
+            pair.second.executeTransaction { r ->
+                val isSuccess = r.where(ComicCache::class.java)
                         .equalTo("comicId", id)
                         .findAll()
                         .deleteAllFromRealm()
+                pair.first.onNext(isSuccess)
+                pair.first.onComplete()
             }
         })
     }
 
     fun getComicCacheById(id: String): Flowable<ComicCache> {
-        Realm.getInstance(config).use { realm ->
-            val queryResult = realm.where(ComicCache::class.java)
+        return RxRealmUtils.flowableExec(config, { pair ->
+            val queryResult = pair.second.where(ComicCache::class.java)
                     .equalTo("comicId", id)
                     .findFirst()
-            return if (queryResult != null) {
-                Flowable.just(realm.copyFromRealm(queryResult))
+            LogUtil.d("getComicCacheById")
+            if (queryResult != null) {
+                pair.first.onNext(pair.second.copyFromRealm(queryResult))
             } else {
-                Flowable.just(ComicCache(comicId = id))
+                pair.first.onNext(ComicCache(comicId = id))
             }
-        }
+            pair.first.onComplete()
+        })
     }
 
     fun getComicCacheByChapter(id: String, chapterPos: Int): Flowable<ComicCache> {
-        Realm.getInstance(config).use { realm ->
-            val queryResult = realm.where(ComicCache::class.java)
+        return RxRealmUtils.flowableExec(config, { pair ->
+            val queryResult = pair.second.where(ComicCache::class.java)
                     .equalTo("comicId", id)
                     .equalTo("chapterPos", chapterPos)
                     .findFirst()
-            return if (queryResult != null) {
-                Flowable.just(realm.copyFromRealm(queryResult))
+            LogUtil.d("getComicCacheByChapter")
+            if (queryResult != null) {
+                pair.first.onNext(pair.second.copyFromRealm(queryResult))
             } else {
-                Flowable.just(ComicCache(comicId = id, chapterPos = chapterPos))
+                pair.first.onNext(ComicCache(comicId = id, chapterPos = chapterPos))
             }
-        }
+            pair.first.onComplete()
+        })
     }
 
     fun getComicCollectCaches(): Flowable<List<ComicCache>> {
-        Realm.getInstance(config).use { realm ->
-            val queryResult = realm.where(ComicCache::class.java)
+        return RxRealmUtils.flowableExec(config, { pair ->
+            val queryResult = pair.second.where(ComicCache::class.java)
                     .equalTo("isCollect", true)
                     .findAll()
-            return if (queryResult != null) {
-                Flowable.just(realm.copyFromRealm(queryResult))
-            } else {
-                Flowable.empty()
+            LogUtil.d("getComicCollectCaches")
+            if (queryResult != null) {
+                pair.first.onNext(pair.second.copyFromRealm(queryResult))
             }
-        }
+            pair.first.onComplete()
+        })
     }
 }

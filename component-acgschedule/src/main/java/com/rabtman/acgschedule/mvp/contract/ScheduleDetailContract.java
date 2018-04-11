@@ -4,7 +4,6 @@ import com.rabtman.acgschedule.mvp.model.entity.ScheduleCache;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail;
 import com.rabtman.common.base.mvp.IModel;
 import com.rabtman.common.base.mvp.IView;
-import io.reactivex.Completable;
 import io.reactivex.Flowable;
 
 /**
@@ -27,8 +26,8 @@ public interface ScheduleDetailContract {
 
     Flowable<ScheduleCache> getScheduleCacheByUrl(String scheduleUrl);
 
-    Completable collectSchedule(ScheduleCache item, boolean isAdd);
+    Flowable<ScheduleCache> collectSchedule(ScheduleCache item, boolean isAdd);
 
-    Completable updateScheduleWatchRecord(ScheduleCache item, int lastWatchPos);
+    Flowable<ScheduleCache> updateScheduleWatchRecord(ScheduleCache item, int lastWatchPos);
   }
 }

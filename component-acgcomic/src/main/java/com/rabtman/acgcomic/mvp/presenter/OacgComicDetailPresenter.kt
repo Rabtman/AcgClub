@@ -28,7 +28,7 @@ constructor(model: OacgComicDetailContract.Model,
     fun getOacgComicDetail(comicId: String) {
         addSubscribe(
                 mModel.getComicDetail(comicId.toInt())
-                        .compose(RxUtil.rxSchedulerHelper<List<OacgComicEpisode>>())
+                        .compose(RxUtil.rxSchedulerHelper())
                         .subscribeWith(object : CommonSubscriber<List<OacgComicEpisode>>(mView) {
                             override fun onComplete() {
                                 mView.hideLoading()
@@ -59,6 +59,7 @@ constructor(model: OacgComicDetailContract.Model,
     fun updateScheduleReadChapter(comicId: String, lastChapterPos: Int) {
         addSubscribe(
                 mModel.updateComicLastChapter(comicId, lastChapterPos)
+                        .compose(RxUtil.rxSchedulerHelper())
                         .subscribe({
                             currentComicCache.chapterPos = lastChapterPos
                             mView.showComicCacheStatus(currentComicCache)
@@ -117,6 +118,7 @@ constructor(model: OacgComicDetailContract.Model,
     fun collectOrCancelComic(comicInfo: OacgComicItem, isCollected: Boolean) {
         addSubscribe(
                 mModel.collectComic(comicInfo, isCollected.not())
+                        .compose(RxUtil.rxSchedulerHelper())
                         .subscribe({
                             currentComicCache.isCollect = isCollected.not()
                             mView.showComicCacheStatus(currentComicCache)

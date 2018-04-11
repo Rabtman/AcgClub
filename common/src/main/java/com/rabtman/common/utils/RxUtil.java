@@ -1,6 +1,8 @@
 package com.rabtman.common.utils;
 
 import io.reactivex.BackpressureStrategy;
+import io.reactivex.Completable;
+import io.reactivex.CompletableTransformer;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
@@ -12,12 +14,25 @@ import io.reactivex.schedulers.Schedulers;
 public class RxUtil {
 
   /**
-   * 统一线程处理
+   * Flowable线程切换简化
    */
   public static <T> FlowableTransformer<T, T> rxSchedulerHelper() {    //compose简化线程
     return new FlowableTransformer<T, T>() {
       @Override
       public Flowable<T> apply(Flowable<T> observable) {
+        return observable.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread());
+      }
+    };
+  }
+
+  /**
+   * Completable线程切换简化
+   */
+  public static CompletableTransformer completableSchedulerHelper() {
+    return new CompletableTransformer() {
+      @Override
+      public Completable apply(Completable observable) {
         return observable.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread());
       }

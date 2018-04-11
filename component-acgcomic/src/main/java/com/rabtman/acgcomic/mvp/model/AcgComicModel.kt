@@ -14,7 +14,7 @@ import com.rabtman.common.base.mvp.BaseModel
 import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.di.scope.FragmentScope
 import com.rabtman.common.integration.IRepositoryManager
-import io.reactivex.Completable
+import com.rabtman.common.utils.LogUtil
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -60,9 +60,10 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
         return DAO.getComicCacheById(comicId)
     }
 
-    override fun collectComic(comicItem: OacgComicItem, isAdd: Boolean): Completable {
+    override fun collectComic(comicItem: OacgComicItem, isAdd: Boolean): Flowable<ComicCache> {
         return DAO.getComicCacheById(comicItem.id)
-                .flatMapCompletable({ comicCache ->
+                .flatMap({ comicCache ->
+                    LogUtil.d("collectComic")
                     if (comicCache.comicDetailJson.isEmpty()) {
                         comicCache.comicId = comicItem.id
                         comicCache.comicName = comicItem.comicName
@@ -76,9 +77,10 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
 
     }
 
-    override fun updateComicLastChapter(comicId: String, lastChapterPos: Int): Completable {
+    override fun updateComicLastChapter(comicId: String, lastChapterPos: Int): Flowable<ComicCache> {
         return DAO.getComicCacheById(comicId)
-                .flatMapCompletable({ comicCache ->
+                .flatMap({ comicCache ->
+                    LogUtil.d("updateComicLastChapter")
                     //如果不是不是上一次观看的章节，则重置观看的页面位置
                     if (comicCache.chapterPos != lastChapterPos) {
                         comicCache.chapterPos = lastChapterPos
@@ -103,9 +105,9 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
         return DAO.getComicCacheByChapter(comicId, chapterPos)
     }
 
-    override fun updateComicLastRecord(comicId: String, lastChapterPos: Int, lastPagePos: Int): Completable {
+    override fun updateComicLastRecord(comicId: String, lastChapterPos: Int, lastPagePos: Int): Flowable<ComicCache> {
         return DAO.getComicCacheById(comicId)
-                .flatMapCompletable({ comicCache ->
+                .flatMap({ comicCache ->
                     comicCache.chapterPos = lastChapterPos
                     comicCache.pagePos = lastPagePos
                     DAO.addComicCache(comicCache)

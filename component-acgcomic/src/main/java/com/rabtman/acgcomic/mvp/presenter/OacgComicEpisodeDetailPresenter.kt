@@ -133,6 +133,7 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
     fun updateScheduleReadRecord(lastChapterPos: Int, lastPagePos: Int) {
         addSubscribe(
                 mModel.updateComicLastRecord(curComicId, lastChapterPos, lastPagePos)
+                        .compose(RxUtil.rxSchedulerHelper())
                         .subscribe({
                         }, { throwable -> throwable.printStackTrace() })
         )

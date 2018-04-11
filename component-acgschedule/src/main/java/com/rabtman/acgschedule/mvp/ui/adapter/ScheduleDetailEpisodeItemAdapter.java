@@ -40,7 +40,10 @@ public class ScheduleDetailEpisodeItemAdapter extends
    * @param pos 最近一次观看记录的位置
    */
   public void setRecordPos(int pos) {
+    if (mLastRecordPos != -1) {
+      notifyItemChanged(mLastRecordPos);
+    }
     mLastRecordPos = pos;
-    notifyDataSetChanged();
+    notifyItemChanged(pos);
   }
 }

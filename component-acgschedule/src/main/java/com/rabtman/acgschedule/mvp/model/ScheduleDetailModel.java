@@ -12,7 +12,6 @@ import com.rabtman.common.base.mvp.BaseModel;
 import com.rabtman.common.di.scope.ActivityScope;
 import com.rabtman.common.integration.IRepositoryManager;
 import io.reactivex.BackpressureStrategy;
-import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
@@ -62,11 +61,12 @@ public class ScheduleDetailModel extends BaseModel implements ScheduleDetailCont
     return DAO.getScheduleCacheByUrl(scheduleUrl);
   }
 
-  public Completable updateScheduleWatchRecord(final ScheduleCache item, final int lastWatchPos) {
+  public Flowable<ScheduleCache> updateScheduleWatchRecord(final ScheduleCache item,
+      final int lastWatchPos) {
     return DAO.getScheduleCacheByUrl(item.getScheduleUrl())
-        .flatMapCompletable(new Function<ScheduleCache, Completable>() {
+        .flatMap(new Function<ScheduleCache, Flowable<ScheduleCache>>() {
           @Override
-          public Completable apply(ScheduleCache scheduleCache) throws Exception {
+          public Flowable<ScheduleCache> apply(ScheduleCache scheduleCache) throws Exception {
             if (TextUtils.isEmpty(scheduleCache.getScheduleUrl())) {
               scheduleCache = item;
             }
@@ -77,11 +77,11 @@ public class ScheduleDetailModel extends BaseModel implements ScheduleDetailCont
   }
 
   @Override
-  public Completable collectSchedule(final ScheduleCache item, final boolean isAdd) {
+  public Flowable<ScheduleCache> collectSchedule(final ScheduleCache item, final boolean isAdd) {
     return DAO.getScheduleCacheByUrl(item.getScheduleUrl())
-        .flatMapCompletable(new Function<ScheduleCache, Completable>() {
+        .flatMap(new Function<ScheduleCache, Flowable<ScheduleCache>>() {
           @Override
-          public Completable apply(ScheduleCache scheduleCache) throws Exception {
+          public Flowable<ScheduleCache> apply(ScheduleCache scheduleCache) throws Exception {
             if (TextUtils.isEmpty(scheduleCache.getScheduleUrl())) {
               scheduleCache = item;
             }

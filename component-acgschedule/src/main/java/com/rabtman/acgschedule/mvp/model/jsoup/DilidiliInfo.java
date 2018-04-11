@@ -13,7 +13,7 @@ public class DilidiliInfo {
   //本季新番
   /*@Text("div div div.mainMenu ul li:last-of-type a span")
   private String scheduleNewName;
-  @Attr(query = "div div div.mainMenu ul li:last-of-type a", attr = "href")
+  @Attr(flowableExec = "div div div.mainMenu ul li:last-of-type a", attr = "href")
   private String scheduleNewLink;*/
   @Items
   private List<ScheudleBanner> scheudleBanners; //轮播栏信息

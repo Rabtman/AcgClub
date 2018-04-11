@@ -1,10 +1,11 @@
 package com.rabtman.acgschedule.mvp.model.dao;
 
+import android.util.Pair;
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleCache;
 import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxRealmUtils;
-import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
 import io.reactivex.functions.Consumer;
 import io.realm.Realm;
 import io.realm.Realm.Transaction;
@@ -23,35 +24,40 @@ public class ScheduleDAO {
     this.realmConfiguration = realmConfiguration;
   }
 
-  public Completable addScheduleCache(final ScheduleCache item) {
-    return RxRealmUtils.exec(realmConfiguration, new Consumer<Realm>() {
-      @Override
-      public void accept(Realm realm) throws Exception {
-        realm.executeTransactionAsync(new Transaction() {
+  public Flowable<ScheduleCache> addScheduleCache(final ScheduleCache item) {
+    return RxRealmUtils
+        .flowableExec(realmConfiguration, new Consumer<Pair<FlowableEmitter, Realm>>() {
           @Override
-          public void execute(Realm r) {
-            r.copyToRealmOrUpdate(item);
+          public void accept(final Pair<FlowableEmitter, Realm> pair) throws Exception {
+            pair.second.executeTransaction(new Transaction() {
+              @Override
+              public void execute(Realm r) {
+                pair.first.onNext(r.copyFromRealm(r.copyToRealmOrUpdate(item)));
+                pair.first.onComplete();
+              }
+            });
           }
         });
-      }
-    });
   }
 
-  public Completable deleteScheduleCacheByUrl(final String url) {
-    return RxRealmUtils.exec(realmConfiguration, new Consumer<Realm>() {
-      @Override
-      public void accept(Realm realm) throws Exception {
-        realm.executeTransactionAsync(new Transaction() {
+  public Flowable<Boolean> deleteScheduleCacheByUrl(final String url) {
+    return RxRealmUtils
+        .flowableExec(realmConfiguration, new Consumer<Pair<FlowableEmitter, Realm>>() {
           @Override
-          public void execute(Realm r) {
-            r.where(ScheduleCache.class)
-                .equalTo("scheduleUrl", url)
-                .findAll()
-                .deleteAllFromRealm();
+          public void accept(final Pair<FlowableEmitter, Realm> pair) throws Exception {
+            pair.second.executeTransactionAsync(new Transaction() {
+              @Override
+              public void execute(Realm r) {
+                final boolean isSuccess = r.where(ScheduleCache.class)
+                    .equalTo("scheduleUrl", url)
+                    .findAll()
+                    .deleteAllFromRealm();
+                pair.first.onNext(isSuccess);
+                pair.first.onComplete();
+              }
+            });
           }
         });
-      }
-    });
   }
 
   public Flowable<ScheduleCache> getScheduleCacheByUrl(String url) {

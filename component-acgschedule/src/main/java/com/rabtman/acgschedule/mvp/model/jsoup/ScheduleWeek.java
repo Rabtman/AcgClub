@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Rabtman 追番信息
  */
-@Selector("div.week_mend div[id~=weekdiv?]")
+@Selector("div.week_mend > div[id~=weekdiv?]")
 public class ScheduleWeek implements Parcelable {
 
   public static final Creator<ScheduleWeek> CREATOR = new Creator<ScheduleWeek>() {
