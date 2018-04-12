@@ -292,6 +292,19 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/view_left_line_episode"
             android:padding="8dp" />
+
+          <TextView
+            android:id="@+id/btn_schedule_detail_more"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rcv_schedule_detail"
+            android:layout_centerHorizontal="true"
+            android:padding="8dp"
+            android:text="查看更多"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:visibility="gone" />
         </RelativeLayout>
       </android.support.v7.widget.CardView>
     </LinearLayout>

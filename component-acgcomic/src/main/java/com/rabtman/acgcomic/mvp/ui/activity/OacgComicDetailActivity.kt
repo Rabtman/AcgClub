@@ -17,11 +17,8 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.jaeger.library.StatusBarUtil
 import com.kingja.loadsir.core.LoadSir
 import com.ms.square.android.expandabletextview.ExpandableTextView
-import com.rabtman.acgcomic.R
-import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.base.constant.HtmlConstant
 import com.rabtman.acgcomic.base.constant.IntentConstant
-import com.rabtman.acgcomic.di.DaggerOacgComicDetailComponent
 import com.rabtman.acgcomic.di.OacgComicDetailModule
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
@@ -57,6 +54,8 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
     lateinit internal var btnOacgComicRead: CardView
     @BindView(R2.id.tv_oacg_comic_read)
     lateinit internal var tvOacgComicRead: TextView
+    @BindView(R2.id.btn_oacg_comic_detail_more)
+    lateinit internal var btnOacgComicDetailMore: TextView
     @BindView(R2.id.collapsing_toolbar)
     lateinit internal var collapsingToolbarLayout: CollapsingToolbarLayout
     @BindView(R2.id.img_oacg_comic_title_bg)
@@ -150,6 +149,12 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         }
     }
 
+    @OnClick(R2.id.btn_oacg_comic_detail_more)
+    fun loadMoreEpisode() {
+        episodeItemAdpater.setItemCount()
+        btnOacgComicDetailMore.visibility = View.GONE
+    }
+
     override fun showComicCacheStatus(comicCache: ComicCache) {
         //是否有收藏
         if (btnOacgComicLike.tag != comicCache.isCollect) {
@@ -207,6 +212,9 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
             btnOacgComicLike.visibility = View.VISIBLE
             btnOacgComicRead.visibility = View.VISIBLE
             tvOacgComicDetailProc.text = String.format(getString(R.string.acgcomic_label_comic_update), currentComicInfo?.comicLastOrderidx)
+            if (comicInfos.size > OacgComicEpisodeItemAdapter.DEFAULT_ITEM_COUNT) {
+                btnOacgComicDetailMore.visibility = View.VISIBLE
+            }
             //选集内容
             layoutSceduleEpisode.visibility = android.view.View.VISIBLE
             episodeItemAdpater.setNewData(comicInfos)

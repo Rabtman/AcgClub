@@ -64,6 +64,8 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   CardView btnScheduleDetailRead;
   @BindView(R2.id.tv_schedule_detail_read)
   TextView tvScheduleDetailRead;
+  @BindView(R2.id.btn_schedule_detail_more)
+  TextView btnScheduleDetailMore;
   @BindView(R2.id.img_schedule_title_bg)
   ImageView imgScheduleTitleBg;
   @BindView(R2.id.img_schedule_detail_icon)
@@ -121,12 +123,12 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
     btnScheduleDetailLike.setTag(false);
     mPresenter.setCurrentScheduleUrl(scheduleUrl);
     mPresenter.getScheduleDetail();
+    mPresenter.getCurrentScheduleCache(rxPermissions, false);
   }
 
   @Override
   protected void onResume() {
     super.onResume();
-    mPresenter.getCurrentScheduleCache(rxPermissions, false);
   }
 
   private void initPageStatus() {
@@ -198,12 +200,24 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
           mPresenter.checkPermission2ScheduleVideo(rxPermissions, scheduleEpisode.getLink());
         }
       });
+
       GridLayoutManager layoutManager = new GridLayoutManager(this, 4);
       layoutManager.setOrientation(GridLayoutManager.VERTICAL);
       rcvScheduleDetail.setLayoutManager(layoutManager);
-      rcvScheduleDetail.setAdapter(episodeItemAdapter);
       rcvScheduleDetail.setNestedScrollingEnabled(false);
+      episodeItemAdapter.bindToRecyclerView(rcvScheduleDetail);
+
+      if (scheduleDetail.getScheduleEpisodes().size()
+          > ScheduleDetailEpisodeItemAdapter.DEFAULT_ITEM_COUNT) {
+        btnScheduleDetailMore.setVisibility(android.view.View.VISIBLE);
+      }
     }
+  }
+
+  @OnClick(R2.id.btn_schedule_detail_more)
+  public void loadMoreEpisode() {
+    episodeItemAdapter.setItemCount();
+    btnScheduleDetailMore.setVisibility(android.view.View.GONE);
   }
 
   @Override
@@ -222,7 +236,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
     mPresenter.collectOrCancelSchedule((Boolean) isCollected);
   }
 
-  @OnClick(id.btn_schedule_detail_read)
+  @OnClick(R2.id.btn_schedule_detail_read)
   public void getNextVideo() {
     mPresenter.getCurrentScheduleCache(rxPermissions, true);
   }

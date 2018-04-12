@@ -13,10 +13,7 @@ import android.widget.TextView
 import butterknife.BindView
 import butterknife.OnClick
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.rabtman.acgcomic.R
-import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.base.constant.IntentConstant
-import com.rabtman.acgcomic.di.DaggerOacgComicEpisodeDetailComponent
 import com.rabtman.acgcomic.di.OacgComicEpisodeDetailModule
 import com.rabtman.acgcomic.mvp.OacgComicEpisodeDetailContract
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisodePage
@@ -101,6 +98,11 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
     }
 
     override fun setStatusBar() {}
+
+    override fun onPause() {
+        super.onPause()
+        rcvOacgComicContent.stopScroll()   //防止销毁时再回调滑动事件造成的异常
+    }
 
     override fun initData() {
         curComicTitle = intent.getStringExtra(IntentConstant.OACG_COMIC_TITLE)

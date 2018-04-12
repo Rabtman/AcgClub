@@ -3,7 +3,6 @@ package com.rabtman.acgcomic.mvp.ui.adapter
 import android.support.v4.content.ContextCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
-import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
 
 /**
@@ -12,8 +11,13 @@ import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
 
 class OacgComicEpisodeItemAdapter : BaseQuickAdapter<OacgComicEpisode, BaseViewHolder>(R.layout.acgcomic_item_oacg_comic_episode, null) {
 
+    companion object {
+        const val DEFAULT_ITEM_COUNT = 20
+    }
+
     //上次观看记录
     private var mLastRecordPos: Int = -1
+    private var episodeItemCount = DEFAULT_ITEM_COUNT
 
     override fun convert(helper: BaseViewHolder, item: OacgComicEpisode) {
         helper.setText(R.id.tv_oacg_comic_episode_name, item.orderTitle)
@@ -25,6 +29,21 @@ class OacgComicEpisodeItemAdapter : BaseQuickAdapter<OacgComicEpisode, BaseViewH
             helper.setBackgroundRes(R.id.tv_oacg_comic_episode_name, R.drawable.acgcomic_btn_episode)
                     .setTextColor(R.id.tv_oacg_comic_episode_name, ContextCompat.getColor(mContext, R.color.grey400))
         }
+    }
+
+    override fun getItemCount(): Int {
+        if (mData != null && mData.size < DEFAULT_ITEM_COUNT) {
+            episodeItemCount = mData.size
+        }
+        return episodeItemCount
+    }
+
+    /**
+     * 设置展示的项目数
+     */
+    fun setItemCount() {
+        this.episodeItemCount = mData.size
+        notifyDataSetChanged()
     }
 
     /**

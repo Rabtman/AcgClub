@@ -18,7 +18,7 @@ buildscript {
         //bugly tinker
         //classpath "com.tencent.bugly:tinker-support:latest.release"
         //andResGurad
-        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.10'
+        classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.12'
         //butterknife
         classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
         //kotlin

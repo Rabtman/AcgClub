@@ -25,6 +25,8 @@ import es.dmoral.toasty.Toasty;
  */
 public class UpdateAppService extends Service {
 
+  private boolean isManual = false;
+
   @Nullable
   @Override
   public IBinder onBind(Intent intent) {
@@ -33,7 +35,9 @@ public class UpdateAppService extends Service {
 
   @Override
   public int onStartCommand(Intent intent, int flags, int startId) {
-    final boolean isManual = intent.getBooleanExtra(IntentConstant.CHECK_APP_UPDATE_MANUAL, false);
+    if (intent != null) {
+      isManual = intent.getBooleanExtra(IntentConstant.CHECK_APP_UPDATE_MANUAL, false);
+    }
 
     String versionUrl;
     if (BuildConfig.APP_DEBUG) {
