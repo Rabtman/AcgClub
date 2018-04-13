@@ -56,6 +56,11 @@ public class ScheduleNewActivity extends BaseActivity<ScheduleNewPresenter> impl
   }
 
   @Override
+  protected void onPageRetry(android.view.View v) {
+    mPresenter.getScheduleNew();
+  }
+
+  @Override
   protected Object registerTarget() {
     return rcvScheduleNew;
   }

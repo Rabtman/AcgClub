@@ -3,6 +3,7 @@ package com.rabtman.acgcomic.mvp.ui.adapter
 import android.support.v4.content.ContextCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
 
 /**

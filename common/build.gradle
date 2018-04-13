@@ -144,7 +144,7 @@ dependencies {
     debugImplementation rootProject.ext.dependencies["leakcanary-android"]
     releaseImplementation rootProject.ext.dependencies["leakcanary-no-op"]
     //x5内核
-    api files('libs/tbs_sdk_thirdapp_v3.5.0.1004_43500_sharewithdownload_withoutGame_obfs_20170801_113025.jar')
+    api files('libs/tbs_sdk.jar')
     //Umeng Share
     api files('libs/SocialSDK_QQ_Simplify.jar')
     api files('libs/SocialSDK_Sina_Simplify.jar')

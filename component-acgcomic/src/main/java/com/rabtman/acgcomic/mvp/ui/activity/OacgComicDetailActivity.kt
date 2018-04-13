@@ -17,8 +17,11 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.jaeger.library.StatusBarUtil
 import com.kingja.loadsir.core.LoadSir
 import com.ms.square.android.expandabletextview.ExpandableTextView
+import com.rabtman.acgcomic.R
+import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.base.constant.HtmlConstant
 import com.rabtman.acgcomic.base.constant.IntentConstant
+import com.rabtman.acgcomic.di.DaggerOacgComicDetailComponent
 import com.rabtman.acgcomic.di.OacgComicDetailModule
 import com.rabtman.acgcomic.mvp.OacgComicDetailContract
 import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode

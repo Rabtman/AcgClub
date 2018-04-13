@@ -5,7 +5,7 @@ apply plugin: 'channel'
 //bugly tinker
 //apply from: 'tinker-support.gradle'
 //andResGuard
-apply from: 'and-res-guard.gradle'
+//apply from: 'and-res-guard.gradle'
 //arouter
 apply plugin: 'com.alibaba.arouter'
 
@@ -16,7 +16,7 @@ if (localPropertiesFile.exists()) {
 }
 
 /**
- * 项目命令行打包指令：gradle resguardRelease rebuildChannel
+ * 项目命令行打包指令：gradle assembleRelease rebuildChannel
  */
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -34,9 +34,11 @@ android {
         multiDexEnabled true
         renderscriptTargetApi rootProject.ext.android.targetSdkVersion
         renderscriptSupportModeEnabled true
-        /*ndk {
+
+        ndk {
             abiFilters "armeabi"
-        }*/
+        }
+
         vectorDrawables.useSupportLibrary = true
         javaCompileOptions {
             annotationProcessorOptions {
@@ -48,6 +50,22 @@ android {
         buildConfigField "String", "FEEDBACK_APP_SECRET", properties.getProperty("fbAppSecret")
         //bugly APP ID
         buildConfigField "String", "BUGLY_APP_ID", properties.getProperty("buglyAppId")
+    }
+
+
+    packagingOptions {
+        exclude "lib/mips/librealm-jni.so"
+        exclude "lib/x86/librealm-jni.so"
+        exclude "lib/x86_64/librealm-jni.so"
+    }
+
+    splits {
+        abi {
+            enable true
+            reset()
+            include 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            universalApk true
+        }
     }
 
     //gradle 3.0 以下
@@ -112,6 +130,7 @@ android {
     lintOptions {
         disable 'InvalidPackage'
         disable "ResourceType"
+        checkReleaseBuilds false
         abortOnError false
     }
 }
@@ -122,13 +141,15 @@ channel {
     baseOutputDir = new File(project.buildDir, "channel")
     //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}
     apkNameFormat = 'com.rabtman.acgclub_${flavorName}_v${versionName}'
+    //快速模式：生成渠道包时不进行校验（速度可以提升10倍以上）
+    isFastMode = false
 }
 
 //rebuildChannel
 //根据已有基础包重新生成多渠道包
 rebuildChannel {
     //baseDebugApk = 已有Debug APK
-    baseReleaseApk = new File(project.buildDir, "outputs/apk/com.rabtman.acgclub_base_v${rootProject.ext.android.versionName}.apk")
+    baseReleaseApk = new File(project.buildDir, "outputs/apk/release/com.rabtman.acgclub_base_v${rootProject.ext.android.versionName}.apk")
     //默认为new File(project.buildDir, "rebuildChannel/debug")
     //debugOutputDir = Debug渠道包输出目录
     //默认为new File(project.buildDir, "rebuildChannel/release")

@@ -2,6 +2,7 @@ package com.rabtman.acgcomic.mvp.ui.fragment
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import butterknife.BindView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.gson.Gson
@@ -69,6 +70,10 @@ class ComicCollectionFragment : SimpleFragment() {
 
     override fun useLoadSir(): Boolean {
         return true
+    }
+
+    override fun onPageRetry(v: View?) {
+        getOacgComicItems()
     }
 
     /**

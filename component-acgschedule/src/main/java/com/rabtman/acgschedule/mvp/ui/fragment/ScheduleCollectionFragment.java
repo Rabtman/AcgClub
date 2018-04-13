@@ -63,6 +63,11 @@ public class ScheduleCollectionFragment extends SimpleFragment {
   }
 
   @Override
+  protected void onPageRetry(View v) {
+    getScheduleCollections();
+  }
+
+  @Override
   public void onResume() {
     super.onResume();
     if (isInited && isVisible) {

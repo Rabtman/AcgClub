@@ -5,6 +5,7 @@ import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
+import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.base.constant.HtmlConstant
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.common.imageloader.ImageLoader

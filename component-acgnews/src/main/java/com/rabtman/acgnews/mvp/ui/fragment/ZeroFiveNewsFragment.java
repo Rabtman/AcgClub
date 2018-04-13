@@ -57,6 +57,11 @@ public class ZeroFiveNewsFragment extends BaseFragment<AcgNewsItemPresenter> imp
   }
 
   @Override
+  protected void onPageRetry(android.view.View v) {
+    mPresenter.getAcgNewsList();
+  }
+
+  @Override
   protected void initData() {
     mAdapter = new AcgNewsItemAdapter(getAppComponent().imageLoader());
     mAdapter.setOnItemClickListener(new OnItemClickListener() {

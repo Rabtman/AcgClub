@@ -79,6 +79,11 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
   }
 
   @Override
+  protected void onPageRetry(android.view.View v) {
+    mPresenter.getNewsDetail(mAcgNewsItem.getContentLink());
+  }
+
+  @Override
   protected void initData() {
     setToolBar(mToolBar, "");
     mAcgNewsItem = getIntent().getParcelableExtra(IntentConstant.ACG_NEWS_DETAIL_ITEM);

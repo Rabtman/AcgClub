@@ -75,6 +75,10 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
         return true
     }
 
+    override fun onPageRetry(v: View?) {
+        mPresenter.getComicInfos()
+    }
+
     //初始化菜单布局
     private fun initDropDownMenu() {
         //分类
