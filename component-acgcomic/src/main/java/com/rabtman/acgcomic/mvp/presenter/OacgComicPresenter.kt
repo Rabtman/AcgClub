@@ -81,6 +81,12 @@ class OacgComicPresenter
     }
 
     fun searchComicInfos(keyword: String) {
+        //重置菜单栏
+        if (selectedType != -1) {
+            selectedType = -1
+            mView.resetComicMenu()
+        }
+
         pageNo = 0
         addSubscribe(
                 mModel.getSearchComicInfos(keyword)
@@ -101,6 +107,9 @@ class OacgComicPresenter
                             }
 
                             override fun onNext(oacgComicPage: OacgComicPage) {
+                                if (oacgComicPage.oacgComicItems == null || oacgComicPage.oacgComicItems.isEmpty()) {
+                                    mView.showMsg("找不到相关资源/(ㄒoㄒ)/~~")
+                                }
                                 mView.showSearchComicInfos(oacgComicPage.oacgComicItems)
                             }
                         })

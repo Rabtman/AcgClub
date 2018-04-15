@@ -26,6 +26,7 @@ import com.rabtman.router.RouterConstants
 import com.rabtman.router.RouterUtils
 import es.dmoral.toasty.Toasty
 
+
 /**
  * @author Rabtman
  */
@@ -36,7 +37,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
     private var mSwipeRefresh: SwipeRefreshLayout? = null
     private var mRcvComicMain: RecyclerView? = null
     private var mLayoutManager: LinearLayoutManager? = null
-    private var mOacgComicItemAdapter: OacgComicItemAdpater? = null
+    private lateinit var mOacgComicItemAdapter: OacgComicItemAdpater
     private val headers = listOf("分类")
     //菜单选项
     private val type = arrayListOf(
@@ -45,9 +46,9 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
             "治愈", "推理", "恐怖", "古风",
             "耽美百合", "少年", "少女", "校园")
     //菜单选项适配器
-    private var typeAdapter: ComicMenuAdapter? = null
+    private lateinit var typeAdapter: ComicMenuAdapter
     //弹出菜单视图集
-    private var popupViews: List<View>? = null
+    private lateinit var popupViews: List<View>
     //头部搜索框
     private lateinit var headerSearchView: View
 
@@ -66,7 +67,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
     override fun initData() {
         initDropDownMenu()
         initHeaderView()
-        mMenuComicMain.setDropDownMenu(headers, popupViews!!, initContentView())
+        mMenuComicMain.setDropDownMenu(headers, popupViews, initContentView())
 
         mPresenter.getComicInfos()
     }
@@ -79,13 +80,22 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
         mPresenter.getComicInfos()
     }
 
+    override fun hideLoading() {
+        mSwipeRefresh?.let { it ->
+            if (it.isRefreshing) {
+                it.isRefreshing = false
+            }
+        }
+        super.hideLoading()
+    }
+
     //初始化菜单布局
     private fun initDropDownMenu() {
         //分类
         val typeView = RecyclerView(this.context)
         typeView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
         typeAdapter = ComicMenuAdapter(type)
-        typeAdapter!!.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
+        typeAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             if (adapter is ComicMenuAdapter) {
                 adapter.setCheckItem(position)
                 mMenuComicMain.setTabText(if (position == 0) headers[0] else type[position])
@@ -104,11 +114,11 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
         mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_oacg_comic)
         mRcvComicMain = contentView.findViewById(R.id.rcv_oacg_comic)
         mOacgComicItemAdapter = OacgComicItemAdpater(appComponent.imageLoader())
-        mOacgComicItemAdapter?.setHeaderView(headerSearchView)
+        mOacgComicItemAdapter.setHeaderView(headerSearchView)
         //加载更多
-        mOacgComicItemAdapter?.setOnLoadMoreListener({ mPresenter.getMoreComicInfos() }, mRcvComicMain)
+        mOacgComicItemAdapter.setOnLoadMoreListener({ mPresenter.getMoreComicInfos() }, mRcvComicMain)
         //点击跳转到漫画详情
-        mOacgComicItemAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adpater, _, pos ->
+        mOacgComicItemAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adpater, _, pos ->
             val oacgComicItem: OacgComicItem = adpater.getItem(pos) as OacgComicItem
             RouterUtils.getInstance()
                     .build(RouterConstants.PATH_COMIC_OACG_DETAIL)
@@ -121,7 +131,6 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
 
         //下拉刷新
         mSwipeRefresh?.setOnRefreshListener({ mPresenter.getComicInfos() })
-        setSwipeRefreshLayout(mSwipeRefresh)
         return contentView
     }
 
@@ -158,34 +167,42 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
             if (keyword.isEmpty()) {
                 Toasty.info(context, getString(R.string.acgcomic_msg_empty_comic_search))
             } else {
+                etKeyword.setText("")
                 mPresenter.searchComicInfos(keyword)
             }
         }
         return headerSearchView
     }
 
+    override fun resetComicMenu() {
+        typeAdapter.setCheckItem(0)
+        mMenuComicMain.setTabPosition(0)
+        mMenuComicMain.setTabText(headers[0])
+        mMenuComicMain.setTabPosition(-1)
+    }
+
     override fun showSearchComicInfos(comicInfos: List<OacgComicItem>?) {
-        mOacgComicItemAdapter?.setNewData(comicInfos)
-        mOacgComicItemAdapter?.loadMoreEnd()
+        mOacgComicItemAdapter.setNewData(comicInfos)
+        mOacgComicItemAdapter.loadMoreEnd()
     }
 
     override fun showComicInfos(comicInfos: List<OacgComicItem>?) {
         mRcvComicMain?.scrollToPosition(0)
-        mOacgComicItemAdapter?.setNewData(comicInfos)
+        mOacgComicItemAdapter.setNewData(comicInfos)
         //mRcvComicMain?.scrollBy(0, 0)
     }
 
     override fun showMoreComicInfos(comicInfos: List<OacgComicItem>?, canLoadMore: Boolean?) {
         if (canLoadMore == null || !canLoadMore) {
-            mOacgComicItemAdapter?.loadMoreEnd()
+            mOacgComicItemAdapter.loadMoreEnd()
         } else {
             comicInfos?.let { mOacgComicItemAdapter?.addData(it) }
-            mOacgComicItemAdapter?.loadMoreComplete()
+            mOacgComicItemAdapter.loadMoreComplete()
         }
     }
 
     override fun onLoadMoreFail() {
-        mOacgComicItemAdapter?.loadMoreFail()
+        mOacgComicItemAdapter.loadMoreFail()
     }
 
 }

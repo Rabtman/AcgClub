@@ -36,7 +36,7 @@ android {
         renderscriptSupportModeEnabled true
 
         ndk {
-            abiFilters "armeabi"
+            abiFilters 'armeabi-v7a'
         }
 
         vectorDrawables.useSupportLibrary = true
@@ -50,22 +50,6 @@ android {
         buildConfigField "String", "FEEDBACK_APP_SECRET", properties.getProperty("fbAppSecret")
         //bugly APP ID
         buildConfigField "String", "BUGLY_APP_ID", properties.getProperty("buglyAppId")
-    }
-
-
-    packagingOptions {
-        exclude "lib/mips/librealm-jni.so"
-        exclude "lib/x86/librealm-jni.so"
-        exclude "lib/x86_64/librealm-jni.so"
-    }
-
-    splits {
-        abi {
-            enable true
-            reset()
-            include 'armeabi', 'armeabi-v7a', 'arm64-v8a'
-            universalApk true
-        }
     }
 
     //gradle 3.0 以下

@@ -15,9 +15,10 @@
 
   <string name="setting_opinion">意见反馈</string>
   <string name="setting_update">检查更新</string>
+  <string name="setting_open_source">项目地址</string>
   <string name="setting_about">关于</string>
 
-  <string name="content_about">目前APP纯属个人喜好开发学习，暂不做商业用途。\n\n资源均来源于网络（包括你可能会在视频中看到的广告），如有侵权或违规内容请告知我及时处理。\n\n在使用过程中，如遇什么问题或者有什么好的建议，欢迎各位同萌们提出。\n\n联系方式：acgclub@rabtman.com
+  <string name="content_about">目前APP纯属个人喜好开发学习，不做商业用途。\n\n资源均来源于网络（包括你可能会在视频中看到的广告），如有侵权或违规内容请告知我及时处理。\n\n在使用过程中，如遇什么问题或者有什么好的建议，欢迎各位同萌们提出。\n\n联系方式：acgclub@rabtman.com
   </string>
 
 </resources>

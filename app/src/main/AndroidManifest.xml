@@ -28,7 +28,7 @@
     android:theme="@style/AppTheme"
     tools:replace="android:allowBackup,android:label">
     <activity
-      android:name=".mvp.ui.activity.MainActivity"
+      android:name=".mvp.ui.activity.SplashActivity"
       android:screenOrientation="portrait"
       android:theme="@style/SplashTheme">
       <intent-filter>
@@ -36,6 +36,9 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+    <activity
+      android:name=".mvp.ui.activity.MainActivity"
+      android:screenOrientation="portrait" />
     <activity
       android:name=".mvp.ui.activity.SettingActivity"
       android:screenOrientation="portrait" />

@@ -35,6 +35,8 @@ interface OacgComicContract {
 
         fun showSearchComicInfos(comicInfos: List<OacgComicItem>?)
 
+        fun resetComicMenu()
+
         fun onLoadMoreFail()
     }
 

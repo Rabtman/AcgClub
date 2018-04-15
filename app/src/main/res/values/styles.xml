@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-  <style name="SplashTheme">
-    <item name="android:windowNoTitle">true</item>
+  <style name="SplashTheme" parent="AppFullScreenTheme">
     <item name="android:windowBackground">@drawable/splash_bg</item>
   </style>
 </resources>

@@ -225,6 +225,13 @@ public class DropDownMenu extends LinearLayout {
   }
 
   /**
+   * 主动设置当前选中菜单
+   */
+  public void setTabPosition(int tabPosition) {
+    current_tab_position = tabPosition;
+  }
+
+  /**
    * 切换菜单
    */
   private void switchMenu(View target) {

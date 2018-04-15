@@ -4,7 +4,7 @@
   android:id="@+id/ddm_comic_menu"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="@color/grey100"
+  android:background="@color/grey50"
   app:dddividerColor="@color/grey300"
   app:ddmaskColor="@color/mask_color"
   app:ddmenuBackgroundColor="@android:color/white"

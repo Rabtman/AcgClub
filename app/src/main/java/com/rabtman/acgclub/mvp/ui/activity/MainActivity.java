@@ -1,7 +1,7 @@
 package com.rabtman.acgclub.mvp.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,7 +10,12 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -24,6 +29,7 @@ import com.rabtman.acgclub.service.UpdateAppService;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.base.NullFragment;
 import com.rabtman.common.di.component.AppComponent;
+import com.rabtman.common.utils.KeyboardUtils;
 import com.rabtman.common.utils.constant.StatusBarConstants;
 import com.rabtman.router.RouterConstants;
 import com.rabtman.router.RouterUtils;
@@ -55,12 +61,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
   HashMap<String, Class<? extends SupportFragment>> loadFragments = new HashMap<>();
   private String hideFragment = RouterConstants.PATH_SCHEDULE_MAIN;
   private String showFragment = RouterConstants.PATH_SCHEDULE_MAIN;
-
+  //关闭软件提醒
+  private long exitTime;
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    setTheme(R.style.AppTheme);
-    super.onCreate(savedInstanceState);
+  protected void onDestroy() {
+    KeyboardUtils.fixSoftInputLeaks(this);
+    super.onDestroy();
   }
 
   @Override
@@ -184,18 +191,69 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     }
   }
 
-
   @Override
   public void onBackPressedSupport() {
     if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
       drawerLayout.closeDrawer(GravityCompat.START);
     } else {
-      super.onBackPressedSupport();
+      exitApp();
+    }
+  }
+
+  @Override
+  public boolean onKeyDown(int keyCode, KeyEvent event) {
+    if (keyCode == KeyEvent.KEYCODE_BACK) {
+      if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        drawerLayout.closeDrawer(GravityCompat.START);
+      } else {
+        exitApp();
+      }
+      return false;
+    }
+    return super.onKeyDown(keyCode, event);
+  }
+
+  public void exitApp() {
+    if ((System.currentTimeMillis() - exitTime) > 2000) {
+      showMsg("再按一次退出软件");
+      exitTime = System.currentTimeMillis();
+    } else {
+      finish();
     }
   }
 
   //检查app更新
   public void getAppVersionInfo() {
     startService(new Intent(this, UpdateAppService.class));
+  }
+
+  @Override
+  public boolean dispatchTouchEvent(MotionEvent ev) {
+    if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+      View v = getCurrentFocus();
+      if (isShouldHideKeyboard(v, ev)) {
+        InputMethodManager imm =
+            (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(),
+            InputMethodManager.HIDE_NOT_ALWAYS
+        );
+      }
+    }
+    return super.dispatchTouchEvent(ev);
+  }
+
+  // Return whether touch the view.
+  private boolean isShouldHideKeyboard(View v, MotionEvent event) {
+    if (v != null && (v instanceof EditText)) {
+      int[] l = {0, 0};
+      v.getLocationInWindow(l);
+      int left = l[0],
+          top = l[1],
+          bottom = top + v.getHeight(),
+          right = left + v.getWidth();
+      return !(event.getX() > left && event.getX() < right
+          && event.getY() > top && event.getY() < bottom);
+    }
+    return false;
   }
 }
