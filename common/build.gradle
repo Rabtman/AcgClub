@@ -22,14 +22,14 @@ android {
         //application id
         buildConfigField "String", "applicationId", "\"" + rootProject.ext.android.applicationId + "\""
         //umeng app key
-        buildConfigField "String", "UMENG_APP_KEY", properties.getProperty("umengAppKey")
+        buildConfigField "String", "UMENG_APP_KEY", properties.getProperty("umengAppKey", "\"\"")
         //umeng share
-        buildConfigField "String", "SINA_WEIBO_KEY", properties.getProperty("SINA_WEIBO_KEY")
-        buildConfigField "String", "SINA_WEIBO_SECRET", properties.getProperty("SINA_WEIBO_SECRET")
-        buildConfigField "String", "QQ_ZONE_ID", properties.getProperty("QQ_ZONE_ID")
-        buildConfigField "String", "QQ_ZONE_KEY", properties.getProperty("QQ_ZONE_KEY")
-        buildConfigField "String", "WEIXIN_ID", properties.getProperty("WEIXIN_ID")
-        buildConfigField "String", "WEIXIN_KEY", properties.getProperty("WEIXIN_KEY")
+        buildConfigField "String", "SINA_WEIBO_KEY", properties.getProperty("SINA_WEIBO_KEY", "\"\"")
+        buildConfigField "String", "SINA_WEIBO_SECRET", properties.getProperty("SINA_WEIBO_SECRET", "\"\"")
+        buildConfigField "String", "QQ_ZONE_ID", properties.getProperty("QQ_ZONE_ID", "\"\"")
+        buildConfigField "String", "QQ_ZONE_KEY", properties.getProperty("QQ_ZONE_KEY", "\"\"")
+        buildConfigField "String", "WEIXIN_ID", properties.getProperty("WEIXIN_ID", "\"\"")
+        buildConfigField "String", "WEIXIN_KEY", properties.getProperty("WEIXIN_KEY", "\"\"")
     }
     buildTypes {
         release {

@@ -618,3 +618,6 @@ public void xxxxxx(**);
 #LoadSir
 -dontwarn com.kingja.loadsir.**
 -keep class com.kingja.loadsir.** {*;}
+
+#rxcache
+-dontwarn io.rx_cache.internal.**

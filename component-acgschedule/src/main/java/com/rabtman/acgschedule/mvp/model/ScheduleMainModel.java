@@ -35,7 +35,7 @@ public class ScheduleMainModel extends BaseModel implements ScheduleMainContract
     return Flowable.create(new FlowableOnSubscribe<DilidiliInfo>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<DilidiliInfo> e) throws Exception {
-        Element html = Jsoup.connect(HtmlConstant.DILIDILI_URL).timeout(10000).get();
+        Element html = Jsoup.connect(HtmlConstant.DILIDILI_URL).get();
         if (html == null) {
           e.onError(new Throwable("element html is null"));
         } else {

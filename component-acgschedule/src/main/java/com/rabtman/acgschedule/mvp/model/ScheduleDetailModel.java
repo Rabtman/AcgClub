@@ -44,7 +44,7 @@ public class ScheduleDetailModel extends BaseModel implements ScheduleDetailCont
         if (!url.contains("http")) {
           scheduleLink = HtmlConstant.DILIDILI_URL + url;
         }
-        Element html = Jsoup.connect(scheduleLink).timeout(10000).get();
+        Element html = Jsoup.connect(scheduleLink).get();
         if (html == null) {
           e.onError(new Throwable("element html is null"));
         } else {

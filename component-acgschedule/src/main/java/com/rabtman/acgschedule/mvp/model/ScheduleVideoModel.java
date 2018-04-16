@@ -32,7 +32,7 @@ public class ScheduleVideoModel extends BaseModel implements ScheduleVideoContra
     return Flowable.create(new FlowableOnSubscribe<ScheduleVideo>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<ScheduleVideo> e) throws Exception {
-        Element html = Jsoup.connect(url).timeout(10000).get();
+        Element html = Jsoup.connect(url).get();
         if(html == null){
           e.onError(new Throwable("element html is null"));
         }else {

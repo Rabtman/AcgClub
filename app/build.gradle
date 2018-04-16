@@ -46,10 +46,10 @@ android {
             }
         }
         //阿里用户反馈
-        buildConfigField "String", "FEEDBACK_APP_KEY", properties.getProperty("fbAppKey")
-        buildConfigField "String", "FEEDBACK_APP_SECRET", properties.getProperty("fbAppSecret")
+        buildConfigField "String", "FEEDBACK_APP_KEY", properties.getProperty("fbAppKey", "\"\"")
+        buildConfigField "String", "FEEDBACK_APP_SECRET", properties.getProperty("fbAppSecret", "\"\"")
         //bugly APP ID
-        buildConfigField "String", "BUGLY_APP_ID", properties.getProperty("buglyAppId")
+        buildConfigField "String", "BUGLY_APP_ID", properties.getProperty("buglyAppId", "\"\"")
     }
 
     //gradle 3.0 以下

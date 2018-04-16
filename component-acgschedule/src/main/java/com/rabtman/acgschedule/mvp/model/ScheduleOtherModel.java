@@ -31,7 +31,7 @@ public class ScheduleOtherModel extends BaseModel implements ScheduleOtherContra
     return Flowable.create(new FlowableOnSubscribe<ScheduleOtherPage>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<ScheduleOtherPage> e) throws Exception {
-        Element html = Jsoup.connect(url).timeout(10000).get();
+        Element html = Jsoup.connect(url).get();
         if (html == null) {
           e.onError(new Throwable("element html is null"));
         } else {

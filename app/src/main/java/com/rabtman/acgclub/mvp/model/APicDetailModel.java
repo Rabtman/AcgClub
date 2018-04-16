@@ -31,7 +31,7 @@ public class APicDetailModel extends BaseModel implements APicDetailContract.Mod
     return Flowable.create(new FlowableOnSubscribe<APicDetail>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<APicDetail> e) throws Exception {
-        Element html = Jsoup.connect(url).timeout(10000).get();
+        Element html = Jsoup.connect(url).get();
         if (html == null) {
           e.onError(new Throwable("element html is null"));
         } else {

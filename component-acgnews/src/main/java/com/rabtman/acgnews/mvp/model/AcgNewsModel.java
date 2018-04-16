@@ -31,7 +31,7 @@ public class AcgNewsModel extends BaseModel implements AcgNewsContract.Model {
     return Flowable.create(new FlowableOnSubscribe<AcgNewsPage>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<AcgNewsPage> e) throws Exception {
-        Element html = Jsoup.connect(typeUrl).timeout(10000).get();
+        Element html = Jsoup.connect(typeUrl).get();
         if(html == null){
           e.onError(new Throwable("element html is null"));
         }else {
