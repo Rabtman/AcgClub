@@ -1,4 +1,7 @@
 # AcgClub
+
+![](https://img.shields.io/badge/version-v0.2.0-brightgreen.svg)![](https://img.shields.io/badge/license-MIT-blue.svg)
+
 宅社AcgClub，一款纯粹的ACG聚合类App
 
 出于爱好与学习的目的做出了这款MD风格的应用，旨意通过涵盖Android端的一些热门技术框架来打造一个面向市场级别的产品
@@ -21,11 +24,14 @@
 
 ## 预览
 
-[应用下载体验](![](https://www.coolapk.com/apk/171021))
-(Android 4.4+)
-![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/qr-code.png)
+   [应用下载体验](https://www.coolapk.com/apk/171021)
+  ![](https://img.shields.io/badge/Android-4.4%20or%20above-brightgreen.svg)
 
-![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/1.png)![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/2.png)![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/3.png)![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/4.png)![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/5.png)
+ ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/qr-code.png)
+
+
+
+![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/1.png)&nbsp;&nbsp;&nbsp;![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/2.png)&nbsp;&nbsp;&nbsp;![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/3.png)&nbsp;&nbsp;&nbsp;![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/4.png)&nbsp;&nbsp;&nbsp;![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/5.png)
 
 
 
@@ -78,7 +84,7 @@ config.gradle中进行项目项目的属性配置，例如：包名、版本号�
 其中：
 
 ```
-//在该属性中填写需要合并到主程序运行的组件,如果没有填写的组件将独立运行
+//在该属性中填写需要合并到主程序运行的组件,没有填写的组件将独立运行
 merge = [
             "acgnews",
             "acgschedule"
@@ -87,4 +93,32 @@ merge = [
 ```
 
 merge属性修改完毕后，需要重新构建项目
+
+### 其他
+
+在本地的local.properties按自己所需进行一些三方库的key、签名的配置，不需要的可以自行去掉
+
+```
+#阿里云用户反馈
+fbAppKey=""
+fbAppSecret=""
+#友盟
+umengAppKey=""
+#bugly
+buglyAppId=""
+
+#签名信息
+storeFile=
+storePassword=
+keyAlias=
+keyPassword=
+
+#友盟分享key
+SINA_WEIBO_KEY=""
+SINA_WEIBO_SECRET=""
+QQ_ZONE_ID=""
+QQ_ZONE_KEY=""
+WEIXIN_ID=""
+WEIXIN_KEY=""
+```
 
