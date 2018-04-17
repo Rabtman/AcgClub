@@ -1,8 +1,8 @@
 # AcgClub
 
-![](https://img.shields.io/badge/version-v0.2.0-brightgreen.svg)![](https://img.shields.io/badge/license-MIT-blue.svg)
+![](https://img.shields.io/badge/version-v0.2.0-brightgreen.svg)   ![](https://img.shields.io/badge/license-MIT-blue.svg)
 
-宅社AcgClub，一款纯粹的ACG聚合类App
+宅社，一款纯粹的ACG聚合类App
 
 出于爱好与学习的目的做出了这款MD风格的应用，旨意通过涵盖Android端的一些热门技术框架来打造一个面向市场级别的产品
 
@@ -24,18 +24,23 @@
 
 ## 预览
 
-   [应用下载体验](https://www.coolapk.com/apk/171021)
-  ![](https://img.shields.io/badge/Android-4.4%20or%20above-brightgreen.svg)
+[应用下载体验](https://www.coolapk.com/apk/171021)
 
- ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/qr-code.png)
+![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/qr-code.png)
+
+![](https://img.shields.io/badge/Android-4.4%20or%20above-brightgreen.svg)
 
 
 
-![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/1.png)&nbsp;&nbsp;&nbsp;![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/2.png)&nbsp;&nbsp;&nbsp;![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/3.png)&nbsp;&nbsp;&nbsp;![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/4.png)&nbsp;&nbsp;&nbsp;![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/5.png)
+![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/preview.gif)   ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/1.png)   ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/2.png)   ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/3.png)   ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/4.png)   ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/5.png)
 
 
 
 ## 项目相关
+
+### 项目环境
+
+![](https://img.shields.io/badge/Android%20Studio-3.0-blue.svg)   ![](https://img.shields.io/badge/gradle-4.1-brightgreen.svg)    ![](https://img.shields.io/badge/kotlin-1.2.21-orange.svg)   ![](https://img.shields.io/badge/compileVersion-26-ff69b4.svg)
 
 ### 项目结构
 
@@ -96,7 +101,8 @@ merge属性修改完毕后，需要重新构建项目
 
 ### 其他
 
-在本地的local.properties按自己所需进行一些三方库的key、签名的配置，不需要的可以自行去掉
+* 项目中的DaggerXXX的引用，需要在项目clone下来编译成功后生成
+* 在本地的local.properties按自己所需进行一些三方库的key、签名的配置，不需要的可以自行去掉
 
 ```
 #阿里云用户反馈
@@ -122,3 +128,33 @@ WEIXIN_ID=""
 WEIXIN_KEY=""
 ```
 
+## 鸣谢
+
+* [`RxJava`](https://github.com/ReactiveX/RxJava)
+* [`RxAndroid`](https://github.com/ReactiveX/RxAndroid)
+* [`Dagger2`](https://github.com/google/dagger)
+* [`RxPermissions`](https://github.com/tbruyelle/RxPermissions)
+* [`RxCache`](https://github.com/VictorAlbertos/RxCache)
+* [`Retrofit`](https://github.com/square/retrofit)
+* [`Okhttp`](https://github.com/square/okhttp)
+* [`Gson`](https://github.com/google/gson)
+* [`Butterknife`](https://github.com/JakeWharton/butterknife)
+* [`Glide`](https://github.com/bumptech/glide)
+* [`LeakCanary`](https://github.com/square/leakcanary)
+* [`Realm`](https://github.com/realm/realm-java)
+* [`MVPArms`](https://github.com/JessYanCoding/MVPArms)
+* [`Jsoup`](https://github.com/jhy/jsoup)
+* [`Jsoup-Annotations`](https://github.com/fcannizzaro/jsoup-annotations)
+* [`Fragmentation`](https://github.com/YoKeyword/Fragmentation)
+* [`BlockCanary`](https://github.com/markzhai/AndroidPerformanceMonitor)
+* [`ARouter`](https://github.com/alibaba/ARouter)
+* [`DialogUtil`](https://github.com/hss01248/DialogUtil)
+* [`Toasty`](https://github.com/GrenderG/Toasty)
+* [`BaseRecyclerViewAdapterHelper`](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
+* [`HtmlTextView`](https://github.com/PrivacyApps/html-textview)
+* [`MZBannerView`](https://github.com/pinguo-zhouwei/MZBannerView)
+* [`StatusBarUtil`](https://github.com/laobie/StatusBarUtil)
+* [`LoadSir`](https://github.com/KingJA/LoadSir)
+* [`Logger`](https://github.com/orhanobut/logger)
+* [`AndroidUtilCode`](https://github.com/Blankj/AndroidUtilCode)
+* [`VasDolly`](https://github.com/Tencent/VasDolly)
