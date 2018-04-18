@@ -101,7 +101,7 @@ merge属性修改完毕后，需要重新构建项目
 
 ### 其他
 
-* 项目中的DaggerXXX的引用，需要在项目clone下来编译成功后生成
+* 项目中提示缺失DaggerXXX时，通过完成编译将有Dagger2自动生成
 * 在本地的local.properties按自己所需进行一些三方库的key、签名的配置，不需要的可以自行去掉
 
 ```
@@ -127,6 +127,14 @@ QQ_ZONE_KEY=""
 WEIXIN_ID=""
 WEIXIN_KEY=""
 ```
+
+## 联系
+
+项目需要完善的地方还有很多，如有BUG或者更好的建议欢迎提出
+
+* [issue](https://github.com/Rabtman/AcgClub/issues)
+* mail：[acgclub@rabtman.com](mailto:acgclub@rabtman.com) 或 [zhangjm05@gmail.com](mailto:zhangjm05@gmail.co)
+* blog：[https://rabtman.com/](https://rabtman.com/)
 
 ## 鸣谢
 
