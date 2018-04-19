@@ -1,8 +1,8 @@
-# AcgClub
+# ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/cover.jpg)
 
 ![](https://img.shields.io/badge/version-v0.2.0-brightgreen.svg)   ![](https://img.shields.io/badge/license-MIT-blue.svg)
 
-宅社，一款纯粹的ACG聚合类App
+宅社AcgClub，一款纯粹的ACG聚合类App
 
 出于爱好与学习的目的做出了这款MD风格的应用，旨意通过涵盖Android端的一些热门技术框架来打造一个面向市场级别的产品
 
