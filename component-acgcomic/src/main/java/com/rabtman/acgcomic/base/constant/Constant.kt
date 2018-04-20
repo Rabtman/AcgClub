@@ -32,5 +32,6 @@ class IntentConstant {
         const val OACG_COMIC_ID = "oacg_comic_id"
         const val OACG_COMIC_TITLE = "oacg_comic_title"
         const val OACG_COMIC_CHAPTERID = "oacg_comic_chapterid"
+        const val OACG_COMIC_CHAPTERPOS = "oacg_comic_chapterpos"
     }
 }

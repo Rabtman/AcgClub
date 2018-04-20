@@ -224,7 +224,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
             episodeItemAdpater.setOnItemClickListener({ adapter, _, position ->
                 val item = adapter.getItem(position) as OacgComicEpisode
                 mPresenter.updateScheduleReadChapter(item.comicId, position)
-                start2ComicRead(item.comicId, item.orderIdx)
+                start2ComicRead(item.comicId, position, item.orderIdx)
             })
             val layoutManager = GridLayoutManager(this, 4)
             layoutManager.orientation = GridLayoutManager.VERTICAL
@@ -242,11 +242,12 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
         }
     }
 
-    override fun start2ComicRead(id: String, lastChapterIndex: String) {
+    override fun start2ComicRead(id: String, lastChapterPos: Int, lastChapterIndex: String) {
         RouterUtils.getInstance()
                 .build(RouterConstants.PATH_COMIC_OACG_READ)
                 .withString(IntentConstant.OACG_COMIC_ID, id)
                 .withString(IntentConstant.OACG_COMIC_TITLE, currentComicInfo?.comicName)
+                .withInt(IntentConstant.OACG_COMIC_CHAPTERPOS, lastChapterPos)
                 .withString(IntentConstant.OACG_COMIC_CHAPTERID, lastChapterIndex)
                 .navigation()
     }

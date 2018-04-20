@@ -123,12 +123,20 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
                 val pos = layoutManager.findFirstVisibleItemPosition()
                 if (maxPage > 0 && maxPage == layoutManager.findLastCompletelyVisibleItemPosition() + 1) {
                     curPagePos = maxPage - 1
-                    seekComicProc.progress = maxPage - 1
-                    tvComicPos.text = maxPage.toString()
+                    seekComicProc?.let { it ->
+                        it.progress = maxPage - 1
+                    }
+                    tvComicPos?.let { it ->
+                        it.text = maxPage.toString()
+                    }
                 } else if (curPagePos != pos) {
                     curPagePos = pos
-                    seekComicProc.progress = pos
-                    tvComicPos.text = (pos + 1).toString()
+                    seekComicProc?.let { it ->
+                        it.progress = pos
+                    }
+                    tvComicPos?.let { it ->
+                        it.text = (pos + 1).toString()
+                    }
                 }
 
                 if (newState == RecyclerView.SCROLL_STATE_IDLE) {
@@ -163,6 +171,7 @@ class OacgComicReadActivity : BaseActivity<OacgComicEpisodeDetailPresenter>(), O
         })
 
         mPresenter.setIntentData(intent.getStringExtra(IntentConstant.OACG_COMIC_ID),
+                intent.getIntExtra(IntentConstant.OACG_COMIC_CHAPTERPOS, 0),
                 intent.getStringExtra(IntentConstant.OACG_COMIC_CHAPTERID))
         mPresenter.getEpisodeDetailAndCache()
     }

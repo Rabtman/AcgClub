@@ -38,7 +38,7 @@ import javax.inject.Inject;
  * Common Application的生命周期代理
  */
 
-public class CommonApplicationLike implements IApplicationLike {
+public class CommonApplicationLike implements IApplicationLike, App {
 
   static {
     //Umeng Share各个平台的配置
@@ -211,6 +211,7 @@ public class CommonApplicationLike implements IApplicationLike {
   /**
    * 将AppComponent返回出去,供其它地方使用, AppComponent接口中声明的方法返回的实例,在getAppComponent()拿到对象后都可以直接使用
    */
+  @Override
   public AppComponent getAppComponent() {
     return mAppComponent;
   }

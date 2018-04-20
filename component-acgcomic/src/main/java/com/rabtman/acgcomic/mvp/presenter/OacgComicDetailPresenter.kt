@@ -77,6 +77,7 @@ constructor(model: OacgComicDetailContract.Model,
                 mView.showComicCacheStatus(currentComicCache)
                 mView.start2ComicRead(
                         comicId,
+                        currentComicCache.chapterPos,
                         comicEpisodes[currentComicCache.chapterPos].orderIdx
                 )
             }
@@ -96,6 +97,7 @@ constructor(model: OacgComicDetailContract.Model,
                                         if (isManualClick) {
                                             mView.start2ComicRead(
                                                     comicId,
+                                                    currentComicCache.chapterPos,
                                                     comicEpisodes[currentComicCache.chapterPos].orderIdx
                                             )
                                         }

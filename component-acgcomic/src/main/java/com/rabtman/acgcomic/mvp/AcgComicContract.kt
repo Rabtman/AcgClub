@@ -54,7 +54,7 @@ interface OacgComicDetailContract {
 
         fun showComicCacheStatus(comicCache: ComicCache)
 
-        fun start2ComicRead(id: String, lastChapterIndex: String)
+        fun start2ComicRead(id: String, lastChapterPos: Int, lastChapterIndex: String)
     }
 
     interface Model : IModel {

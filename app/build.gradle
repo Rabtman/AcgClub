@@ -3,7 +3,7 @@ apply plugin: 'com.antfortune.freeline'
 //VasDolly
 apply plugin: 'channel'
 //bugly tinker
-//apply from: 'tinker-support.gradle'
+apply from: 'tinker-support.gradle'
 //andResGuard
 //apply from: 'and-res-guard.gradle'
 //arouter
@@ -100,7 +100,7 @@ android {
         }
 
         release {
-            buildConfigField "boolean", "APP_DEBUG", "false"
+            buildConfigField "boolean", "APP_DEBUG", "true"
             minifyEnabled true
             //Zipalign优化
             zipAlignEnabled true

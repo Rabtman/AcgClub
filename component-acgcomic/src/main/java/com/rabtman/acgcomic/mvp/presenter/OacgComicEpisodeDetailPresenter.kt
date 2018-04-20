@@ -21,6 +21,8 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
             rootView: OacgComicEpisodeDetailContract.View) : BasePresenter<OacgComicEpisodeDetailContract.Model, OacgComicEpisodeDetailContract.View>(model, rootView) {
     //当前漫画id
     private var curComicId = "-1"
+    //当前话对应的位置
+    private var curChapterPos = 0
     //当前话
     private var curIndex = 0
     //上一话
@@ -28,29 +30,30 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
     //下一话
     private var nextIndex = 0
 
-    fun setIntentData(comicId: String, comicChapter: String) {
+    fun setIntentData(comicId: String, comicChapterPos: Int, comicChapterIndex: String) {
         curComicId = comicId
-        curIndex = comicChapter.toInt()
+        curChapterPos = comicChapterPos
+        curIndex = comicChapterIndex.toInt()
     }
 
     /**
      * 加载上一话
      */
     fun getPreEpisodeDetail() {
-        getEpisodeDetail(preIndex)
+        getEpisodeDetail(--curChapterPos, preIndex)
     }
 
     /**
      * 加载下一话
      */
     fun getNextEpisodeDetail() {
-        getEpisodeDetail(nextIndex)
+        getEpisodeDetail(++curChapterPos, nextIndex)
     }
 
     /**
      * 加载漫画详细内容
      */
-    private fun getEpisodeDetail(chapterIndex: Int) {
+    private fun getEpisodeDetail(chapterPos: Int, chapterIndex: Int) {
         addSubscribe(
                 mModel.getEpisodeDetail(curComicId.toInt(), chapterIndex)
                         .compose(RxUtil.rxSchedulerHelper<OacgComicEpisodePage>())
@@ -65,13 +68,14 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
                             }
 
                             override fun onError(e: Throwable?) {
+                                curChapterPos -= (chapterIndex - curIndex)
                                 super.onError(e)
                                 mView.hideLoading()
                             }
 
                             override fun onNext(comicEpisodePage: OacgComicEpisodePage) {
                                 if (curIndex != chapterIndex) { //改变章节，则更新数据库记录
-                                    updateScheduleReadRecord(chapterIndex - 1, 0)
+                                    updateScheduleReadRecord(chapterPos, 0)
                                 }
                                 preIndex = comicEpisodePage.preIndex.toInt()
                                 curIndex = comicEpisodePage.currIndex.toInt()
@@ -88,7 +92,7 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
     fun getEpisodeDetailAndCache() {
         addSubscribe(
                 Flowable.zip(
-                        mModel.getComicCacheByChapter(curComicId, curIndex - 1),
+                        mModel.getComicCacheByChapter(curComicId, curChapterPos),
                         mModel.getEpisodeDetail(curComicId.toInt(), curIndex),
                         BiFunction<ComicCache, OacgComicEpisodePage, ComicReadRecord> { comicCache, pageData ->
                             ComicReadRecord(pageData, comicCache)
@@ -121,7 +125,7 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
     }
 
     fun updateScheduleReadRecord(lastPagePos: Int) {
-        updateScheduleReadRecord(curIndex - 1, lastPagePos)
+        updateScheduleReadRecord(curChapterPos, lastPagePos)
     }
 
     /**

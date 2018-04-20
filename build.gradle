@@ -16,7 +16,7 @@ buildscript {
         //VasDolly
         classpath 'com.leon.channel:plugin:1.1.7'
         //bugly tinker
-        //classpath "com.tencent.bugly:tinker-support:latest.release"
+        classpath "com.tencent.bugly:tinker-support:latest.release"
         //andResGurad
         //classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.12'
         //butterknife
