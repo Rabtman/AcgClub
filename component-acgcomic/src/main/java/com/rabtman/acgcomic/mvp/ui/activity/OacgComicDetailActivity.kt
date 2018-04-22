@@ -130,7 +130,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
                 .addCallback(RetryCallback())
                 .setDefaultCallback(PlaceholderCallback::class.java)
                 .build()
-                .register(this, { v ->
+                .register(this, { _ ->
                     currentComicInfo?.let { it ->
                         mPresenter.getOacgComicDetail(it.id)
                     }
@@ -190,7 +190,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
     override fun showComicDetail(comicInfos: List<OacgComicEpisode>?) {
         mToolBarTitle.text = currentComicInfo?.comicName
         //模糊背景
-        mApplication.appComponent.imageLoader().loadImage(mContext,
+        mAppComponent.imageLoader().loadImage(mContext,
                 GlideImageConfig
                         .builder()
                         .url(HtmlConstant.OACG_IMG_URL + currentComicInfo?.comicPicUrl)
@@ -199,7 +199,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
                         .build()
         )
         //番剧展示图
-        mApplication.appComponent.imageLoader().loadImage(mContext,
+        mAppComponent.imageLoader().loadImage(mContext,
                 GlideImageConfig
                         .builder()
                         .url(HtmlConstant.OACG_IMG_URL + currentComicInfo?.comicPicUrl)

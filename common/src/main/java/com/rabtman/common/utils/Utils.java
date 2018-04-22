@@ -3,6 +3,7 @@ package com.rabtman.common.utils;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import com.rabtman.common.di.component.AppComponent;
 
 /**
  * <pre>
@@ -16,6 +17,10 @@ public final class Utils {
 
   @SuppressLint("StaticFieldLeak")
   private static Context context;
+  /**
+   * 为了配合tinker的使用，将其抽取为静态变量
+   */
+  private static AppComponent appComponent;
 
   private Utils() {
     throw new UnsupportedOperationException("u can't instantiate me...");
@@ -40,5 +45,16 @@ public final class Utils {
       return context;
     }
     throw new NullPointerException("u should init first");
+  }
+
+  public static void initAppComponent(@NonNull AppComponent appComponent) {
+    Utils.appComponent = appComponent;
+  }
+
+  public static AppComponent getAppComponent() {
+    if (appComponent != null) {
+      return appComponent;
+    }
+    throw new NullPointerException("appComponent need to be initialized");
   }
 }

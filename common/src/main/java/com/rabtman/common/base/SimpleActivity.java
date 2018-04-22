@@ -20,6 +20,7 @@ import com.rabtman.common.base.widget.loadsir.EmptyCallback;
 import com.rabtman.common.base.widget.loadsir.LoadingCallback;
 import com.rabtman.common.base.widget.loadsir.RetryCallback;
 import com.rabtman.common.di.component.AppComponent;
+import com.rabtman.common.utils.Utils;
 import com.rabtman.common.utils.constant.StatusBarConstants;
 import com.umeng.analytics.MobclickAgent;
 import es.dmoral.toasty.Toasty;
@@ -28,7 +29,6 @@ import me.yokeyword.fragmentation.SupportActivity;
 public abstract class SimpleActivity extends SupportActivity implements
     IView {
 
-  protected App mApplication;
   protected AppComponent mAppComponent;
   protected Activity mContext;
   protected LoadService mLoadService;
@@ -40,9 +40,8 @@ public abstract class SimpleActivity extends SupportActivity implements
     super.onCreate(savedInstanceState);
     setContentView(getLayoutId());
     mUnBinder = ButterKnife.bind(this);
-    mApplication = (App) getApplication();
     mContext = this;
-    mAppComponent = mApplication.getAppComponent();
+    mAppComponent = Utils.getAppComponent();
     setStatusBar();
     if (useLoadSir()) {
       mLoadService = LoadSir.getDefault().register(registerTarget(), new OnReloadListener() {
@@ -89,7 +88,7 @@ public abstract class SimpleActivity extends SupportActivity implements
       mUnBinder.unbind();
     }
     this.mUnBinder = null;
-    this.mApplication = null;
+    this.mAppComponent = null;
   }
 
   protected void setToolBar(Toolbar toolbar, String title) {

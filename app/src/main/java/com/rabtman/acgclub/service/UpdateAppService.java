@@ -14,10 +14,10 @@ import com.rabtman.acgclub.api.AcgService;
 import com.rabtman.acgclub.base.constant.HtmlConstant;
 import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.mvp.model.entity.VersionInfo;
-import com.rabtman.common.base.App;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.utils.IntentUtils;
 import com.rabtman.common.utils.RxUtil;
+import com.rabtman.common.utils.Utils;
 import es.dmoral.toasty.Toasty;
 
 /**
@@ -46,7 +46,7 @@ public class UpdateAppService extends Service {
       versionUrl = HtmlConstant.APP_VERSION_URL;
     }
 
-    ((App) getApplicationContext()).getAppComponent()
+    Utils.getAppComponent()
         .repositoryManager()
         .obtainRetrofitService(AcgService.class)
         .getVersionInfo(versionUrl)

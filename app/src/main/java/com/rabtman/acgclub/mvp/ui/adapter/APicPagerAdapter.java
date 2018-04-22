@@ -5,10 +5,10 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import com.rabtman.common.base.App;
 import com.rabtman.common.base.widget.PinchImageView;
 import com.rabtman.common.imageloader.ImageLoader;
 import com.rabtman.common.imageloader.glide.GlideImageConfig;
+import com.rabtman.common.utils.Utils;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,7 +27,7 @@ public class APicPagerAdapter extends PagerAdapter {
   public APicPagerAdapter(Context context, List<String> apicList) {
     this.mContext = context;
     this.apicList = apicList;
-    mImageLoader = ((App) context.getApplicationContext()).getAppComponent().imageLoader();
+    mImageLoader = Utils.getAppComponent().imageLoader();
   }
 
   public void setPinchImageViewListener(PinchImageViewListener listener) {

@@ -84,8 +84,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     StatusBarUtil.setColorForDrawerLayout(
         mContext,
         drawerLayout,
-        mApplication.getAppComponent().statusBarAttr().get(StatusBarConstants.COLOR),
-        mApplication.getAppComponent().statusBarAttr().get(StatusBarConstants.ALPHA)
+        mAppComponent.statusBarAttr().get(StatusBarConstants.COLOR),
+        mAppComponent.statusBarAttr().get(StatusBarConstants.ALPHA)
     );
   }
 

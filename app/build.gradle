@@ -100,7 +100,7 @@ android {
         }
 
         release {
-            buildConfigField "boolean", "APP_DEBUG", "true"
+            buildConfigField "boolean", "APP_DEBUG", "false"
             minifyEnabled true
             //Zipalign优化
             zipAlignEnabled true

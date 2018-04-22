@@ -22,7 +22,6 @@ import com.kingja.loadsir.core.LoadSir;
 import com.ms.square.android.expandabletextview.ExpandableTextView;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.R2;
-import com.rabtman.acgschedule.R2.id;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
 import com.rabtman.acgschedule.di.component.DaggerScheduleDetailComponent;
 import com.rabtman.acgschedule.di.module.ScheduleDetailModule;
@@ -150,7 +149,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
   public void showScheduleDetail(ScheduleDetail scheduleDetail) {
     mToolBarTitle.setText(scheduleDetail.getScheduleTitle());
     //模糊背景
-    mApplication.getAppComponent().imageLoader().loadImage(mContext,
+    mAppComponent.imageLoader().loadImage(mContext,
         GlideImageConfig
             .builder()
             .url(scheduleDetail.getImgUrl())
@@ -159,7 +158,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
             .build()
     );
     //番剧展示图
-    mApplication.getAppComponent().imageLoader().loadImage(mContext,
+    mAppComponent.imageLoader().loadImage(mContext,
         GlideImageConfig
             .builder()
             .url(scheduleDetail.getImgUrl())

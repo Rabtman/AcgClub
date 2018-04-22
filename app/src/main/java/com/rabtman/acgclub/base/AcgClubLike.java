@@ -10,13 +10,12 @@ import android.text.TextUtils;
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.leon.channel.helper.ChannelReaderUtil;
 import com.rabtman.acgclub.BuildConfig;
-import com.rabtman.common.base.App;
 import com.rabtman.common.base.CommonApplicationLike;
-import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.utils.SystemUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.BuglyStrategy;
 import com.tencent.bugly.beta.Beta;
+import com.tencent.bugly.beta.tinker.TinkerManager;
 import com.tencent.tinker.loader.app.DefaultApplicationLike;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
@@ -25,7 +24,7 @@ import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
  * @author Rabtman
  */
 
-public class AcgClubLike extends DefaultApplicationLike implements App {
+public class AcgClubLike extends DefaultApplicationLike {
 
   private CommonApplicationLike mCommonApplicationLike;
   private String mChannel = "official";
@@ -70,11 +69,11 @@ public class AcgClubLike extends DefaultApplicationLike implements App {
   @Override
   public void onBaseContextAttached(Context base) {
     super.onBaseContextAttached(base);
-    MultiDex.install(getApplication());
+    MultiDex.install(base);
     Beta.installTinker(this);
 
     if (mCommonApplicationLike == null) {
-      mCommonApplicationLike = new CommonApplicationLike(getApplication());
+      mCommonApplicationLike = new CommonApplicationLike(TinkerManager.getApplication());
     }
   }
 
@@ -100,14 +99,6 @@ public class AcgClubLike extends DefaultApplicationLike implements App {
                 mChannel));
     initFeedback();
 
-  }
-
-  /**
-   * 将AppComponent返回出去,供其它地方使用, AppComponent接口中声明的方法返回的实例,在getAppComponent()拿到对象后都可以直接使用
-   */
-  @Override
-  public AppComponent getAppComponent() {
-    return ((App) mCommonApplicationLike).getAppComponent();
   }
 
   //阿里用户反馈

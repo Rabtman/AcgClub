@@ -7,8 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheudleBanner;
-import com.rabtman.common.base.App;
 import com.rabtman.common.imageloader.glide.GlideImageConfig;
+import com.rabtman.common.utils.Utils;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
 
 /**
@@ -30,7 +30,7 @@ public class ScheduleBannerViewHolder implements MZViewHolder<ScheudleBanner> {
 
   @Override
   public void onBind(Context context, int position, ScheudleBanner scheudleBanner) {
-    ((App) context.getApplicationContext()).getAppComponent().imageLoader()
+    Utils.getAppComponent().imageLoader()
         .loadImage(context,
             GlideImageConfig
                 .builder()

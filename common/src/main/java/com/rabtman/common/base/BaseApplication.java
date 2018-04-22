@@ -3,11 +3,10 @@ package com.rabtman.common.base;
 import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
-import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.utils.SystemUtils;
 
 
-public abstract class BaseApplication extends Application implements App {
+public abstract class BaseApplication extends Application {
 
   private CommonApplicationLike mCommonApplicationLike;
 
@@ -45,14 +44,6 @@ public abstract class BaseApplication extends Application implements App {
    */
   public void onDefaultProcessCreate() {
 
-  }
-
-  /**
-   * 将AppComponent返回出去,供其它地方使用, AppComponent接口中声明的方法返回的实例,在getAppComponent()拿到对象后都可以直接使用
-   */
-  @Override
-  public AppComponent getAppComponent() {
-    return mCommonApplicationLike.getAppComponent();
   }
 
 }
