@@ -2,7 +2,6 @@ package com.rabtman.acgschedule.mvp.model.dao;
 
 import android.util.Pair;
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleCache;
-import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxRealmUtils;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
@@ -76,7 +75,6 @@ public class ScheduleDAO {
       RealmResults<ScheduleCache> queryResult = realm.where(ScheduleCache.class)
           .equalTo("isCollect", true)
           .findAll();
-      LogUtil.d("getScheduleCollectCaches");
       if (queryResult != null) {
         return Flowable.just(realm.copyFromRealm(queryResult));
       } else {

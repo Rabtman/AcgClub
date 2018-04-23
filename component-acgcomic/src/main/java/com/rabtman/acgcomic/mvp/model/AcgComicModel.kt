@@ -14,7 +14,6 @@ import com.rabtman.common.base.mvp.BaseModel
 import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.di.scope.FragmentScope
 import com.rabtman.common.integration.IRepositoryManager
-import com.rabtman.common.utils.LogUtil
 import io.reactivex.Flowable
 import javax.inject.Inject
 
@@ -63,7 +62,6 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     override fun collectComic(comicItem: OacgComicItem, isAdd: Boolean): Flowable<ComicCache> {
         return DAO.getComicCacheById(comicItem.id)
                 .flatMap({ comicCache ->
-                    LogUtil.d("collectComic")
                     if (comicCache.comicDetailJson.isEmpty()) {
                         comicCache.comicId = comicItem.id
                         comicCache.comicName = comicItem.comicName
@@ -80,7 +78,6 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     override fun updateComicLastChapter(comicId: String, lastChapterPos: Int): Flowable<ComicCache> {
         return DAO.getComicCacheById(comicId)
                 .flatMap({ comicCache ->
-                    LogUtil.d("updateComicLastChapter")
                     //如果不是不是上一次观看的章节，则重置观看的页面位置
                     if (comicCache.chapterPos != lastChapterPos) {
                         comicCache.chapterPos = lastChapterPos

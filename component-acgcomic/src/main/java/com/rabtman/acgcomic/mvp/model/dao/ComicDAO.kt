@@ -1,7 +1,6 @@
 package com.rabtman.acgcomic.mvp.model.dao
 
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
-import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxRealmUtils
 import io.reactivex.Flowable
 import io.realm.RealmConfiguration
@@ -14,7 +13,6 @@ class ComicDAO(val config: RealmConfiguration) {
     fun addComicCache(item: ComicCache): Flowable<ComicCache> {
         return RxRealmUtils.flowableExec<ComicCache>(config, { pair ->
             pair.second.executeTransaction { r ->
-                LogUtil.d("addComicCache")
                 pair.first.onNext(r.copyFromRealm(r.copyToRealmOrUpdate(item)))
                 pair.first.onComplete()
             }
@@ -39,7 +37,6 @@ class ComicDAO(val config: RealmConfiguration) {
             val queryResult = pair.second.where(ComicCache::class.java)
                     .equalTo("comicId", id)
                     .findFirst()
-            LogUtil.d("getComicCacheById")
             if (queryResult != null) {
                 pair.first.onNext(pair.second.copyFromRealm(queryResult))
             } else {
@@ -55,7 +52,6 @@ class ComicDAO(val config: RealmConfiguration) {
                     .equalTo("comicId", id)
                     .equalTo("chapterPos", chapterPos)
                     .findFirst()
-            LogUtil.d("getComicCacheByChapter")
             if (queryResult != null) {
                 pair.first.onNext(pair.second.copyFromRealm(queryResult))
             } else {
@@ -70,7 +66,6 @@ class ComicDAO(val config: RealmConfiguration) {
             val queryResult = pair.second.where(ComicCache::class.java)
                     .equalTo("isCollect", true)
                     .findAll()
-            LogUtil.d("getComicCollectCaches")
             if (queryResult != null) {
                 pair.first.onNext(pair.second.copyFromRealm(queryResult))
             }
