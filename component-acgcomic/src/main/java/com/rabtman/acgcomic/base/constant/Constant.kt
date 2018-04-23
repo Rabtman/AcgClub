@@ -35,3 +35,9 @@ class IntentConstant {
         const val OACG_COMIC_CHAPTERPOS = "oacg_comic_chapterpos"
     }
 }
+
+class SPConstant {
+    companion object {
+        const val VER_3_CLEAR_DB = "ver_3_clear_db"
+    }
+}

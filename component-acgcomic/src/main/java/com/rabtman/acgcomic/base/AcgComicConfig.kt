@@ -1,9 +1,12 @@
 package com.rabtman.acgcomic.base
 
+import android.app.Application
 import android.app.Application.ActivityLifecycleCallbacks
 import android.content.Context
+import android.content.Intent
 import com.rabtman.acgcomic.api.AcgComicService
 import com.rabtman.acgcomic.base.constant.SystemConstant
+import com.rabtman.acgcomic.service.InitService
 import com.rabtman.common.base.CommonApplicationLike.Lifecycle
 import com.rabtman.common.di.module.GlobeConfigModule.Builder
 import com.rabtman.common.integration.ConfigModule
@@ -32,8 +35,16 @@ class AcgComicConfig : ConfigModule {
         )
     }
 
-    override fun injectAppLifecycle(context: Context, lifecycles: List<Lifecycle>) {
+    override fun injectAppLifecycle(context: Context, lifecycles: MutableList<Lifecycle>) {
+        lifecycles.add(object : Lifecycle {
+            override fun onCreate(application: Application?) {
+                context.startService(Intent(context, InitService::class.java))
+            }
 
+            override fun onTerminate(application: Application?) {
+            }
+
+        })
     }
 
     override fun injectActivityLifecycle(context: Context,

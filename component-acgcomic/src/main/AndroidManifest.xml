@@ -17,5 +17,7 @@
     <meta-data
       android:name="com.rabtman.acgcomic.base.AcgComicConfig"
       android:value="ConfigModule" />
+
+    <service android:name=".service.InitService" />
   </application>
 </manifest>
