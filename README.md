@@ -1,6 +1,6 @@
 # ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/cover.jpg)
 
-![](https://img.shields.io/badge/version-v0.2.0-brightgreen.svg)   ![](https://img.shields.io/badge/license-MIT-blue.svg)
+![](https://img.shields.io/badge/version-v0.2.1-brightgreen.svg)   ![](https://img.shields.io/badge/license-MIT-blue.svg)
 
 宅社AcgClub，一款纯粹的ACG聚合类App
 
@@ -20,6 +20,7 @@
 * Arouter
 * Jsoup
 * Gradle配置
+* 热更新
 * 混淆、多渠道包
 
 ## 预览
@@ -127,6 +128,7 @@ QQ_ZONE_KEY=""
 WEIXIN_ID=""
 WEIXIN_KEY=""
 ```
+* 为了确保bugly热更新能生效，请每次打出正式包的时候，确认app目录下tinker-support.gradle文件中的tinkerId的唯一性
 
 ## 联系
 

@@ -6,5 +6,5 @@ package com.rabtman.common.utils.constant;
 
 public class SPConstants {
 
-  public static final String APP_VERSION = "app_version";
+  public static final String APP_VERSION_CODE = "app_version_code";
 }

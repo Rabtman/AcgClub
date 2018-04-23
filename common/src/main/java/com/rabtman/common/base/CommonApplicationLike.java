@@ -21,7 +21,9 @@ import com.rabtman.common.integration.ActivityLifecycle;
 import com.rabtman.common.integration.ConfigModule;
 import com.rabtman.common.integration.ManifestParser;
 import com.rabtman.common.utils.LogUtil;
+import com.rabtman.common.utils.SPUtils;
 import com.rabtman.common.utils.Utils;
+import com.rabtman.common.utils.constant.SPConstants;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.smtt.sdk.QbSdk;
@@ -121,9 +123,22 @@ public class CommonApplicationLike implements IApplicationLike {
   }
 
   public void onDefaultProcessCreate() {
+    recordVersionCode();
     initToastyConfig();
     initX5Web();
     initUShare();
+  }
+
+  /**
+   * 记录app版本号
+   * 可以通过这个记录后期做一些新旧版本切换埋点和额外操作
+   */
+  private void recordVersionCode() {
+    int hisVerion = SPUtils.getInstance().getInt(SPConstants.APP_VERSION_CODE, -1);
+    int curVersion = BuildConfig.appVerCode;
+    if (hisVerion != curVersion) {
+      SPUtils.getInstance().put(SPConstants.APP_VERSION_CODE, curVersion);
+    }
   }
 
   public void onTerminate() {

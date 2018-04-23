@@ -5,6 +5,7 @@ import android.content.Intent
 import com.rabtman.acgcomic.base.constant.SPConstant
 import com.rabtman.acgcomic.base.constant.SystemConstant
 import com.rabtman.acgcomic.mvp.model.dao.ComicDAO
+import com.rabtman.common.BuildConfig
 import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.SPUtils
 import com.rabtman.common.utils.Utils
@@ -17,7 +18,7 @@ import com.rabtman.common.utils.Utils
 class InitService : IntentService("InitService") {
 
     override fun onHandleIntent(intent: Intent?) {
-        dealWithDiffVer(com.rabtman.common.BuildConfig.appVerCode)
+        dealWithDiffVer(BuildConfig.appVerCode)
     }
 
     /**
