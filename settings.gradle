@@ -7,4 +7,4 @@ include ':router'
 //三方库
 include ':third-party-libs:jsoup-annotations'
 //业务模块
-include ':component-acgnews', ':component-acgschedule', ':component-acgcomic'
+include ':component-acgnews', ':component-acgschedule', ':component-acgcomic', ':component-acgpicture'

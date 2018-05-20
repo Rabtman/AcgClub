@@ -28,5 +28,8 @@ public class RouterConstants {
   public static final String PATH_COMIC_OACG_DETAIL = "/acgcomic/oacg/detail";
   public static final String PATH_COMIC_OACG_READ = "/acgcomic/oacg/read";
   public static final String PATH_COMIC_COLLECTION = "/acgcomic/collection";
+  //acgpicture
+  public static final String PATH_PICTURE_MAIN = "/acgpicture/main";
+  public static final String PATH_PICTURE_ANIMATE = "/acgpicture/animate";
 
 }
