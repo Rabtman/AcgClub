@@ -1,8 +1,8 @@
 package com.rabtman.acgnews.mvp.model;
 
 import com.fcannizzaro.jsoup.annotations.JP;
-import com.rabtman.acgnews.mvp.contract.AcgNewsContract;
-import com.rabtman.acgnews.mvp.model.jsoup.AcgNewsPage;
+import com.rabtman.acgnews.mvp.contract.ZeroFiveNewsContract;
+import com.rabtman.acgnews.mvp.model.jsoup.ZeroFiveNewsPage;
 import com.rabtman.common.base.mvp.BaseModel;
 import com.rabtman.common.di.scope.FragmentScope;
 import com.rabtman.common.integration.IRepositoryManager;
@@ -19,24 +19,24 @@ import org.jsoup.nodes.Element;
  * @author Rabtman
  */
 @FragmentScope
-public class AcgNewsModel extends BaseModel implements AcgNewsContract.Model {
+public class ZeroFiveNewsModel extends BaseModel implements ZeroFiveNewsContract.Model {
 
   @Inject
-  public AcgNewsModel(IRepositoryManager repositoryManager) {
+  public ZeroFiveNewsModel(IRepositoryManager repositoryManager) {
     super(repositoryManager);
   }
 
   @Override
-  public Flowable<AcgNewsPage> getAcgNews(final String typeUrl) {
-    return Flowable.create(new FlowableOnSubscribe<AcgNewsPage>() {
+  public Flowable<ZeroFiveNewsPage> getAcgNews(final String typeUrl) {
+    return Flowable.create(new FlowableOnSubscribe<ZeroFiveNewsPage>() {
       @Override
-      public void subscribe(@NonNull FlowableEmitter<AcgNewsPage> e) throws Exception {
+      public void subscribe(@NonNull FlowableEmitter<ZeroFiveNewsPage> e) throws Exception {
         Element html = Jsoup.connect(typeUrl).get();
         if(html == null){
           e.onError(new Throwable("element html is null"));
         }else {
-          AcgNewsPage acgNewsPage = JP.from(html, AcgNewsPage.class);
-          e.onNext(acgNewsPage);
+          ZeroFiveNewsPage zeroFiveNewsPage = JP.from(html, ZeroFiveNewsPage.class);
+          e.onNext(zeroFiveNewsPage);
           e.onComplete();
         }
       }

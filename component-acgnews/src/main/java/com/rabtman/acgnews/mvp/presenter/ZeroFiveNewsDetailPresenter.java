@@ -3,8 +3,8 @@ package com.rabtman.acgnews.mvp.presenter;
 import android.Manifest;
 import android.text.TextUtils;
 import com.rabtman.acgnews.R;
-import com.rabtman.acgnews.mvp.contract.AcgNewsDetailContract;
-import com.rabtman.acgnews.mvp.model.jsoup.AcgNewsDetail;
+import com.rabtman.acgnews.mvp.contract.ZeroFiveNewsDetailContract;
+import com.rabtman.acgnews.mvp.model.jsoup.ZeroFiveNewsDetail;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.ActivityScope;
@@ -18,12 +18,12 @@ import javax.inject.Inject;
  * @author Rabtman
  */
 @ActivityScope
-public class AcgNewsDetailPresenter extends
-    BasePresenter<AcgNewsDetailContract.Model, AcgNewsDetailContract.View> {
+public class ZeroFiveNewsDetailPresenter extends
+    BasePresenter<ZeroFiveNewsDetailContract.Model, ZeroFiveNewsDetailContract.View> {
 
   @Inject
-  public AcgNewsDetailPresenter(AcgNewsDetailContract.Model model,
-      AcgNewsDetailContract.View rootView) {
+  public ZeroFiveNewsDetailPresenter(ZeroFiveNewsDetailContract.Model model,
+      ZeroFiveNewsDetailContract.View rootView) {
     super(model, rootView);
   }
 
@@ -52,8 +52,8 @@ public class AcgNewsDetailPresenter extends
 
     addSubscribe(
         mModel.getAcgNewsDetail(url)
-            .compose(RxUtil.<AcgNewsDetail>rxSchedulerHelper())
-            .subscribeWith(new CommonSubscriber<AcgNewsDetail>(mView) {
+            .compose(RxUtil.<ZeroFiveNewsDetail>rxSchedulerHelper())
+            .subscribeWith(new CommonSubscriber<ZeroFiveNewsDetail>(mView) {
 
               @Override
               public void onError(Throwable e) {
@@ -62,8 +62,8 @@ public class AcgNewsDetailPresenter extends
               }
 
               @Override
-              public void onNext(AcgNewsDetail acgNewsDetail) {
-                mView.showNewsDetail(acgNewsDetail);
+              public void onNext(ZeroFiveNewsDetail zeroFiveNewsDetail) {
+                mView.showNewsDetail(zeroFiveNewsDetail);
                 mView.showPageContent();
               }
             })

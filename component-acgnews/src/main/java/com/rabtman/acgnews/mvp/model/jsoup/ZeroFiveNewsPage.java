@@ -9,19 +9,19 @@ import java.util.List;
  * @author Rabtman
  */
 @Selector("div.w article-list-page clearfix")
-public class AcgNewsPage {
+public class ZeroFiveNewsPage {
 
   @Items
-  private List<AcgNews> acgNewsList;
+  private List<ZeroFiveNews> zeroFiveNewsList;
   @Attr(query = "div div.pages div ul li a:last-child", attr = "href")
   private String pageCount;
 
-  public List<AcgNews> getAcgNewsList() {
-    return acgNewsList;
+  public List<ZeroFiveNews> getZeroFiveNewsList() {
+    return zeroFiveNewsList;
   }
 
-  public void setAcgNewsList(List<AcgNews> acgNewsList) {
-    this.acgNewsList = acgNewsList;
+  public void setZeroFiveNewsList(List<ZeroFiveNews> zeroFiveNewsList) {
+    this.zeroFiveNewsList = zeroFiveNewsList;
   }
 
   public String getPageCount() {
@@ -34,8 +34,8 @@ public class AcgNewsPage {
 
   @Override
   public String toString() {
-    return "AcgNewsPage{" +
-        "acgNewsList=" + acgNewsList +
+    return "ZeroFiveNewsPage{" +
+        "zeroFiveNewsList=" + zeroFiveNewsList +
         ", pageCount=" + pageCount +
         '}';
   }

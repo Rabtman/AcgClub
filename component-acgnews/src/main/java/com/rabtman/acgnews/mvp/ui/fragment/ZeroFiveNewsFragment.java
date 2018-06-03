@@ -12,13 +12,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter.RequestLoadMoreListener;
 import com.rabtman.acgnews.R;
 import com.rabtman.acgnews.R2;
 import com.rabtman.acgnews.base.constant.IntentConstant;
-import com.rabtman.acgnews.di.component.DaggerAcgNewsItemComponent;
-import com.rabtman.acgnews.di.module.AcgNewsItemModule;
-import com.rabtman.acgnews.mvp.contract.AcgNewsContract.View;
-import com.rabtman.acgnews.mvp.model.jsoup.AcgNews;
-import com.rabtman.acgnews.mvp.presenter.AcgNewsItemPresenter;
-import com.rabtman.acgnews.mvp.ui.activity.AcgInfoDetailActivity;
-import com.rabtman.acgnews.mvp.ui.adapter.AcgNewsItemAdapter;
+import com.rabtman.acgnews.di.component.DaggerZeroFiveNewsItemComponent;
+import com.rabtman.acgnews.di.module.ZeroFiveNewsItemModule;
+import com.rabtman.acgnews.mvp.contract.ZeroFiveNewsContract.View;
+import com.rabtman.acgnews.mvp.model.jsoup.ZeroFiveNews;
+import com.rabtman.acgnews.mvp.presenter.ZeroFiveNewsItemPresenter;
+import com.rabtman.acgnews.mvp.ui.activity.ZeroFiveNewsDetailActivity;
+import com.rabtman.acgnews.mvp.ui.adapter.ZeroFiveNewsItemAdapter;
 import com.rabtman.common.base.BaseFragment;
 import com.rabtman.common.base.widget.CommonItemDecoration;
 import com.rabtman.common.di.component.AppComponent;
@@ -28,20 +28,20 @@ import java.util.List;
  * @author Rabtman
  * 羁绊资讯
  */
-public class ZeroFiveNewsFragment extends BaseFragment<AcgNewsItemPresenter> implements
+public class ZeroFiveNewsFragment extends BaseFragment<ZeroFiveNewsItemPresenter> implements
     View {
 
   @BindView(R2.id.rcv_news_item)
   RecyclerView rcvNewsItem;
   @BindView(R2.id.swipe_refresh_news)
   SwipeRefreshLayout swipeRefresh;
-  private AcgNewsItemAdapter mAdapter;
+  private ZeroFiveNewsItemAdapter mAdapter;
 
   @Override
   protected void setupFragmentComponent(AppComponent appComponent) {
-    DaggerAcgNewsItemComponent.builder()
+    DaggerZeroFiveNewsItemComponent.builder()
         .appComponent(appComponent)
-        .acgNewsItemModule(new AcgNewsItemModule(this))
+        .zeroFiveNewsItemModule(new ZeroFiveNewsItemModule(this))
         .build()
         .inject(this);
   }
@@ -63,13 +63,13 @@ public class ZeroFiveNewsFragment extends BaseFragment<AcgNewsItemPresenter> imp
 
   @Override
   protected void initData() {
-    mAdapter = new AcgNewsItemAdapter(getAppComponent().imageLoader());
+    mAdapter = new ZeroFiveNewsItemAdapter(getAppComponent().imageLoader());
     mAdapter.setOnItemClickListener(new OnItemClickListener() {
       @Override
       public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
-        AcgNews acgNews = (AcgNews) adapter.getData().get(position);
-        Intent intent = new Intent(getContext(), AcgInfoDetailActivity.class);
-        intent.putExtra(IntentConstant.ACG_NEWS_DETAIL_ITEM, acgNews);
+        ZeroFiveNews zeroFiveNews = (ZeroFiveNews) adapter.getData().get(position);
+        Intent intent = new Intent(getContext(), ZeroFiveNewsDetailActivity.class);
+        intent.putExtra(IntentConstant.ACG_NEWS_DETAIL_ITEM, zeroFiveNews);
         startActivity(intent);
       }
     });
@@ -102,13 +102,13 @@ public class ZeroFiveNewsFragment extends BaseFragment<AcgNewsItemPresenter> imp
   }
 
   @Override
-  public void showAcgNews(List<AcgNews> acgNewsList) {
-    mAdapter.setNewData(acgNewsList);
+  public void showAcgNews(List<ZeroFiveNews> zeroFiveNewsList) {
+    mAdapter.setNewData(zeroFiveNewsList);
   }
 
   @Override
-  public void showMoreAcgNews(List<AcgNews> acgNewsList, boolean canLoadMore) {
-    mAdapter.addData(acgNewsList);
+  public void showMoreAcgNews(List<ZeroFiveNews> zeroFiveNewsList, boolean canLoadMore) {
+    mAdapter.addData(zeroFiveNewsList);
     mAdapter.loadMoreComplete();
     if (!canLoadMore) {
       mAdapter.loadMoreEnd();

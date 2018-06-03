@@ -11,7 +11,7 @@ import org.jsoup.nodes.Element;
  * @author Rabtman
  */
 @Selector("div.article-article")
-public class AcgNewsDetail {
+public class ZeroFiveNewsDetail {
 
   private List<String> labels = new ArrayList<>();
   @Html("div.articleContent")
@@ -40,7 +40,7 @@ public class AcgNewsDetail {
 
   @Override
   public String toString() {
-    return "AcgNewsDetail{" +
+    return "ZeroFiveNewsDetail{" +
         "labels=" + labels +
         ", content='" + content + '\'' +
         '}';

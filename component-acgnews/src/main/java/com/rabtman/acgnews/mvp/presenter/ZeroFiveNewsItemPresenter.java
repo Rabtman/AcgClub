@@ -1,8 +1,8 @@
 package com.rabtman.acgnews.mvp.presenter;
 
 import com.rabtman.acgnews.base.constant.HtmlConstant;
-import com.rabtman.acgnews.mvp.contract.AcgNewsContract;
-import com.rabtman.acgnews.mvp.model.jsoup.AcgNewsPage;
+import com.rabtman.acgnews.mvp.contract.ZeroFiveNewsContract;
+import com.rabtman.acgnews.mvp.model.jsoup.ZeroFiveNewsPage;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.scope.FragmentScope;
@@ -13,23 +13,24 @@ import javax.inject.Inject;
  * @author Rabtman
  */
 @FragmentScope
-public class AcgNewsItemPresenter extends
-    BasePresenter<AcgNewsContract.Model, AcgNewsContract.View> {
+public class ZeroFiveNewsItemPresenter extends
+    BasePresenter<ZeroFiveNewsContract.Model, ZeroFiveNewsContract.View> {
 
   //当前页面位置
   private int pageNo = 1;
 
   @Inject
-  public AcgNewsItemPresenter(AcgNewsContract.Model model, AcgNewsContract.View rootView) {
+  public ZeroFiveNewsItemPresenter(ZeroFiveNewsContract.Model model,
+      ZeroFiveNewsContract.View rootView) {
     super(model, rootView);
   }
 
   public void getAcgNewsList() {
     pageNo = 1;
     addSubscribe(
-        mModel.getAcgNews(HtmlConstant.BASE_URL + mView.getNewsUrl(pageNo))
-            .compose(RxUtil.<AcgNewsPage>rxSchedulerHelper())
-            .subscribeWith(new CommonSubscriber<AcgNewsPage>(mView) {
+        mModel.getAcgNews(HtmlConstant.ZERO_FIVE_URL + mView.getNewsUrl(pageNo))
+            .compose(RxUtil.<ZeroFiveNewsPage>rxSchedulerHelper())
+            .subscribeWith(new CommonSubscriber<ZeroFiveNewsPage>(mView) {
 
               @Override
               public void onError(Throwable e) {
@@ -43,9 +44,9 @@ public class AcgNewsItemPresenter extends
               }
 
               @Override
-              public void onNext(AcgNewsPage acgNewsPage) {
-                if (acgNewsPage.getAcgNewsList().size() > 0) {
-                  mView.showAcgNews(acgNewsPage.getAcgNewsList());
+              public void onNext(ZeroFiveNewsPage zeroFiveNewsPage) {
+                if (zeroFiveNewsPage.getZeroFiveNewsList().size() > 0) {
+                  mView.showAcgNews(zeroFiveNewsPage.getZeroFiveNewsList());
                   mView.showPageContent();
                 } else {
                   mView.showPageEmpty();
@@ -57,19 +58,19 @@ public class AcgNewsItemPresenter extends
 
   public void getMoreAcgNewsList() {
     addSubscribe(
-        mModel.getAcgNews(HtmlConstant.BASE_URL + mView.getNewsUrl(++pageNo))
-            .compose(RxUtil.<AcgNewsPage>rxSchedulerHelper())
-            .subscribeWith(new CommonSubscriber<AcgNewsPage>(mView) {
+        mModel.getAcgNews(HtmlConstant.ZERO_FIVE_URL + mView.getNewsUrl(++pageNo))
+            .compose(RxUtil.<ZeroFiveNewsPage>rxSchedulerHelper())
+            .subscribeWith(new CommonSubscriber<ZeroFiveNewsPage>(mView) {
               @Override
-              public void onNext(AcgNewsPage acgNewsPage) {
+              public void onNext(ZeroFiveNewsPage zeroFiveNewsPage) {
                 int pageCount;
                 try {
-                  pageCount = Integer.parseInt(acgNewsPage.getPageCount());
+                  pageCount = Integer.parseInt(zeroFiveNewsPage.getPageCount());
                 } catch (NumberFormatException e) {
                   e.printStackTrace();
                   pageCount = 1;
                 }
-                mView.showMoreAcgNews(acgNewsPage.getAcgNewsList(),
+                mView.showMoreAcgNews(zeroFiveNewsPage.getZeroFiveNewsList(),
                     pageNo < pageCount);
               }
 

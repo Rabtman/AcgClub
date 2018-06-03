@@ -10,17 +10,17 @@ import com.fcannizzaro.jsoup.annotations.interfaces.Text;
  * @author Rabtman
  */
 @Selector("div.article-list ul li")
-public class AcgNews implements Parcelable {
+public class ZeroFiveNews implements Parcelable {
 
-  public static final Creator<AcgNews> CREATOR = new Creator<AcgNews>() {
+  public static final Creator<ZeroFiveNews> CREATOR = new Creator<ZeroFiveNews>() {
     @Override
-    public AcgNews createFromParcel(Parcel source) {
-      return new AcgNews(source);
+    public ZeroFiveNews createFromParcel(Parcel source) {
+      return new ZeroFiveNews(source);
     }
 
     @Override
-    public AcgNews[] newArray(int size) {
-      return new AcgNews[size];
+    public ZeroFiveNews[] newArray(int size) {
+      return new ZeroFiveNews[size];
     }
   };
   @Attr(query = "a img", attr = "src")
@@ -34,10 +34,10 @@ public class AcgNews implements Parcelable {
   @Attr(query = "a", attr = "href")
   private String contentLink;
 
-  public AcgNews() {
+  public ZeroFiveNews() {
   }
 
-  protected AcgNews(Parcel in) {
+  protected ZeroFiveNews(Parcel in) {
     this.imgUrl = in.readString();
     this.title = in.readString();
     this.description = in.readString();
@@ -87,7 +87,7 @@ public class AcgNews implements Parcelable {
 
   @Override
   public String toString() {
-    return "AcgNews{" +
+    return "ZeroFiveNews{" +
         "imgUrl='" + imgUrl + '\'' +
         ", title='" + title + '\'' +
         ", description='" + description + '\'' +

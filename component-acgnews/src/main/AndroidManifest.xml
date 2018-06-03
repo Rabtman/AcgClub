@@ -8,7 +8,11 @@
     tools:replace="android:label">
 
     <activity
-      android:name="com.rabtman.acgnews.mvp.ui.activity.AcgInfoDetailActivity"
+      android:name="com.rabtman.acgnews.mvp.ui.activity.ZeroFiveNewsDetailActivity"
       android:screenOrientation="portrait" />
+
+    <meta-data
+      android:name="com.rabtman.acgnews.base.AcgNewsConfig"
+      android:value="ConfigModule" />
   </application>
 </manifest>

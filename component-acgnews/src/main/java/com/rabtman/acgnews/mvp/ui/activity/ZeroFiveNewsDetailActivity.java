@@ -12,12 +12,12 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rabtman.acgnews.R;
 import com.rabtman.acgnews.R2;
 import com.rabtman.acgnews.base.constant.IntentConstant;
-import com.rabtman.acgnews.di.component.DaggerAcgNewsDetailComponent;
-import com.rabtman.acgnews.di.module.AcgNewsDetailModule;
-import com.rabtman.acgnews.mvp.contract.AcgNewsDetailContract.View;
-import com.rabtman.acgnews.mvp.model.jsoup.AcgNews;
-import com.rabtman.acgnews.mvp.model.jsoup.AcgNewsDetail;
-import com.rabtman.acgnews.mvp.presenter.AcgNewsDetailPresenter;
+import com.rabtman.acgnews.di.component.DaggerZeroFiveNewsDetailComponent;
+import com.rabtman.acgnews.di.module.ZeroFiveNewsDetailModule;
+import com.rabtman.acgnews.mvp.contract.ZeroFiveNewsDetailContract.View;
+import com.rabtman.acgnews.mvp.model.jsoup.ZeroFiveNews;
+import com.rabtman.acgnews.mvp.model.jsoup.ZeroFiveNewsDetail;
+import com.rabtman.acgnews.mvp.presenter.ZeroFiveNewsDetailPresenter;
 import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.utils.ExceptionUtils;
@@ -37,7 +37,7 @@ import com.zzhoujay.richtext.RichText;
  * @author Rabtman
  */
 @Route(path = RouterConstants.PATH_ACGNEWS_DETAIL)
-public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> implements
+public class ZeroFiveNewsDetailActivity extends BaseActivity<ZeroFiveNewsDetailPresenter> implements
     View {
 
   @BindView(R2.id.toolbar)
@@ -52,13 +52,13 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
   TextView tvAcgDetailLabels;
   @BindView(R2.id.tv_acg_detail_datetime)
   TextView tvAcgDetailDatetime;
-  private AcgNews mAcgNewsItem;
+  private ZeroFiveNews mZeroFiveNewsItem;
 
   @Override
   protected void setupActivityComponent(AppComponent appComponent) {
-    DaggerAcgNewsDetailComponent.builder()
+    DaggerZeroFiveNewsDetailComponent.builder()
         .appComponent(appComponent)
-        .acgNewsDetailModule(new AcgNewsDetailModule(this))
+        .zeroFiveNewsDetailModule(new ZeroFiveNewsDetailModule(this))
         .build()
         .inject(this);
   }
@@ -80,14 +80,14 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
 
   @Override
   protected void onPageRetry(android.view.View v) {
-    mPresenter.getNewsDetail(mAcgNewsItem.getContentLink());
+    mPresenter.getNewsDetail(mZeroFiveNewsItem.getContentLink());
   }
 
   @Override
   protected void initData() {
     setToolBar(mToolBar, "");
-    mAcgNewsItem = getIntent().getParcelableExtra(IntentConstant.ACG_NEWS_DETAIL_ITEM);
-    if (mAcgNewsItem == null) {
+    mZeroFiveNewsItem = getIntent().getParcelableExtra(IntentConstant.ACG_NEWS_DETAIL_ITEM);
+    if (mZeroFiveNewsItem == null) {
       showError(R.string.msg_error_unknown);
       return;
     }
@@ -96,13 +96,13 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
       @Override
       public boolean onMenuItemClick(MenuItem item) {
         if (item.getItemId() == R.id.acginfo_share) {
-          mPresenter.start2Share(new RxPermissions(AcgInfoDetailActivity.this));
+          mPresenter.start2Share(new RxPermissions(ZeroFiveNewsDetailActivity.this));
         }
         return false;
       }
     });
 
-    mPresenter.getNewsDetail(mAcgNewsItem.getContentLink());
+    mPresenter.getNewsDetail(mZeroFiveNewsItem.getContentLink());
   }
 
   @Override
@@ -124,36 +124,36 @@ public class AcgInfoDetailActivity extends BaseActivity<AcgNewsDetailPresenter> 
   }
 
   @Override
-  public void showNewsDetail(AcgNewsDetail acgNewsDetail) {
-    tvAcgDetailTitle.setText(mAcgNewsItem.getTitle());
+  public void showNewsDetail(ZeroFiveNewsDetail zeroFiveNewsDetail) {
+    tvAcgDetailTitle.setText(mZeroFiveNewsItem.getTitle());
     tvAcgDetailDatetime
-        .setText(getIntent().getStringExtra(mAcgNewsItem.getDateTime()));
+        .setText(getIntent().getStringExtra(mZeroFiveNewsItem.getDateTime()));
     //文章来源信息
     StringBuilder stringBuilder = new StringBuilder();
     for (int i = 0; i <= 3; i++) {
-      String text = acgNewsDetail.getLabels().get(i);
+      String text = zeroFiveNewsDetail.getLabels().get(i);
       stringBuilder.append(text);
       stringBuilder.append("  ");
     }
     tvAcgDetailLabels.setText(stringBuilder.toString());
     //文章内容
-    RichText.fromHtml(acgNewsDetail.getContent())
+    RichText.fromHtml(zeroFiveNewsDetail.getContent())
         .into(tvAcgDetailContent);
   }
 
   @Override
   public void showShareView() {
-    UMWeb umWeb = new UMWeb(mAcgNewsItem.getContentLink());
-    umWeb.setThumb(new UMImage(this, mAcgNewsItem.getImgUrl()));
-    umWeb.setTitle(mAcgNewsItem.getTitle());
-    umWeb.setDescription(mAcgNewsItem.getDescription());
+    UMWeb umWeb = new UMWeb(mZeroFiveNewsItem.getContentLink());
+    umWeb.setThumb(new UMImage(this, mZeroFiveNewsItem.getImgUrl()));
+    umWeb.setTitle(mZeroFiveNewsItem.getTitle());
+    umWeb.setDescription(mZeroFiveNewsItem.getDescription());
 
     //分享面板ui
     ShareBoardConfig config = new ShareBoardConfig();
     config.setShareboardPostion(ShareBoardConfig.SHAREBOARD_POSITION_CENTER);
     config.setMenuItemBackgroundShape(ShareBoardConfig.BG_SHAPE_CIRCULAR); // 圆角背景
 
-    new ShareAction(AcgInfoDetailActivity.this)
+    new ShareAction(ZeroFiveNewsDetailActivity.this)
         .withMedia(umWeb)
         .setDisplayList(
             SHARE_MEDIA.SINA,
