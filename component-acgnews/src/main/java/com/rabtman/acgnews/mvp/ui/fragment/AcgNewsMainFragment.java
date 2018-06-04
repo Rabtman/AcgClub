@@ -34,9 +34,11 @@ public class AcgNewsMainFragment extends SimpleFragment {
 
   @Override
   protected void initData() {
-    //羁绊资讯
+
     ZeroFiveNewsFragment zeroFiveFragment = new ZeroFiveNewsFragment();
     fragments.add(zeroFiveFragment);
+    ISHNewsFragment ishNewsFragment = new ISHNewsFragment();
+    fragments.add(ishNewsFragment);
 
     mAdapter = new AcgNewsMainPageAdapter(getFragmentManager(), fragments);
     mViewPager.setAdapter(mAdapter);

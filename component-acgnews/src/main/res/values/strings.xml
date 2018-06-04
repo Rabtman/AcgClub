@@ -4,6 +4,7 @@
   <!-- 动漫资讯-->
   <string name="acgnews_url_zero_five">zx/list_526_%1$d.html</string>
 
-
   <string name="acgnews_update_time">更新于 %1$s</string>
+
+  <string name="acgnews_ish_post_detail_origin_url">http://www.ishuhui.com/article/post/%1$d</string>
 </resources>

@@ -17,12 +17,17 @@ public class IntentUtils {
    * @param context 上下文
    * @param url 浏览器地址
    */
-  public static void go2Browser(Context context, String url) {
-    Intent intent = new Intent();
-    intent.setAction("android.intent.action.VIEW");
+  public static boolean go2Browser(Context context, String url) {
     Uri uri = Uri.parse(url);
-    intent.setData(uri);
-    context.startActivity(intent);
+    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    try {
+      context.startActivity(intent);
+      return true;
+    } catch (ActivityNotFoundException e) {
+      e.printStackTrace();
+      return false;
+    }
   }
 
   /**
@@ -35,6 +40,7 @@ public class IntentUtils {
   public static boolean go2Market(Context context, String packageName) {
     Uri uri = Uri.parse("market://details?id=" + packageName);
     Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+    goToMarket.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
     try {
       context.startActivity(goToMarket);
       return true;

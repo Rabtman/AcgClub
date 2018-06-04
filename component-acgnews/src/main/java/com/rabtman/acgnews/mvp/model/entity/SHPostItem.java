@@ -1,10 +1,24 @@
 package com.rabtman.acgnews.mvp.model.entity;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * @author Rabtman ishuhui post item
  */
-public class SHPostItem {
+public class SHPostItem implements Parcelable {
 
+  public static final Creator<SHPostItem> CREATOR = new Creator<SHPostItem>() {
+    @Override
+    public SHPostItem createFromParcel(Parcel source) {
+      return new SHPostItem(source);
+    }
+
+    @Override
+    public SHPostItem[] newArray(int size) {
+      return new SHPostItem[size];
+    }
+  };
   private int id;
   private String title;
   private int stick;
@@ -12,6 +26,19 @@ public class SHPostItem {
   private String category_name;
   private String time;
   private String thumb;
+
+  public SHPostItem() {
+  }
+
+  protected SHPostItem(Parcel in) {
+    this.id = in.readInt();
+    this.title = in.readString();
+    this.stick = in.readInt();
+    this.category = in.readInt();
+    this.category_name = in.readString();
+    this.time = in.readString();
+    this.thumb = in.readString();
+  }
 
   public int getId() {
     return id;
@@ -67,5 +94,21 @@ public class SHPostItem {
 
   public void setThumb(String thumb) {
     this.thumb = thumb;
+  }
+
+  @Override
+  public int describeContents() {
+    return 0;
+  }
+
+  @Override
+  public void writeToParcel(Parcel dest, int flags) {
+    dest.writeInt(this.id);
+    dest.writeString(this.title);
+    dest.writeInt(this.stick);
+    dest.writeInt(this.category);
+    dest.writeString(this.category_name);
+    dest.writeString(this.time);
+    dest.writeString(this.thumb);
   }
 }

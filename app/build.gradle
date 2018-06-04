@@ -166,6 +166,7 @@ dependencies {
     //bugly
     implementation rootProject.ext.dependencies["crashreport"]
     implementation rootProject.ext.dependencies["nativecrashreport"]
+    implementation rootProject.ext.dependencies["tinker"]
     //VasDolly
     api rootProject.ext.dependencies["vasdolly"]
 }

@@ -6,6 +6,6 @@ package com.rabtman.acgnews.base.constant;
 
 public class IntentConstant {
 
-  public static final String ACG_NEWS_TITLE = "acg_news_title";
-  public static final String ACG_NEWS_DETAIL_ITEM = "acg_news_item";
+  public static final String ZERO_FIVE_NEWS_ITEM = "zero_five_news_item";
+  public static final String ISH_NEWS_ITEM = "ish_news_item";
 }

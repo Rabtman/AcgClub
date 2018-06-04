@@ -1,7 +1,8 @@
-package com.rabtman.acgschedule.base;
+package com.rabtman.acgnews.base;
 
 import android.app.Application.ActivityLifecycleCallbacks;
 import android.content.Context;
+import com.rabtman.acgnews.api.AcgNewsService;
 import com.rabtman.common.base.CommonApplicationLike.Lifecycle;
 import com.rabtman.common.di.module.GlobeConfigModule.Builder;
 import com.rabtman.common.integration.ConfigModule;
@@ -20,6 +21,7 @@ public class AcgNewsConfig implements ConfigModule {
 
   @Override
   public void registerComponents(Context context, IRepositoryManager repositoryManager) {
+    repositoryManager.injectRetrofitService(AcgNewsService.class);
   }
 
   @Override

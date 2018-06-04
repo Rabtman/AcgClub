@@ -1,6 +1,7 @@
 package com.rabtman.acgnews.di.component;
 
 import com.rabtman.acgnews.di.module.ISHNewsItemModule;
+import com.rabtman.acgnews.mvp.ui.fragment.ISHNewsFragment;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.di.scope.FragmentScope;
 import dagger.Component;
@@ -12,4 +13,5 @@ import dagger.Component;
 @Component(modules = ISHNewsItemModule.class, dependencies = AppComponent.class)
 public interface ISHNewsItemComponent {
 
+  void inject(ISHNewsFragment fragment);
 }
