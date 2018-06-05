@@ -17,7 +17,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter.OnItemChildClickListener;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.R2;
-import com.rabtman.acgschedule.base.constant.HtmlConstant;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
 import com.rabtman.acgschedule.base.constant.SystemConstant;
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleTimeItem;
@@ -134,8 +133,7 @@ public class ScheduleTimeActivity extends SimpleActivity {
         ScheduleTimeItem scheduleItem = (ScheduleTimeItem) adapter.getItem(position);
         Intent intent = new Intent(getBaseContext(), ScheduleDetailActivity.class);
         if (scheduleItem != null && scheduleItem.t != null) {
-          intent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL,
-              HtmlConstant.DILIDILI_URL + scheduleItem.t.getAnimeLink());
+          intent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL, scheduleItem.t.getAnimeLink());
         }
         startActivity(intent);
       }

@@ -131,7 +131,10 @@ public class ISHNewsDetailActivity extends BaseActivity<ISHNewsDetailPresenter> 
     tvAcgDetailDatetime
         .setText(getIntent().getStringExtra(shPostDetail.getTime()));
     //文章内容
-    RichText.fromHtml(shPostDetail.getContent())
+    RichText.fromHtml(
+        shPostDetail.getContent()
+            .replaceAll("\"/upload", "\"" + HtmlConstant.ISH_IMG_URL)
+    )
         .into(tvAcgDetailContent);
   }
 

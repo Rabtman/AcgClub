@@ -139,20 +139,24 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
       }
     });
     //轮播栏
-    bannerSchedule.setIndicatorVisible(false);
-    bannerSchedule.setBannerPageClickListener(new BannerPageClickListener() {
-      @Override
-      public void onPageClick(android.view.View view, int i) {
-        startToScheduleVideo(dilidiliInfo.getScheudleBanners().get(i).getAnimeLink());
-      }
-    });
-    bannerSchedule.setPages(dilidiliInfo.getScheudleBanners(), new MZHolderCreator() {
-      @Override
-      public MZViewHolder createViewHolder() {
-        return new ScheduleBannerViewHolder();
-      }
-    });
-    bannerSchedule.start();
+    if (dilidiliInfo.getScheudleBanners() != null && dilidiliInfo.getScheudleBanners().size() > 0) {
+      bannerSchedule.setIndicatorVisible(false);
+      bannerSchedule.setBannerPageClickListener(new BannerPageClickListener() {
+        @Override
+        public void onPageClick(android.view.View view, int i) {
+          startToScheduleVideo(dilidiliInfo.getScheudleBanners().get(i).getAnimeLink());
+        }
+      });
+      bannerSchedule.setPages(dilidiliInfo.getScheudleBanners(), new MZHolderCreator() {
+        @Override
+        public MZViewHolder createViewHolder() {
+          return new ScheduleBannerViewHolder();
+        }
+      });
+      bannerSchedule.start();
+    } else {
+      bannerSchedule.setVisibility(android.view.View.GONE);
+    }
     //近期推荐
     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
     linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);

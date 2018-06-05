@@ -31,6 +31,8 @@ import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.common.QueuedWork;
+import io.reactivex.functions.Consumer;
+import io.reactivex.plugins.RxJavaPlugins;
 import io.realm.Realm;
 import java.util.ArrayList;
 import java.util.List;
@@ -120,6 +122,24 @@ public class CommonApplicationLike implements IApplicationLike {
 
     //leakCanary内存泄露检查
     installLeakCanary();
+
+    //rx全局异常处理
+    setRxJavaErrorHandler();
+  }
+
+  /**
+   * RxJava2 当取消订阅后(dispose())，RxJava抛出的异常后续无法接收(此时后台线程仍在跑，可能会抛出IO等异常),全部由RxJavaPlugin接收，需要提前设置ErrorHandler
+   * 详情：http://engineering.rallyhealth.com/mobile/rxjava/reactive/2017/03/15/migrating-to-rxjava-2.html#Error
+   * Handling
+   */
+  private void setRxJavaErrorHandler() {
+    RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+      @Override
+      public void accept(Throwable throwable) throws Exception {
+        LogUtil.d("setRxJavaErrorHandler:");
+        throwable.printStackTrace();
+      }
+    });
   }
 
   public void onDefaultProcessCreate() {

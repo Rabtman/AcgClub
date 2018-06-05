@@ -6,11 +6,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.webkit.JavascriptInterface;
-import android.widget.FrameLayout;
 import android.widget.Toast;
-import com.rabtman.common.R;
 import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.WebViewJavaScriptFunction;
 import com.tencent.smtt.export.external.interfaces.ConsoleMessage;
@@ -60,7 +57,7 @@ public class X5VideoWebView extends WebView {
     this.setWebChromeClient(new WebChromeClient() {
 
       View myVideoView;
-      View myNormalView;
+      // View myNormalView;
       CustomViewCallback callback;
 
       @Override
@@ -83,12 +80,12 @@ public class X5VideoWebView extends WebView {
       @Override
       public void onShowCustomView(View view,
           CustomViewCallback customViewCallback) {
-        FrameLayout normalView = (FrameLayout) findViewById(R.id.frame_browser);
-        ViewGroup viewGroup = (ViewGroup) normalView.getParent();
-        viewGroup.removeView(normalView);
-        viewGroup.addView(view);
+        //FrameLayout normalView = findViewById(R.id.frame_browser);
+        //ViewGroup viewGroup = (ViewGroup) normalView.getParent();
+        //viewGroup.removeView(normalView);
+        //viewGroup.addView(view);
         myVideoView = view;
-        myNormalView = normalView;
+        //myNormalView = normalView;
         callback = customViewCallback;
       }
 
@@ -99,9 +96,9 @@ public class X5VideoWebView extends WebView {
           callback = null;
         }
         if (myVideoView != null) {
-          ViewGroup viewGroup = (ViewGroup) myVideoView.getParent();
-          viewGroup.removeView(myVideoView);
-          viewGroup.addView(myNormalView);
+          //ViewGroup viewGroup = (ViewGroup) myVideoView.getParent();
+          //viewGroup.removeView(myVideoView);
+          //viewGroup.addView(myNormalView);
         }
       }
 

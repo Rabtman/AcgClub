@@ -38,7 +38,10 @@ class AcgComicConfig : ConfigModule {
     override fun injectAppLifecycle(context: Context, lifecycles: MutableList<Lifecycle>) {
         lifecycles.add(object : Lifecycle {
             override fun onCreate(application: Application?) {
-                context.startService(Intent(context, InitService::class.java))
+                try {
+                    context.startService(Intent(context, InitService::class.java))
+                } catch (ignore: Exception) {
+                }
             }
 
             override fun onTerminate(application: Application?) {
