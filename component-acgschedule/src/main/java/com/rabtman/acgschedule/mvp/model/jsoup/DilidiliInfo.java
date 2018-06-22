@@ -7,7 +7,7 @@ import com.fcannizzaro.jsoup.annotations.interfaces.Selector;
 import com.fcannizzaro.jsoup.annotations.interfaces.Text;
 import java.util.List;
 
-@Selector("div.container")
+@Selector("main")
 public class DilidiliInfo {
 
   //本季新番
@@ -85,12 +85,12 @@ public class DilidiliInfo {
         '}';
   }
 
-  @Selector("div.banner div div div")
+  @Selector("div.swiper-wrapper a.swiper-slide")
   public static class ScheudleBanner {
 
-    @Attr(query = "a img", attr = "src")
+    @Attr(query = "img", attr = "src")
     private String imgUrl;
-    @Text("a span")
+    @Text("div")
     private String name;
     @Attr(query = "a", attr = "href")
     private String animeLink;

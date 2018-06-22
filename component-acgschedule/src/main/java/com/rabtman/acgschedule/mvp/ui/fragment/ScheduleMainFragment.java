@@ -17,6 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.R2;
+import com.rabtman.acgschedule.base.constant.HtmlConstant;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
 import com.rabtman.acgschedule.di.component.DaggerScheduleMainComponent;
 import com.rabtman.acgschedule.di.module.ScheduleMainModule;
@@ -98,13 +99,17 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
   @Override
   public void onResume() {
     super.onResume();
-    bannerSchedule.start();
+    if (bannerSchedule.getVisibility() == android.view.View.VISIBLE) {
+      bannerSchedule.start();
+    }
   }
 
   @Override
   public void onPause() {
     super.onPause();
-    bannerSchedule.pause();
+    if (bannerSchedule.getVisibility() == android.view.View.VISIBLE) {
+      bannerSchedule.pause();
+    }
   }
 
   @Override
@@ -203,7 +208,8 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
 
   private void startToScheduleVideo(String url) {
     Intent intent = new Intent(getContext(), ScheduleVideoActivity.class);
-    intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL, url);
+    intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL,
+        url.startsWith("http") ? url : HtmlConstant.DILIDILI_URL + url);
     startActivity(intent);
   }
 }

@@ -7,12 +7,12 @@ import com.fcannizzaro.jsoup.annotations.interfaces.Selector;
 /**
  * @author Rabtman
  */
-@Selector("div.container")
+@Selector("main div#app")
 public class ScheduleVideo {
 
-  @Html("div#vedio")
+  @Html("div.video")
   private String videoHtml;
-  @Attr(query = "div#vedio iframe", attr = "src")
+  @Attr(query = "div.video iframe", attr = "src")
   private String videoUrl;
 
   public String getVideoHtml() {
