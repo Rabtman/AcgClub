@@ -10,28 +10,33 @@ import java.util.List;
  * @author Rabtman
  */
 
-@Selector("div.container")
+@Selector("div#app")
 public class ScheduleDetail {
 
-  @Attr(query = "div div img", attr = "src")
+  @Attr(query = "div div div.fl.detailImg", attr = "style")
   private String imgUrl;
-  @Text("div.details-hd div dl dt")
+  @Text("div div div p")
   private String scheduleTitle;
-  @Text("div.details-hd div dl dd p i")
+  @Text("div div a.fr")
   private String scheduleProc;
-  @Text("div.details-hd div dl dd p:containsOwn(年代)")
+  @Text("div div div p:containsOwn(年代)")
   private String scheduleTime;
-  @Text("div.details-hd div dl dd p:containsOwn(地区)")
+  @Text("div div div p:containsOwn(地区)")
   private String scheduleAera;
-  @Text("div.details-hd div dl dd p:containsOwn(标签)")
+  @Text("div div div p:containsOwn(标签)")
   private String scheduleLabel;
-  @Text("div.details-hd div[class~=details-about?]")
+  @Text("div.column_introduction p")
   private String description;
   @Items
   private List<ScheduleEpisode> scheduleEpisodes;
 
   public String getImgUrl() {
-    return imgUrl;
+    try {
+      return imgUrl.substring(imgUrl.lastIndexOf("(") + 1, imgUrl.lastIndexOf(".") + 4);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return "";
+    }
   }
 
   public void setImgUrl(String imgUrl) {
@@ -109,7 +114,7 @@ public class ScheduleDetail {
         '}';
   }
 
-  @Selector("div[class~=episodeWrap?] ul li")
+  @Selector("div.episode ul li")
   public static class ScheduleEpisode {
 
     @Text("a")

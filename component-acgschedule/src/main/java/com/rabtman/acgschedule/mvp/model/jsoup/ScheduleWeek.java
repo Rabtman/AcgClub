@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author Rabtman 追番信息
  */
-@Selector("div.week_mend > div[id~=weekdiv?]")
+@Selector("div.update div.update_list ul[class~=week?]")
 public class ScheduleWeek implements Parcelable {
 
   public static final Creator<ScheduleWeek> CREATOR = new Creator<ScheduleWeek>() {
@@ -60,7 +60,7 @@ public class ScheduleWeek implements Parcelable {
         '}';
   }
 
-  @Selector("div.week_item")
+  @Selector("li")
   public static class ScheduleItem implements Parcelable {
 
     public static final Creator<ScheduleItem> CREATOR = new Creator<ScheduleItem>() {
@@ -74,13 +74,13 @@ public class ScheduleWeek implements Parcelable {
         return new ScheduleItem[size];
       }
     };
-    @Text("li.week_item_left")
+    @Text("a")
     private String name;
-    @Text("li.week_item_right")
+    @Text("span a")
     private String episode;
-    @Attr(query = "li.week_item_left a", attr = "href")
+    @Attr(query = "a", attr = "href")
     private String animeLink;
-    @Attr(query = "li.week_item_right a", attr = "href")
+    @Attr(query = "span a", attr = "href")
     private String episodeLink;
 
     public ScheduleItem() {

@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Rabtman
  */
-@Selector("div.container")
+@Selector("main")
 public class ScheduleNew {
 
   @Items
@@ -31,24 +31,29 @@ public class ScheduleNew {
         '}';
   }
 
-  @Selector("div div div div div.img2Wrap ul li")
+  @Selector("div ul#episode_list li")
   public static class ScheduleNewItem {
 
-    @Attr(query = "a img", attr = "src")
+    @Attr(query = "a div", attr = "style")
     private String imgUrl;
-    @Text("a h4")
+    @Text("a p.ac")
     private String title;
-    @Text("a p.update:containsOwn(看点)")
+    @Text("a p.kandian span:containsOwn(看点)")
     private String spot;
-    @Text("a p.update:containsOwn(类型)")
+    @Text("a p.kandian span:containsOwn(类型)")
     private String type;
-    @Text("a p.update:containsOwn(简介)")
+    @Text("a p.jianjie")
     private String desc;
     @Attr(query = "a", attr = "href")
     private String animeLink;
 
     public String getImgUrl() {
-      return imgUrl;
+      try {
+        return imgUrl.substring(imgUrl.lastIndexOf("(") + 1, imgUrl.lastIndexOf(".") + 4);
+      } catch (Exception e) {
+        e.printStackTrace();
+        return "";
+      }
     }
 
     public void setImgUrl(String imgUrl) {

@@ -14,6 +14,8 @@ public interface ScheduleMainContract {
   interface View extends IView {
 
     void showDilidiliInfo(DilidiliInfo dilidiliInfo);
+
+    void start2ScheduleVideo(String videoUrl);
   }
 
   interface Model extends IModel {

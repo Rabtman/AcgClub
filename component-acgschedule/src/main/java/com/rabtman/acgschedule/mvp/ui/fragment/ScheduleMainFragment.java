@@ -38,6 +38,7 @@ import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleRecommandAdapter;
 import com.rabtman.common.base.BaseFragment;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.router.RouterConstants;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.MZBannerView.BannerPageClickListener;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
@@ -67,6 +68,7 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
   RecyclerView rcvScheduleRecommand;
   @BindView(R2.id.rcv_schedule_recent)
   RecyclerView rcvScheduleRecent;
+  private RxPermissions rxPermissions;
 
   @Override
   protected void setupFragmentComponent(AppComponent appComponent) {
@@ -93,6 +95,7 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
       }
     });
     setSwipeRefreshLayout(swipeRefresh);
+    rxPermissions = new RxPermissions(getActivity());
     mPresenter.getDilidiliInfo();
   }
 
@@ -196,20 +199,30 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
   }
 
   private void startToScheduleDetail(String url) {
-    Intent intent;
     if (url.contains("anime")) {
-      intent = new Intent(getContext(), ScheduleDetailActivity.class);
+      Intent detailIntent = new Intent(getContext(), ScheduleDetailActivity.class);
+      detailIntent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL, url);
+      startActivity(detailIntent);
+    } else if (url.contains("watch")) {
+      mPresenter.checkPermission2ScheduleVideo(rxPermissions, url);
     } else {
-      intent = new Intent(getContext(), ScheduleOtherActivity.class);
+      Intent otherIntent = new Intent(getContext(), ScheduleOtherActivity.class);
+      otherIntent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL, url);
+      startActivity(otherIntent);
     }
-    intent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL, url);
-    startActivity(intent);
   }
 
   private void startToScheduleVideo(String url) {
     Intent intent = new Intent(getContext(), ScheduleVideoActivity.class);
     intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL,
         url.startsWith("http") ? url : HtmlConstant.DILIDILI_URL + url);
+    startActivity(intent);
+  }
+
+  @Override
+  public void start2ScheduleVideo(String videoUrl) {
+    Intent intent = new Intent(mContext, ScheduleVideoActivity.class);
+    intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL, videoUrl);
     startActivity(intent);
   }
 }

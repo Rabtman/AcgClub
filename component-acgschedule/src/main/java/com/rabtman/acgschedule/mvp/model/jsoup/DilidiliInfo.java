@@ -129,18 +129,23 @@ public class DilidiliInfo {
     }
   }
 
-  @Selector("div.focusimg2.pl10.pr10 div ul li")
+  @Selector("div.edit_list ul li")
   public static class ScheduleRecommand {
 
-    @Attr(query = "a img", attr = "src")
+    @Attr(query = "a div", attr = "style")
     private String imgUrl;
-    @Text("a h4")
+    @Text("a p")
     private String name;
     @Attr(query = "a", attr = "href")
     private String animeLink;
 
     public String getImgUrl() {
-      return imgUrl;
+      try {
+        return imgUrl.substring(imgUrl.lastIndexOf("(") + 1, imgUrl.lastIndexOf(".") + 4);
+      } catch (Exception e) {
+        e.printStackTrace();
+        return "";
+      }
     }
 
     public void setImgUrl(String imgUrl) {
@@ -173,20 +178,25 @@ public class DilidiliInfo {
     }
   }
 
-  @Selector("div.nofucs div ul li")
+  @Selector("div#newId.new_update_list ul li")
   public static class ScheduleRecent {
 
-    @Attr(query = "a img", attr = "src")
+    @Attr(query = "a div", attr = "style")
     private String imgUrl;
-    @Text("h4")
+    @Text("a h3")
     private String name;
-    @Text("a p")
+    @Text("a h4")
     private String desc;
     @Attr(query = "a", attr = "href")
     private String animeLink;
 
     public String getImgUrl() {
-      return imgUrl;
+      try {
+        return imgUrl.substring(imgUrl.lastIndexOf("(") + 1, imgUrl.lastIndexOf(".") + 4);
+      } catch (Exception e) {
+        e.printStackTrace();
+        return "";
+      }
     }
 
     public void setImgUrl(String imgUrl) {
