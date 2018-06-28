@@ -111,4 +111,17 @@ public class SHPostItem implements Parcelable {
     dest.writeString(this.time);
     dest.writeString(this.thumb);
   }
+
+  @Override
+  public String toString() {
+    return "SHPostItem{" +
+        "id=" + id +
+        ", title='" + title + '\'' +
+        ", stick=" + stick +
+        ", category=" + category +
+        ", category_name='" + category_name + '\'' +
+        ", time='" + time + '\'' +
+        ", thumb='" + thumb + '\'' +
+        '}';
+  }
 }

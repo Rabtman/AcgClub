@@ -33,4 +33,12 @@ public class SHResponse<T> {
     this.data = data;
   }
 
+  @Override
+  public String toString() {
+    return "SHResponse{" +
+        "errNo=" + errNo +
+        ", errMsg='" + errMsg + '\'' +
+        ", data=" + data.toString() +
+        '}';
+  }
 }

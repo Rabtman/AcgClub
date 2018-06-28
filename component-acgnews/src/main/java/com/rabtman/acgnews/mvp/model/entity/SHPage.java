@@ -55,4 +55,14 @@ public class SHPage {
     this.postItems = postItems;
   }
 
+  @Override
+  public String toString() {
+    return "SHPage{" +
+        "count=" + count +
+        ", totalPages=" + totalPages +
+        ", numsPerPage=" + numsPerPage +
+        ", currentPage=" + currentPage +
+        ", postItems=" + postItems +
+        '}';
+  }
 }

@@ -9,6 +9,7 @@ import com.rabtman.common.base.mvp.BaseModel;
 import com.rabtman.common.di.scope.FragmentScope;
 import com.rabtman.common.http.ApiException;
 import com.rabtman.common.integration.IRepositoryManager;
+import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.RxUtil;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableTransformer;
@@ -37,6 +38,7 @@ public class ISHNewsModel extends BaseModel implements ISHNewsContract.Model {
                 .flatMap(new Function<SHResponse<SHPage>, Flowable<SHPage>>() {
                   @Override
                   public Flowable<SHPage> apply(SHResponse<SHPage> response) {
+                    LogUtil.d(response.toString());
                     if (!TextUtils.isEmpty(response.getErrMsg())) {
                       return Flowable.error(new ApiException(response.getErrMsg()));
                     } else if (response.getData() != null) {

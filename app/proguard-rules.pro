@@ -100,6 +100,12 @@
 #---------------------------------实体类---------------------------------
 -keep class com.rabtman.acgclub.mvp.model.jsoup.* { *; }
 -keep class com.rabtman.acgclub.mvp.model.entity.* { *; }
+-keep class com.rabtman.acgnews.mvp.model.jsoup.* { *; }
+-keep class com.rabtman.acgnews.mvp.model.entity.* { *; }
+-keep class com.rabtman.acgcomic.mvp.model.jsoup.* { *; }
+-keep class com.rabtman.acgcomic.mvp.model.entity.* { *; }
+-keep class com.rabtman.acgschedule.mvp.model.jsoup.* { *; }
+-keep class com.rabtman.acgschedule.mvp.model.entity.* { *; }
 
 #---------------------------------第三方包-------------------------------
 #阿里
