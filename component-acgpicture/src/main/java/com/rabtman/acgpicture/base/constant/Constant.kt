@@ -16,6 +16,7 @@ class SystemConstant {
 class HtmlConstant {
     companion object {
         const val ANIME_PICTURE_URL = "https://anime-pictures.net/"
+        const val APICTURE_ANIME_URL = "http://www.acg.fi/anime/page/"
     }
 }
 

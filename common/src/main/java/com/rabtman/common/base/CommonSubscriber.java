@@ -8,6 +8,7 @@ import com.rabtman.common.base.mvp.IView;
 import com.rabtman.common.http.ApiException;
 import es.dmoral.toasty.Toasty;
 import io.reactivex.subscribers.ResourceSubscriber;
+import java.net.SocketTimeoutException;
 import retrofit2.HttpException;
 
 
@@ -66,7 +67,7 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
         mView.showError(mErrorMsg);
       } else if (e instanceof ApiException) {
         mView.showError(e.toString());
-      } else if (e instanceof HttpException) {
+      } else if (e instanceof HttpException | e instanceof SocketTimeoutException) {
         mView.showError(R.string.msg_error_network);
       } else {
         mView.showError(R.string.msg_error_unknown);

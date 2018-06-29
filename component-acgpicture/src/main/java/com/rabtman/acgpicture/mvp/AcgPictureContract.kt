@@ -1,5 +1,7 @@
 package com.rabtman.acgpicture.mvp
 
+import com.rabtman.acgpicture.mvp.model.entity.APictureItem
+import com.rabtman.acgpicture.mvp.model.entity.APicturePage
 import com.rabtman.acgpicture.mvp.model.entity.AnimatePictureItem
 import com.rabtman.acgpicture.mvp.model.entity.AnimatePicturePage
 import com.rabtman.common.base.mvp.IModel
@@ -14,6 +16,7 @@ import io.reactivex.Flowable
 interface AnimatePictureContract {
 
     interface View : IView {
+
         fun showAnimatePictures(animatePictureItems: List<AnimatePictureItem>?)
 
         fun showMoreAnimatePictures(animatePictureItems: List<AnimatePictureItem>?, canLoadMore: Boolean)
@@ -22,7 +25,25 @@ interface AnimatePictureContract {
     }
 
     interface Model : IModel {
+
         fun getAnimatePictures(pageIndex: Int): Flowable<AnimatePicturePage>
+    }
+}
+
+interface AcgPicContract {
+
+    interface View : IView {
+
+        fun showPictures(picItems: List<APictureItem>)
+
+        fun showMorePictures(picItems: List<APictureItem>, canLoadMore: Boolean)
+
+        fun onLoadMoreFail()
+    }
+
+    interface Model : IModel {
+
+        fun getAPictures(url: String): Flowable<APicturePage>
     }
 }
 

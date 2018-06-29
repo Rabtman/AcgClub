@@ -2,7 +2,7 @@ package com.rabtman.acgpicture
 
 import android.widget.FrameLayout
 import butterknife.BindView
-import com.rabtman.acgpicture.mvp.ui.fragment.AcgPictureMainFragment
+import com.rabtman.acgpicture.mvp.ui.fragment.APicFragment
 import com.rabtman.common.base.SimpleActivity
 
 /**
@@ -19,7 +19,7 @@ class AcgPictureMainActivity : SimpleActivity() {
     }
 
     override fun initData() {
-        val acgPictureMainFragment = AcgPictureMainFragment()
+        val acgPictureMainFragment = APicFragment()
         loadRootFragment(R.id.layout_load_fragment, acgPictureMainFragment)
     }
 }

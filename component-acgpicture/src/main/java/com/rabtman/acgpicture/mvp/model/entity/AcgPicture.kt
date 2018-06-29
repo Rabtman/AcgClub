@@ -1,5 +1,9 @@
 package com.rabtman.acgpicture.mvp.model.entity
 
+import com.fcannizzaro.jsoup.annotations.interfaces.Attr
+import com.fcannizzaro.jsoup.annotations.interfaces.Items
+import com.fcannizzaro.jsoup.annotations.interfaces.Selector
+import com.fcannizzaro.jsoup.annotations.interfaces.Text
 import com.google.gson.annotations.SerializedName
 
 
@@ -42,4 +46,35 @@ data class AnimatePictureItem(
         @SerializedName("ext") val ext: String = "",
         @SerializedName("status") val status: Int = 0
 )
+
+@Selector("main")
+class APicturePage {
+    @Items
+    var items: List<APictureItem>? = null
+    @Attr(query = "div#page a.extend:containsOwn(尾页)", attr = "href")
+    private val pageCount: String? = null
+
+    fun getPageCount(): Int {
+        val count = pageCount!!.substring(pageCount.lastIndexOf("/") + 1)
+        return try {
+            Integer.parseInt(count)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            1
+        }
+    }
+}
+
+@Selector("div.grid-bor div")
+class APictureItem {
+
+    @Text("div div div h2.entry-title a")
+    var title: String = ""
+    @Attr(query = "div div div div", attr = "style")
+    var thumbUrl: String = ""
+    @Attr(query = "div div div h2.entry-title a", attr = "href")
+    var contentLink: String = ""
+    @Text("div div.num")
+    var count: String = ""
+}
 
