@@ -20,6 +20,6 @@ interface AcgPictureService {
     fun getAnimatePicture(@Path("pageIndex") pageIndex: Int): Flowable<AnimatePicturePage>
 
     @GET
-    abstract fun getAcgPic(@Url url: String): Flowable<ResponseBody>
+    fun getAcgPic(@Url url: String): Flowable<ResponseBody>
 
 }

@@ -1,6 +1,6 @@
 package com.rabtman.acgpicture.di
 
-import com.rabtman.acgpicture.mvp.ui.fragment.APicFragment
+import com.rabtman.acgpicture.mvp.ui.fragment.APictureFragment
 import com.rabtman.acgpicture.mvp.ui.fragment.AnimatePictureFragment
 import com.rabtman.common.di.component.AppComponent
 import com.rabtman.common.di.scope.FragmentScope
@@ -17,8 +17,8 @@ interface AnimatePictureComponent {
 }
 
 @FragmentScope
-@Component(modules = arrayOf(AcgPicItemModule::class), dependencies = arrayOf(AppComponent::class))
-interface AcgPicComponent {
+@Component(modules = arrayOf(APictureModule::class), dependencies = arrayOf(AppComponent::class))
+interface APictureComponent {
 
-    fun inject(fragment: APicFragment)
+    fun inject(fragment: APictureFragment)
 }

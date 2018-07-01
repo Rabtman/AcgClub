@@ -30,7 +30,7 @@ interface AnimatePictureContract {
     }
 }
 
-interface AcgPicContract {
+interface APictureContract {
 
     interface View : IView {
 

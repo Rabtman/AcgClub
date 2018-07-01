@@ -12,7 +12,7 @@ import com.rabtman.common.imageloader.glide.GlideImageConfig
  * @author Rabtman
  */
 
-class APicItemAdapter(private val mImageLoader: ImageLoader) : BaseQuickAdapter<APictureItem, BaseViewHolder>(R.layout.acgpicture_item_apic, null) {
+class APictureItemAdapter(private val mImageLoader: ImageLoader) : BaseQuickAdapter<APictureItem, BaseViewHolder>(R.layout.acgpicture_item_apic, null) {
 
 
     override fun convert(helper: BaseViewHolder, item: APictureItem) {

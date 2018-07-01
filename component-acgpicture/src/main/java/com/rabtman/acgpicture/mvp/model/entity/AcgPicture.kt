@@ -51,7 +51,7 @@ data class AnimatePictureItem(
 class APicturePage {
     @Items
     var items: List<APictureItem>? = null
-    @Attr(query = "div#page a.extend:containsOwn(尾页)", attr = "href")
+
     private val pageCount: String? = null
 
     fun getPageCount(): Int {
@@ -65,16 +65,23 @@ class APicturePage {
     }
 }
 
-@Selector("div.grid-bor div")
+@Selector("div.grid-bor div div.pos-r.cart-list")
 class APictureItem {
 
-    @Text("div div div h2.entry-title a")
+    @Text("div h2 a")
     var title: String = ""
-    @Attr(query = "div div div div", attr = "style")
+    @Attr(query = "div.thumb.pos-r div", attr = "style")
     var thumbUrl: String = ""
-    @Attr(query = "div div div h2.entry-title a", attr = "href")
+        get() = try {
+            field.substring(field.lastIndexOf("(") + 1, field.lastIndexOf(".") + 4)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            ""
+        }
+    @Attr(query = "div h2 a", attr = "href")
     var contentLink: String = ""
-    @Text("div div.num")
+
     var count: String = ""
+
 }
 

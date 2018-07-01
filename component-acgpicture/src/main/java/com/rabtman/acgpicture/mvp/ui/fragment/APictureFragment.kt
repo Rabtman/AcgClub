@@ -8,30 +8,30 @@ import butterknife.BindView
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener
 import com.chad.library.adapter.base.BaseQuickAdapter.RequestLoadMoreListener
 import com.rabtman.acgpicture.R
-import com.rabtman.acgpicture.di.AcgPicItemModule
-import com.rabtman.acgpicture.di.DaggerAcgPicComponent
-import com.rabtman.acgpicture.mvp.AcgPicContract
+import com.rabtman.acgpicture.di.APictureModule
+import com.rabtman.acgpicture.di.DaggerAPictureComponent
+import com.rabtman.acgpicture.mvp.APictureContract
 import com.rabtman.acgpicture.mvp.model.entity.APictureItem
-import com.rabtman.acgpicture.mvp.presenter.AcgPicItemPresenter
-import com.rabtman.acgpicture.mvp.ui.adapter.APicItemAdapter
+import com.rabtman.acgpicture.mvp.presenter.APicturePresenter
+import com.rabtman.acgpicture.mvp.ui.adapter.APictureItemAdapter
 import com.rabtman.common.base.BaseFragment
 import com.rabtman.common.di.component.AppComponent
 
 /**
  * @author Rabtman
  */
-class APicFragment : BaseFragment<AcgPicItemPresenter>(), AcgPicContract.View {
+class APictureFragment : BaseFragment<APicturePresenter>(), APictureContract.View {
 
     @BindView(R.id.rcv_animate_item)
     lateinit var rcvAnimateItem: RecyclerView
     @BindView(R.id.swipe_refresh_animate)
     lateinit var swipeRefresh: SwipeRefreshLayout
-    private lateinit var mAdapter: APicItemAdapter
+    private lateinit var mAdapter: APictureItemAdapter
 
     override fun setupFragmentComponent(appComponent: AppComponent) {
-        DaggerAcgPicComponent.builder()
+        DaggerAPictureComponent.builder()
                 .appComponent(appComponent)
-                .acgPicItemModule(AcgPicItemModule(this))
+                .aPictureModule(APictureModule(this))
                 .build()
                 .inject(this)
     }
@@ -49,7 +49,7 @@ class APicFragment : BaseFragment<AcgPicItemPresenter>(), AcgPicContract.View {
     }
 
     override fun initData() {
-        mAdapter = APicItemAdapter(appComponent.imageLoader())
+        mAdapter = APictureItemAdapter(appComponent.imageLoader())
         mAdapter.setOnItemClickListener(OnItemClickListener { adapter, view, position ->
             /*val picInfo = adapter.data[position] as PicInfo
             val intent = Intent(context, APicDetailActivity::class.java)
