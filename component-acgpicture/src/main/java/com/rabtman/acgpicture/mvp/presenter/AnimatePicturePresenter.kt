@@ -49,7 +49,7 @@ class AnimatePicturePresenter
         )
     }
 
-    fun getMoreComicInfos() {
+    fun getMoreAnimatePictures() {
         addSubscribe(
                 mModel.getAnimatePictures(++pageIndex)
                         .compose(RxUtil.rxSchedulerHelper<AnimatePicturePage>())

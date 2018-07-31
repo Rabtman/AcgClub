@@ -34,9 +34,12 @@ class AcgPictureMainFragment : SimpleFragment() {
         //animate-picture
         /*val animatePictureFragment = AnimatePictureFragment()
         fragments.add(animatePictureFragment)*/
-        //
-        val aPictureFragment = APictureFragment()
-        fragments.add(aPictureFragment)
+        //a-picture
+        /*val aPictureFragment = APictureFragment()
+        fragments.add(aPictureFragment)*/
+        //acg-picture
+        val acgPictureItemFragment = AcgPictureItemFragment()
+        fragments.add(acgPictureItemFragment)
 
         mAdapter = AcgPictureMainPageAdapter(fragmentManager, fragments)
         mViewPager.adapter = mAdapter

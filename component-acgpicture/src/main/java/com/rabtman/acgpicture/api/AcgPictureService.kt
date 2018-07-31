@@ -1,11 +1,14 @@
 package com.rabtman.acgpicture.api
 
 import com.rabtman.acgpicture.base.constant.HtmlConstant
+import com.rabtman.acgpicture.mvp.model.entity.AcgPictureItem
 import com.rabtman.acgpicture.mvp.model.entity.AnimatePicturePage
+import com.rabtman.common.http.BaseResponse
 import io.reactivex.Flowable
 import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 import retrofit2.http.Url
 
 /**
@@ -20,6 +23,9 @@ interface AcgPictureService {
     fun getAnimatePicture(@Path("pageIndex") pageIndex: Int): Flowable<AnimatePicturePage>
 
     @GET
-    fun getAcgPic(@Url url: String): Flowable<ResponseBody>
+    fun getParseResponse(@Url url: String): Flowable<ResponseBody>
+
+    @GET("pictures")
+    fun getAcgPictures(@Query("pageNo") pageNo: Int, @Query("type") type: String): Flowable<BaseResponse<List<AcgPictureItem>>>
 
 }

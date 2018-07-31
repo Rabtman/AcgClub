@@ -1,5 +1,7 @@
 package com.rabtman.common.utils;
 
+import com.rabtman.common.http.ApiException;
+import com.rabtman.common.http.BaseResponse;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
 import io.reactivex.CompletableTransformer;
@@ -8,6 +10,7 @@ import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.FlowableTransformer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 
@@ -41,26 +44,25 @@ public class RxUtil {
 
   /**
    * 统一返回结果处理
-   * @param <T>
-   * @return
    */
-    /*public static <T> FlowableTransformer<GoldHttpResponse<T>, T> handleGoldResult() {   //compose判断结果
-        return new FlowableTransformer<GoldHttpResponse<T>, T>() {
-            @Override
-            public Flowable<T> apply(Flowable<GoldHttpResponse<T>> httpResponseFlowable) {
-                return httpResponseFlowable.flatMap(new Function<GoldHttpResponse<T>, Flowable<T>>() {
-                    @Override
-                    public Flowable<T> apply(GoldHttpResponse<T> tGoldHttpResponse) {
-                        if(tGoldHttpResponse.getResults() != null) {
-                            return createData(tGoldHttpResponse.getResults());
-                        } else {
-                            return Flowable.error(new ApiException("服务器返回error"));
-                        }
-                    }
-                });
+  public static <T> FlowableTransformer<BaseResponse<T>, T> handleResult() {
+    return new FlowableTransformer<BaseResponse<T>, T>() {
+      @Override
+      public Flowable<T> apply(Flowable<BaseResponse<T>> httpResponseFlowable) {
+        return httpResponseFlowable.flatMap(new Function<BaseResponse<T>, Flowable<T>>() {
+          @Override
+          public Flowable<T> apply(BaseResponse<T> tBaseResponse) throws Exception {
+            if (tBaseResponse.code == 200) {
+              return createData(tBaseResponse.data);
+            } else {
+              return Flowable.error(new ApiException(tBaseResponse.msg));
             }
-        };
-    }*/
+          }
+        });
+
+      }
+    };
+  }
 
   /**
    * 生成Flowable

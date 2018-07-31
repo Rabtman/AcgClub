@@ -1,9 +1,6 @@
 package com.rabtman.acgpicture.mvp
 
-import com.rabtman.acgpicture.mvp.model.entity.APictureItem
-import com.rabtman.acgpicture.mvp.model.entity.APicturePage
-import com.rabtman.acgpicture.mvp.model.entity.AnimatePictureItem
-import com.rabtman.acgpicture.mvp.model.entity.AnimatePicturePage
+import com.rabtman.acgpicture.mvp.model.entity.*
 import com.rabtman.common.base.mvp.IModel
 import com.rabtman.common.base.mvp.IView
 import io.reactivex.Flowable
@@ -12,6 +9,23 @@ import io.reactivex.Flowable
  * @author Rabtman
  * acg图片模块所有契约类
  */
+
+interface AcgPictureContract {
+
+    interface View : IView {
+
+        fun showPictures(picItems: List<AcgPictureItem>)
+
+        fun showMorePictures(picItems: List<AcgPictureItem>, canLoadMore: Boolean)
+
+        fun onLoadMoreFail()
+    }
+
+    interface Model : IModel {
+
+        fun getAcgPictures(pageNo: Int, type: String): Flowable<List<AcgPictureItem>>
+    }
+}
 
 interface AnimatePictureContract {
 
