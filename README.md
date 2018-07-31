@@ -1,6 +1,6 @@
 # ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/cover.jpg)
 
-![](https://img.shields.io/badge/version-v0.2.1-brightgreen.svg)   ![](https://img.shields.io/badge/license-MIT-blue.svg)
+![](https://img.shields.io/badge/version-v0.3.0-brightgreen.svg)   ![](https://img.shields.io/badge/license-MIT-blue.svg)
 
 宅社AcgClub，一款纯粹的ACG聚合类App
 
@@ -41,7 +41,7 @@
 
 ### 项目环境
 
-![](https://img.shields.io/badge/Android%20Studio-3.0-blue.svg)   ![](https://img.shields.io/badge/gradle-4.1-brightgreen.svg)    ![](https://img.shields.io/badge/kotlin-1.2.21-orange.svg)   ![](https://img.shields.io/badge/compileVersion-26-ff69b4.svg)
+![](https://img.shields.io/badge/Android%20Studio-3.1.2-blue.svg)   ![](https://img.shields.io/badge/gradle-4.1-brightgreen.svg)    ![](https://img.shields.io/badge/kotlin-1.2.21-orange.svg)   ![](https://img.shields.io/badge/compileVersion-26-ff69b4.svg)
 
 ### 项目结构
 
