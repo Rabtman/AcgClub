@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+  <RelativeLayout
+    android:id="@+id/layout_picture_top"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/toolbar_height"
+    android:background="@color/translucent">
+
+    <ImageView
+      android:id="@+id/btn_picture_back"
+      android:layout_width="36dp"
+      android:layout_height="36dp"
+      android:layout_marginLeft="8dp"
+      android:layout_centerVertical="true"
+      android:src="@drawable/ic_action_navigation_arrow_back_inverted" />
+
+    <TextView
+      android:id="@+id/tv_picture_title"
+      style="@style/Base.TextAppearance.AppCompat.Title"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="8dp"
+      android:layout_centerVertical="true"
+      android:layout_toRightOf="@id/btn_picture_back"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textColor="@android:color/white"
+      tools:text="斗破苍穹" />
+  </RelativeLayout>
+
+  <android.support.v7.widget.RecyclerView
+    android:id="@+id/rcv_acgpicture_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+</FrameLayout>

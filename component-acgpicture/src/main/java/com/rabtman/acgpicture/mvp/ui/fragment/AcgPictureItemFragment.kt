@@ -1,9 +1,9 @@
 package com.rabtman.acgpicture.mvp.ui.fragment
 
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.PagerSnapHelper
 import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
-import android.support.v7.widget.StaggeredGridLayoutManager.VERTICAL
 import butterknife.BindView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.rabtman.acgpicture.R
@@ -21,7 +21,7 @@ import com.rabtman.router.RouterConstants
 /**
  * @author Rabtman
  */
-@Route(path = RouterConstants.PATH_PICTURE_ANIMATE)
+@Route(path = RouterConstants.PATH_PICTURE_ITEM)
 class AcgPictureItemFragment : BaseFragment<AcgPictureItemPresenter>(), AcgPictureContract.View {
 
     @BindView(R.id.rcv_animate_item)
@@ -54,8 +54,13 @@ class AcgPictureItemFragment : BaseFragment<AcgPictureItemPresenter>(), AcgPictu
         mAdapter = AcgPictureItemAdapter(appComponent.imageLoader())
         mAdapter.setOnItemClickListener { adapter, view, position -> }
 
-        val layoutManager = StaggeredGridLayoutManager(2, VERTICAL)
+        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+
+        //val layoutManager = StaggeredGridLayoutManager(2, VERTICAL)
         rcvAcgItem?.layoutManager = layoutManager
+        val helper = PagerSnapHelper()
+        helper.attachToRecyclerView(rcvAcgItem)
+
         mAdapter.setOnLoadMoreListener({ mPresenter.getMoreAcgPictures() }, rcvAcgItem)
         rcvAcgItem?.adapter = mAdapter
 
