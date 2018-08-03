@@ -2,7 +2,14 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="match_parent"
+  android:background="@android:color/black">
+
+  <android.support.v4.view.ViewPager
+    android:id="@+id/vp_acgpicture_item"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
+
   <RelativeLayout
     android:id="@+id/layout_picture_top"
     android:layout_width="match_parent"
@@ -31,8 +38,21 @@
       tools:text="斗破苍穹" />
   </RelativeLayout>
 
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/rcv_acgpicture_item"
+  <FrameLayout
+    android:id="@+id/layout_picture_bottom"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom">
+    <ImageView
+      android:id="@+id/btn_picture_download"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="24dp"
+      android:layout_gravity="right"
+      android:padding="10dp"
+      android:background="@color/translucent"
+      android:src="@drawable/ic_download_white"
+      android:visibility="invisible"
+      tools:visibility="visible" />
+  </FrameLayout>
 </FrameLayout>

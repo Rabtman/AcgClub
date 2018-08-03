@@ -15,11 +15,12 @@ import com.rabtman.common.imageloader.glide.GlideImageConfig
 class AcgPictureItemAdapter(private val mImageLoader: ImageLoader) : BaseQuickAdapter<AcgPictureItem, BaseViewHolder>(R.layout.acgpicture_item_acg, null) {
 
     override fun convert(helper: BaseViewHolder, item: AcgPictureItem) {
+        helper.setText(R.id.tv_acgpicture_title, item.title)
         mImageLoader.loadImage(mContext,
                 GlideImageConfig
                         .builder()
-                        .url(item.imgUrl)
-                        .imagerView(helper.getView(R.id.img_acgpicture) as ImageView)
+                        .url(item.thumbnail)
+                        .imagerView(helper.getView(R.id.img_acgpicture_thumbnail) as ImageView)
                         .build()
         )
     }

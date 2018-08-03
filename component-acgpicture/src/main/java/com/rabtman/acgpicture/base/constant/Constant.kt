@@ -1,5 +1,7 @@
 package com.rabtman.acgpicture.base.constant
 
+import com.rabtman.common.base.constant.SystemConstant
+
 /**
  * @author Rabtman
  */
@@ -10,6 +12,7 @@ class SystemConstant {
         const val DB_VERSION = 1L
         //acg图库标题栏
         val ACG_PICTURE_TITLE: Array<String> = arrayOf("Cosplay")
+        const val ACGPICTURE_PATH = SystemConstant.pathRoot + "/pictures"
     }
 }
 
@@ -23,7 +26,7 @@ class HtmlConstant {
 
 class IntentConstant {
     companion object {
-
+        const val ACGPICTURE_ITEM = "acgpicture_item"
     }
 }
 

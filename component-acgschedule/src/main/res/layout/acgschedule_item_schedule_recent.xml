@@ -44,6 +44,7 @@
       android:layout_marginLeft="8dp"
       android:layout_marginRight="8dp"
       android:ellipsize="end"
+      android:gravity="center_vertical"
       android:maxLines="2"
       android:minLines="2"
       tools:text="哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈" />

@@ -7,6 +7,10 @@
     android:label="@string/acgpicture_module_name"
     tools:replace="android:label">
 
+    <activity
+      android:name=".mvp.ui.activity.AcgPictureItemDetailActivity"
+      android:screenOrientation="portrait" />
+
     <meta-data
       android:name="com.rabtman.acgpicture.base.AcgPictureConfig"
       android:value="ConfigModule" />

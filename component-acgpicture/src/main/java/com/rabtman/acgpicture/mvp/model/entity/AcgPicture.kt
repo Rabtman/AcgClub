@@ -1,5 +1,7 @@
 package com.rabtman.acgpicture.mvp.model.entity
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.fcannizzaro.jsoup.annotations.interfaces.Attr
 import com.fcannizzaro.jsoup.annotations.interfaces.Items
 import com.fcannizzaro.jsoup.annotations.interfaces.Selector
@@ -85,9 +87,38 @@ class APictureItem {
 
 }
 
+
 data class AcgPictureItem(
-        @SerializedName("imgUrl") val imgUrl: String = "",
-        @SerializedName("sourceNo") val sourceNo: String = "",
+        @SerializedName("imgUrls") val imgUrls: List<String> = listOf(),
+        @SerializedName("sort") val sort: String = "",
+        @SerializedName("thumbnail") val thumbnail: String = "",
+        @SerializedName("title") val title: String = "",
         @SerializedName("type") val type: String = ""
-)
+) : Parcelable {
+    constructor(source: Parcel) : this(
+            source.createStringArrayList(),
+            source.readString(),
+            source.readString(),
+            source.readString(),
+            source.readString()
+    )
+
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeStringList(imgUrls)
+        writeString(sort)
+        writeString(thumbnail)
+        writeString(title)
+        writeString(type)
+    }
+
+    companion object {
+        @JvmField
+        val CREATOR: Parcelable.Creator<AcgPictureItem> = object : Parcelable.Creator<AcgPictureItem> {
+            override fun createFromParcel(source: Parcel): AcgPictureItem = AcgPictureItem(source)
+            override fun newArray(size: Int): Array<AcgPictureItem?> = arrayOfNulls(size)
+        }
+    }
+}
 

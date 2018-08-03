@@ -185,9 +185,8 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
         && scheduleDetail.getScheduleEpisodes().size() > 1) {
       layoutSceduleEpisode.setVisibility(android.view.View.VISIBLE);
       btnScheduleDetailRead.setVisibility(android.view.View.VISIBLE);
-      List<ScheduleEpisode> data = scheduleDetail.getScheduleEpisodes()
-          .subList(0, scheduleDetail.getScheduleEpisodes().size() - 1);
-      episodeItemAdapter = new ScheduleDetailEpisodeItemAdapter(data);
+      episodeItemAdapter = new ScheduleDetailEpisodeItemAdapter(
+          scheduleDetail.getScheduleEpisodes());
       episodeItemAdapter.setOnItemClickListener(new OnItemClickListener() {
         @Override
         public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {

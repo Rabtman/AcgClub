@@ -107,6 +107,5 @@ public class APicDetailPresenter extends
             mView.savePictureSuccess(new File(dir, imgName));
           }
         });
-
   }
 }

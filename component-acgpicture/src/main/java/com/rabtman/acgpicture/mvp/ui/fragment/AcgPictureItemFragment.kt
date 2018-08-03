@@ -1,12 +1,12 @@
 package com.rabtman.acgpicture.mvp.ui.fragment
 
 import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.PagerSnapHelper
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import butterknife.BindView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.rabtman.acgpicture.R
+import com.rabtman.acgpicture.base.constant.IntentConstant
 import com.rabtman.acgpicture.di.AcgPictureModule
 import com.rabtman.acgpicture.di.DaggerAcgPictureComponent
 import com.rabtman.acgpicture.mvp.AcgPictureContract
@@ -16,6 +16,7 @@ import com.rabtman.acgpicture.mvp.ui.adapter.AcgPictureItemAdapter
 import com.rabtman.common.base.BaseFragment
 import com.rabtman.common.di.component.AppComponent
 import com.rabtman.router.RouterConstants
+import com.rabtman.router.RouterUtils
 
 
 /**
@@ -52,43 +53,36 @@ class AcgPictureItemFragment : BaseFragment<AcgPictureItemPresenter>(), AcgPictu
 
     override fun initData() {
         mAdapter = AcgPictureItemAdapter(appComponent.imageLoader())
-        mAdapter.setOnItemClickListener { adapter, view, position -> }
+        mAdapter.setOnItemClickListener { adapter, view, position ->
+            RouterUtils.getInstance()
+                    .build(RouterConstants.PATH_PICTURE_ITEM_DETAIL)
+                    .withParcelable(IntentConstant.ACGPICTURE_ITEM,
+                            adapter.data[position] as AcgPictureItem)
+                    .navigation()
+        }
 
-        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-
-        //val layoutManager = StaggeredGridLayoutManager(2, VERTICAL)
-        rcvAcgItem?.layoutManager = layoutManager
-        val helper = PagerSnapHelper()
-        helper.attachToRecyclerView(rcvAcgItem)
+        val layoutManager = GridLayoutManager(context, 2)
+        rcvAcgItem.layoutManager = layoutManager
 
         mAdapter.setOnLoadMoreListener({ mPresenter.getMoreAcgPictures() }, rcvAcgItem)
-        rcvAcgItem?.adapter = mAdapter
+        rcvAcgItem.adapter = mAdapter
 
-        swipeRefresh?.setOnRefreshListener { mPresenter.getAcgPictures() }
+        swipeRefresh.setOnRefreshListener { mPresenter.getAcgPictures() }
         setSwipeRefreshLayout(swipeRefresh)
         mPresenter.getAcgPictures()
     }
 
-    override fun showPictures(pictureItems: List<AcgPictureItem>) {
-        mAdapter.setNewData(pictureItems)
+    override fun showPictures(picItems: List<AcgPictureItem>) {
+        mAdapter.setNewData(picItems)
     }
 
-    override fun showMorePictures(pictureItems: List<AcgPictureItem>, canLoadMore: Boolean) {
+    override fun showMorePictures(picItems: List<AcgPictureItem>, canLoadMore: Boolean) {
         if (!canLoadMore) {
             mAdapter.loadMoreEnd()
         } else {
-            pictureItems?.let { mAdapter.addData(it) }
+            mAdapter.addData(picItems)
             mAdapter.loadMoreComplete()
         }
-    }
-
-    override fun hideLoading() {
-        swipeRefresh?.let { it ->
-            if (it.isRefreshing) {
-                it.isRefreshing = false
-            }
-        }
-        super.hideLoading()
     }
 
     override fun onLoadMoreFail() {

@@ -1,7 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
-  android:id="@+id/img_acgpicture"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="320dp"
-  android:layout_margin="4dp"
-  android:scaleType="centerCrop" />
+  android:layout_height="wrap_content"
+  android:layout_margin="2dp"
+  app:cardCornerRadius="4dp"
+  app:cardElevation="2dp"
+  app:cardPreventCornerOverlap="false"
+  app:cardUseCompatPadding="true">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <ImageView
+      android:id="@+id/img_acgpicture_thumbnail"
+      android:layout_width="match_parent"
+      android:layout_height="200dp"
+      android:scaleType="centerCrop" />
+    <TextView
+      android:id="@+id/tv_acgpicture_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:layout_marginBottom="8dp"
+      android:layout_marginLeft="12dp"
+      android:layout_marginRight="12dp"
+      android:ellipsize="end"
+      android:lineSpacingMultiplier="1.1"
+      android:lines="2"
+      android:textColor="@android:color/black"
+      android:textSize="14sp"
+      tools:text="哈哈哈哈哈\n哈哈哈哈哈哈哈" />
+  </LinearLayout>
+</android.support.v7.widget.CardView>

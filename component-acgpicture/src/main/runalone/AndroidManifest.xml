@@ -20,6 +20,10 @@
       </intent-filter>
     </activity>
 
+    <activity
+      android:name=".mvp.ui.activity.AcgPictureItemDetailActivity"
+      android:screenOrientation="portrait" />
+
     <meta-data
       android:name="com.rabtman.acgpicture.base.AcgPictureConfig"
       android:value="ConfigModule" />
