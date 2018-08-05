@@ -11,7 +11,9 @@ class SystemConstant {
         const val DB_NAME = "lib.acgpicture.realm"
         const val DB_VERSION = 1L
         //acg图库标题栏
-        val ACG_PICTURE_TITLE: Array<String> = arrayOf("Cosplay")
+        val ACG_PICTURE_TITLE: Array<String> = arrayOf("萌图", "Cosplay")
+        val ACG_PICTURE_TYPE: Array<String> = arrayOf("moeimg", "cosplay")
+        //图片保存路径
         const val ACGPICTURE_PATH = SystemConstant.pathRoot + "/pictures"
     }
 }
@@ -26,6 +28,7 @@ class HtmlConstant {
 
 class IntentConstant {
     companion object {
+        const val ACGPICTURE_TYPE = "acgpicture_type"
         const val ACGPICTURE_ITEM = "acgpicture_item"
     }
 }

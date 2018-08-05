@@ -18,7 +18,7 @@ class AcgPictureItemPresenter
     /**
      * 当前类型
      */
-    private var curType = "cosplay"
+    private var curType = "moeimg"
     /**
      * 当前页数
      */
