@@ -10,6 +10,7 @@
   <string name="msg_error_network">貌似网络不太好使(\u2565\ufe4f\u2565)</string>
   <string name="msg_error_unknown">发生了些意想不到的错误\u03a3( \u00b0 \u25b3 \u00b0)</string>
   <string name="msg_error_retry">受到神秘力量干扰，请稍后再试\u03a3( \u00b0 \u25b3 \u00b0)</string>
+  <string name="msg_error_too_fast">操作过于频繁，请稍后再试</string>
 
   <string name="msg_start_download_picture">保存图片...</string>
   <string name="msg_no_version_info">当前已经是最新版本</string>

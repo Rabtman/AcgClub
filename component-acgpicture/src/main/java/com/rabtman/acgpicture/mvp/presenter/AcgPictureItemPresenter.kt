@@ -40,11 +40,6 @@ class AcgPictureItemPresenter
                                 mView.hideLoading()
                             }
 
-                            override fun onError(e: Throwable?) {
-                                super.onError(e)
-                                mView.showPageError()
-                            }
-
                             override fun onNext(pictureItems: List<AcgPictureItem>) {
                                 if (pictureItems.isEmpty()) {
                                     mView.showPageEmpty()

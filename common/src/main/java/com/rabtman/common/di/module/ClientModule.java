@@ -1,5 +1,7 @@
 package com.rabtman.common.di.module;
 
+
+import com.google.gson.Gson;
 import com.rabtman.common.utils.FileUtils;
 import dagger.Module;
 import dagger.Provides;
@@ -75,10 +77,10 @@ public class ClientModule {
    */
   @Singleton
   @Provides
-  RxCache provideRxCache(@Named("RxCacheDirectory") File cacheDirectory) {
+  RxCache provideRxCache(@Named("RxCacheDirectory") File cacheDirectory, Gson gson) {
     return new RxCache
         .Builder()
-        .persistence(cacheDirectory, new GsonSpeaker());
+        .persistence(cacheDirectory, new GsonSpeaker(gson));
   }
 
 

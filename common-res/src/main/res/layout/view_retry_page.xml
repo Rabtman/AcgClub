@@ -29,6 +29,8 @@
     android:layout_centerInParent="true"
     android:background="@color/colorStress"
     android:text="重试"
+    android:clickable="false"
+    android:focusable="false"
     android:textColor="@android:color/white"
     android:textSize="14sp" />
 </RelativeLayout>

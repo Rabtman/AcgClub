@@ -2,6 +2,7 @@ package com.rabtman.acgpicture.mvp.model
 
 import com.fcannizzaro.jsoup.annotations.JP
 import com.rabtman.acgpicture.api.AcgPictureService
+import com.rabtman.acgpicture.api.cache.AcgPictureCacheService
 import com.rabtman.acgpicture.mvp.APictureContract
 import com.rabtman.acgpicture.mvp.AcgPictureContract
 import com.rabtman.acgpicture.mvp.AnimatePictureContract
@@ -14,6 +15,7 @@ import com.rabtman.common.integration.IRepositoryManager
 import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxUtil
 import io.reactivex.Flowable
+import io.rx_cache2.DynamicKeyGroup
 import org.jsoup.Jsoup
 import javax.inject.Inject
 
@@ -26,9 +28,13 @@ class AcgPictureModel @Inject
 constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), AcgPictureContract.Model {
 
     override fun getAcgPictures(pageNo: Int, type: String): Flowable<List<AcgPictureItem>> {
-        return mRepositoryManager.obtainRetrofitService(AcgPictureService::class.java)
+        return Flowable.just(mRepositoryManager.obtainRetrofitService(AcgPictureService::class.java)
                 .getAcgPictures(pageNo, type)
-                .compose(RxUtil.handleResult())
+                .compose(RxUtil.handleResult()))
+                .flatMap { picturesFlowable ->
+                    mRepositoryManager.obtainCacheService(AcgPictureCacheService::class.java)
+                            .getAcgPictures(picturesFlowable, DynamicKeyGroup(pageNo, type))
+                }
     }
 }
 

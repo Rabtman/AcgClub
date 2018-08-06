@@ -67,7 +67,13 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
         mView.showError(mErrorMsg);
       } else if (e instanceof ApiException) {
         mView.showError(e.toString());
-      } else if (e instanceof HttpException | e instanceof SocketTimeoutException) {
+      } else if (e instanceof HttpException) {
+        if (((HttpException) e).code() == 429) {
+          mView.showError(R.string.msg_error_too_fast);
+        } else {
+          mView.showError(R.string.msg_error_network);
+        }
+      } else if (e instanceof SocketTimeoutException) {
         mView.showError(R.string.msg_error_network);
       } else {
         mView.showError(R.string.msg_error_unknown);
@@ -78,9 +84,13 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
       } else if (e instanceof ApiException) {
         Toasty.error(mContext, e.toString(), Toast.LENGTH_SHORT).show();
       } else if (e instanceof HttpException) {
+        int resString = R.string.msg_error_network;
+        if (((HttpException) e).code() == 429) {
+          resString = R.string.msg_error_too_fast;
+        }
         Toasty.error(
             mContext,
-            mContext.getString(R.string.msg_error_network),
+            mContext.getString(resString),
             Toast.LENGTH_SHORT
         ).show();
       }
