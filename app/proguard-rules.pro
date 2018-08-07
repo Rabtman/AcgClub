@@ -627,3 +627,4 @@ public void xxxxxx(**);
 
 #rxcache
 -dontwarn io.rx_cache.internal.**
+-keepclassmembers enum io.rx_cache.Source { *; }

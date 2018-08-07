@@ -7,12 +7,14 @@ buildscript {
     repositories {
         jcenter()
         google()
+        // TODO remove after butterknife 9 graduates to stable
+        maven { name 'Sonatype SNAPSHOTs'; url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath 'com.android.tools.build:gradle:3.1.3'
         //freeline
-        classpath 'com.antfortune.freeline:gradle:0.8.8'
+        //classpath 'com.antfortune.freeline:gradle:0.8.8'
         //VasDolly
         classpath 'com.leon.channel:plugin:1.1.7'
         //bugly tinker
@@ -20,7 +22,7 @@ buildscript {
         //andResGurad
         //classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.12'
         //butterknife
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.4.0'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0-SNAPSHOT'
         //kotlin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         //realm

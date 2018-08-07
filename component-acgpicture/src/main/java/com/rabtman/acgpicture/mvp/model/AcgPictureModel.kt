@@ -15,7 +15,7 @@ import com.rabtman.common.integration.IRepositoryManager
 import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxUtil
 import io.reactivex.Flowable
-import io.rx_cache2.DynamicKeyGroup
+import io.rx_cache2.DynamicKey
 import org.jsoup.Jsoup
 import javax.inject.Inject
 
@@ -33,7 +33,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
                 .compose(RxUtil.handleResult()))
                 .flatMap { picturesFlowable ->
                     mRepositoryManager.obtainCacheService(AcgPictureCacheService::class.java)
-                            .getAcgPictures(picturesFlowable, DynamicKeyGroup(pageNo, type))
+                            .getAcgPictures(picturesFlowable, DynamicKey("$type$pageNo"))
                 }
     }
 }
