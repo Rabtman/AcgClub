@@ -20,7 +20,7 @@ class SystemConstant {
 
 class HtmlConstant {
     companion object {
-        const val ACG_PICTURE_URL = "http://111.231.79.214:8000/api/acgclub/v1/"
+        const val ACG_PICTURE_URL = "https://www.rabtman.com/api/acgclub/v1/"
         const val ANIME_PICTURE_URL = "https://anime-pictures.net/"
         const val APICTURE_ANIME_URL = "http://www.acg.fi/anime/page/"
     }

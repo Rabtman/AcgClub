@@ -110,6 +110,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
           0,
           getTargetFragment(RouterConstants.PATH_SCHEDULE_MAIN),
           getTargetFragment(RouterConstants.PATH_COMIC_OACG),
+          getTargetFragment(RouterConstants.PATH_PICTURE_MAIN),
           getTargetFragment(RouterConstants.PATH_ACGNEWS_MAIN));
     }
 
@@ -130,10 +131,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             showFragment = RouterConstants.PATH_ACGNEWS_MAIN;
             title = getString(R.string.nav_news);
             break;
-          /*case R.id.nav_picture:
-            showFragment = R.id.nav_picture;
+          case R.id.nav_picture:
+            showFragment = RouterConstants.PATH_PICTURE_MAIN;
             title = getString(R.string.nav_picture);
-            break;*/
+            break;
           /*case R.id.nav_fiction:
             showFragment = R.id.nav_fiction;
             title = getString(R.string.nav_fiction);

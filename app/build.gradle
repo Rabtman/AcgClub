@@ -71,17 +71,6 @@ android {
         }
     }
 
-    /*android.applicationVariants.all { variant ->
-        //这个修改输出的APK路径
-        if (variant.buildType.name != "debug") {//防止AS无法安装debug包(apk)
-            variant.getPackageApplication().outputDirectory = new File(project.rootDir.absolutePath + "/apk")
-        }
-        variant.getPackageApplication().outputScope.apkDatas.forEach { apkData ->
-            //这个修改输出APK的文件名
-            apkData.outputFileName = "${defaultConfig.applicationId}_base_v${defaultConfig.versionName}.apk"
-        }
-    }*/
-
     signingConfigs {
         rabtman {
             storeFile file(properties.getProperty("storeFile"))
@@ -147,7 +136,9 @@ repositories {
 }
 
 rootProject.ext.merge.each { c ->
-    project.dependencies.add("implementation", project.project(':component-' + c))
+    if (c) {
+        project.dependencies.add("implementation", project.project(':component-' + c))
+    }
 }
 
 dependencies {

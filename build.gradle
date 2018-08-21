@@ -5,8 +5,8 @@ buildscript {
     ext.realm_version = '5.0.1'
 
     repositories {
-        jcenter()
         google()
+        jcenter()
         // TODO remove after butterknife 9 graduates to stable
         maven { name 'Sonatype SNAPSHOTs'; url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     }
@@ -35,8 +35,8 @@ buildscript {
 allprojects {
     repositories {
         mavenCentral()
-        jcenter()
         google()
+        jcenter()
         maven { url "https://jitpack.io" }
         //aliyun
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }

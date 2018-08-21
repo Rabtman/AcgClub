@@ -7,6 +7,7 @@ import android.support.v7.widget.StaggeredGridLayoutManager.VERTICAL
 import butterknife.BindView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.rabtman.acgpicture.R
+import com.rabtman.acgpicture.R2
 import com.rabtman.acgpicture.di.AnimatePictureModule
 import com.rabtman.acgpicture.di.DaggerAnimatePictureComponent
 import com.rabtman.acgpicture.mvp.AnimatePictureContract
@@ -24,9 +25,9 @@ import com.rabtman.router.RouterConstants
 @Route(path = RouterConstants.PATH_PICTURE_ANIMATE)
 class AnimatePictureFragment : BaseFragment<AnimatePicturePresenter>(), AnimatePictureContract.View {
 
-    @BindView(R.id.rcv_animate_item)
+    @BindView(R2.id.rcv_animate_item)
     lateinit var rcvAnimateItem: RecyclerView
-    @BindView(R.id.swipe_refresh_animate)
+    @BindView(R2.id.swipe_refresh_animate)
     lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var mAdapter: AnimateItemAdapter
 

@@ -8,6 +8,7 @@ import butterknife.BindView
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener
 import com.chad.library.adapter.base.BaseQuickAdapter.RequestLoadMoreListener
 import com.rabtman.acgpicture.R
+import com.rabtman.acgpicture.R2
 import com.rabtman.acgpicture.di.APictureModule
 import com.rabtman.acgpicture.di.DaggerAPictureComponent
 import com.rabtman.acgpicture.mvp.APictureContract
@@ -22,9 +23,9 @@ import com.rabtman.common.di.component.AppComponent
  */
 class APictureFragment : BaseFragment<APicturePresenter>(), APictureContract.View {
 
-    @BindView(R.id.rcv_animate_item)
+    @BindView(R2.id.rcv_animate_item)
     lateinit var rcvAnimateItem: RecyclerView
-    @BindView(R.id.swipe_refresh_animate)
+    @BindView(R2.id.swipe_refresh_animate)
     lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var mAdapter: APictureItemAdapter
 

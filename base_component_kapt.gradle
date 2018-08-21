@@ -9,7 +9,7 @@ kapt {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     //di
     kapt rootProject.ext.dependencies["dagger2-compiler"]
     kapt rootProject.ext.dependencies["butterknife-compiler"]

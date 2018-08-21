@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import butterknife.BindView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.rabtman.acgpicture.R
+import com.rabtman.acgpicture.R2
 import com.rabtman.acgpicture.base.constant.IntentConstant
 import com.rabtman.acgpicture.di.AcgPictureModule
 import com.rabtman.acgpicture.di.DaggerAcgPictureComponent
@@ -25,9 +26,9 @@ import com.rabtman.router.RouterUtils
 @Route(path = RouterConstants.PATH_PICTURE_ITEM)
 class AcgPictureItemFragment : BaseFragment<AcgPictureItemPresenter>(), AcgPictureContract.View {
 
-    @BindView(R.id.rcv_animate_item)
+    @BindView(R2.id.rcv_animate_item)
     lateinit var rcvAcgItem: RecyclerView
-    @BindView(R.id.swipe_refresh_animate)
+    @BindView(R2.id.swipe_refresh_animate)
     lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var mAdapter: AcgPictureItemAdapter
 

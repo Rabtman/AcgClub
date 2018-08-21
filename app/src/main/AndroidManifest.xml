@@ -45,9 +45,6 @@
     <activity
       android:name=".mvp.ui.activity.AcgCollectionActivity"
       android:screenOrientation="portrait" />
-    <activity
-      android:name=".mvp.ui.activity.APicDetailActivity"
-      android:screenOrientation="portrait" />
 
     <meta-data
       android:name="com.rabtman.common.imageloader.glide.GlideConfiguration"

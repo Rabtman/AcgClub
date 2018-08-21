@@ -9,6 +9,10 @@
     id="@+id/nav_comic"
     title="@string/nav_comic" />
   <tab
+    icon="@drawable/nav_picture"
+    id="@+id/nav_picture"
+    title="@string/nav_picture" />
+  <tab
     icon="@drawable/nav_news"
     id="@+id/nav_news"
     title="@string/nav_news" />
@@ -20,8 +24,4 @@
     icon="@drawable/nav_fiction"
     id="@+id/nav_fiction"
     title="@string/nav_fiction" />-->
-  <!--<tab
-    icon="@drawable/nav_picture"
-    id="@+id/nav_picture"
-    title="@string/nav_picture" />-->
 </tabs>

@@ -13,9 +13,6 @@ import retrofit2.http.Url;
 public interface AcgService {
 
   @GET
-  Flowable<ResponseBody> getAcgPic(@Url String url);
-
-  @GET
   Flowable<ResponseBody> getFictionRecent(@Url String url);
 
   @GET

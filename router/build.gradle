@@ -19,7 +19,7 @@ android {
 }
 
 dependencies {
-    compile(rootProject.ext.dependencies["router"]){
+    api(rootProject.ext.dependencies["router"]){
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
         exclude module: 'support-annotations'

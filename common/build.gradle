@@ -100,7 +100,7 @@ dependencies {
         exclude module: 'support-annotations'
     }
     //test
-    testApi rootProject.ext.dependencies["junit"]
+    testImplementation rootProject.ext.dependencies["junit"]
     //jsoup
     api project(':third-party-libs:jsoup-annotations')
     //other
