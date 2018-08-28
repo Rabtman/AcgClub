@@ -9,7 +9,6 @@ import com.rabtman.common.base.CommonApplicationLike.Lifecycle
 import com.rabtman.common.di.module.GlobeConfigModule.Builder
 import com.rabtman.common.integration.ConfigModule
 import com.rabtman.common.integration.IRepositoryManager
-import okhttp3.logging.HttpLoggingInterceptor
 
 /**
  * @author Rabtman
@@ -19,7 +18,6 @@ class AcgPictureConfig : ConfigModule {
 
     override fun applyOptions(context: Context, builder: Builder) {
         builder.baseurl(HtmlConstant.ACG_PICTURE_URL)
-        builder.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC)).build()
     }
 
     override fun registerComponents(context: Context, repositoryManager: IRepositoryManager) {

@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -64,6 +65,8 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
   TextView tvScheduleTime;
   @BindView(R2.id.tv_schedule_new)
   TextView tvScheduleNew;
+  @BindView(R2.id.layout_schedule_recommand)
+  RelativeLayout layoutScheduleRecommand;
   @BindView(R2.id.rcv_schedule_recommand)
   RecyclerView rcvScheduleRecommand;
   @BindView(R2.id.rcv_schedule_recent)
@@ -166,19 +169,24 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
       bannerSchedule.setVisibility(android.view.View.GONE);
     }
     //近期推荐
-    LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-    linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-    ScheduleRecommandAdapter scheduleRecommandAdapter = new ScheduleRecommandAdapter(
-        getAppComponent().imageLoader(), dilidiliInfo.getScheduleRecommands());
-    scheduleRecommandAdapter.setOnItemClickListener(new OnItemClickListener() {
-      @Override
-      public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
-        ScheduleRecommand scheduleRecommand = (ScheduleRecommand) adapter.getItem(position);
-        startToScheduleDetail(scheduleRecommand.getAnimeLink());
-      }
-    });
-    rcvScheduleRecommand.setLayoutManager(linearLayoutManager);
-    rcvScheduleRecommand.setAdapter(scheduleRecommandAdapter);
+    if (dilidiliInfo.getScheduleRecommands() != null
+        && dilidiliInfo.getScheduleRecommands().size() > 0) {
+      LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+      linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+      ScheduleRecommandAdapter scheduleRecommandAdapter = new ScheduleRecommandAdapter(
+          getAppComponent().imageLoader(), dilidiliInfo.getScheduleRecommands());
+      scheduleRecommandAdapter.setOnItemClickListener(new OnItemClickListener() {
+        @Override
+        public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
+          ScheduleRecommand scheduleRecommand = (ScheduleRecommand) adapter.getItem(position);
+          startToScheduleDetail(scheduleRecommand.getAnimeLink());
+        }
+      });
+      rcvScheduleRecommand.setLayoutManager(linearLayoutManager);
+      rcvScheduleRecommand.setAdapter(scheduleRecommandAdapter);
+    } else {
+      layoutScheduleRecommand.setVisibility(android.view.View.GONE);
+    }
     //最近更新
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
     gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
