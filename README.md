@@ -1,6 +1,6 @@
 # ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/cover.jpg)
 
-![](https://img.shields.io/badge/version-v0.3.0-brightgreen.svg)   ![](https://img.shields.io/badge/license-MIT-blue.svg)
+![](https://img.shields.io/badge/version-v0.4.0-brightgreen.svg)   ![](https://img.shields.io/badge/license-MIT-blue.svg)
 
 宅社AcgClub，一款纯粹的ACG聚合类App
 
@@ -41,7 +41,7 @@
 
 ### 项目环境
 
-![](https://img.shields.io/badge/Android%20Studio-3.1.2-blue.svg)   ![](https://img.shields.io/badge/gradle-4.1-brightgreen.svg)    ![](https://img.shields.io/badge/kotlin-1.2.21-orange.svg)   ![](https://img.shields.io/badge/compileVersion-26-ff69b4.svg)
+![](https://img.shields.io/badge/Android%20Studio-3.1.2-blue.svg)   ![](https://img.shields.io/badge/gradle-4.4-brightgreen.svg)    ![](https://img.shields.io/badge/kotlin-1.2.21-orange.svg)   ![](https://img.shields.io/badge/compileVersion-26-ff69b4.svg)
 
 ### 项目结构
 
@@ -54,6 +54,7 @@ AcgClub
       - src/main
         - runalone                     组件独立运行时生效
     - component-acgnews                资讯组件
+    - component-acgpicture             看图组件
     - component-acgschedule            番剧组件
     - router                           路由配置及相关服务实现
     - third-party-libs                 三方库存放
@@ -130,14 +131,6 @@ WEIXIN_KEY=""
 ```
 * 为了确保bugly热更新能生效，请每次打出正式包的时候，确认app目录下tinker-support.gradle文件中的tinkerId的唯一性
 
-## 联系
-
-项目需要完善的地方还有很多，如有BUG或者更好的建议欢迎提出
-
-* [issue](https://github.com/Rabtman/AcgClub/issues)
-* mail：[acgclub@rabtman.com](mailto:acgclub@rabtman.com) 或 [zhangjm05@gmail.com](mailto:zhangjm05@gmail.co)
-* blog：[https://rabtman.com/](https://rabtman.com/)
-
 ## 鸣谢
 
 * [`RxJava`](https://github.com/ReactiveX/RxJava)
@@ -168,3 +161,20 @@ WEIXIN_KEY=""
 * [`Logger`](https://github.com/orhanobut/logger)
 * [`AndroidUtilCode`](https://github.com/Blankj/AndroidUtilCode)
 * [`VasDolly`](https://github.com/Tencent/VasDolly)
+
+
+
+## 捐赠
+
+如果认为项目有趣或对你有帮助，欢迎捐赠支持。捐赠金额将用于支付域名和服务器费用，方便为大家提供更好的服务！
+
+![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/pay_alipay.jpg)![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/pay_wxpay.jpg)
+
+
+## 联系
+
+项目需要完善的地方还有很多，如有BUG或者更好的建议欢迎提出
+
+* [issue](https://github.com/Rabtman/AcgClub/issues)
+* mail：[acgclub@rabtman.com](mailto:acgclub@rabtman.com) 或 [zhangjm05@gmail.com](mailto:zhangjm05@gmail.co)
+* blog：[https://rabtman.com/](https://rabtman.com/)
