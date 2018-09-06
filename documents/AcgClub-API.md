@@ -10,7 +10,7 @@
 
 * Get pictures of the specified category :
 
-  `https://rabtman.com/api/v2/acgclub/pictures/category/{type}`
+  `https://rabtman.com/api/v2/acgclub/category/{type}/pictures`
 
 #### Supported Formats
 

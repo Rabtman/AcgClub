@@ -39,11 +39,9 @@ public class UpdateAppService extends Service {
       isManual = intent.getBooleanExtra(IntentConstant.CHECK_APP_UPDATE_MANUAL, false);
     }
 
-    String versionUrl;
+    String versionUrl = HtmlConstant.APP_VERSION_URL;
     if (BuildConfig.APP_DEBUG) {
-      versionUrl = HtmlConstant.APP_VERSION_DEBUG_URL;
-    } else {
-      versionUrl = HtmlConstant.APP_VERSION_URL;
+      versionUrl = versionUrl.concat("?debug=on");
     }
 
     Utils.getAppComponent()

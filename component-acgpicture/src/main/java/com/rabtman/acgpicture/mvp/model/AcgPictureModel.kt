@@ -29,7 +29,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
 
     override fun getAcgPictures(pageNo: Int, type: String): Flowable<List<AcgPictureItem>> {
         return Flowable.just(mRepositoryManager.obtainRetrofitService(AcgPictureService::class.java)
-                .getAcgPictures(pageNo, type)
+                .getAcgPictures(type, pageNo)
                 .compose(RxUtil.handleResult()))
                 .flatMap { picturesFlowable ->
                     mRepositoryManager.obtainCacheService(AcgPictureCacheService::class.java)

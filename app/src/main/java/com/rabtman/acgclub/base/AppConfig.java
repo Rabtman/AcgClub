@@ -10,6 +10,8 @@ import com.rabtman.common.di.module.GlobeConfigModule.Builder;
 import com.rabtman.common.integration.ConfigModule;
 import com.rabtman.common.integration.IRepositoryManager;
 import java.util.List;
+import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.logging.HttpLoggingInterceptor.Level;
 
 /**
  * @author Rabtman
@@ -22,7 +24,7 @@ public class AppConfig implements ConfigModule {
     builder.statusBarColor(R.color.colorPrimary)
         .statusBarAlpha(0);
     if (BuildConfig.APP_DEBUG) {
-      //builder.addInterceptor(new HttpLoggingInterceptor().setLevel(Level.BODY));
+      builder.addInterceptor(new HttpLoggingInterceptor().setLevel(Level.BASIC));
     }
   }
 

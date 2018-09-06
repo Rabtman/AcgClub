@@ -68,11 +68,7 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
       } else if (e instanceof ApiException) {
         mView.showError(e.toString());
       } else if (e instanceof HttpException) {
-        if (((HttpException) e).code() == 429) {
-          mView.showError(R.string.msg_error_too_fast);
-        } else {
-          mView.showError(R.string.msg_error_network);
-        }
+        mView.showError(handleHttpExceptionTips(e));
       } else if (e instanceof SocketTimeoutException) {
         mView.showError(R.string.msg_error_network);
       } else {
@@ -84,16 +80,24 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
       } else if (e instanceof ApiException) {
         Toasty.error(mContext, e.toString(), Toast.LENGTH_SHORT).show();
       } else if (e instanceof HttpException) {
-        int resString = R.string.msg_error_network;
-        if (((HttpException) e).code() == 429) {
-          resString = R.string.msg_error_too_fast;
-        }
+        int resString = handleHttpExceptionTips(e);
         Toasty.error(
             mContext,
             mContext.getString(resString),
             Toast.LENGTH_SHORT
         ).show();
       }
+    }
+  }
+
+  private int handleHttpExceptionTips(Throwable e) {
+    int code = ((HttpException) e).code();
+    if (code == 429) {
+      return R.string.msg_error_too_fast;
+    } else if (code == 404) {
+      return R.string.msg_error_404;
+    } else {
+      return R.string.msg_error_network;
     }
   }
 

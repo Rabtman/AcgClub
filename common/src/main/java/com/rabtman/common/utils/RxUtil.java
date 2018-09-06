@@ -1,6 +1,5 @@
 package com.rabtman.common.utils;
 
-import com.rabtman.common.http.ApiException;
 import com.rabtman.common.http.BaseResponse;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Completable;
@@ -52,11 +51,12 @@ public class RxUtil {
         return httpResponseFlowable.flatMap(new Function<BaseResponse<T>, Flowable<T>>() {
           @Override
           public Flowable<T> apply(BaseResponse<T> tBaseResponse) throws Exception {
-            if (tBaseResponse.code == 200) {
+            /*if (tBaseResponse.code == 200) {
               return createData(tBaseResponse.data);
             } else {
-              return Flowable.error(new ApiException(tBaseResponse.msg));
-            }
+              return Flowable.error(new ApiException(tBaseResponse.message));
+            }*/
+            return createData(tBaseResponse.data);
           }
         });
 

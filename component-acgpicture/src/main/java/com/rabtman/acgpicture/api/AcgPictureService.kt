@@ -25,7 +25,7 @@ interface AcgPictureService {
     @GET
     fun getParseResponse(@Url url: String): Flowable<ResponseBody>
 
-    @GET("pictures")
-    fun getAcgPictures(@Query("pageNo") pageNo: Int, @Query("type") type: String): Flowable<BaseResponse<List<AcgPictureItem>>>
+    @GET("category/{type}/pictures")
+    fun getAcgPictures(@Path("type") type: String, @Query("offset") pageNo: Int): Flowable<BaseResponse<List<AcgPictureItem>>>
 
 }

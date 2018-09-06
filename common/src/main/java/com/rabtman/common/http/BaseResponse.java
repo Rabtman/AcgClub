@@ -5,7 +5,6 @@ package com.rabtman.common.http;
  */
 public class BaseResponse<T> {
 
-  public int code;
-  public String msg;
+  public String message;
   public T data;
 }
