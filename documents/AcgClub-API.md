@@ -41,7 +41,7 @@
 
 #### API Example
 
-> Address: [https://rabtman.com/api/v2/acgclub/pictures/category/gamersky?query=%E8%BF%9C%E5%9D%82%E5%87%9B)
+> Address: https://rabtman.com/api/v2/acgclub/category/gamersky/pictures?query=%E8%BF%9C%E5%9D%82%E5%87%9B
 ```json
 {
 	"message": "请求成功",
