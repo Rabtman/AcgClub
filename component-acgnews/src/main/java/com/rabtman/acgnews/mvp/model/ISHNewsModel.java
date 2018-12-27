@@ -30,7 +30,7 @@ public class ISHNewsModel extends BaseModel implements ISHNewsContract.Model {
   @Override
   public Flowable<SHPage> getAcgNews(int pageIndex) {
     return mRepositoryManager.obtainRetrofitService(AcgNewsService.class)
-        .getISHNews(pageIndex)
+        .getISHNews(pageIndex, 15, 3)
         .compose(new FlowableTransformer<SHResponse<SHPage>, SHPage>() {
           @Override
           public Flowable<SHPage> apply(Flowable<SHResponse<SHPage>> httpResponseFlowable) {

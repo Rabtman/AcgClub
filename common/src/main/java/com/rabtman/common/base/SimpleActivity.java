@@ -47,6 +47,7 @@ public abstract class SimpleActivity extends SupportActivity implements
       mLoadService = LoadSir.getDefault().register(registerTarget(), new OnReloadListener() {
         @Override
         public void onReload(View v) {
+          showPageLoading();
           onPageRetry(v);
         }
       });

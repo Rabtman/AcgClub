@@ -10,6 +10,7 @@ public class SHPage {
 
   private int count;
   private int totalPages;
+  @SerializedName("pageSize")
   private int numsPerPage;
   private int currentPage;
   @SerializedName("data")

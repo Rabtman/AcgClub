@@ -6,16 +6,17 @@ import com.rabtman.acgnews.mvp.model.entity.SHPostDetail;
 import com.rabtman.acgnews.mvp.model.entity.SHResponse;
 import io.reactivex.Flowable;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * @author Rabtman
  */
 public interface AcgNewsService {
 
-  @GET(HtmlConstant.ISH_URL + "article/list/ver/60784573/page/{pageIndex}.json")
-  Flowable<SHResponse<SHPage>> getISHNews(@Path("pageIndex") int pageIndex);
+  @GET(HtmlConstant.ISH_URL + "ver/1f590097/article/list")
+  Flowable<SHResponse<SHPage>> getISHNews(@Query("page") int pageIndex,
+      @Query("pageSize") int pageSize, @Query("categoryID") int categoryID);
 
-  @GET(HtmlConstant.ISH_URL + "article/post/ver/60784573/id/{postId}.json")
-  Flowable<SHResponse<SHPostDetail>> getISHNewsDetail(@Path("postId") int postId);
+  @GET(HtmlConstant.ISH_URL + "ver/3c590236/article/detail")
+  Flowable<SHResponse<SHPostDetail>> getISHNewsDetail(@Query("id") int postId);
 }

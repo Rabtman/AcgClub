@@ -16,7 +16,7 @@ import com.tencent.bugly.Bugly;
 import com.tencent.bugly.BuglyStrategy;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.beta.tinker.TinkerManager;
-import com.tencent.tinker.loader.app.DefaultApplicationLike;
+import com.tencent.tinker.entry.DefaultApplicationLike;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
 

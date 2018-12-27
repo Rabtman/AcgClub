@@ -11,7 +11,6 @@ import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rabtman.acgnews.R;
 import com.rabtman.acgnews.R2;
-import com.rabtman.acgnews.base.constant.HtmlConstant;
 import com.rabtman.acgnews.base.constant.IntentConstant;
 import com.rabtman.acgnews.di.component.DaggerISHNewsDetailComponent;
 import com.rabtman.acgnews.di.module.ISHNewsDetailModule;
@@ -23,6 +22,7 @@ import com.rabtman.common.base.BaseActivity;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.utils.ExceptionUtils;
 import com.rabtman.common.utils.LogUtil;
+import com.rabtman.common.utils.TimeUtils;
 import com.rabtman.router.RouterConstants;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.umeng.socialize.ShareAction;
@@ -129,11 +129,10 @@ public class ISHNewsDetailActivity extends BaseActivity<ISHNewsDetailPresenter> 
   public void showNewsDetail(SHPostDetail shPostDetail) {
     tvAcgDetailTitle.setText(shPostDetail.getTitle());
     tvAcgDetailDatetime
-        .setText(getIntent().getStringExtra(shPostDetail.getTime()));
+        .setText(getIntent().getStringExtra(TimeUtils.millis2String(shPostDetail.getTime())));
     //文章内容
     RichText.fromHtml(
         shPostDetail.getContent()
-            .replaceAll("\"/upload", "\"" + HtmlConstant.ISH_IMG_URL)
     )
         .into(tvAcgDetailContent);
   }
@@ -143,7 +142,7 @@ public class ISHNewsDetailActivity extends BaseActivity<ISHNewsDetailPresenter> 
     UMWeb umWeb = new UMWeb(
         getString(R.string.acgnews_ish_post_detail_origin_url, mSHNewsPostItem.getId()));
     umWeb.setThumb(
-        new UMImage(this, mSHNewsPostItem.getThumb().replace("/upload", HtmlConstant.ISH_IMG_URL)));
+        new UMImage(this, mSHNewsPostItem.getThumb()));
     umWeb.setTitle(mSHNewsPostItem.getTitle());
 
     //分享面板ui

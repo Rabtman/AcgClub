@@ -38,7 +38,7 @@ ext {
             "recyclerview-v7"           : "com.android.support:recyclerview-v7:${dependVersion.support}",
             "constraintlayout"          : "com.android.support.constraint:constraint-layout:1.0.2",
             //ui
-            "dialog"                    : "com.github.hss01248:DialogUtil:1.17",
+            "dialog"                    : "com.github.hss01248:DialogUtil:2.0.2",
             "toast"                     : "com.github.GrenderG:Toasty:1.2.8",
             "base-rcv-helper"           : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34",
             "html-textview"             : "org.sufficientlysecure:html-textview:3.3",

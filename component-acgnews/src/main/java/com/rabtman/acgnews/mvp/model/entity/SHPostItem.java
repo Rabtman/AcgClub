@@ -8,6 +8,8 @@ import android.os.Parcelable;
  */
 public class SHPostItem implements Parcelable {
 
+  private int id;
+  private String title;
   public static final Creator<SHPostItem> CREATOR = new Creator<SHPostItem>() {
     @Override
     public SHPostItem createFromParcel(Parcel source) {
@@ -19,25 +21,17 @@ public class SHPostItem implements Parcelable {
       return new SHPostItem[size];
     }
   };
-  private int id;
-  private String title;
-  private int stick;
-  private int category;
-  private String category_name;
-  private String time;
+  private String brief;
   private String thumb;
+  private int sticky;
+  private long time;
+  private String authorID;
+  private String sourceID;
+  private String authorName;
+  private String categoryIDs;
+
 
   public SHPostItem() {
-  }
-
-  protected SHPostItem(Parcel in) {
-    this.id = in.readInt();
-    this.title = in.readString();
-    this.stick = in.readInt();
-    this.category = in.readInt();
-    this.category_name = in.readString();
-    this.time = in.readString();
-    this.thumb = in.readString();
   }
 
   public int getId() {
@@ -56,36 +50,28 @@ public class SHPostItem implements Parcelable {
     this.title = title;
   }
 
-  public int getStick() {
-    return stick;
+  private String sourceName;
+
+  protected SHPostItem(Parcel in) {
+    this.id = in.readInt();
+    this.title = in.readString();
+    this.brief = in.readString();
+    this.sticky = in.readInt();
+    this.thumb = in.readString();
+    this.time = in.readLong();
+    this.authorID = in.readString();
+    this.sourceID = in.readString();
+    this.authorName = in.readString();
+    this.categoryIDs = in.readString();
+    this.sourceName = in.readString();
   }
 
-  public void setStick(int stick) {
-    this.stick = stick;
+  public String getBrief() {
+    return brief;
   }
 
-  public int getCategory() {
-    return category;
-  }
-
-  public void setCategory(int category) {
-    this.category = category;
-  }
-
-  public String getCategory_name() {
-    return category_name;
-  }
-
-  public void setCategory_name(String category_name) {
-    this.category_name = category_name;
-  }
-
-  public String getTime() {
-    return time;
-  }
-
-  public void setTime(String time) {
-    this.time = time;
+  public void setBrief(String brief) {
+    this.brief = brief;
   }
 
   public String getThumb() {
@@ -96,20 +82,80 @@ public class SHPostItem implements Parcelable {
     this.thumb = thumb;
   }
 
+  public int getSticky() {
+    return sticky;
+  }
+
+  public void setSticky(int sticky) {
+    this.sticky = sticky;
+  }
+
+  public long getTime() {
+    return time;
+  }
+
+  public void setTime(long time) {
+    this.time = time;
+  }
+
+  public String getAuthorID() {
+    return authorID;
+  }
+
+  public void setAuthorID(String authorID) {
+    this.authorID = authorID;
+  }
+
+  public String getSourceID() {
+    return sourceID;
+  }
+
+  public void setSourceID(String sourceID) {
+    this.sourceID = sourceID;
+  }
+
+  public String getAuthorName() {
+    return authorName;
+  }
+
+  public void setAuthorName(String authorName) {
+    this.authorName = authorName;
+  }
+
+  public String getCategoryIDs() {
+    return categoryIDs;
+  }
+
+  public void setCategoryIDs(String categoryIDs) {
+    this.categoryIDs = categoryIDs;
+  }
+
   @Override
   public int describeContents() {
     return 0;
+  }
+
+  public String getSourceName() {
+    return sourceName;
+  }
+
+  public void setSourceName(String sourceName) {
+    this.sourceName = sourceName;
   }
 
   @Override
   public void writeToParcel(Parcel dest, int flags) {
     dest.writeInt(this.id);
     dest.writeString(this.title);
-    dest.writeInt(this.stick);
-    dest.writeInt(this.category);
-    dest.writeString(this.category_name);
-    dest.writeString(this.time);
+    dest.writeString(this.brief);
+    dest.writeInt(this.sticky);
     dest.writeString(this.thumb);
+    dest.writeLong(this.time);
+    dest.writeString(this.authorID);
+    dest.writeString(this.sourceID);
+    dest.writeString(this.authorName);
+    dest.writeString(this.categoryIDs);
+    dest.writeString(this.sourceName);
   }
 
   @Override
@@ -117,11 +163,15 @@ public class SHPostItem implements Parcelable {
     return "SHPostItem{" +
         "id=" + id +
         ", title='" + title + '\'' +
-        ", stick=" + stick +
-        ", category=" + category +
-        ", category_name='" + category_name + '\'' +
-        ", time='" + time + '\'' +
+        ", brief='" + brief + '\'' +
+        ", sticky=" + sticky +
         ", thumb='" + thumb + '\'' +
+        ", time=" + time +
+        ", authorID='" + authorID + '\'' +
+        ", sourceID='" + sourceID + '\'' +
+        ", authorName='" + authorName + '\'' +
+        ", categoryIDs='" + categoryIDs + '\'' +
+        ", sourceName='" + sourceName + '\'' +
         '}';
   }
 }

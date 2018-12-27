@@ -1,7 +1,7 @@
 apply from: "config.gradle"
 
 buildscript {
-    ext.kotlin_version = '1.2.21'
+    ext.kotlin_version = '1.2.51'
     ext.realm_version = '5.0.1'
 
     repositories {
@@ -9,10 +9,11 @@ buildscript {
         jcenter()
         // TODO remove after butterknife 9 graduates to stable
         maven { name 'Sonatype SNAPSHOTs'; url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { url "https://dl.bintray.com/matrix/maven/" }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.3'
+        classpath 'com.android.tools.build:gradle:3.2.1'
         //freeline
         //classpath 'com.antfortune.freeline:gradle:0.8.8'
         //VasDolly
@@ -29,6 +30,8 @@ buildscript {
         classpath "io.realm:realm-gradle-plugin:$realm_version"
         //arouter
         classpath "com.alibaba:arouter-register:1.0.2"
+        //matrix
+        classpath ("com.tencent.matrix:matrix-gradle-plugin:${MATRIX_VERSION}") { changing = true }
     }
 }
 
@@ -40,6 +43,7 @@ allprojects {
         maven { url "https://jitpack.io" }
         //aliyun
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
+        maven { url "https://dl.bintray.com/matrix/maven/" }
     }
 }
 
