@@ -9,7 +9,6 @@ buildscript {
         jcenter()
         // TODO remove after butterknife 9 graduates to stable
         maven { name 'Sonatype SNAPSHOTs'; url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-        maven { url "https://dl.bintray.com/matrix/maven/" }
     }
 
     dependencies {
@@ -19,7 +18,7 @@ buildscript {
         //VasDolly
         classpath 'com.leon.channel:plugin:1.1.7'
         //bugly tinker
-        classpath "com.tencent.bugly:tinker-support:latest.release"
+        classpath "com.tencent.bugly:tinker-support:1.1.5"
         //andResGurad
         //classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.12'
         //butterknife
@@ -30,8 +29,6 @@ buildscript {
         classpath "io.realm:realm-gradle-plugin:$realm_version"
         //arouter
         classpath "com.alibaba:arouter-register:1.0.2"
-        //matrix
-        classpath ("com.tencent.matrix:matrix-gradle-plugin:${MATRIX_VERSION}") { changing = true }
     }
 }
 
@@ -43,7 +40,6 @@ allprojects {
         maven { url "https://jitpack.io" }
         //aliyun
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/releases/' }
-        maven { url "https://dl.bintray.com/matrix/maven/" }
     }
 }
 

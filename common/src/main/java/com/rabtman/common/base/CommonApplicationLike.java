@@ -2,6 +2,7 @@ package com.rabtman.common.base;
 
 import android.app.Application;
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.didichuxing.doraemonkit.DoraemonKit;
 import com.hss01248.dialog.StyledDialog;
 import com.kingja.loadsir.core.LoadSir;
 import com.rabtman.common.BuildConfig;
@@ -123,6 +124,9 @@ public class CommonApplicationLike implements IApplicationLike {
     //leakCanary内存泄露检查
     installLeakCanary();
 
+    //doraemon
+    installDoraemonKit();
+
     //rx全局异常处理
     setRxJavaErrorHandler();
   }
@@ -220,6 +224,15 @@ public class CommonApplicationLike implements IApplicationLike {
    */
   protected void installLeakCanary() {
     this.mRefWatcher = BuildConfig.DEBUG ? LeakCanary.install(mApplication) : RefWatcher.DISABLED;
+  }
+
+  /**
+   * 安装DoraemonKit
+   */
+  private void installDoraemonKit() {
+    if (BuildConfig.DEBUG) {
+      DoraemonKit.install(mApplication);
+    }
   }
 
 

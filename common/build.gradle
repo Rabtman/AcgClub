@@ -159,4 +159,6 @@ dependencies {
     api files('libs/umeng_social_shareboard.jar')
     api files('libs/umeng_social_shareview.jar')
     api files('libs/umeng_social_tool.jar')
+    //doraemon
+    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:1.0.1'
 }
