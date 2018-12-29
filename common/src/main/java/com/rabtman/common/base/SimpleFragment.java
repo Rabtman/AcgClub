@@ -8,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.hss01248.dialog.StyledDialog;
@@ -20,7 +19,7 @@ import com.rabtman.common.base.widget.loadsir.EmptyCallback;
 import com.rabtman.common.base.widget.loadsir.LoadingCallback;
 import com.rabtman.common.base.widget.loadsir.RetryCallback;
 import com.rabtman.common.di.component.AppComponent;
-import es.dmoral.toasty.Toasty;
+import com.rabtman.common.utils.ToastUtil;
 import me.yokeyword.fragmentation.SupportFragment;
 
 public abstract class SimpleFragment extends SupportFragment implements
@@ -178,7 +177,7 @@ public abstract class SimpleFragment extends SupportFragment implements
 
   @Override
   public void showMsg(String message) {
-    Toasty.info(mContext, message, Toast.LENGTH_SHORT).show();
+    ToastUtil.show(mContext, message);
   }
 
   @Override
@@ -189,7 +188,7 @@ public abstract class SimpleFragment extends SupportFragment implements
   @Override
   public void showError(String message) {
     hideLoading();
-    Toasty.error(mContext, message, Toast.LENGTH_SHORT).show();
+    ToastUtil.show(mContext, message);
   }
 
   protected abstract int getLayoutId();

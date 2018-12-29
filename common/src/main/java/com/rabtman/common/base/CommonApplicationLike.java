@@ -1,8 +1,25 @@
 package com.rabtman.common.base;
 
 import android.app.Application;
+import android.content.Context;
+import android.util.ArrayMap;
+import cn.hikyson.android.godeye.toolbox.crash.CrashFileProvider;
+import cn.hikyson.android.godeye.toolbox.rxpermission.RxPermissionRequest;
+import cn.hikyson.godeye.core.GodEye;
+import cn.hikyson.godeye.core.installconfig.BatteryConfig;
+import cn.hikyson.godeye.core.installconfig.CpuConfig;
+import cn.hikyson.godeye.core.installconfig.CrashConfig;
+import cn.hikyson.godeye.core.installconfig.FpsConfig;
+import cn.hikyson.godeye.core.installconfig.HeapConfig;
+import cn.hikyson.godeye.core.installconfig.LeakConfig;
+import cn.hikyson.godeye.core.installconfig.PageloadConfig;
+import cn.hikyson.godeye.core.installconfig.PssConfig;
+import cn.hikyson.godeye.core.installconfig.RamConfig;
+import cn.hikyson.godeye.core.installconfig.SmConfig;
+import cn.hikyson.godeye.core.installconfig.ThreadConfig;
+import cn.hikyson.godeye.core.installconfig.TrafficConfig;
+import cn.hikyson.godeye.monitor.GodEyeMonitor;
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.didichuxing.doraemonkit.DoraemonKit;
 import com.hss01248.dialog.StyledDialog;
 import com.kingja.loadsir.core.LoadSir;
 import com.rabtman.common.BuildConfig;
@@ -25,7 +42,6 @@ import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.SPUtils;
 import com.rabtman.common.utils.Utils;
 import com.rabtman.common.utils.constant.SPConstants;
-import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.socialize.Config;
@@ -37,6 +53,7 @@ import io.reactivex.plugins.RxJavaPlugins;
 import io.realm.Realm;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.inject.Inject;
 
 /**
@@ -122,10 +139,7 @@ public class CommonApplicationLike implements IApplicationLike {
     StyledDialog.init(mApplication);
 
     //leakCanary内存泄露检查
-    installLeakCanary();
-
-    //doraemon
-    installDoraemonKit();
+    //installLeakCanary();
 
     //rx全局异常处理
     setRxJavaErrorHandler();
@@ -151,6 +165,7 @@ public class CommonApplicationLike implements IApplicationLike {
     initToastyConfig();
     initX5Web();
     initUShare();
+    installGodEye();
   }
 
   /**
@@ -180,6 +195,8 @@ public class CommonApplicationLike implements IApplicationLike {
     if (mRefWatcher != null) {
       this.mRefWatcher = null;
     }
+
+    GodEyeMonitor.shutDown();
   }
 
   //Umeng Share
@@ -187,6 +204,43 @@ public class CommonApplicationLike implements IApplicationLike {
     Config.DEBUG = BuildConfig.DEBUG;
     QueuedWork.isUseThreadPool = false;
     UMShareAPI.init(mApplication, BuildConfig.UMENG_APP_KEY);
+  }
+
+  //AndroidGodEye
+  private void installGodEye() {
+    if (BuildConfig.DEBUG) {
+      GodEye.instance().init(mApplication);
+      GodEyeMonitor.injectAppInfoConext(new GodEyeMonitor.AppInfoConext() {
+        @Override
+        public Context getContext() {
+          return mApplication;
+        }
+
+        @Override
+        public Map<String, Object> getAppInfo() {
+          Map<String, Object> appInfo = new ArrayMap<>();
+          appInfo.put("ApplicationID", BuildConfig.applicationId);
+          appInfo.put("VersionName", BuildConfig.appVerName);
+          appInfo.put("VersionCode", BuildConfig.appVerCode);
+          appInfo.put("BuildType", BuildConfig.BUILD_TYPE);
+          return appInfo;
+        }
+      });
+      GodEye.instance()
+          .install(new BatteryConfig(mApplication))
+          .install(new CpuConfig())
+          .install(new CrashConfig(new CrashFileProvider(mApplication)))
+          .install(new FpsConfig(mApplication))
+          .install(new HeapConfig())
+          .install(new LeakConfig(mApplication, new RxPermissionRequest()))
+          .install(new PageloadConfig(mApplication))
+          .install(new PssConfig(mApplication))
+          .install(new RamConfig(mApplication))
+          .install(new SmConfig(mApplication))
+          .install(new ThreadConfig())
+          .install(new TrafficConfig());
+      GodEyeMonitor.work(mApplication);
+    }
   }
 
   private void initToastyConfig() {
@@ -222,19 +276,9 @@ public class CommonApplicationLike implements IApplicationLike {
   /**
    * 安装leakCanary检测内存泄露
    */
-  protected void installLeakCanary() {
+  /*protected void installLeakCanary() {
     this.mRefWatcher = BuildConfig.DEBUG ? LeakCanary.install(mApplication) : RefWatcher.DISABLED;
-  }
-
-  /**
-   * 安装DoraemonKit
-   */
-  private void installDoraemonKit() {
-    if (BuildConfig.DEBUG) {
-      DoraemonKit.install(mApplication);
-    }
-  }
-
+  }*/
 
   /**
    * 将app的全局配置信息封装进module(使用Dagger注入到需要配置信息的地方)

@@ -2,11 +2,10 @@ package com.rabtman.common.base;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.widget.Toast;
 import com.rabtman.common.R;
 import com.rabtman.common.base.mvp.IView;
 import com.rabtman.common.http.ApiException;
-import es.dmoral.toasty.Toasty;
+import com.rabtman.common.utils.ToastUtil;
 import io.reactivex.subscribers.ResourceSubscriber;
 import java.net.SocketTimeoutException;
 import retrofit2.HttpException;
@@ -76,16 +75,12 @@ public abstract class CommonSubscriber<T> extends ResourceSubscriber<T> {
       }
     } else if (mContext != null) {
       if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
-        Toasty.error(mContext, mErrorMsg, Toast.LENGTH_SHORT).show();
+        ToastUtil.show(mContext, mErrorMsg);
       } else if (e instanceof ApiException) {
-        Toasty.error(mContext, e.toString(), Toast.LENGTH_SHORT).show();
+        ToastUtil.show(mContext, e.toString());
       } else if (e instanceof HttpException) {
         int resString = handleHttpExceptionTips(e);
-        Toasty.error(
-            mContext,
-            mContext.getString(resString),
-            Toast.LENGTH_SHORT
-        ).show();
+        ToastUtil.show(mContext, mContext.getString(resString));
       }
     }
   }

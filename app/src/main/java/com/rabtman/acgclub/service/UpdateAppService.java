@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.widget.Toast;
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.rabtman.acgclub.BuildConfig;
@@ -17,8 +16,8 @@ import com.rabtman.acgclub.mvp.model.entity.VersionInfo;
 import com.rabtman.common.base.CommonSubscriber;
 import com.rabtman.common.utils.IntentUtils;
 import com.rabtman.common.utils.RxUtil;
+import com.rabtman.common.utils.ToastUtil;
 import com.rabtman.common.utils.Utils;
-import es.dmoral.toasty.Toasty;
 
 /**
  * @author Rabtman
@@ -55,21 +54,13 @@ public class UpdateAppService extends Service {
             if (versionInfo.getVersionCode() > BuildConfig.VERSION_CODE) { //比对版本信息
               if (TextUtils.isEmpty(versionInfo.getAppLink())) { //判断下载地址是否为空
                 if (isManual) { //如果是手动检查更新，则弹出异常提示
-                  Toasty.info(
-                      getBaseContext(),
-                      getString(R.string.msg_error_version_info),
-                      Toast.LENGTH_SHORT
-                  ).show();
+                  ToastUtil.show(getBaseContext(), getString(R.string.msg_error_version_info));
                 }
                 return;
               }
               showUpdateDialog(versionInfo);
             } else if (isManual) {
-              Toasty.info(
-                  getBaseContext(),
-                  getString(R.string.msg_no_version_info),
-                  Toast.LENGTH_SHORT
-              ).show();
+              ToastUtil.show(getBaseContext(), getString(R.string.msg_no_version_info));
             }
           }
         });

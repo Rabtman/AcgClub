@@ -143,10 +143,10 @@ dependencies {
     //umeng
     api rootProject.ext.dependencies["umeng"]
     //canary
-    debugImplementation rootProject.ext.dependencies["blockcanary-android"]
+    /*debugImplementation rootProject.ext.dependencies["blockcanary-android"]
     releaseImplementation rootProject.ext.dependencies["blockcanary-no-op"]
     debugImplementation rootProject.ext.dependencies["leakcanary-android"]
-    releaseImplementation rootProject.ext.dependencies["leakcanary-no-op"]
+    releaseImplementation rootProject.ext.dependencies["leakcanary-no-op"]*/
     //x5内核
     api files('libs/tbs_sdk.jar')
     //Umeng Share
@@ -159,6 +159,9 @@ dependencies {
     api files('libs/umeng_social_shareboard.jar')
     api files('libs/umeng_social_shareview.jar')
     api files('libs/umeng_social_tool.jar')
-    //doraemon
-    debugImplementation 'com.didichuxing.doraemonkit:doraemonkit:1.0.1'
+    //godeye
+    implementation 'cn.hikyson.godeye:godeye-core:' + GODEYE_VER
+    debugImplementation 'cn.hikyson.godeye:godeye-monitor:' + GODEYE_VER
+    releaseImplementation 'cn.hikyson.godeye:godeye-monitor-no-op:' + GODEYE_VER
+    implementation 'cn.hikyson.godeye:godeye-toolbox:' + GODEYE_VER
 }

@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import com.hss01248.dialog.StyledDialog;
@@ -20,10 +19,10 @@ import com.rabtman.common.base.widget.loadsir.EmptyCallback;
 import com.rabtman.common.base.widget.loadsir.LoadingCallback;
 import com.rabtman.common.base.widget.loadsir.RetryCallback;
 import com.rabtman.common.di.component.AppComponent;
+import com.rabtman.common.utils.ToastUtil;
 import com.rabtman.common.utils.Utils;
 import com.rabtman.common.utils.constant.StatusBarConstants;
 import com.umeng.analytics.MobclickAgent;
-import es.dmoral.toasty.Toasty;
 import me.yokeyword.fragmentation.SupportActivity;
 
 public abstract class SimpleActivity extends SupportActivity implements
@@ -159,7 +158,7 @@ public abstract class SimpleActivity extends SupportActivity implements
 
   @Override
   public void showMsg(String message) {
-    Toasty.info(mContext, message, Toast.LENGTH_SHORT).show();
+    ToastUtil.show(mContext, message);
   }
 
   @Override
@@ -170,7 +169,7 @@ public abstract class SimpleActivity extends SupportActivity implements
   @Override
   public void showError(String message) {
     hideLoading();
-    Toasty.error(mContext, message, Toast.LENGTH_SHORT).show();
+    ToastUtil.show(mContext, message);
   }
 
   protected void setStatusBar() {
