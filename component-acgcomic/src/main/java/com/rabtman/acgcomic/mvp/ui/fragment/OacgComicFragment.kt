@@ -22,9 +22,9 @@ import com.rabtman.acgcomic.mvp.ui.adapter.OacgComicItemAdpater
 import com.rabtman.common.base.BaseFragment
 import com.rabtman.common.base.widget.DropDownMenu
 import com.rabtman.common.di.component.AppComponent
+import com.rabtman.common.utils.ToastUtil
 import com.rabtman.router.RouterConstants
 import com.rabtman.router.RouterUtils
-import es.dmoral.toasty.Toasty
 
 
 /**
@@ -165,7 +165,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
         btnSearch.setOnClickListener {
             val keyword = etKeyword.text.toString()
             if (keyword.isEmpty()) {
-                Toasty.info(context, getString(R.string.acgcomic_msg_empty_comic_search))
+                ToastUtil.show(context, getString(R.string.acgcomic_msg_empty_comic_search))
             } else {
                 etKeyword.setText("")
                 mPresenter.searchComicInfos(keyword)

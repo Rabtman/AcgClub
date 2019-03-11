@@ -71,6 +71,9 @@ public class ScheduleDetailPresenter extends
 
               @Override
               public void onNext(ScheduleDetail scheduleDetail) {
+                if (TextUtils.isEmpty(scheduleDetail.getScheduleTitle())) {
+                  mView.showError(R.string.msg_error_url_null);
+                }
                 curScheduleCache.setScheduleUrl(currentScheduleUrl);
                 curScheduleCache.setName(scheduleDetail.getScheduleTitle());
                 curScheduleCache.setImgUrl(scheduleDetail.getImgUrl());

@@ -1,5 +1,6 @@
 package com.rabtman.acgschedule.mvp.presenter;
 
+import com.rabtman.acgschedule.base.constant.HtmlConstant;
 import com.rabtman.acgschedule.mvp.contract.ScheduleNewContract;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleNew;
 import com.rabtman.common.base.CommonSubscriber;
@@ -54,7 +55,8 @@ public class ScheduleNewPresenter extends
 
   //获取本季新番列表地址
   private String getScheduleNewUrl() {
-    StringBuilder urlBuilder = new StringBuilder("http://m.dilidili.wang/anime/");
+    StringBuilder urlBuilder = new StringBuilder(HtmlConstant.DILIDILI_URL);
+    urlBuilder.append("/anime/");
     Calendar cal = Calendar.getInstance();
     cal.setTimeInMillis(System.currentTimeMillis());
 

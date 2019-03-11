@@ -10,6 +10,19 @@ import io.reactivex.Flowable
  * acg图片模块所有契约类
  */
 
+interface AcgPictureMainContract {
+
+    interface View : IView {
+
+        fun showPictureType(types: List<AcgPictureType>)
+    }
+
+    interface Model : IModel {
+
+        fun getAcgPictureType(): Flowable<List<AcgPictureType>>
+    }
+}
+
 interface AcgPictureContract {
 
     interface View : IView {

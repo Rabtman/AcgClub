@@ -2,8 +2,10 @@ package com.rabtman.acgpicture.di
 
 import com.rabtman.acgpicture.mvp.APictureContract
 import com.rabtman.acgpicture.mvp.AcgPictureContract
+import com.rabtman.acgpicture.mvp.AcgPictureMainContract
 import com.rabtman.acgpicture.mvp.AnimatePictureContract
 import com.rabtman.acgpicture.mvp.model.APictureModel
+import com.rabtman.acgpicture.mvp.model.AcgPictureMainModel
 import com.rabtman.acgpicture.mvp.model.AcgPictureModel
 import com.rabtman.acgpicture.mvp.model.AnimatePictureModel
 import com.rabtman.common.di.scope.FragmentScope
@@ -13,6 +15,22 @@ import dagger.Provides
 /**
  * @author Rabtman
  */
+
+@Module
+class AcgPictureMainModule(private val view: AcgPictureMainContract.View) {
+
+    @FragmentScope
+    @Provides
+    internal fun providerAcgPictureMainView(): AcgPictureMainContract.View {
+        return this.view
+    }
+
+    @FragmentScope
+    @Provides
+    internal fun providerAcgPictureMainModel(model: AcgPictureMainModel): AcgPictureMainContract.Model {
+        return model
+    }
+}
 
 @Module
 class AcgPictureModule(private val view: AcgPictureContract.View) {

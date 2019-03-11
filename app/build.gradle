@@ -53,18 +53,6 @@ android {
         buildConfigField "String", "BUGLY_APP_ID", properties.getProperty("buglyAppId", "\"\"")
     }
 
-    //gradle 3.0 以下
-    /*android.applicationVariants.all { variant ->
-        variant.outputs.each { output ->
-            def outputFile = output.outputFile
-            if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                //这里修改apk文件名
-                def fileName = "${defaultConfig.applicationId}_base_v${defaultConfig.versionName}.apk"
-                output.outputFile = new File(outputFile.parent, fileName)
-            }
-        }
-    }*/
-
     //gradle 3.0
     android.applicationVariants.all { variant ->
         variant.outputs.all {

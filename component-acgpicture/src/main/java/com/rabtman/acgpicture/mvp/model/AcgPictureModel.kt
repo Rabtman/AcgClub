@@ -5,9 +5,11 @@ import com.rabtman.acgpicture.api.AcgPictureService
 import com.rabtman.acgpicture.api.cache.AcgPictureCacheService
 import com.rabtman.acgpicture.mvp.APictureContract
 import com.rabtman.acgpicture.mvp.AcgPictureContract
+import com.rabtman.acgpicture.mvp.AcgPictureMainContract
 import com.rabtman.acgpicture.mvp.AnimatePictureContract
 import com.rabtman.acgpicture.mvp.model.entity.APicturePage
 import com.rabtman.acgpicture.mvp.model.entity.AcgPictureItem
+import com.rabtman.acgpicture.mvp.model.entity.AcgPictureType
 import com.rabtman.acgpicture.mvp.model.entity.AnimatePicturePage
 import com.rabtman.common.base.mvp.BaseModel
 import com.rabtman.common.di.scope.FragmentScope
@@ -22,6 +24,19 @@ import javax.inject.Inject
 /**
  * @author Rabtman
  */
+@FragmentScope
+class AcgPictureMainModel @Inject
+constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), AcgPictureMainContract.Model {
+
+    override fun getAcgPictureType(): Flowable<List<AcgPictureType>> {
+        return Flowable.just(mRepositoryManager.obtainRetrofitService(AcgPictureService::class.java)
+                .getAcgPictureType())
+                .flatMap { typesFlowable ->
+                    mRepositoryManager.obtainCacheService(AcgPictureCacheService::class.java)
+                            .getAcgPictureType(typesFlowable)
+                }
+    }
+}
 
 @FragmentScope
 class AcgPictureModel @Inject

@@ -87,6 +87,10 @@ class APictureItem {
 
 }
 
+data class AcgPictureType(
+        @SerializedName("type") val type: String = "",
+        @SerializedName("name") val name: String = ""
+)
 
 data class AcgPictureItem(
         @SerializedName("imgUrls") val imgUrls: List<String> = listOf(),

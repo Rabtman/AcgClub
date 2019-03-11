@@ -158,7 +158,7 @@ WEIXIN_KEY=""
 * [`BlockCanary`](https://github.com/markzhai/AndroidPerformanceMonitor)
 * [`ARouter`](https://github.com/alibaba/ARouter)
 * [`DialogUtil`](https://github.com/hss01248/DialogUtil)
-* [`Toasty`](https://github.com/GrenderG/Toasty)
+* [`DToast`](https://github.com/Dovar66/DToast)
 * [`BaseRecyclerViewAdapterHelper`](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)
 * [`HtmlTextView`](https://github.com/PrivacyApps/html-textview)
 * [`MZBannerView`](https://github.com/pinguo-zhouwei/MZBannerView)

@@ -9,9 +9,14 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.rabtman.acgpicture.R
 import com.rabtman.acgpicture.R2
 import com.rabtman.acgpicture.base.constant.IntentConstant
-import com.rabtman.acgpicture.base.constant.SystemConstant
+import com.rabtman.acgpicture.di.AcgPictureMainModule
+import com.rabtman.acgpicture.di.DaggerAcgPictureMainComponent
+import com.rabtman.acgpicture.mvp.AcgPictureMainContract
+import com.rabtman.acgpicture.mvp.model.entity.AcgPictureType
+import com.rabtman.acgpicture.mvp.presenter.AcgPictureMainPresenter
 import com.rabtman.acgpicture.mvp.ui.adapter.AcgPictureMainPageAdapter
-import com.rabtman.common.base.SimpleFragment
+import com.rabtman.common.base.BaseFragment
+import com.rabtman.common.di.component.AppComponent
 import com.rabtman.router.RouterConstants
 import java.util.*
 
@@ -19,7 +24,7 @@ import java.util.*
  * @author Rabtman
  */
 @Route(path = RouterConstants.PATH_PICTURE_MAIN)
-class AcgPictureMainFragment : SimpleFragment() {
+class AcgPictureMainFragment : BaseFragment<AcgPictureMainPresenter>(), AcgPictureMainContract.View {
 
     @BindView(R2.id.tab_picture)
     internal lateinit var mTabLayout: TabLayout
@@ -33,7 +38,19 @@ class AcgPictureMainFragment : SimpleFragment() {
         return R.layout.acgpicture_fragment_picture_main
     }
 
+    override fun setupFragmentComponent(appComponent: AppComponent) {
+        DaggerAcgPictureMainComponent.builder()
+                .appComponent(appComponent)
+                .acgPictureMainModule(AcgPictureMainModule(this))
+                .build()
+                .inject(this)
+    }
+
     override fun initData() {
+        mPresenter.getAcgPictures()
+    }
+
+    override fun showPictureType(types: List<AcgPictureType>) {
         //animate-picture
         /*val animatePictureFragment = AnimatePictureFragment()
         fragments.add(animatePictureFragment)*/
@@ -41,15 +58,16 @@ class AcgPictureMainFragment : SimpleFragment() {
         /*val aPictureFragment = APictureFragment()
         fragments.add(aPictureFragment)*/
         //acg-picture
-        for (type in SystemConstant.ACG_PICTURE_TYPE) {
+        for (picType in types) {
             val acgPictureItemFragment = AcgPictureItemFragment()
             val args = Bundle()
-            args.putString(IntentConstant.ACGPICTURE_TYPE, type)
+            args.putString(IntentConstant.ACGPICTURE_TYPE, picType.type)
             acgPictureItemFragment.arguments = args
             fragments.add(acgPictureItemFragment)
         }
 
         mAdapter = AcgPictureMainPageAdapter(fragmentManager, fragments)
+        mAdapter.setPictureTypes(types)
         mViewPager.adapter = mAdapter
         mViewPager.offscreenPageLimit = 1
         mTabLayout.setupWithViewPager(mViewPager)

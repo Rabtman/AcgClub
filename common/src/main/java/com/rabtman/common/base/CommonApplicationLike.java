@@ -162,7 +162,6 @@ public class CommonApplicationLike implements IApplicationLike {
 
   public void onDefaultProcessCreate() {
     recordVersionCode();
-    initToastyConfig();
     initX5Web();
     initUShare();
     installGodEye();
@@ -241,18 +240,6 @@ public class CommonApplicationLike implements IApplicationLike {
           .install(new TrafficConfig());
       GodEyeMonitor.work(mApplication);
     }
-  }
-
-  private void initToastyConfig() {
-    /*Toasty.Config.getInstance()
-        .setErrorColor( @ColorInt int errorColor) // optional
-    .setInfoColor( @ColorInt int infoColor) // optional
-    .setSuccessColor( @ColorInt int successColor) // optional
-    .setWarningColor( @ColorInt int warningColor) // optional
-    .setTextColor( @ColorInt int textColor) // optional
-    .tintIcon( boolean tintIcon) // optional (apply textColor also to the icon)
-    .setToastTypeface(@NonNull Typeface typeface) // optional
-        .apply(); */
   }
 
   private void initX5Web() {

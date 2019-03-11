@@ -2,6 +2,7 @@ package com.rabtman.acgpicture.api
 
 import com.rabtman.acgpicture.base.constant.HtmlConstant
 import com.rabtman.acgpicture.mvp.model.entity.AcgPictureItem
+import com.rabtman.acgpicture.mvp.model.entity.AcgPictureType
 import com.rabtman.acgpicture.mvp.model.entity.AnimatePicturePage
 import com.rabtman.common.http.BaseResponse
 import io.reactivex.Flowable
@@ -24,6 +25,9 @@ interface AcgPictureService {
 
     @GET
     fun getParseResponse(@Url url: String): Flowable<ResponseBody>
+
+    @GET("picture/type")
+    fun getAcgPictureType(): Flowable<List<AcgPictureType>>
 
     @GET("category/{type}/pictures")
     fun getAcgPictures(@Path("type") type: String, @Query("offset") pageNo: Int): Flowable<BaseResponse<List<AcgPictureItem>>>
