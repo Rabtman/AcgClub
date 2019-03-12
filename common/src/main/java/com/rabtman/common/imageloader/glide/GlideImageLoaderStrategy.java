@@ -2,9 +2,16 @@ package com.rabtman.common.imageloader.glide;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.Nullable;
+import android.widget.ImageView;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.rabtman.common.imageloader.BaseImageLoaderStrategy;
+import com.rabtman.common.imageloader.ImageLoadListener;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
@@ -24,7 +31,8 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy<GlideIm
     if (config == null) {
       throw new NullPointerException("GlideImageConfig is required");
     }
-    if (config.getImageView() == null) {
+    final ImageView view = config.getImageView();
+    if (view == null) {
       throw new NullPointerException("Imageview is required");
     }
 
@@ -68,11 +76,31 @@ public class GlideImageLoaderStrategy implements BaseImageLoaderStrategy<GlideIm
       glideRequest.fallback(config.getFallback());
     }
 
+    final ImageLoadListener listener = config.getListener();
+    if (listener != null) {
+      glideRequest.listener(new RequestListener<Drawable>() {
+        @Override
+        public boolean onLoadFailed(@Nullable GlideException e, Object model,
+            Target<Drawable> target,
+            boolean isFirstResource) {
+          listener.loadFail(view, e);
+          return false;
+        }
+
+        @Override
+        public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target,
+            DataSource dataSource, boolean isFirstResource) {
+          listener.loadReady(view);
+          return false;
+        }
+      });
+    }
+
     if (config.getSize() != null && config.getSize()[0] > 0 && config.getSize()[0] > 0) {
       glideRequest.override(config.getSize()[0], config.getSize()[1]);
     }
 
     glideRequest
-        .into(config.getImageView());
+        .into(view);
   }
 }

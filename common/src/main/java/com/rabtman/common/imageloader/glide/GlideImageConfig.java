@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.widget.ImageView;
 import com.bumptech.glide.load.Transformation;
 import com.rabtman.common.imageloader.ImageConfig;
+import com.rabtman.common.imageloader.ImageLoadListener;
 
 /**
  * Glide配置信息
@@ -27,6 +28,7 @@ public class GlideImageConfig extends ImageConfig {
     this.url = builder.url;
     this.imageView = builder.imageView;
     this.placeholder = builder.placeholder;
+    this.listener = builder.listener;
     this.errorPic = builder.errorPic;
     this.fallback = builder.fallback;
     this.cacheStrategy = builder.cacheStrategy;
@@ -63,6 +65,7 @@ public class GlideImageConfig extends ImageConfig {
     private int fallback; //请求 url 为空,则使用此图片作为占位符
     private int cacheStrategy;
     private Transformation<Bitmap> transformation;//glide用它来改变图形的形状
+    private ImageLoadListener listener;   //图片加载进度监听
     private int[] size;
 
     private Buidler() {
@@ -101,6 +104,11 @@ public class GlideImageConfig extends ImageConfig {
 
     public Buidler transformation(Transformation<Bitmap> transformation) {
       this.transformation = transformation;
+      return this;
+    }
+
+    public Buidler listener(ImageLoadListener listener) {
+      this.listener = listener;
       return this;
     }
 

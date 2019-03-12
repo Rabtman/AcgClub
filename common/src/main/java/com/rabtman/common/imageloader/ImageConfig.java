@@ -8,6 +8,7 @@ public class ImageConfig {
   protected ImageView imageView;
   protected int placeholder;
   protected int errorPic;
+  protected ImageLoadListener listener;
 
 
   public String getUrl() {
@@ -24,5 +25,9 @@ public class ImageConfig {
 
   public int getErrorPic() {
     return errorPic;
+  }
+
+  public ImageLoadListener getListener() {
+    return listener;
   }
 }
