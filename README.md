@@ -25,9 +25,11 @@
 
 
 
-**宅社壁纸API正式上线！**=>点击了解详情 [中文](https://github.com/Rabtman/AcgClub/wiki/%E5%AE%85%E7%A4%BEAcgClub-API)|[EN](https://github.com/Rabtman/AcgClub/blob/master/documents/AcgClub-API.md)
+~~**宅社壁纸API正式上线！**~~
 
-[效果体验](https://rabtman.com/#/gallery)
+~~[效果体验]~~
+
+（API已停止提供服务）
 
 ## 预览
 
