@@ -14,6 +14,6 @@ public class SystemConstant {
   static {
     ACG_COLLECTION_TITLE = new ArrayList<>(2);
     ACG_COLLECTION_TITLE.add("番剧");
-    ACG_COLLECTION_TITLE.add("漫画");
+    //ACG_COLLECTION_TITLE.add("漫画");
   }
 }

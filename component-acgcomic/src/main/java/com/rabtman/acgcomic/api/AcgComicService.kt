@@ -22,9 +22,9 @@ interface AcgComicService {
     /**
      * 获取Oacg漫画列表信息
      */
-    @POST(HtmlConstant.OACG_URL + "index.php?m=Index&a=type_theme")
+    @POST(HtmlConstant.OACG_URL + "index.php?m=Index&a=get_topic_comic")
     @FormUrlEncoded
-    fun getOacgComicList(@Field("theme_id") themeId: Int, @Field("pageidx") pageNo: Int): Flowable<OacgComicPage>
+    fun getOacgComicList(@Field("topic_id") themeId: Int, @Field("page") pageNo: Int, @Field("size") pageSize: Int): Flowable<OacgComicPage>
 
     /**
      * 获取Oacg指定漫画所有话

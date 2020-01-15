@@ -6,6 +6,7 @@ import com.rabtman.acgschedule.base.constant.HtmlConstant;
 import com.rabtman.acgschedule.mvp.contract.ScheduleMainContract;
 import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo;
 import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheudleBanner;
+import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleWeek;
 import com.rabtman.common.base.mvp.BaseModel;
 import com.rabtman.common.di.scope.FragmentScope;
 import com.rabtman.common.integration.IRepositoryManager;
@@ -40,6 +41,18 @@ public class ScheduleMainModel extends BaseModel implements ScheduleMainContract
           e.onError(new Throwable("element html is null"));
         } else {
           DilidiliInfo dilidiliInfo = JP.from(html, DilidiliInfo.class);
+          Iterator<ScheduleWeek> scheudleWeekIterator = dilidiliInfo.getScheduleWeek().iterator();
+          while (scheudleWeekIterator.hasNext()) {
+            ScheduleWeek scheduleWeek = scheudleWeekIterator.next();
+            Iterator<ScheduleWeek.ScheduleItem> scheduleItemIterator = scheduleWeek
+                .getScheduleItems().iterator();
+            while (scheduleItemIterator.hasNext()) {
+              ScheduleWeek.ScheduleItem scheduleItem = scheduleItemIterator.next();
+              if (scheduleItem.getAnimeLink().contains("www.005.tv")) {
+                scheduleItemIterator.remove();
+              }
+            }
+          }
           Iterator<ScheudleBanner> scheudleBannerIterator = dilidiliInfo.getScheudleBanners()
               .iterator();
           while (scheudleBannerIterator.hasNext()) {

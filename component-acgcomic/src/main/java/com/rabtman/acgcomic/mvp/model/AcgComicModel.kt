@@ -41,7 +41,7 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
 
     override fun getComicInfos(themeId: Int, pageNo: Int): Flowable<OacgComicPage> {
         return mRepositoryManager.obtainRetrofitService(AcgComicService::class.java)
-                .getOacgComicList(themeId, pageNo)
+                .getOacgComicList(themeId, pageNo, 20)
     }
 }
 

@@ -4,10 +4,10 @@
     icon="@drawable/nav_schedule"
     id="@+id/nav_schedule"
     title="@string/nav_schedule" />
-  <tab
-    icon="@drawable/nav_comic"
-    id="@+id/nav_comic"
-    title="@string/nav_comic" />
+  <!--  <tab
+      icon="@drawable/nav_comic"
+      id="@+id/nav_comic"
+      title="@string/nav_comic" />-->
   <tab
     icon="@drawable/nav_picture"
     id="@+id/nav_picture"
