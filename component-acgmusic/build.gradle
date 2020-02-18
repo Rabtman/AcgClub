@@ -1,0 +1,7 @@
+apply from:"../base_component.gradle"
+apply from:"../base_component_kapt.gradle"
+apply plugin: 'realm-android'
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+}

@@ -33,5 +33,6 @@ public class RouterConstants {
   public static final String PATH_PICTURE_ITEM = "/acgpicture/item";
   public static final String PATH_PICTURE_ITEM_DETAIL = "/acgpicture/item/detail";
   public static final String PATH_PICTURE_ANIMATE = "/acgpicture/animate";
-
+  //acgmusic
+  public static final String PATH_MUSIC_RANDOM = "/acgmusic/random";
 }

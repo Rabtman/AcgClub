@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:background="@color/colorPrimaryLight">
+
+  <ImageView
+    android:id="@+id/image_music_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="centerCrop" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:padding="20dp">
+      <com.rabtman.acgmusic.mvp.ui.view.RotateImageView
+        android:id="@+id/image_music_logo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_centerInParent="true"
+        android:scaleType="centerCrop" />
+      <TextView
+        android:id="@+id/tv_music_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/image_music_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:textSize="16sp"
+        tools:text="歌名" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginLeft="20dp"
+      android:orientation="horizontal">
+      <TextView
+        android:id="@+id/tv_music_cur_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textSize="12sp" />
+      <SeekBar
+        android:id="@+id/seek_bar_music_progress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+      <TextView
+        android:id="@+id/tv_music_total_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:textSize="12sp" />
+      <Space
+        android:layout_width="20dp"
+        android:layout_height="1dp" />
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|center_horizontal"
+      android:orientation="horizontal"
+      android:padding="20dp">
+      <ToggleButton
+        android:id="@+id/btn_music_toggle"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/acgmusic_btn_play_or_pause"
+        android:textOff=""
+        android:textOn="" />
+      <Space
+        android:layout_width="60dp"
+        android:layout_height="10dp" />
+      <ImageButton
+        android:id="@+id/btn_music_next"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="#00000000"
+        android:scaleType="centerCrop"
+        android:src="@drawable/acgmusic_btn_next_music" />
+    </LinearLayout>
+
+  </LinearLayout>
+
+</FrameLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.rabtman.acgmusic">
+
+  <application
+    android:label="@string/acgmusic_module_name"
+    tools:replace="android:label">
+
+    <meta-data
+      android:name="com.rabtman.acgmusic.base.AcgMusicConfig"
+      android:value="ConfigModule" />
+
+    <service
+      android:name=".service.MusicPlayService"
+      android:enabled="true"
+      android:exported="true"
+      android:process=":music" />
+  </application>
+</manifest>

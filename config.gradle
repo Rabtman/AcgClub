@@ -17,6 +17,7 @@ ext {
             "acgnews",
             "acgschedule",
             //"acgcomic",
+            //"acgmusic",
             "acgpicture",
     ]
 
