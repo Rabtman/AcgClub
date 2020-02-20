@@ -154,7 +154,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
             .builder()
             .url(scheduleDetail.getImgUrl())
             .transformation(new BlurTransformation(25, 2))
-            .imagerView(imgScheduleTitleBg)
+            .imageView(imgScheduleTitleBg)
             .build()
     );
     //番剧展示图
@@ -162,7 +162,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
         GlideImageConfig
             .builder()
             .url(scheduleDetail.getImgUrl())
-            .imagerView(imgScheduleDetailIcon)
+            .imageView(imgScheduleDetailIcon)
             .build()
     );
     tvScheduleDetailLabel.setText(scheduleDetail.getScheduleLabel());

@@ -2,14 +2,37 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:background="@color/colorPrimaryLight">
+  android:layout_height="match_parent">
 
   <ImageView
     android:id="@+id/image_music_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:src="@drawable/acgmusic_shape_default_bg"
     android:scaleType="centerCrop" />
+
+  <ImageView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:alpha="0.7"
+    android:fitsSystemWindows="false"
+    android:src="@drawable/acgmusic_shape_default_bg" />
+
+  <RelativeLayout
+    android:id="@+id/layout_music_top"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/toolbar_height">
+
+    <ImageView
+      android:id="@+id/btn_music_back"
+      android:layout_width="36dp"
+      android:layout_height="36dp"
+      android:layout_centerVertical="true"
+      android:layout_marginLeft="8dp"
+      android:src="@drawable/ic_action_navigation_arrow_back_inverted" />
+
+  </RelativeLayout>
 
   <LinearLayout
     android:layout_width="match_parent"
@@ -19,14 +42,15 @@
     <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight="1"
-      android:padding="20dp">
+      android:layout_weight="1">
+
       <com.rabtman.acgmusic.mvp.ui.view.RotateImageView
         android:id="@+id/image_music_logo"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_centerInParent="true"
         android:scaleType="centerCrop" />
+
       <TextView
         android:id="@+id/tv_music_title"
         android:layout_width="wrap_content"
@@ -34,8 +58,9 @@
         android:layout_below="@id/image_music_logo"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:textSize="16sp"
+        android:layout_marginTop="24dp"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
         tools:text="歌名" />
 
     </RelativeLayout>
@@ -49,6 +74,7 @@
         android:id="@+id/tv_music_cur_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
         android:text="00:00"
         android:textSize="12sp" />
       <SeekBar
@@ -60,6 +86,7 @@
         android:id="@+id/tv_music_total_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@color/grey400"
         android:text="00:00"
         android:textSize="12sp" />
       <Space

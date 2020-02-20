@@ -22,7 +22,7 @@ class APictureItemAdapter(private val mImageLoader: ImageLoader) : BaseQuickAdap
                 GlideImageConfig
                         .builder()
                         .url(item.thumbUrl)
-                        .imagerView(helper.getView(R.id.pic_img) as ImageView)
+                        .imageView(helper.getView(R.id.pic_img) as ImageView)
                         .build()
         )
     }

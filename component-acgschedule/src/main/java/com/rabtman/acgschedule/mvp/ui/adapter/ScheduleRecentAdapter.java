@@ -31,7 +31,7 @@ public class ScheduleRecentAdapter extends BaseQuickAdapter<ScheduleRecent, Base
         GlideImageConfig
             .builder()
             .url(item.getImgUrl())
-            .imagerView((ImageView) helper.getView(R.id.img_schedule_recent))
+            .imageView((ImageView) helper.getView(R.id.img_schedule_recent))
             .build()
     );
   }

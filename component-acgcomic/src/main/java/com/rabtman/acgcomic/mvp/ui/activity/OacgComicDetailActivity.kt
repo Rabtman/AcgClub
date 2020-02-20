@@ -195,7 +195,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
                         .builder()
                         .url(HtmlConstant.OACG_IMG_URL + currentComicInfo?.comicPicUrl)
                         .transformation(BlurTransformation(25, 2))
-                        .imagerView(imgScheduleTitleBg)
+                        .imageView(imgScheduleTitleBg)
                         .build()
         )
         //番剧展示图
@@ -203,7 +203,7 @@ class OacgComicDetailActivity : BaseActivity<OacgComicDetailPresenter>(), OacgCo
                 GlideImageConfig
                         .builder()
                         .url(HtmlConstant.OACG_IMG_URL + currentComicInfo?.comicPicUrl)
-                        .imagerView(imgOacgComicDetail)
+                        .imageView(imgOacgComicDetail)
                         .build()
         )
         tvOacgComicDetailSpot.text = currentComicInfo?.comicTagName

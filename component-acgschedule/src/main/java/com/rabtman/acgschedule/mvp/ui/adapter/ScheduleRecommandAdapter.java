@@ -36,7 +36,7 @@ public class ScheduleRecommandAdapter extends BaseQuickAdapter<ScheduleRecommand
             .transformation(
                 new MultiTransformation<>(new CenterCrop(),
                     new RoundedCornersTransformation(20, 0)))
-            .imagerView((ImageView) helper.getView(R.id.img_schedule_recommand))
+            .imageView((ImageView) helper.getView(R.id.img_schedule_recommand))
             .build()
     );
   }

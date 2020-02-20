@@ -4,7 +4,7 @@ import com.rabtman.acgmusic.mvp.RandomMusicContract
 import com.rabtman.acgmusic.mvp.model.entity.MusicInfo
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
-import com.rabtman.common.di.scope.FragmentScope
+import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxUtil
 import javax.inject.Inject
@@ -12,7 +12,7 @@ import javax.inject.Inject
 /**
  * @author Rabtman
  */
-@FragmentScope
+@ActivityScope
 class RandomMusicPresenter
 @Inject constructor(model: RandomMusicContract.Model,
                     view: RandomMusicContract.View) : BasePresenter<RandomMusicContract.Model, RandomMusicContract.View>(model, view) {

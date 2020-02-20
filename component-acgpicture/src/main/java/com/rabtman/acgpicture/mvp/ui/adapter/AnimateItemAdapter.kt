@@ -20,7 +20,7 @@ class AnimateItemAdapter(private val mImageLoader: ImageLoader) : BaseQuickAdapt
                 GlideImageConfig
                         .builder()
                         .url(item.smallPreview)
-                        .imagerView(helper.getView(R.id.img_animate) as ImageView)
+                        .imageView(helper.getView(R.id.img_animate) as ImageView)
                         .build()
         )
     }

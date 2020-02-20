@@ -37,7 +37,7 @@ public class ScheduleCollectionAdapter extends
             .transformation(
                 new MultiTransformation<>(new CenterCrop(),
                     new RoundedCornersTransformation(DimenUtils.dpToPx(mContext, 4), 0)))
-            .imagerView((ImageView) helper.getView(R.id.img_schedule_collection))
+            .imageView((ImageView) helper.getView(R.id.img_schedule_collection))
             .build()
     );
   }

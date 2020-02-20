@@ -29,7 +29,7 @@ class ComicCollectionAdapter(private val mImageLoader: ImageLoader) : BaseQuickA
                         .transformation(
                                 MultiTransformation<Bitmap>(CenterCrop(),
                                         RoundedCornersTransformation(DimenUtils.dpToPx(mContext, 4f), 0)))
-                        .imagerView(helper.getView(R.id.img_comic_collection))
+                        .imageView(helper.getView(R.id.img_comic_collection))
                         .build()
         )
     }

@@ -161,6 +161,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                     .build(RouterConstants.PATH_COLLECTION)
                     .navigation();
                 break;
+              case R.id.nav_muisc:
+                RouterUtils.getInstance()
+                    .build(RouterConstants.PATH_MUSIC_RANDOM)
+                    .navigation();
+                break;
               case R.id.nav_setting:
                 RouterUtils.getInstance()
                     .build(RouterConstants.PATH_SETTING)

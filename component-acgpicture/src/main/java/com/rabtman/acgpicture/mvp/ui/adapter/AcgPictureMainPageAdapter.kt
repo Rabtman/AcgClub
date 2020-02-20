@@ -10,7 +10,7 @@ import com.rabtman.acgpicture.mvp.model.entity.AcgPictureType
  * @author rabtman
  */
 
-class AcgPictureMainPageAdapter(fragmentManager: FragmentManager,
+class AcgPictureMainPageAdapter(fragmentManager: FragmentManager?,
                                 private val fragments: List<Fragment>) : FragmentPagerAdapter(fragmentManager) {
 
     private var types: List<AcgPictureType> = listOf()
@@ -31,8 +31,8 @@ class AcgPictureMainPageAdapter(fragmentManager: FragmentManager,
         }
     }
 
-    override fun destroyItem(container: ViewGroup?, position: Int, `object`: Any) {
-        //super.destroyItem(container, position, object);
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
+        //super.destroyItem(container, position, `object`)
     }
 
     fun setPictureTypes(types: List<AcgPictureType>) {

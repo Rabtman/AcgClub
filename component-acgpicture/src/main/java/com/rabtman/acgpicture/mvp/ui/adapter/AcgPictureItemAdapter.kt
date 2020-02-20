@@ -20,7 +20,7 @@ class AcgPictureItemAdapter(private val mImageLoader: ImageLoader) : BaseQuickAd
                 GlideImageConfig
                         .builder()
                         .url(item.thumbnail)
-                        .imagerView(helper.getView(R.id.img_acgpicture_thumbnail) as ImageView)
+                        .imageView(helper.getView(R.id.img_acgpicture_thumbnail) as ImageView)
                         .build()
         )
     }

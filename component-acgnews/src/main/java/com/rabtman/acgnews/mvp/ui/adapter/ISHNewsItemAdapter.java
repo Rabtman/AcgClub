@@ -31,7 +31,7 @@ public class ISHNewsItemAdapter extends BaseQuickAdapter<SHPostItem, BaseViewHol
         GlideImageConfig
             .builder()
             .url(item.getThumb())
-            .imagerView((ImageView) helper.getView(R.id.news_img))
+            .imageView((ImageView) helper.getView(R.id.news_img))
             .build()
     );
   }

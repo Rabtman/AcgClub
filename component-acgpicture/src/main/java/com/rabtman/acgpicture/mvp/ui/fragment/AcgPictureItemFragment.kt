@@ -53,7 +53,7 @@ class AcgPictureItemFragment : BaseFragment<AcgPictureItemPresenter>(), AcgPictu
     }
 
     override fun initData() {
-        mPresenter.setAcgPictureType(arguments.getString(IntentConstant.ACGPICTURE_TYPE, "moeimg"))
+        mPresenter.setAcgPictureType(arguments!!.getString(IntentConstant.ACGPICTURE_TYPE, "moeimg"))
         mAdapter = AcgPictureItemAdapter(appComponent.imageLoader())
         mAdapter.setOnItemClickListener { adapter, view, position ->
             RouterUtils.getInstance()

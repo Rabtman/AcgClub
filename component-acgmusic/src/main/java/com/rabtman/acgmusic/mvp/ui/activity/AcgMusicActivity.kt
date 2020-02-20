@@ -1,14 +1,16 @@
-package com.rabtman.acgmusic.mvp.ui.fragment
+package com.rabtman.acgmusic.mvp.ui.activity
 
 
 import android.content.ComponentName
-import android.content.Context.BIND_AUTO_CREATE
 import android.content.Intent
 import android.content.ServiceConnection
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.IBinder
 import android.view.View
 import android.widget.SeekBar
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.jaeger.library.StatusBarUtil
 import com.rabtman.acgmusic.IMusicService
 import com.rabtman.acgmusic.IMusicStatusListener
 import com.rabtman.acgmusic.R
@@ -18,21 +20,21 @@ import com.rabtman.acgmusic.mvp.RandomMusicContract
 import com.rabtman.acgmusic.mvp.model.entity.MusicInfo
 import com.rabtman.acgmusic.mvp.presenter.RandomMusicPresenter
 import com.rabtman.acgmusic.service.MusicPlayService
-import com.rabtman.common.base.BaseFragment
+import com.rabtman.common.base.BaseActivity
 import com.rabtman.common.di.component.AppComponent
 import com.rabtman.common.imageloader.glide.GlideImageConfig
-import com.rabtman.common.imageloader.glide.transformations.BlurTransformation
 import com.rabtman.common.imageloader.glide.transformations.CircleTransformation
 import com.rabtman.common.utils.LogUtil
 import com.rabtman.router.RouterConstants
-import kotlinx.android.synthetic.main.acgmusic_fragment_random_music.*
+import jp.wasabeef.glide.transformations.BlurTransformation
+import kotlinx.android.synthetic.main.acgmusic_activity_random_music.*
 
 
 /**
  * @author Rabtman
  */
 @Route(path = RouterConstants.PATH_MUSIC_RANDOM)
-class AcgMusicFragment : BaseFragment<RandomMusicPresenter>(), RandomMusicContract.View, View.OnClickListener {
+class AcgMusicActivity : BaseActivity<RandomMusicPresenter>(), RandomMusicContract.View, View.OnClickListener {
 
     private var mSeekBarLock: Boolean = false
     private var mFirstPlay: Boolean = true
@@ -55,10 +57,10 @@ class AcgMusicFragment : BaseFragment<RandomMusicPresenter>(), RandomMusicContra
     }
 
     override fun getLayoutId(): Int {
-        return R.layout.acgmusic_fragment_random_music
+        return R.layout.acgmusic_activity_random_music
     }
 
-    override fun setupFragmentComponent(appComponent: AppComponent?) {
+    override fun setupActivityComponent(appComponent: AppComponent?) {
         DaggerRandomMusicComponent.builder()
                 .appComponent(appComponent)
                 .randomMusicModule(RandomMusicModule(this))
@@ -66,9 +68,16 @@ class AcgMusicFragment : BaseFragment<RandomMusicPresenter>(), RandomMusicContra
                 .inject(this)
     }
 
+    override fun setStatusBar() {
+        StatusBarUtil.setTransparentForImageView(this, layout_music_top)
+    }
+
     override fun initData() {
+        seek_bar_music_progress.thumb.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
+        seek_bar_music_progress.progressDrawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
         mContext.bindService(Intent(mContext, MusicPlayService::class.java), mConnection, BIND_AUTO_CREATE)
         btn_music_next.setOnClickListener(this)
+        btn_music_back.setOnClickListener(this)
         btn_music_toggle.setOnCheckedChangeListener { view, isChecked ->
             mIMusicService?.let {
                 if (isChecked) {
@@ -111,23 +120,31 @@ class AcgMusicFragment : BaseFragment<RandomMusicPresenter>(), RandomMusicContra
         tv_music_title.text = info.res.title
         seek_bar_music_progress.progress = 0
         tv_music_cur_time.text = "00:00"
+
         //模糊背景
-        appComponent.imageLoader().loadImage(mContext,
+        mAppComponent.imageLoader().loadImage(mContext,
                 GlideImageConfig
                         .builder()
-                        .url(info.res.animeInfo.bg)
-                        .transformation(BlurTransformation(25, 2))
-                        .imagerView(image_music_bg)
+                        .url(info.res.animeInfo.bg.ifEmpty { info.res.animeInfo.logo })
+                        //.url("http://i2.tiimg.com/669018/8444917812b84d81.jpg")
+                        .fallback(R.drawable.acgmusic_shape_default_bg)
+                        .errorPic(R.drawable.acgmusic_shape_default_bg)
+                        .transformation(
+                                BlurTransformation(15, 6)
+                        )
+                        .imageView(image_music_bg)
                         .build()
         )
         //音乐展示图
         image_music_logo.reset()
-        appComponent.imageLoader().loadImage(mContext,
+        mAppComponent.imageLoader().loadImage(mContext,
                 GlideImageConfig
                         .builder()
                         .url(info.res.animeInfo.logo)
+                        .fallback(R.drawable.ic_launcher_round)
+                        .errorPic(R.drawable.ic_launcher_round)
                         .transformation(CircleTransformation())
-                        .imagerView(image_music_logo)
+                        .imageView(image_music_logo)
                         .build()
         )
         mIMusicService?.let {
@@ -135,7 +152,7 @@ class AcgMusicFragment : BaseFragment<RandomMusicPresenter>(), RandomMusicContra
             it.next(info.res.playUrl)
             it.setMusicStatusListener(object : IMusicStatusListener.Stub() {
                 override fun onPrepareComplete(duration: Int) {
-                    activity.runOnUiThread {
+                    runOnUiThread {
                         seek_bar_music_progress.max = duration
                         tv_music_total_time.text = getTime(duration)
 
@@ -148,7 +165,7 @@ class AcgMusicFragment : BaseFragment<RandomMusicPresenter>(), RandomMusicContra
                 }
 
                 override fun onProgress(curPosition: Int) {
-                    activity.runOnUiThread {
+                    runOnUiThread {
                         seek_bar_music_progress.progress = curPosition
                         tv_music_cur_time.text = getTime(curPosition)
                     }
@@ -168,6 +185,9 @@ class AcgMusicFragment : BaseFragment<RandomMusicPresenter>(), RandomMusicContra
 
     override fun onClick(view: View?) {
         when (view!!.id) {
+            R.id.btn_music_back -> {
+                finish()
+            }
             R.id.btn_music_next -> {
                 mPresenter.getRandomMusic(true)
                 LogUtil.d("onClick next getRandomMusic")

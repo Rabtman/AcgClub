@@ -11,6 +11,10 @@
       android:name="com.rabtman.acgmusic.base.AcgMusicConfig"
       android:value="ConfigModule" />
 
+    <activity
+      android:name=".mvp.ui.activity.AcgMusicActivity"
+      android:screenOrientation="portrait" />
+
     <service
       android:name=".service.MusicPlayService"
       android:enabled="true"

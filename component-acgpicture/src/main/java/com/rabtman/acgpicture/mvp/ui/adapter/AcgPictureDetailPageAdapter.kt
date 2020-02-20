@@ -51,7 +51,7 @@ class AcgPictureDetailPageAdapter(private val mContext: Context,
                 GlideImageConfig
                         .builder()
                         .url(imgUrls[position])
-                        .imagerView(piv)
+                        .imageView(piv)
                         .build())
         container.addView(piv)
         return piv
@@ -69,7 +69,7 @@ class AcgPictureDetailPageAdapter(private val mContext: Context,
                 GlideImageConfig
                         .builder()
                         .url(imgUrls[position])
-                        .imagerView(piv)
+                        .imageView(piv)
                         .build())
     }
 

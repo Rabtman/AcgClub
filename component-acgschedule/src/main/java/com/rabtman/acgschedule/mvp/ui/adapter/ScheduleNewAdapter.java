@@ -39,7 +39,7 @@ public class ScheduleNewAdapter extends BaseQuickAdapter<ScheduleNewItem, BaseVi
             .transformation(
                 new MultiTransformation<>(new CenterCrop(),
                     new RoundedCornersTransformation(DimenUtils.dpToPx(mContext, 4), 0)))
-            .imagerView((ImageView) helper.getView(R.id.schedule_new_img))
+            .imageView((ImageView) helper.getView(R.id.schedule_new_img))
             .build()
     );
   }

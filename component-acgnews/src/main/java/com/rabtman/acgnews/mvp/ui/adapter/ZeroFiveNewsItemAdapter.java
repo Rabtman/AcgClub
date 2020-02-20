@@ -30,7 +30,7 @@ public class ZeroFiveNewsItemAdapter extends BaseQuickAdapter<ZeroFiveNews, Base
         GlideImageConfig
             .builder()
             .url(item.getImgUrl())
-            .imagerView((ImageView) helper.getView(R.id.news_img))
+            .imageView((ImageView) helper.getView(R.id.news_img))
             .build()
     );
   }

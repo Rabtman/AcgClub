@@ -3,10 +3,10 @@ ext {
     android = [
             organization     : "${organization}",
             applicationId    : "${organization}.acgclub",
-            compileSdkVersion: 26,
-            buildToolsVersion: "26.0.2",
+            compileSdkVersion: 27,
+            buildToolsVersion: "27.0.2",
             minSdkVersion    : 19,
-            targetSdkVersion : 26,
+            targetSdkVersion : 27,
             versionCode      : 6,
             versionName      : "0.4.2",
             resConfigs       : "zh"
@@ -22,10 +22,10 @@ ext {
     ]
 
     def dependVersion = [
-            support    : "26.1.0",
+            support    : "27.0.2",
             retrofit   : "2.3.0",
             okhttp     : "3.9.0",
-            glide      : "4.2.0",
+            glide      : "4.6.1",
             dagger2    : "2.14.1",
             butterknife: "8.8.1",
             blockcanary: "1.5.0",
@@ -69,6 +69,7 @@ ext {
             "okhttp-logging-interceptor": "com.squareup.okhttp3:logging-interceptor:${dependVersion.okhttp}",
             //image
             "glide"                     : "com.github.bumptech.glide:glide:${dependVersion.glide}",
+            "glide-transformations"     : "jp.wasabeef:glide-transformations:3.1.1",
             "glide-compiler"            : "com.github.bumptech.glide:compiler:${dependVersion.glide}",
             "glide-loader-okhttp3"      : "com.github.bumptech.glide:okhttp3-integration:${dependVersion.glide}",
             //rx

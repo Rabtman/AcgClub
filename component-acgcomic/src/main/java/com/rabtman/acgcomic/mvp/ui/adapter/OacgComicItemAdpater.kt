@@ -23,7 +23,7 @@ class OacgComicItemAdpater(private val imageLoader: ImageLoader) : BaseQuickAdap
             imageLoader.loadImage(mContext,
                     GlideImageConfig.builder()
                             .url(HtmlConstant.OACG_IMG_URL + item?.comicPicUrl)
-                            .imagerView(helper.getView(R.id.img_oacg_comic))
+                            .imageView(helper.getView(R.id.img_oacg_comic))
                             .build()
             )
         }

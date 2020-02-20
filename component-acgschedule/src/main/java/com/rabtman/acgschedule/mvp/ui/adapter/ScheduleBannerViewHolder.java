@@ -35,7 +35,7 @@ public class ScheduleBannerViewHolder implements MZViewHolder<ScheudleBanner> {
             GlideImageConfig
                 .builder()
                 .url(scheudleBanner.getImgUrl())
-                .imagerView(bannerImg)
+                .imageView(bannerImg)
                 .build());
     bannerTitle.setText(scheudleBanner.getName());
   }

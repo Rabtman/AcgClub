@@ -28,7 +28,7 @@ class OacgComicReadAdapter(private val imgageLoader: ImageLoader) : BaseQuickAda
                 GlideImageConfig
                         .builder()
                         .url(HtmlConstant.OACG_IMG_URL + item.pagerPic)
-                        .imagerView(helper.getView(R.id.img_oacg_comic_read))
+                        .imageView(helper.getView(R.id.img_oacg_comic_read))
                         .build()
         )
     }

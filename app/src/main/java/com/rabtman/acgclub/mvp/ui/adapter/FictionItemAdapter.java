@@ -27,7 +27,7 @@ public class FictionItemAdapter extends BaseQuickAdapter<FictionItem, BaseViewHo
         GlideImageConfig
             .builder()
             .url(item.getImgUrl())
-            .imagerView((ImageView) helper.getView(R.id.img_fiction))
+            .imageView((ImageView) helper.getView(R.id.img_fiction))
             .build()
     );
   }

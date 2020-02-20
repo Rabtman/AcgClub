@@ -52,7 +52,7 @@ class MusicPlayService : Service() {
                 progressDisposable = Flowable.interval(1, TimeUnit.SECONDS, Schedulers.io())
                         .subscribe({
                             if (mediaPlayer!!.duration > 0) {
-                                if (mediaPlayer!!.duration - mediaPlayer!!.currentPosition > 200) {
+                                if (mediaPlayer!!.duration - mediaPlayer!!.currentPosition > 500) {
                                     musicStatusListener!!.onProgress(mediaPlayer!!.currentPosition)
                                 } else {
                                     musicStatusListener!!.onCompleted()

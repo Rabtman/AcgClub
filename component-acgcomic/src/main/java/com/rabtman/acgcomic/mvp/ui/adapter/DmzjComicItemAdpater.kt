@@ -21,7 +21,7 @@ class DmzjComicItemAdpater(private val imageLoader: ImageLoader) : BaseQuickAdap
                     GlideImageConfig
                             .builder()
                             .url(HtmlConstant.DMZJ_IMG_URL + item?.cover)
-                            .imagerView(helper.getView(R.id.img_comic))
+                            .imageView(helper.getView(R.id.img_comic))
                             .build()
             )
         }

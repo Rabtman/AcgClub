@@ -30,7 +30,7 @@ public class ScheduleOtherAdapter extends
         GlideImageConfig
             .builder()
             .url(item.getImgUrl())
-            .imagerView((ImageView) helper.getView(R.id.img_schedule_other))
+            .imageView((ImageView) helper.getView(R.id.img_schedule_other))
             .build()
     );
   }
