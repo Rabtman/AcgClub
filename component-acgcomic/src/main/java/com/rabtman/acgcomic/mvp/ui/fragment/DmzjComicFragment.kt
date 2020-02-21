@@ -76,8 +76,8 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
     //初始化菜单布局
     private fun initDropDownMenu() {
         //题材
-        val topicView = RecyclerView(this.context)
-        topicView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
+        val topicView = RecyclerView(mContext)
+        topicView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey200))
         topicAdapter = ComicMenuAdapter(topic)
         topicAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             if (adapter is ComicMenuAdapter) {
@@ -87,11 +87,11 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
                 mPresenter.changeMenuSelected(0, position)
             }
         }
-        topicView.layoutManager = GridLayoutManager(this.context, 4)
+        topicView.layoutManager = GridLayoutManager(mContext, 4)
         topicView.adapter = topicAdapter
         //读者群
-        val groupView = RecyclerView(this.context)
-        groupView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
+        val groupView = RecyclerView(mContext)
+        groupView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey200))
         groupAdapter = ComicMenuAdapter(groups)
         groupAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             if (adapter is ComicMenuAdapter) {
@@ -101,11 +101,11 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
                 mPresenter.changeMenuSelected(1, position)
             }
         }
-        groupView.layoutManager = GridLayoutManager(this.context, 4)
+        groupView.layoutManager = GridLayoutManager(mContext, 4)
         groupView.adapter = groupAdapter
         //进度
-        val statusView = RecyclerView(this.context)
-        statusView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
+        val statusView = RecyclerView(mContext)
+        statusView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey200))
         statusAdapter = ComicMenuAdapter(status)
         statusAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             if (adapter is ComicMenuAdapter) {
@@ -115,11 +115,11 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
                 mPresenter.changeMenuSelected(2, position)
             }
         }
-        statusView.layoutManager = GridLayoutManager(this.context, 4)
+        statusView.layoutManager = GridLayoutManager(mContext, 4)
         statusView.adapter = statusAdapter
         //地域
-        val areaView = RecyclerView(this.context)
-        areaView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
+        val areaView = RecyclerView(mContext)
+        areaView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey200))
         areaAdapter = ComicMenuAdapter(area)
         areaAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             if (adapter is ComicMenuAdapter) {
@@ -129,11 +129,11 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
                 mPresenter.changeMenuSelected(3, position)
             }
         }
-        areaView.layoutManager = GridLayoutManager(this.context, 4)
+        areaView.layoutManager = GridLayoutManager(mContext, 4)
         areaView.adapter = areaAdapter
         //排序
-        /*val sortView = RecyclerView(this.context)
-        sortView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
+        /*val sortView = RecyclerView(mContext)
+        sortView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey200))
         sortAdapter = ComicMenuAdapter(sort)
         sortAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             if (adapter is ComicMenuAdapter) {
@@ -142,7 +142,7 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
                 mMenuComicMain.closeMenu()
             }
         }
-        sortView.layoutManager = GridLayoutManager(this.context, 4)
+        sortView.layoutManager = GridLayoutManager(mContext, 4)
         sortView.adapter = sortAdapter*/
         popupViews = listOf<View>(topicView, groupView, statusView, areaView)
     }
@@ -154,7 +154,7 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
         mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_dmzj_comic)
         mRcvComicMain = contentView.findViewById(R.id.rcv_dmzj_comic)
         mDmzjComicItemAdapter = DmzjComicItemAdpater(appComponent.imageLoader())
-        mRcvComicMain?.layoutManager = GridLayoutManager(this.context, 2)
+        mRcvComicMain?.layoutManager = GridLayoutManager(mContext, 2)
         mRcvComicMain?.adapter = mDmzjComicItemAdapter
 
         mSwipeRefresh?.setOnRefreshListener({ mPresenter.getComicInfos() })

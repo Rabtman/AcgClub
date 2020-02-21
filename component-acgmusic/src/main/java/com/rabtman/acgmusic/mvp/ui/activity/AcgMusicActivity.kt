@@ -14,14 +14,9 @@ import com.jaeger.library.StatusBarUtil
 import com.rabtman.acgmusic.IMusicService
 import com.rabtman.acgmusic.IMusicStatusListener
 import com.rabtman.acgmusic.R
-import com.rabtman.acgmusic.di.DaggerRandomMusicComponent
-import com.rabtman.acgmusic.di.RandomMusicModule
-import com.rabtman.acgmusic.mvp.RandomMusicContract
 import com.rabtman.acgmusic.mvp.model.entity.MusicInfo
-import com.rabtman.acgmusic.mvp.presenter.RandomMusicPresenter
 import com.rabtman.acgmusic.service.MusicPlayService
-import com.rabtman.common.base.BaseActivity
-import com.rabtman.common.di.component.AppComponent
+import com.rabtman.common.base.SimpleActivity
 import com.rabtman.common.imageloader.glide.GlideImageConfig
 import com.rabtman.common.imageloader.glide.transformations.CircleTransformation
 import com.rabtman.common.utils.LogUtil
@@ -34,7 +29,7 @@ import kotlinx.android.synthetic.main.acgmusic_activity_random_music.*
  * @author Rabtman
  */
 @Route(path = RouterConstants.PATH_MUSIC_RANDOM)
-class AcgMusicActivity : BaseActivity<RandomMusicPresenter>(), RandomMusicContract.View, View.OnClickListener {
+class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
 
     private var mSeekBarLock: Boolean = false
     private var mFirstPlay: Boolean = true
@@ -50,22 +45,53 @@ class AcgMusicActivity : BaseActivity<RandomMusicPresenter>(), RandomMusicContra
                 LogUtil.e("music service onServiceConnected fail !!!!!")
                 return
             }
-            mPresenter.getRandomMusic(false)
-            LogUtil.d("music service onServiceConnected getRandomMusic")
+            LogUtil.d("music service onServiceConnected getMusicInfo")
+            mIMusicService?.let {
+                it.setMusicStatusListener(mMusicStatusListener)
+                it.next()
+            }
         }
 
     }
 
-    override fun getLayoutId(): Int {
-        return R.layout.acgmusic_activity_random_music
+    private val mMusicStatusListener = object : IMusicStatusListener.Stub() {
+
+        override fun onPrepareComplete(info: MusicInfo) {
+            LogUtil.d("acitivty music info:" + info.toString())
+            runOnUiThread {
+                showMusicInfo(info)
+            }
+        }
+
+        override fun onMusicReady(duration: Int, playNow: Boolean) {
+            runOnUiThread {
+                seek_bar_music_progress.max = duration
+                tv_music_total_time.text = getTime(duration)
+                btn_music_toggle.isChecked = playNow
+                if (playNow) {
+                    image_music_logo.start()
+                }
+            }
+        }
+
+        override fun onProgress(curPosition: Int) {
+            runOnUiThread {
+                seek_bar_music_progress.progress = curPosition
+                tv_music_cur_time.text = getTime(curPosition)
+            }
+        }
+
+        override fun onFail() {
+
+        }
+
+        override fun onCompleted() {
+
+        }
     }
 
-    override fun setupActivityComponent(appComponent: AppComponent?) {
-        DaggerRandomMusicComponent.builder()
-                .appComponent(appComponent)
-                .randomMusicModule(RandomMusicModule(this))
-                .build()
-                .inject(this)
+    override fun getLayoutId(): Int {
+        return R.layout.acgmusic_activity_random_music
     }
 
     override fun setStatusBar() {
@@ -75,7 +101,6 @@ class AcgMusicActivity : BaseActivity<RandomMusicPresenter>(), RandomMusicContra
     override fun initData() {
         seek_bar_music_progress.thumb.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
         seek_bar_music_progress.progressDrawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
-        mContext.bindService(Intent(mContext, MusicPlayService::class.java), mConnection, BIND_AUTO_CREATE)
         btn_music_next.setOnClickListener(this)
         btn_music_back.setOnClickListener(this)
         btn_music_toggle.setOnCheckedChangeListener { view, isChecked ->
@@ -114,9 +139,15 @@ class AcgMusicActivity : BaseActivity<RandomMusicPresenter>(), RandomMusicContra
                 tv_music_cur_time.text = getTime(progress)
             }
         })
+        bindService(Intent(mContext, MusicPlayService::class.java), mConnection, BIND_AUTO_CREATE)
     }
 
-    override fun onLoadMusicSuccess(info: MusicInfo, ready2Play: Boolean) {
+    override fun onDestroy() {
+        unbindService(mConnection)
+        super.onDestroy()
+    }
+
+    private fun showMusicInfo(info: MusicInfo) {
         tv_music_title.text = info.res.title
         seek_bar_music_progress.progress = 0
         tv_music_cur_time.text = "00:00"
@@ -147,40 +178,6 @@ class AcgMusicActivity : BaseActivity<RandomMusicPresenter>(), RandomMusicContra
                         .imageView(image_music_logo)
                         .build()
         )
-        mIMusicService?.let {
-            LogUtil.d("mIMusicService next")
-            it.next(info.res.playUrl)
-            it.setMusicStatusListener(object : IMusicStatusListener.Stub() {
-                override fun onPrepareComplete(duration: Int) {
-                    runOnUiThread {
-                        seek_bar_music_progress.max = duration
-                        tv_music_total_time.text = getTime(duration)
-
-                        if (btn_music_toggle.isChecked) {
-                            image_music_logo.start()
-                            it.play()
-                        }
-                    }
-                    btn_music_toggle.isChecked = ready2Play
-                }
-
-                override fun onProgress(curPosition: Int) {
-                    runOnUiThread {
-                        seek_bar_music_progress.progress = curPosition
-                        tv_music_cur_time.text = getTime(curPosition)
-                    }
-                }
-
-                override fun onCompleted() {
-                    mPresenter.getRandomMusic(true)
-                    LogUtil.d("onCompleted getRandomMusic")
-                }
-            })
-        }
-    }
-
-    override fun onLoadMoreFail() {
-
     }
 
     override fun onClick(view: View?) {
@@ -189,8 +186,7 @@ class AcgMusicActivity : BaseActivity<RandomMusicPresenter>(), RandomMusicContra
                 finish()
             }
             R.id.btn_music_next -> {
-                mPresenter.getRandomMusic(true)
-                LogUtil.d("onClick next getRandomMusic")
+                mIMusicService?.next()
             }
         }
     }

@@ -92,8 +92,8 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
     //初始化菜单布局
     private fun initDropDownMenu() {
         //分类
-        val typeView = RecyclerView(this.context)
-        typeView.setBackgroundColor(ContextCompat.getColor(this.context, R.color.grey200))
+        val typeView = RecyclerView(mContext)
+        typeView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey200))
         typeAdapter = ComicMenuAdapter(type)
         typeAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
             if (adapter is ComicMenuAdapter) {
@@ -103,7 +103,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
                 mPresenter.getComicInfosByMenuSelected(if (position == 0) -1 else position)
             }
         }
-        typeView.layoutManager = GridLayoutManager(this.context, 4)
+        typeView.layoutManager = GridLayoutManager(mContext, 4)
         typeView.adapter = typeAdapter
         popupViews = listOf<View>(typeView)
     }
@@ -125,7 +125,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
                     .withParcelable(IntentConstant.OACG_COMIC_ITEM, oacgComicItem)
                     .navigation()
         }
-        mLayoutManager = LinearLayoutManager(this.context)
+        mLayoutManager = LinearLayoutManager(mContext)
         mRcvComicMain?.layoutManager = mLayoutManager
         mRcvComicMain?.adapter = mOacgComicItemAdapter
 

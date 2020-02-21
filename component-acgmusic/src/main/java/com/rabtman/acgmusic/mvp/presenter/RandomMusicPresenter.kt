@@ -1,17 +1,9 @@
 package com.rabtman.acgmusic.mvp.presenter
 
-import com.rabtman.acgmusic.mvp.RandomMusicContract
-import com.rabtman.acgmusic.mvp.model.entity.MusicInfo
-import com.rabtman.common.base.CommonSubscriber
-import com.rabtman.common.base.mvp.BasePresenter
-import com.rabtman.common.di.scope.ActivityScope
-import com.rabtman.common.utils.LogUtil
-import com.rabtman.common.utils.RxUtil
-import javax.inject.Inject
-
 /**
  * @author Rabtman
  */
+/*
 @ActivityScope
 class RandomMusicPresenter
 @Inject constructor(model: RandomMusicContract.Model,
@@ -38,4 +30,4 @@ class RandomMusicPresenter
                         })
         )
     }
-}
+}*/

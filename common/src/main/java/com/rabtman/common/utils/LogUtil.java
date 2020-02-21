@@ -22,6 +22,7 @@ public class LogUtil {
     mTag = tag;
     FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
         .tag(mTag)
+        .showThreadInfo(false)
         .build();
     Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
       @Override
