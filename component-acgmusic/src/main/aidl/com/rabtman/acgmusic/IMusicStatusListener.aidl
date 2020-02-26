@@ -4,9 +4,11 @@ import com.rabtman.acgmusic.mvp.model.entity.MusicInfo;
 
 interface IMusicStatusListener {
 
-    void onPrepareComplete(in MusicInfo info);
+    void onMusicPrepared(in MusicInfo info);
 
     void onMusicReady(int duration,boolean playNow);
+
+    void onPlayStatusChange(boolean isPlaying);
 
     void onProgress(int curPosition);
 

@@ -15,9 +15,13 @@ interface IMusicService {
 
     int getCurPosition();
 
+    int getDuration();
+
     boolean isPlaying();
 
     MusicInfo getMusicInfo();
 
-    oneway void setMusicStatusListener(IMusicStatusListener listener);
+    oneway void registerMusicStatusListener(IMusicStatusListener listener);
+
+    oneway void unregisterMusicStatusListener();
 }

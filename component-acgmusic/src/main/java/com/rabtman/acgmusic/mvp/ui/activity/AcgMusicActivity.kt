@@ -20,7 +20,11 @@ import com.rabtman.common.base.SimpleActivity
 import com.rabtman.common.imageloader.glide.GlideImageConfig
 import com.rabtman.common.imageloader.glide.transformations.CircleTransformation
 import com.rabtman.common.utils.LogUtil
+import com.rabtman.common.utils.RxUtil
 import com.rabtman.router.RouterConstants
+import io.reactivex.BackpressureStrategy
+import io.reactivex.Flowable
+import io.reactivex.functions.BiFunction
 import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlinx.android.synthetic.main.acgmusic_activity_random_music.*
 
@@ -46,9 +50,31 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
                 return
             }
             LogUtil.d("music service onServiceConnected getMusicInfo")
-            mIMusicService?.let {
-                it.setMusicStatusListener(mMusicStatusListener)
-                it.next()
+            mIMusicService?.let { musicService ->
+                Flowable.zip(Flowable.create({ emitter ->
+                    val info = musicService.musicInfo
+                    if (info == null) {
+                        emitter.onNext(MusicInfo())
+                    } else {
+                        emitter.onNext(info)
+                    }
+                    emitter.onComplete()
+                }, BackpressureStrategy.BUFFER), Flowable.just(musicService.isPlaying),
+                        BiFunction<MusicInfo, Boolean, Pair<MusicInfo, Boolean>> { info, isPlaying ->
+                            Pair(info, isPlaying)
+                        })
+                        .compose(RxUtil.rxSchedulerHelper())
+                        .subscribe {
+                            if (it.first.code == 0) {
+                                showMusicInfo(it.first)
+                                seek_bar_music_progress.max = musicService.duration
+                                tv_music_total_time.text = getTime(seek_bar_music_progress.max)
+                                btn_music_toggle.isChecked = it.second
+                            } else {
+                                musicService.next()
+                            }
+                            musicService.registerMusicStatusListener(mMusicStatusListener)
+                        }
             }
         }
 
@@ -56,7 +82,7 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
 
     private val mMusicStatusListener = object : IMusicStatusListener.Stub() {
 
-        override fun onPrepareComplete(info: MusicInfo) {
+        override fun onMusicPrepared(info: MusicInfo) {
             LogUtil.d("acitivty music info:" + info.toString())
             runOnUiThread {
                 showMusicInfo(info)
@@ -68,9 +94,15 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
                 seek_bar_music_progress.max = duration
                 tv_music_total_time.text = getTime(duration)
                 btn_music_toggle.isChecked = playNow
-                if (playNow) {
+                /*if (playNow) {
                     image_music_logo.start()
-                }
+                }*/
+            }
+        }
+
+        override fun onPlayStatusChange(isPlaying: Boolean) {
+            runOnUiThread {
+                btn_music_toggle.isChecked = isPlaying
             }
         }
 
@@ -123,13 +155,11 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
             var pro: Int = 0
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-                // TODO Auto-generated method stub
                 mSeekBarLock = false
                 mIMusicService?.seekTo(pro)
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar) {
-                // TODO Auto-generated method stub
                 mSeekBarLock = true
             }
 
@@ -143,6 +173,7 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
     }
 
     override fun onDestroy() {
+        mIMusicService?.unregisterMusicStatusListener()
         unbindService(mConnection)
         super.onDestroy()
     }

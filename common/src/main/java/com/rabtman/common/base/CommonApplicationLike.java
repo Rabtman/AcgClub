@@ -18,6 +18,7 @@ import cn.hikyson.godeye.core.installconfig.RamConfig;
 import cn.hikyson.godeye.core.installconfig.SmConfig;
 import cn.hikyson.godeye.core.installconfig.ThreadConfig;
 import cn.hikyson.godeye.core.installconfig.TrafficConfig;
+import cn.hikyson.godeye.core.internal.modules.leakdetector.canary.android.LeakCanary;
 import cn.hikyson.godeye.monitor.GodEyeMonitor;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hss01248.dialog.StyledDialog;
@@ -42,7 +43,6 @@ import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.SPUtils;
 import com.rabtman.common.utils.Utils;
 import com.rabtman.common.utils.constant.SPConstants;
-import com.squareup.leakcanary.RefWatcher;
 import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
@@ -76,7 +76,6 @@ public class CommonApplicationLike implements IApplicationLike {
   private Application mApplication;
   private AppComponent mAppComponent;
   private List<Lifecycle> mLifecycles = new ArrayList<>();
-  private RefWatcher mRefWatcher;//leakCanary观察器
 
   public CommonApplicationLike(Application application) {
     this.mApplication = application;
@@ -139,7 +138,7 @@ public class CommonApplicationLike implements IApplicationLike {
     StyledDialog.init(mApplication);
 
     //leakCanary内存泄露检查
-    //installLeakCanary();
+    LeakCanary.install(mApplication);
 
     //rx全局异常处理
     setRxJavaErrorHandler();
@@ -191,10 +190,7 @@ public class CommonApplicationLike implements IApplicationLike {
       lifecycle.onTerminate(mApplication);
     }
 
-    if (mRefWatcher != null) {
-      this.mRefWatcher = null;
-    }
-
+    LeakCanary.uninstall();
     GodEyeMonitor.shutDown();
   }
 
@@ -259,13 +255,6 @@ public class CommonApplicationLike implements IApplicationLike {
       }
     });
   }
-
-  /**
-   * 安装leakCanary检测内存泄露
-   */
-  /*protected void installLeakCanary() {
-    this.mRefWatcher = BuildConfig.DEBUG ? LeakCanary.install(mApplication) : RefWatcher.DISABLED;
-  }*/
 
   /**
    * 将app的全局配置信息封装进module(使用Dagger注入到需要配置信息的地方)
