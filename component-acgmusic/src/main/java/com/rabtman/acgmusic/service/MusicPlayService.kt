@@ -18,6 +18,7 @@ import com.rabtman.acgmusic.IMusicStatusListener
 import com.rabtman.acgmusic.R
 import com.rabtman.acgmusic.api.AcgMusicService
 import com.rabtman.acgmusic.mvp.model.entity.MusicInfo
+import com.rabtman.acgmusic.mvp.ui.activity.AcgMusicActivity
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.imageloader.glide.GlideApp
 import com.rabtman.common.utils.LogUtil
@@ -43,14 +44,18 @@ class MusicPlayService : Service() {
 
     private val NOTIFICATION_ACTION_NEXT: String = "ACTION_NEXT"
 
+    private val NOTIFICATION_ACTION_CLOSE: String = "ACTION_CLOSE"
+
     private var mediaPlayer: MediaPlayer? = null
 
+    //第一次播放音乐
     private var firstTimePlay: Boolean = true
 
     private var musicStatusListener: IMusicStatusListener? = null
 
     private var progressDisposable: Disposable? = null
 
+    //当前音乐信息
     private var mMusicInfo: MusicInfo? = null
 
     private lateinit var notificationManager: NotificationManager
@@ -58,6 +63,8 @@ class MusicPlayService : Service() {
     private var musicNotification: Notification? = null
 
     private var mRemoteView: RemoteViews? = null
+
+    private var mBigRemoteView: RemoteViews? = null
 
     private val mIMusicServiceAidl = object : IMusicService.Stub() {
         override fun play() {
@@ -68,6 +75,7 @@ class MusicPlayService : Service() {
                 mediaPlayer!!.start()
                 musicStatusListener?.onPlayStatusChange(true)
                 getRemoteView().setImageViewResource(R.id.btn_music_toggle, R.drawable.ic_notification_pause)
+                getBigRemoteView().setImageViewResource(R.id.btn_music_toggle, R.drawable.ic_notification_pause)
                 startForeground(NOTIFICATION_MUSIC_ID, getMusicNotification())
             }
         }
@@ -77,6 +85,7 @@ class MusicPlayService : Service() {
                 mediaPlayer!!.pause()
                 musicStatusListener?.onPlayStatusChange(false)
                 getRemoteView().setImageViewResource(R.id.btn_music_toggle, R.drawable.ic_notification_play)
+                getBigRemoteView().setImageViewResource(R.id.btn_music_toggle, R.drawable.ic_notification_play)
                 startForeground(NOTIFICATION_MUSIC_ID, getMusicNotification())
             }
         }
@@ -115,6 +124,9 @@ class MusicPlayService : Service() {
         }
     }
 
+    /**
+     * 通知栏操作接收
+     */
     private val musicReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             when (intent.action) {
@@ -127,6 +139,11 @@ class MusicPlayService : Service() {
                 }
                 NOTIFICATION_ACTION_NEXT -> {
                     mIMusicServiceAidl.next()
+                }
+                NOTIFICATION_ACTION_CLOSE -> {
+                    stopForeground(true)
+                    stopService()
+                    musicStatusListener?.onClosed()
                 }
             }
         }
@@ -143,10 +160,14 @@ class MusicPlayService : Service() {
         IntentFilter().run {
             this.addAction(NOTIFICATION_ACTION_NEXT)
             this.addAction(NOTIFICATION_ACTION_PLAY_OR_PAUSE)
+            this.addAction(NOTIFICATION_ACTION_CLOSE)
             registerReceiver(musicReceiver, this)
         }
     }
 
+    /**
+     * 获取音乐通知栏，不存在则进行初始化
+     */
     private fun getMusicNotification(): Notification {
         if (musicNotification == null) {
             val builder: NotificationCompat.Builder
@@ -161,18 +182,28 @@ class MusicPlayService : Service() {
             builder.setContentTitle("AcgClubMusic")
             builder.setContentText("AcgClubMusic Notification")
             builder.setContent(getRemoteView())
+            builder.setCustomContentView(getRemoteView())
+            builder.setCustomBigContentView(getBigRemoteView())
             builder.setOngoing(true)
             builder.setOnlyAlertOnce(false)
             builder.setAutoCancel(false)
             builder.setVibrate(LongArray(1) { 0 })
             builder.setSound(null)
             builder.setDefaults(Notification.DEFAULT_VIBRATE)
+            builder.setContentIntent(
+                    PendingIntent.getActivity(
+                            this,
+                            1,
+                            Intent(this, AcgMusicActivity::class.java),
+                            PendingIntent.FLAG_UPDATE_CURRENT)
+            )
             musicNotification = builder.build()
             musicNotification!!.flags = NotificationCompat.FLAG_FOREGROUND_SERVICE
         }
         return musicNotification as Notification
     }
 
+    //Android O 通知栏新增channel设置
     @TargetApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel() {
         val channel = NotificationChannel(NOTIFICATION_MUSIC_CHANNEL_ID, NOTIFICATION_MUSIC_CHANNEL_NAME,
@@ -185,19 +216,39 @@ class MusicPlayService : Service() {
         channel.setSound(null, null)
         channel.group //获取通知取到组
         channel.setBypassDnd(true) //设置可绕过 请勿打扰模式
-        //channel.vibrationPattern = longArrayOf(100, 100, 200) //设置震动模式
         notificationManager.createNotificationChannel(channel)
     }
 
+    //自定义通知栏布局
     private fun getRemoteView(): RemoteViews {
         if (mRemoteView == null) {
-            mRemoteView = RemoteViews(packageName, R.layout.acgmusic_view_notifcation)
-            mRemoteView!!.setOnClickPendingIntent(R.id.btn_music_toggle, getPendingIntent(NOTIFICATION_ACTION_PLAY_OR_PAUSE))
-            mRemoteView!!.setOnClickPendingIntent(R.id.btn_music_next, getPendingIntent(NOTIFICATION_ACTION_NEXT))
+            mRemoteView = initRemoteView(R.layout.acgmusic_view_custom_notifcation)
         }
         return mRemoteView as RemoteViews
     }
 
+    //自定义通知栏展开布局
+    private fun getBigRemoteView(): RemoteViews {
+        if (mBigRemoteView == null) {
+            mBigRemoteView = initRemoteView(R.layout.acgmusic_view_big_notifcation)
+        }
+        return mBigRemoteView as RemoteViews
+    }
+
+    /**
+     * 初始化自定义通知栏布局
+     */
+    private fun initRemoteView(layoutId: Int): RemoteViews {
+        val remoteView = RemoteViews(packageName, layoutId)
+        remoteView.setOnClickPendingIntent(R.id.btn_music_toggle, getPendingIntent(NOTIFICATION_ACTION_PLAY_OR_PAUSE))
+        remoteView.setOnClickPendingIntent(R.id.btn_music_next, getPendingIntent(NOTIFICATION_ACTION_NEXT))
+        remoteView.setOnClickPendingIntent(R.id.btn_music_close, getPendingIntent(NOTIFICATION_ACTION_CLOSE))
+        return remoteView
+    }
+
+    /**
+     * 更新通知栏信息
+     */
     private fun updateRemoteViewInfo() {
         mRemoteView = getRemoteView()
         mRemoteView!!.setTextViewText(R.id.tv_music_title, mMusicInfo!!.res.title)
@@ -208,13 +259,24 @@ class MusicPlayService : Service() {
                 .error(R.drawable.ic_launcher_round)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(NotificationTarget(this, R.id.img_music_logo, mRemoteView, getMusicNotification(), NOTIFICATION_MUSIC_ID))
+
+        mBigRemoteView = getBigRemoteView()
+        mBigRemoteView!!.setTextViewText(R.id.tv_music_title, mMusicInfo!!.res.title)
+        GlideApp.with(this)
+                .asBitmap()
+                .load(mMusicInfo!!.res.animeInfo.logo)
+                .fallback(R.drawable.ic_launcher_round)
+                .error(R.drawable.ic_launcher_round)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(NotificationTarget(this, R.id.img_music_logo, mBigRemoteView, getMusicNotification(), NOTIFICATION_MUSIC_ID))
     }
 
     private fun getPendingIntent(action: String): PendingIntent {
         return PendingIntent.getBroadcast(this, 0, Intent(action), PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
+    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        LogUtil.d("MusicPlayService onStartCommand")
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -238,9 +300,13 @@ class MusicPlayService : Service() {
         mCompositeDisposable.dispose()
         unregisterReceiver(musicReceiver)
         mediaPlayer!!.release()
+        //stopForeground()
         super.onDestroy()
     }
 
+    /**
+     * 网络请求下一首随机音乐信息
+     */
     private fun getRandomMusic() {
         mCompositeDisposable.add(Utils.getAppComponent().repositoryManager().obtainRetrofitService(AcgMusicService::class.java)
                 .getRandomSong()
@@ -251,9 +317,6 @@ class MusicPlayService : Service() {
                         if (musicInfo.code == 0) {
                             mMusicInfo = musicInfo
                             musicStatusListener?.onMusicPrepared(musicInfo)
-                            /*if (firstTimePlay) {
-                                startForeground(NOTIFICATION_MUSIC_ID, getMusicNotification())
-                            }*/
                             updateRemoteViewInfo()
                             startForeground(NOTIFICATION_MUSIC_ID, getMusicNotification())
                             progressDisposable?.dispose()
@@ -268,7 +331,7 @@ class MusicPlayService : Service() {
                                             if (mediaPlayer!!.duration - mediaPlayer!!.currentPosition > 500) {
                                                 musicStatusListener?.onProgress(mediaPlayer!!.currentPosition)
                                             } else {
-                                                musicStatusListener?.onCompleted()
+                                                musicStatusListener?.onMusicEnd()
                                                 progressDisposable?.dispose()
                                                 //播放完毕，播放下一首
                                                 getRandomMusic()
@@ -281,6 +344,9 @@ class MusicPlayService : Service() {
                                 musicStatusListener?.onMusicReady(mediaPlayer!!.duration, !firstTimePlay)
                                 if (!firstTimePlay) {
                                     mediaPlayer!!.start()
+                                    getRemoteView().setImageViewResource(R.id.btn_music_toggle, R.drawable.ic_notification_pause)
+                                    getBigRemoteView().setImageViewResource(R.id.btn_music_toggle, R.drawable.ic_notification_pause)
+                                    startForeground(NOTIFICATION_MUSIC_ID, getMusicNotification())
                                 }
                             }
                         } else {
@@ -294,5 +360,15 @@ class MusicPlayService : Service() {
                     }
                 })
         )
+    }
+
+    companion object {
+        fun startService() {
+            Utils.getApp().startService(Intent(Utils.getApp(), MusicPlayService::class.java))
+        }
+
+        fun stopService() {
+            Utils.getApp().stopService(Intent(Utils.getApp(), MusicPlayService::class.java))
+        }
     }
 }

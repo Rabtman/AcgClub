@@ -37,19 +37,23 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
 
     private var mSeekBarLock: Boolean = false
     private var mFirstPlay: Boolean = true
+    private var isServiceBind: Boolean = false
     private var mIMusicService: IMusicService? = null
-    private val mConnection = object : ServiceConnection {
+    private val mConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {
             LogUtil.d("music service onServiceDisconnected")
+            isServiceBind = false
         }
 
         override fun onServiceConnected(name: ComponentName?, binder: IBinder?) {
             mIMusicService = IMusicService.Stub.asInterface(binder)
             if (mIMusicService == null || binder == null || !binder.isBinderAlive) {
                 LogUtil.e("music service onServiceConnected fail !!!!!")
+                mIMusicService = null
                 return
             }
             LogUtil.d("music service onServiceConnected getMusicInfo")
+            isServiceBind = true
             mIMusicService?.let { musicService ->
                 Flowable.zip(Flowable.create({ emitter ->
                     val info = musicService.musicInfo
@@ -69,6 +73,7 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
                                 showMusicInfo(it.first)
                                 seek_bar_music_progress.max = musicService.duration
                                 tv_music_total_time.text = getTime(seek_bar_music_progress.max)
+                                btn_music_toggle.isEnabled = true
                                 btn_music_toggle.isChecked = it.second
                             } else {
                                 musicService.next()
@@ -91,12 +96,13 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
 
         override fun onMusicReady(duration: Int, playNow: Boolean) {
             runOnUiThread {
+                btn_music_toggle.isEnabled = true
                 seek_bar_music_progress.max = duration
                 tv_music_total_time.text = getTime(duration)
                 btn_music_toggle.isChecked = playNow
-                /*if (playNow) {
+                if (playNow) {
                     image_music_logo.start()
-                }*/
+                }
             }
         }
 
@@ -117,8 +123,21 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
 
         }
 
-        override fun onCompleted() {
+        override fun onMusicEnd() {
 
+        }
+
+        override fun onClosed() {
+            mContext.unbindService(mConnection)
+            MusicPlayService.stopService()
+            isServiceBind = false
+            runOnUiThread {
+                btn_music_toggle.isEnabled = false
+                btn_music_toggle.isChecked = false
+                seek_bar_music_progress.progress = 0
+                tv_music_cur_time.text = "00:00"
+                image_music_logo.reset()
+            }
         }
     }
 
@@ -130,21 +149,23 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
         StatusBarUtil.setTransparentForImageView(this, layout_music_top)
     }
 
+    var test: Boolean = false
+
     override fun initData() {
+        test.let {
+
+        }
+        MusicPlayService.startService()
         seek_bar_music_progress.thumb.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
         seek_bar_music_progress.progressDrawable.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP)
         btn_music_next.setOnClickListener(this)
         btn_music_back.setOnClickListener(this)
         btn_music_toggle.setOnCheckedChangeListener { view, isChecked ->
+            if (!isServiceBind) return@setOnCheckedChangeListener
             mIMusicService?.let {
                 if (isChecked) {
                     it.play()
-                    if (mFirstPlay) {
-                        mFirstPlay = false
-                        image_music_logo.start()
-                    } else {
-                        image_music_logo.resume()
-                    }
+                    image_music_logo.start()
                 } else {
                     it.pause()
                     image_music_logo.pause()
@@ -212,12 +233,18 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        when (view!!.id) {
+        when (view?.id) {
             R.id.btn_music_back -> {
                 finish()
             }
             R.id.btn_music_next -> {
-                mIMusicService?.next()
+                btn_music_toggle.isEnabled = false
+                if (isServiceBind) {
+                    mIMusicService?.next()
+                } else {
+                    MusicPlayService.startService()
+                    bindService(Intent(mContext, MusicPlayService::class.java), mConnection, BIND_AUTO_CREATE)
+                }
             }
         }
     }

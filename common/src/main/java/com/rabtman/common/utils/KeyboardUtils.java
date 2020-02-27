@@ -50,7 +50,7 @@ public final class KeyboardUtils {
    */
   public static void showSoftInput(final View view) {
     InputMethodManager imm =
-        (InputMethodManager) Utils.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
     if (imm == null) {
       return;
     }
@@ -85,7 +85,7 @@ public final class KeyboardUtils {
    */
   public static void hideSoftInput(final View view) {
     InputMethodManager imm =
-        (InputMethodManager) Utils.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
     if (imm == null) {
       return;
     }
@@ -97,7 +97,7 @@ public final class KeyboardUtils {
    */
   public static void toggleSoftInput() {
     InputMethodManager imm =
-        (InputMethodManager) Utils.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
     if (imm == null) {
       return;
     }
@@ -169,7 +169,7 @@ public final class KeyboardUtils {
       return;
     }
     InputMethodManager imm =
-        (InputMethodManager) Utils.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        (InputMethodManager) Utils.getApp().getSystemService(Context.INPUT_METHOD_SERVICE);
     if (imm == null) {
       return;
     }

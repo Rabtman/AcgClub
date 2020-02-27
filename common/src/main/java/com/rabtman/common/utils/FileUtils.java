@@ -64,7 +64,7 @@ public final class FileUtils {
     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
       return new File(Environment.getExternalStorageDirectory(), filePath);
     }
-    return new File(getCacheFile(Utils.getContext()).getAbsolutePath(), filePath);
+    return new File(getCacheFile(Utils.getApp()).getAbsolutePath(), filePath);
   }
 
   /**

@@ -14,7 +14,7 @@ public class SystemUtils {
    */
   public static String getCurProcessName() {
     int pid = android.os.Process.myPid();
-    ActivityManager activityManager = (ActivityManager) Utils.getContext()
+    ActivityManager activityManager = (ActivityManager) Utils.getApp()
         .getSystemService(Context.ACTIVITY_SERVICE);
     if (activityManager != null) {
       for (ActivityManager.RunningAppProcessInfo appProcess : activityManager

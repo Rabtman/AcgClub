@@ -4,7 +4,7 @@
   android:id="@+id/layout_music_notification"
   android:layout_width="match_parent"
   android:layout_height="140dp"
-  android:background="@android:color/white">
+  android:paddingRight="16dp">
 
   <ImageView
     android:id="@+id/img_music_logo"
@@ -13,28 +13,33 @@
     android:scaleType="centerCrop"
     tools:src="@drawable/ic_launcher_round" />
 
-  <LinearLayout
+  <RelativeLayout
     android:id="@+id/layout_music_ctl"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignBottom="@id/img_music_logo"
     android:layout_toRightOf="@id/img_music_logo"
-    android:gravity="center"
-    android:orientation="horizontal"
+    android:layout_marginLeft="8dp"
     android:padding="8dp">
     <ImageView
       android:id="@+id/btn_music_toggle"
       android:layout_width="36dp"
       android:layout_height="36dp"
-      android:layout_marginRight="24dp"
       android:src="@drawable/ic_notification_play" />
     <ImageView
       android:id="@+id/btn_music_next"
       android:layout_width="36dp"
       android:layout_height="36dp"
-      android:layout_marginLeft="24dp"
+      android:layout_centerHorizontal="true"
       android:src="@drawable/ic_notification_next" />
-  </LinearLayout>
+
+    <ImageView
+      android:id="@+id/btn_music_close"
+      android:layout_width="36dp"
+      android:layout_height="36dp"
+      android:layout_alignParentRight="true"
+      android:src="@drawable/ic_notification_close" />
+  </RelativeLayout>
 
   <ImageView
     android:layout_width="match_parent"
@@ -54,7 +59,7 @@
     android:ellipsize="end"
     android:gravity="center"
     android:maxLines="1"
-    android:textColor="@android:color/black"
+    style="@style/TextAppearance.Compat.Notification.Title"
     android:textSize="18sp"
     android:textStyle="bold"
     tools:text="歌名" />

@@ -12,7 +12,9 @@ interface IMusicStatusListener {
 
     void onProgress(int curPosition);
 
+    void onMusicEnd();
+
     void onFail();
 
-    void onCompleted();
+    void onClosed();
 }

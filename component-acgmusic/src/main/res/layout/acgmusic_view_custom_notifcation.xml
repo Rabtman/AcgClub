@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/layout_music_notification"
+  android:layout_width="match_parent"
+  android:layout_height="64dp"
+  android:paddingRight="16dp">
+
+  <ImageView
+    android:id="@+id/img_music_logo"
+    android:layout_width="64dp"
+    android:layout_height="64dp"
+    android:scaleType="centerCrop"
+    tools:src="@drawable/ic_launcher_round" />
+
+  <RelativeLayout
+    android:id="@+id/layout_music_ctl"
+    android:layout_width="135dp"
+    android:layout_height="match_parent"
+    android:layout_alignParentRight="true"
+    android:gravity="center_vertical">
+    <ImageView
+      android:id="@+id/btn_music_close"
+      android:layout_width="32dp"
+      android:layout_height="32dp"
+      android:layout_alignParentRight="true"
+      android:src="@drawable/ic_notification_close" />
+    <ImageView
+      android:id="@+id/btn_music_next"
+      android:layout_width="32dp"
+      android:layout_height="32dp"
+      android:layout_centerHorizontal="true"
+      android:src="@drawable/ic_notification_next" />
+    <ImageView
+      android:id="@+id/btn_music_toggle"
+      android:layout_width="32dp"
+      android:layout_height="32dp"
+      android:src="@drawable/ic_notification_play" />
+  </RelativeLayout>
+
+  <TextView
+    android:id="@+id/tv_music_title"
+    style="@style/TextAppearance.Compat.Notification.Title"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:layout_toLeftOf="@id/layout_music_ctl"
+    android:layout_toRightOf="@id/img_music_logo"
+    android:ellipsize="end"
+    android:gravity="center"
+    android:maxLines="1"
+    android:textSize="18sp"
+    android:textStyle="bold"
+    tools:text="歌名" />
+
+</RelativeLayout>

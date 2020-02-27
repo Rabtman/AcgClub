@@ -42,7 +42,7 @@ public final class NetworkUtils {
    * Open the settings of wireless.
    */
   public static void openWirelessSettings() {
-    Utils.getContext().startActivity(
+    Utils.getApp().startActivity(
         new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS)
             .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     );
@@ -69,7 +69,7 @@ public final class NetworkUtils {
   public static boolean getMobileDataEnabled() {
     try {
       TelephonyManager tm =
-          (TelephonyManager) Utils.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+          (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
       if (tm == null) {
         return false;
       }
@@ -95,7 +95,7 @@ public final class NetworkUtils {
   public static void setMobileDataEnabled(final boolean enabled) {
     try {
       TelephonyManager tm =
-          (TelephonyManager) Utils.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+          (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
       if (tm == null) {
         return;
       }
@@ -149,7 +149,7 @@ public final class NetworkUtils {
   @RequiresPermission(ACCESS_WIFI_STATE)
   public static boolean getWifiEnabled() {
     @SuppressLint("WifiManagerLeak")
-    WifiManager manager = (WifiManager) Utils.getContext().getSystemService(Context.WIFI_SERVICE);
+    WifiManager manager = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
     return manager != null && manager.isWifiEnabled();
   }
 
@@ -163,7 +163,7 @@ public final class NetworkUtils {
   @SuppressLint("MissingPermission")
   public static void setWifiEnabled(final boolean enabled) {
     @SuppressLint("WifiManagerLeak")
-    WifiManager manager = (WifiManager) Utils.getContext().getSystemService(Context.WIFI_SERVICE);
+    WifiManager manager = (WifiManager) Utils.getApp().getSystemService(Context.WIFI_SERVICE);
     if (manager == null) {
       return;
     }
@@ -188,7 +188,7 @@ public final class NetworkUtils {
   @SuppressLint("MissingPermission")
   public static boolean isWifiConnected() {
     ConnectivityManager cm =
-        (ConnectivityManager) Utils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
     return cm != null
         && cm.getActiveNetworkInfo() != null
         && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI;
@@ -201,7 +201,7 @@ public final class NetworkUtils {
    */
   public static String getNetworkOperatorName() {
     TelephonyManager tm =
-        (TelephonyManager) Utils.getContext().getSystemService(Context.TELEPHONY_SERVICE);
+        (TelephonyManager) Utils.getApp().getSystemService(Context.TELEPHONY_SERVICE);
     return tm != null ? tm.getNetworkOperatorName() : null;
   }
 
@@ -275,7 +275,7 @@ public final class NetworkUtils {
   @RequiresPermission(ACCESS_NETWORK_STATE)
   private static NetworkInfo getActiveNetworkInfo() {
     ConnectivityManager manager =
-        (ConnectivityManager) Utils.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        (ConnectivityManager) Utils.getApp().getSystemService(Context.CONNECTIVITY_SERVICE);
     if (manager == null) {
       return null;
     }

@@ -21,15 +21,15 @@ class RotateImageView @JvmOverloads constructor(internal var context: Context, a
     }
 
     fun start() {
-        ratoteAnimator.start()
+        if (ratoteAnimator.isStarted) {
+            ratoteAnimator.resume()
+        } else {
+            ratoteAnimator.start()
+        }
     }
 
     fun pause() {
         ratoteAnimator.pause()
-    }
-
-    fun resume() {
-        ratoteAnimator.resume()
     }
 
     fun reset() {

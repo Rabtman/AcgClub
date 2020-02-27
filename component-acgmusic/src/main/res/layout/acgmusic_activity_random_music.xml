@@ -107,6 +107,7 @@
         android:layout_height="48dp"
         android:background="@drawable/acgmusic_btn_play_or_pause"
         android:checked="false"
+        android:enabled="false"
         android:textOff=""
         android:textOn="" />
       <Space
