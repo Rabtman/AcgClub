@@ -2,6 +2,7 @@ package com.rabtman.common.base.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -33,6 +34,7 @@ public class X5VideoWebView extends WebView {
     super(context, attributeSet);
     this.mContext = context;
     initWebViewSettings();
+    this.setBackgroundColor(Color.BLACK);
     this.getView().setClickable(true);
   }
 

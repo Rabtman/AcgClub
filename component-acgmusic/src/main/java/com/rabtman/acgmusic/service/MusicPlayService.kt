@@ -327,7 +327,7 @@ class MusicPlayService : Service() {
                             //mediaPlayer!!.isLooping = true // 循环播放
                             progressDisposable = Flowable.interval(1, TimeUnit.SECONDS, Schedulers.io())
                                     .subscribe({
-                                        if (mediaPlayer!!.duration > 0) {
+                                        if (mediaPlayer!!.isPlaying && mediaPlayer!!.duration > 0) {
                                             if (mediaPlayer!!.duration - mediaPlayer!!.currentPosition > 500) {
                                                 musicStatusListener?.onProgress(mediaPlayer!!.currentPosition)
                                             } else {

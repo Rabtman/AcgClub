@@ -176,7 +176,7 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
     //番剧介绍
     String desc = scheduleDetail.getDescription();
     if (!TextUtils.isEmpty(desc)) {
-      tvScheduleDetailDescription.setText(desc);
+      tvScheduleDetailDescription.setText(desc.replace("简介：", ""));
     } else {
       layoutSceduleDescription.setVisibility(android.view.View.GONE);
     }

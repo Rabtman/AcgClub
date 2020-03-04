@@ -17,9 +17,9 @@
   <uses-permission android:name="android.permission.CALL_PHONE" />
 
   <application
+    android:name=".AcgScheduleApplication"
     android:icon="@drawable/ic_launcher"
     android:label="@string/acgschedule_module_name"
-    android:name=".AcgScheduleApplication"
     android:roundIcon="@drawable/ic_launcher_round"
     android:theme="@style/AppTheme"
     tools:replace="android:label">
@@ -41,9 +41,20 @@
       android:name="com.rabtman.acgschedule.mvp.ui.activity.ScheduleOtherActivity"
       android:screenOrientation="portrait" />
     <activity
-      android:configChanges="orientation|screenSize|keyboardHidden"
       android:name="com.rabtman.acgschedule.mvp.ui.activity.ScheduleVideoActivity"
-      android:screenOrientation="portrait" />
+      android:configChanges="orientation|screenSize|keyboardHidden"
+      android:theme="@style/AppWithoutAnim" />
+    <activity
+      android:name="com.tencent.smtt.sdk.VideoActivity"
+      android:alwaysRetainTaskState="true"
+      android:configChanges="orientation|screenSize|keyboardHidden"
+      android:exported="false"
+      android:launchMode="singleTask">
+      <intent-filter>
+        <action android:name="com.tencent.smtt.tbs.video.PLAY" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
     <activity
       android:name="com.rabtman.acgschedule.mvp.ui.activity.ScheduleDetailActivity"
       android:screenOrientation="portrait" />

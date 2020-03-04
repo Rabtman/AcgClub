@@ -18,6 +18,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.R2;
+import com.rabtman.acgschedule.R2.id;
 import com.rabtman.acgschedule.base.constant.HtmlConstant;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
 import com.rabtman.acgschedule.di.component.DaggerScheduleMainComponent;
@@ -25,12 +26,10 @@ import com.rabtman.acgschedule.di.module.ScheduleMainModule;
 import com.rabtman.acgschedule.mvp.contract.ScheduleMainContract.View;
 import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo;
 import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleRecent;
-import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleRecommand;
+import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleRecommend;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleWeek;
 import com.rabtman.acgschedule.mvp.presenter.ScheduleMainPresenter;
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleDetailActivity;
-import com.rabtman.acgschedule.mvp.ui.activity.ScheduleNewActivity;
-import com.rabtman.acgschedule.mvp.ui.activity.ScheduleOtherActivity;
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleTimeActivity;
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleVideoActivity;
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleBannerViewHolder;
@@ -39,6 +38,7 @@ import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleRecommandAdapter;
 import com.rabtman.common.base.BaseFragment;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.router.RouterConstants;
+import com.rabtman.router.RouterUtils;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.MZBannerView.BannerPageClickListener;
@@ -63,8 +63,8 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
   MZBannerView bannerSchedule;
   @BindView(R2.id.tv_schedule_time)
   TextView tvScheduleTime;
-  @BindView(R2.id.tv_schedule_new)
-  TextView tvScheduleNew;
+  @BindView(id.tv_schedule_music)
+  TextView tvScheduleMusic;
   @BindView(R2.id.layout_schedule_recommand)
   RelativeLayout layoutScheduleRecommand;
   @BindView(R2.id.rcv_schedule_recommand)
@@ -140,25 +140,25 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
         startActivity(newIntent);
       }
     });
-    //本季新番
-    tvScheduleNew.setOnClickListener(new OnClickListener() {
+    //音乐电台
+    tvScheduleMusic.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(android.view.View v) {
-        Intent newIntent = new Intent(getContext(), ScheduleNewActivity.class);
-        //newIntent.putExtra(IntentConstant.SCHEDULE_NEW_URL, dilidiliInfo.getScheduleNewLink());
-        startActivity(newIntent);
+        RouterUtils.getInstance()
+            .build(RouterConstants.PATH_MUSIC_RANDOM)
+            .navigation();
       }
     });
     //轮播栏
-    if (dilidiliInfo.getScheudleBanners() != null && dilidiliInfo.getScheudleBanners().size() > 0) {
+    if (dilidiliInfo.getScheduleBanners() != null && dilidiliInfo.getScheduleBanners().size() > 0) {
       bannerSchedule.setIndicatorVisible(false);
       bannerSchedule.setBannerPageClickListener(new BannerPageClickListener() {
         @Override
         public void onPageClick(android.view.View view, int i) {
-          startToScheduleVideo(dilidiliInfo.getScheudleBanners().get(i).getAnimeLink());
+          startToScheduleDetail(dilidiliInfo.getScheduleBanners().get(i).getAnimeLink());
         }
       });
-      bannerSchedule.setPages(dilidiliInfo.getScheudleBanners(), new MZHolderCreator() {
+      bannerSchedule.setPages(dilidiliInfo.getScheduleBanners(), new MZHolderCreator() {
         @Override
         public MZViewHolder createViewHolder() {
           return new ScheduleBannerViewHolder();
@@ -169,17 +169,17 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
       bannerSchedule.setVisibility(android.view.View.GONE);
     }
     //近期推荐
-    if (dilidiliInfo.getScheduleRecommands() != null
-        && dilidiliInfo.getScheduleRecommands().size() > 0) {
+    if (dilidiliInfo.getScheduleRecommends() != null
+        && dilidiliInfo.getScheduleRecommends().size() > 0) {
       LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
       linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
       ScheduleRecommandAdapter scheduleRecommandAdapter = new ScheduleRecommandAdapter(
-          getAppComponent().imageLoader(), dilidiliInfo.getScheduleRecommands());
+          getAppComponent().imageLoader(), dilidiliInfo.getScheduleRecommends());
       scheduleRecommandAdapter.setOnItemClickListener(new OnItemClickListener() {
         @Override
         public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
-          ScheduleRecommand scheduleRecommand = (ScheduleRecommand) adapter.getItem(position);
-          startToScheduleDetail(scheduleRecommand.getAnimeLink());
+          ScheduleRecommend scheduleRecommend = (ScheduleRecommend) adapter.getItem(position);
+          startToScheduleDetail(scheduleRecommend.getAnimeLink());
         }
       });
       rcvScheduleRecommand.setLayoutManager(linearLayoutManager);
@@ -191,7 +191,7 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
     gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
     ScheduleRecentAdapter scheduleRecentAdapter = new ScheduleRecentAdapter(
-        getAppComponent().imageLoader(), dilidiliInfo.getScheduleRecents());
+        getAppComponent().imageLoader(), dilidiliInfo.getScheduleRecent());
     scheduleRecentAdapter.setOnItemClickListener(new OnItemClickListener() {
       @Override
       public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
@@ -211,26 +211,16 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
       Intent detailIntent = new Intent(getContext(), ScheduleDetailActivity.class);
       detailIntent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL, url);
       startActivity(detailIntent);
-    } else if (url.contains("watch")) {
-      mPresenter.checkPermission2ScheduleVideo(rxPermissions, url);
     } else {
-      Intent otherIntent = new Intent(getContext(), ScheduleOtherActivity.class);
-      otherIntent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL, url);
-      startActivity(otherIntent);
+      mPresenter.checkPermission2ScheduleVideo(rxPermissions, url);
     }
-  }
-
-  private void startToScheduleVideo(String url) {
-    Intent intent = new Intent(getContext(), ScheduleVideoActivity.class);
-    intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL,
-        url.startsWith("http") ? url : HtmlConstant.DILIDILI_URL + url);
-    startActivity(intent);
   }
 
   @Override
   public void start2ScheduleVideo(String videoUrl) {
     Intent intent = new Intent(mContext, ScheduleVideoActivity.class);
-    intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL, videoUrl);
+    intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL,
+        videoUrl.startsWith("http") ? videoUrl : HtmlConstant.DILIDILI_URL + videoUrl);
     startActivity(intent);
   }
 }

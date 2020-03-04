@@ -12,7 +12,7 @@ public interface ScheduleVideoContract {
 
   interface View extends IView {
 
-    void showScheduleVideo(String videoLink, String videoUrl);
+    void showScheduleVideo(String videoUrl, boolean isVideo);
   }
 
   interface Model extends IModel {

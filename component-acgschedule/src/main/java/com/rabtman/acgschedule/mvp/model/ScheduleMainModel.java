@@ -5,7 +5,7 @@ import com.fcannizzaro.jsoup.annotations.JP;
 import com.rabtman.acgschedule.base.constant.HtmlConstant;
 import com.rabtman.acgschedule.mvp.contract.ScheduleMainContract;
 import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo;
-import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheudleBanner;
+import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleBanner;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleWeek;
 import com.rabtman.common.base.mvp.BaseModel;
 import com.rabtman.common.di.scope.FragmentScope;
@@ -53,13 +53,13 @@ public class ScheduleMainModel extends BaseModel implements ScheduleMainContract
               }
             }
           }
-          Iterator<ScheudleBanner> scheudleBannerIterator = dilidiliInfo.getScheudleBanners()
+          Iterator<ScheduleBanner> scheudleBannerIterator = dilidiliInfo.getScheduleBanners()
               .iterator();
           while (scheudleBannerIterator.hasNext()) {
-            ScheudleBanner scheudleBanner = scheudleBannerIterator.next();
-            if (TextUtils.isEmpty(scheudleBanner.getName()) |
-                TextUtils.isEmpty(scheudleBanner.getImgUrl()) |
-                TextUtils.isEmpty(scheudleBanner.getAnimeLink())) {
+            ScheduleBanner scheudleBanner = scheudleBannerIterator.next();
+            if (TextUtils.isEmpty(scheudleBanner.getImgUrl()) |
+                TextUtils.isEmpty(scheudleBanner.getAnimeLink()) |
+                !scheudleBanner.getAnimeLink().contains("anime")) {
               scheudleBannerIterator.remove();
             }
           }

@@ -7,22 +7,17 @@ import com.fcannizzaro.jsoup.annotations.interfaces.Selector;
 import com.fcannizzaro.jsoup.annotations.interfaces.Text;
 import java.util.List;
 
-@Selector("main")
+@Selector("div.main")
 public class DilidiliInfo {
 
-  //本季新番
-  /*@Text("div div div.mainMenu ul li:last-of-type a span")
-  private String scheduleNewName;
-  @Attr(flowableExec = "div div div.mainMenu ul li:last-of-type a", attr = "href")
-  private String scheduleNewLink;*/
   @Items
-  private List<ScheudleBanner> scheudleBanners; //轮播栏信息
+  private List<ScheduleBanner> scheduleBanners; //轮播栏信息
   @Items
-  private List<ScheduleRecommand> scheduleRecommands; //近期推荐
+  private List<ScheduleRecommend> scheduleRecommends; //近期推荐
   @Items
   private List<ScheduleWeek> scheduleWeek;  //追番时间表
   @Items
-  private List<ScheduleRecent> scheduleRecents;  //最近更新
+  private List<ScheduleRecent> scheduleRecent;  //最近更新
 
   public List<ScheduleWeek> getScheduleWeek() {
     return scheduleWeek;
@@ -32,71 +27,59 @@ public class DilidiliInfo {
     this.scheduleWeek = scheduleWeek;
   }
 
-  public List<ScheudleBanner> getScheudleBanners() {
-    return scheudleBanners;
+  public List<ScheduleBanner> getScheduleBanners() {
+    return scheduleBanners;
   }
 
-  public void setScheudleBanners(
-      List<ScheudleBanner> scheudleBanners) {
-    this.scheudleBanners = scheudleBanners;
+  public void setScheduleBanners(
+      List<ScheduleBanner> scheduleBanners) {
+    this.scheduleBanners = scheduleBanners;
   }
 
-  public List<ScheduleRecommand> getScheduleRecommands() {
-    return scheduleRecommands;
+  public List<ScheduleRecommend> getScheduleRecommends() {
+    return scheduleRecommends;
   }
 
-  public void setScheduleRecommands(
-      List<ScheduleRecommand> scheduleRecommands) {
-    this.scheduleRecommands = scheduleRecommands;
+  public void setScheduleRecommends(
+      List<ScheduleRecommend> scheduleRecommends) {
+    this.scheduleRecommends = scheduleRecommends;
   }
 
-  public List<ScheduleRecent> getScheduleRecents() {
-    return scheduleRecents;
+  public List<ScheduleRecent> getScheduleRecent() {
+    return scheduleRecent;
   }
 
-  public void setScheduleRecents(
-      List<ScheduleRecent> scheduleRecents) {
-    this.scheduleRecents = scheduleRecents;
+  public void setScheduleRecent(
+      List<ScheduleRecent> scheduleRecent) {
+    this.scheduleRecent = scheduleRecent;
   }
-
-  /*public String getScheduleNewName() {
-    return scheduleNewName;
-  }
-
-  public void setScheduleNewName(String scheduleNewName) {
-    this.scheduleNewName = scheduleNewName;
-  }
-
-  public String getScheduleNewLink() {
-    return scheduleNewLink;
-  }
-
-  public void setScheduleNewLink(String scheduleNewLink) {
-    this.scheduleNewLink = scheduleNewLink;
-  }*/
 
   @Override
   public String toString() {
     return "DilidiliInfo{" +
-        "scheudleBanners=" + scheudleBanners +
-        ", scheduleRecommands=" + scheduleRecommands +
+        "scheudleBanners=" + scheduleBanners +
+        ", scheduleRecommands=" + scheduleRecommends +
         ", scheduleWeek=" + scheduleWeek +
-        ", scheduleRecents=" + scheduleRecents +
+        ", scheduleRecents=" + scheduleRecent +
         '}';
   }
 
-  @Selector("div.swiper-wrapper a.swiper-slide")
-  public static class ScheudleBanner {
+  @Selector("div#slider ul li[class~=elmnt?] a")
+  public static class ScheduleBanner {
 
-    @Attr(query = "img", attr = "src")
+    @Attr(query = "a", attr = "style")
     private String imgUrl;
-    @Text("div")
     private String name;
     @Attr(query = "a", attr = "href")
     private String animeLink;
 
     public String getImgUrl() {
-      return imgUrl;
+      try {
+        return imgUrl.substring(imgUrl.lastIndexOf("(") + 1, imgUrl.lastIndexOf(".") + 4);
+      } catch (Exception e) {
+        e.printStackTrace();
+        return "";
+      }
     }
 
     public void setImgUrl(String imgUrl) {
@@ -130,7 +113,7 @@ public class DilidiliInfo {
   }
 
   @Selector("div.edit_list ul li")
-  public static class ScheduleRecommand {
+  public static class ScheduleRecommend {
 
     @Attr(query = "a div", attr = "style")
     private String imgUrl;
@@ -178,14 +161,14 @@ public class DilidiliInfo {
     }
   }
 
-  @Selector("div#newId.new_update_list ul li")
+  @Selector("div.book.article a")
   public static class ScheduleRecent {
 
-    @Attr(query = "a div", attr = "style")
+    @Attr(query = "figure div", attr = "style")
     private String imgUrl;
-    @Text("a h3")
+    @Text("figure figcaption p:nth-child(1)")
     private String name;
-    @Text("a h4")
+    @Text("figure figcaption p:nth-child(2)")
     private String desc;
     @Attr(query = "a", attr = "href")
     private String animeLink;

@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.rabtman.acgschedule.R;
-import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheudleBanner;
+import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleBanner;
 import com.rabtman.common.imageloader.glide.GlideImageConfig;
 import com.rabtman.common.utils.Utils;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
@@ -14,7 +14,7 @@ import com.zhouwei.mzbanner.holder.MZViewHolder;
 /**
  * @author Rabtman
  */
-public class ScheduleBannerViewHolder implements MZViewHolder<ScheudleBanner> {
+public class ScheduleBannerViewHolder implements MZViewHolder<ScheduleBanner> {
 
   private ImageView bannerImg;
   private TextView bannerTitle;
@@ -29,7 +29,7 @@ public class ScheduleBannerViewHolder implements MZViewHolder<ScheudleBanner> {
   }
 
   @Override
-  public void onBind(Context context, int position, ScheudleBanner scheudleBanner) {
+  public void onBind(Context context, int position, ScheduleBanner scheudleBanner) {
     Utils.getAppComponent().imageLoader()
         .loadImage(context,
             GlideImageConfig

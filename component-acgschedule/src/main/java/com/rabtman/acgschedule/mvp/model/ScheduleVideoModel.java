@@ -1,7 +1,7 @@
 package com.rabtman.acgschedule.mvp.model;
 
+import android.text.TextUtils;
 import com.fcannizzaro.jsoup.annotations.JP;
-import com.rabtman.acgschedule.base.constant.HtmlConstant;
 import com.rabtman.acgschedule.mvp.contract.ScheduleVideoContract;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleVideo;
 import com.rabtman.common.base.mvp.BaseModel;
@@ -13,6 +13,7 @@ import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.annotations.NonNull;
 import javax.inject.Inject;
+import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
@@ -37,12 +38,18 @@ public class ScheduleVideoModel extends BaseModel implements ScheduleVideoContra
           e.onError(new Throwable("element html is null"));
         }else {
           ScheduleVideo scheduleVideo = JP.from(html, ScheduleVideo.class);
-          StringBuilder scheduleVideoHtmlBuilder = new StringBuilder();
+          if (!TextUtils.isEmpty(scheduleVideo.getVideoHtml())) {
+            JSONObject videoJson = new JSONObject(scheduleVideo.getVideoHtml()
+                .substring(scheduleVideo.getVideoHtml().indexOf("{"),
+                    scheduleVideo.getVideoHtml().indexOf("}") + 1));
+            scheduleVideo.setVideoUrl(videoJson.getString("url"));
+          }
+          /*StringBuilder scheduleVideoHtmlBuilder = new StringBuilder();
           scheduleVideoHtmlBuilder.append(HtmlConstant.SCHEDULE_VIDEO_CSS);
-          scheduleVideoHtmlBuilder.append("<div id=\"vedio\">");
+          scheduleVideoHtmlBuilder.append("<div class=\"player_main\" style=\"position: relative;\"> ");
           scheduleVideoHtmlBuilder.append(scheduleVideo.getVideoHtml());
           scheduleVideoHtmlBuilder.append("</div>");
-          scheduleVideo.setVideoHtml(scheduleVideoHtmlBuilder.toString());
+          scheduleVideo.setVideoHtml(scheduleVideoHtmlBuilder.toString());*/
           e.onNext(scheduleVideo);
           e.onComplete();
         }

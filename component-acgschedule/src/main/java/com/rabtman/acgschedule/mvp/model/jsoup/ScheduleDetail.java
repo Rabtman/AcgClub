@@ -10,22 +10,22 @@ import java.util.List;
  * @author Rabtman
  */
 
-@Selector("div#app")
+@Selector("div.container.clear")
 public class ScheduleDetail {
 
-  @Attr(query = "div div div.fl.detailImg", attr = "style")
+  @Attr(query = "div div div dl dt img", attr = "src")
   private String imgUrl;
-  @Text("div div div p")
+  @Text("div div div dl dd h1")
   private String scheduleTitle;
-  @Text("div div a.fr")
+  @Text("div div div dl dd div:contains(状态)")
   private String scheduleProc;
-  @Text("div div div p:containsOwn(年代)")
+  @Text("div div div dl dd div:contains(年代)")
   private String scheduleTime;
-  @Text("div div div p:containsOwn(地区)")
+  @Text("div div div dl dd div:contains(地区)")
   private String scheduleAera;
-  @Text("div div div p:containsOwn(标签)")
+  @Text("div div div dl dd div:contains(标签)")
   private String scheduleLabel;
-  @Text("div.column_introduction p")
+  @Text("div div div dl dd div:contains(简介)")
   private String description;
   @Items
   private List<ScheduleEpisode> scheduleEpisodes;
@@ -114,10 +114,10 @@ public class ScheduleDetail {
         '}';
   }
 
-  @Selector("div.episode ul li")
+  @Selector("div.time_pic.list ul li")
   public static class ScheduleEpisode {
 
-    @Text("a")
+    @Text("a em span")
     private String name;
     @Attr(query = "a", attr = "href")
     private String link;

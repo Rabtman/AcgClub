@@ -1,18 +1,17 @@
 package com.rabtman.acgschedule.mvp.model.jsoup;
 
-import com.fcannizzaro.jsoup.annotations.interfaces.Attr;
 import com.fcannizzaro.jsoup.annotations.interfaces.Html;
 import com.fcannizzaro.jsoup.annotations.interfaces.Selector;
 
 /**
  * @author Rabtman
  */
-@Selector("main div#app")
+@Selector("div.clear")
 public class ScheduleVideo {
 
-  @Html("div.video")
+  @Html("div.player_main")
   private String videoHtml;
-  @Attr(query = "div.video iframe", attr = "src")
+
   private String videoUrl;
 
   public String getVideoHtml() {
