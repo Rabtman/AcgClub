@@ -1,9 +1,9 @@
 package com.rabtman.acgcomic.di
 
-import com.rabtman.acgcomic.mvp.ui.activity.OacgComicDetailActivity
-import com.rabtman.acgcomic.mvp.ui.activity.OacgComicReadActivity
+import com.rabtman.acgcomic.mvp.ui.activity.QiMiaoComicDetailActivity
+import com.rabtman.acgcomic.mvp.ui.activity.QiMiaoComicReadActivity
 import com.rabtman.acgcomic.mvp.ui.fragment.DmzjComicFragment
-import com.rabtman.acgcomic.mvp.ui.fragment.OacgComicFragment
+import com.rabtman.acgcomic.mvp.ui.fragment.QiMiaoComicFragment
 import com.rabtman.common.di.component.AppComponent
 import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.di.scope.FragmentScope
@@ -20,22 +20,22 @@ interface DmzjComicComponent {
 }
 
 @FragmentScope
-@Component(modules = arrayOf(OacgComicModule::class), dependencies = arrayOf(AppComponent::class))
-interface OacgComicComponent {
+@Component(modules = arrayOf(QiMiaoComicModule::class), dependencies = arrayOf(AppComponent::class))
+interface QiMiaoComicComponent {
 
-    fun inject(fragment: OacgComicFragment)
+    fun inject(fragment: QiMiaoComicFragment)
 }
 
 @ActivityScope
-@Component(modules = arrayOf(OacgComicDetailModule::class), dependencies = arrayOf(AppComponent::class))
-interface OacgComicDetailComponent {
+@Component(modules = arrayOf(QiMiaoComicDetailModule::class), dependencies = arrayOf(AppComponent::class))
+interface QiMiaoComicDetailComponent {
 
-    fun inject(activity: OacgComicDetailActivity)
+    fun inject(activity: QiMiaoComicDetailActivity)
 }
 
 @ActivityScope
-@Component(modules = arrayOf(OacgComicEpisodeDetailModule::class), dependencies = arrayOf(AppComponent::class))
-interface OacgComicEpisodeDetailComponent {
+@Component(modules = arrayOf(QiMiaoComicEpisodeDetailModule::class), dependencies = arrayOf(AppComponent::class))
+interface QiMiaoComicEpisodeDetailComponent {
 
-    fun inject(activity: OacgComicReadActivity)
+    fun inject(activity: QiMiaoComicReadActivity)
 }

@@ -13,6 +13,7 @@ class SystemConstant {
          * 漫画来源
          */
         const val COMIC_SOURCE_OACG = "oacg"
+        const val COMIC_SOURCE_QIMIAO = "qimiao"
     }
 }
 
@@ -23,16 +24,18 @@ class HtmlConstant {
 
         const val OACG_URL = "http://comic.oacg.cn/"
         const val OACG_IMG_URL = "http://gx.cdn.comic.oacg.cn"
+
+        const val QIMIAO_URL = "https://m.qimiaomh.com"
     }
 }
 
 class IntentConstant {
     companion object {
-        const val OACG_COMIC_ITEM = "oacg_comic_item"
-        const val OACG_COMIC_ID = "oacg_comic_id"
-        const val OACG_COMIC_TITLE = "oacg_comic_title"
-        const val OACG_COMIC_CHAPTERID = "oacg_comic_chapterid"
-        const val OACG_COMIC_CHAPTERPOS = "oacg_comic_chapterpos"
+        const val QIMIAO_COMIC_ITEM = "qimiao_comic_item"
+        const val QIMIAO_COMIC_ID = "qimiao_comic_id"
+        const val QIMIAO_COMIC_TITLE = "qimiao_comic_title"
+        const val QIMIAO_COMIC_CHAPTERID = "qimiao_comic_chapterid"
+        const val QIMIAO_COMIC_CHAPTERPOS = "qimiao_comic_chapterpos"
     }
 }
 

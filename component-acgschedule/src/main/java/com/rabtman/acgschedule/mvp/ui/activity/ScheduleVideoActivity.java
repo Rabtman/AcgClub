@@ -1,5 +1,6 @@
 package com.rabtman.acgschedule.mvp.ui.activity;
 
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,7 +21,6 @@ import com.rabtman.common.base.widget.X5VideoWebView;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.router.RouterConstants;
 import com.tencent.smtt.sdk.QbSdk;
-import com.tencent.smtt.sdk.TbsVideo;
 
 /**
  * @author Rabtman
@@ -105,6 +105,7 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
   protected void onDestroy() {
     webView.destroy();
     super.onDestroy();
+    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
   }
 
   @Override
@@ -128,12 +129,12 @@ public class ScheduleVideoActivity extends BaseActivity<ScheduleVideoPresenter> 
   @Override
   public void showScheduleVideo(String videoUrl, boolean isVideo) {
     if (isVideo) {
-      Bundle extraData = new Bundle();
+      /*Bundle extraData = new Bundle();
       extraData.putInt("screenMode", 102);
       TbsVideo.openVideo(this, videoUrl, extraData);
-      finish();
-    } else {
-      webView.loadUrl(videoUrl);
+      finish();*/
+      setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
     }
+    webView.loadUrl(videoUrl);
   }
 }

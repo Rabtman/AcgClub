@@ -38,7 +38,7 @@ class DmzjComicPresenter
     fun getComicInfos() {
         selected[5] = 0
         addSubscribe(
-                mModel.getComicInfos(selected.joinToString(separator = "-"))
+                mModel.getComicInfo(selected.joinToString(separator = "-"))
                         .compose(RxUtil.rxSchedulerHelper<List<DmzjComicItem>>())
                         .subscribeWith(object : CommonSubscriber<List<DmzjComicItem>>(mView) {
                             override fun onStart() {
@@ -56,7 +56,7 @@ class DmzjComicPresenter
                             }
 
                             override fun onNext(comicItems: List<DmzjComicItem>) {
-                                mView.showComicInfos(comicItems)
+                                mView.showComicInfo(comicItems)
                             }
                         })
         )
@@ -65,11 +65,11 @@ class DmzjComicPresenter
     fun getMoreComicInfos() {
         selected[5] = selected[5]++
         addSubscribe(
-                mModel.getComicInfos(selected.joinToString(separator = "-"))
+                mModel.getComicInfo(selected.joinToString(separator = "-"))
                         .compose(RxUtil.rxSchedulerHelper<List<DmzjComicItem>>())
                         .subscribeWith(object : CommonSubscriber<List<DmzjComicItem>>(mView) {
                             override fun onNext(comicItems: List<DmzjComicItem>) {
-                                mView.showMoreComicInfos(comicItems, comicItems.isNotEmpty())
+                                mView.showMoreComicInfo(comicItems, comicItems.isNotEmpty())
                             }
 
                             override fun onError(e: Throwable?) {

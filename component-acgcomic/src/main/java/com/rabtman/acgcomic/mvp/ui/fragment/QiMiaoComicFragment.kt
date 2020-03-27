@@ -12,13 +12,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.base.constant.IntentConstant
-import com.rabtman.acgcomic.di.DaggerOacgComicComponent
-import com.rabtman.acgcomic.di.OacgComicModule
-import com.rabtman.acgcomic.mvp.OacgComicContract
-import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
-import com.rabtman.acgcomic.mvp.presenter.OacgComicPresenter
+import com.rabtman.acgcomic.di.DaggerQiMiaoComicComponent
+import com.rabtman.acgcomic.di.QiMiaoComicModule
+import com.rabtman.acgcomic.mvp.QiMiaoComicContract
+import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicItem
+import com.rabtman.acgcomic.mvp.presenter.QiMiaoComicPresenter
 import com.rabtman.acgcomic.mvp.ui.adapter.ComicMenuAdapter
-import com.rabtman.acgcomic.mvp.ui.adapter.OacgComicItemAdpater
+import com.rabtman.acgcomic.mvp.ui.adapter.QiMiaoComicItemAdpater
 import com.rabtman.common.base.BaseFragment
 import com.rabtman.common.base.widget.DropDownMenu
 import com.rabtman.common.di.component.AppComponent
@@ -30,21 +30,22 @@ import com.rabtman.router.RouterUtils
 /**
  * @author Rabtman
  */
-@Route(path = RouterConstants.PATH_COMIC_OACG)
-class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.View {
+@Route(path = RouterConstants.PATH_COMIC_QIMIAO)
+class QiMiaoComicFragment : BaseFragment<QiMiaoComicPresenter>(), QiMiaoComicContract.View {
     @BindView(R2.id.ddm_comic_menu)
     lateinit var mMenuComicMain: DropDownMenu
     private var mSwipeRefresh: SwipeRefreshLayout? = null
     private var mRcvComicMain: RecyclerView? = null
     private var mLayoutManager: LinearLayoutManager? = null
-    private lateinit var mOacgComicItemAdapter: OacgComicItemAdpater
+    private lateinit var mQiMiaoComicItemAdapter: QiMiaoComicItemAdpater
     private val headers = listOf("分类")
     //菜单选项
     private val type = arrayListOf(
-            "全部", "恋爱", "搞笑", "魔幻",
-            "动作", "科幻", "生活", "后宫",
-            "治愈", "推理", "恐怖", "古风",
-            "耽美百合", "少年", "少女", "校园")
+            "全部", "热血", "恋爱", "青春", "彩虹",
+            "冒险", "后宫", "悬疑", "玄幻",
+            "穿越", "都士", "腹黑", "爆笑",
+            "少年", "奇幻", "古风", "妖恋",
+            "元气", "治愈", "励志", "日常", "百合")
     //菜单选项适配器
     private lateinit var typeAdapter: ComicMenuAdapter
     //弹出菜单视图集
@@ -57,9 +58,9 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
     }
 
     override fun setupFragmentComponent(appComponent: AppComponent?) {
-        DaggerOacgComicComponent.builder()
+        DaggerQiMiaoComicComponent.builder()
                 .appComponent(appComponent)
-                .oacgComicModule(OacgComicModule(this))
+                .qiMiaoComicModule(QiMiaoComicModule(this))
                 .build()
                 .inject(this)
     }
@@ -100,7 +101,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
                 adapter.setCheckItem(position)
                 mMenuComicMain.setTabText(if (position == 0) headers[0] else type[position])
                 mMenuComicMain.closeMenu()
-                mPresenter.getComicInfosByMenuSelected(if (position == 0) -1 else position)
+                mPresenter.getComicInfosByMenuSelected(if (position == 0) "" else (position + 6).toString())
             }
         }
         typeView.layoutManager = GridLayoutManager(mContext, 4)
@@ -110,24 +111,28 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
 
     //初始化内容布局
     private fun initContentView(): View {
-        val contentView = layoutInflater.inflate(R.layout.acgcomic_view_oacg_comic_content, null)
+        val contentView = layoutInflater.inflate(R.layout.acgcomic_view_qimiao_comic_content, null)
         mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_oacg_comic)
         mRcvComicMain = contentView.findViewById(R.id.rcv_oacg_comic)
-        mOacgComicItemAdapter = OacgComicItemAdpater(appComponent.imageLoader())
-        mOacgComicItemAdapter.setHeaderView(headerSearchView)
+        mQiMiaoComicItemAdapter = QiMiaoComicItemAdpater(appComponent.imageLoader())
+        mQiMiaoComicItemAdapter.setHeaderView(headerSearchView)
         //加载更多
-        mOacgComicItemAdapter.setOnLoadMoreListener({ mPresenter.getMoreComicInfos() }, mRcvComicMain)
+        mQiMiaoComicItemAdapter.setOnLoadMoreListener({ mPresenter.getMoreComicInfos() }, mRcvComicMain)
         //点击跳转到漫画详情
-        mOacgComicItemAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adpater, _, pos ->
-            val oacgComicItem: OacgComicItem = adpater.getItem(pos) as OacgComicItem
-            RouterUtils.getInstance()
-                    .build(RouterConstants.PATH_COMIC_OACG_DETAIL)
-                    .withParcelable(IntentConstant.OACG_COMIC_ITEM, oacgComicItem)
-                    .navigation()
+        mQiMiaoComicItemAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adpater, _, pos ->
+            val comicItem: QiMiaoComicItem = adpater.getItem(pos) as QiMiaoComicItem
+            if (comicItem.comicLink.isNotEmpty()) {
+                RouterUtils.getInstance()
+                        .build(RouterConstants.PATH_COMIC_QIMIAO_DETAIL)
+                        .withParcelable(IntentConstant.QIMIAO_COMIC_ITEM, comicItem)
+                        .navigation()
+            } else {
+                showMsg("找不到该漫画/(ㄒoㄒ)/~~")
+            }
         }
         mLayoutManager = LinearLayoutManager(mContext)
         mRcvComicMain?.layoutManager = mLayoutManager
-        mRcvComicMain?.adapter = mOacgComicItemAdapter
+        mRcvComicMain?.adapter = mQiMiaoComicItemAdapter
 
         //下拉刷新
         mSwipeRefresh?.setOnRefreshListener({ mPresenter.getComicInfos() })
@@ -135,7 +140,7 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
     }
 
     private fun initHeaderView(): View {
-        headerSearchView = layoutInflater.inflate(R.layout.acgcomic_view_oacg_comic_search, null)
+        headerSearchView = layoutInflater.inflate(R.layout.acgcomic_view_qimiao_comic_search, null)
         val etKeyword: AppCompatEditText = headerSearchView.findViewById(R.id.et_oacg_comic_keyword)
         val btnClear: AppCompatImageButton = headerSearchView.findViewById(R.id.btn_oacg_comic_close)
         val btnSearch: AppCompatImageButton = headerSearchView.findViewById(R.id.btn_oacg_comic_search)
@@ -181,28 +186,31 @@ class OacgComicFragment : BaseFragment<OacgComicPresenter>(), OacgComicContract.
         mMenuComicMain.setTabPosition(-1)
     }
 
-    override fun showSearchComicInfos(comicInfos: List<OacgComicItem>?) {
-        mOacgComicItemAdapter.setNewData(comicInfos)
-        mOacgComicItemAdapter.loadMoreEnd()
-    }
-
-    override fun showComicInfos(comicInfos: List<OacgComicItem>?) {
+    override fun showSearchComicInfo(comicInfos: List<QiMiaoComicItem>?, canLoadMore: Boolean) {
         mRcvComicMain?.scrollToPosition(0)
-        mOacgComicItemAdapter.setNewData(comicInfos)
-        //mRcvComicMain?.scrollBy(0, 0)
+        mQiMiaoComicItemAdapter.setNewData(comicInfos)
+        mRcvComicMain?.scrollBy(0, 0)
+        if (!canLoadMore) {
+            mQiMiaoComicItemAdapter.loadMoreEnd()
+        }
     }
 
-    override fun showMoreComicInfos(comicInfos: List<OacgComicItem>?, canLoadMore: Boolean?) {
-        if (canLoadMore == null || !canLoadMore) {
-            mOacgComicItemAdapter.loadMoreEnd()
-        } else {
-            comicInfos?.let { mOacgComicItemAdapter?.addData(it) }
-            mOacgComicItemAdapter.loadMoreComplete()
+    override fun showComicInfo(comicInfos: List<QiMiaoComicItem>?) {
+        mRcvComicMain?.scrollToPosition(0)
+        mQiMiaoComicItemAdapter.setNewData(comicInfos)
+        mRcvComicMain?.scrollBy(0, 0)
+    }
+
+    override fun showMoreComicInfo(comicInfos: List<QiMiaoComicItem>?, canLoadMore: Boolean) {
+        comicInfos?.let { mQiMiaoComicItemAdapter.addData(it) }
+        mQiMiaoComicItemAdapter.loadMoreComplete()
+        if (!canLoadMore) {
+            mQiMiaoComicItemAdapter.loadMoreEnd()
         }
     }
 
     override fun onLoadMoreFail() {
-        mOacgComicItemAdapter.loadMoreFail()
+        mQiMiaoComicItemAdapter.loadMoreFail()
     }
 
 }

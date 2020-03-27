@@ -1,34 +1,45 @@
 package com.rabtman.acgschedule.mvp.model.jsoup;
 
 import com.fcannizzaro.jsoup.annotations.interfaces.Attr;
+import com.fcannizzaro.jsoup.annotations.interfaces.ForEach;
 import com.fcannizzaro.jsoup.annotations.interfaces.Items;
 import com.fcannizzaro.jsoup.annotations.interfaces.Selector;
 import com.fcannizzaro.jsoup.annotations.interfaces.Text;
 import java.util.List;
+import org.jsoup.nodes.Element;
 
 /**
  * @author Rabtman
  */
 
-@Selector("div.container.clear")
+@Selector("body")
 public class ScheduleDetail {
 
-  @Attr(query = "div div div dl dt img", attr = "src")
+  @Attr(query = "div.list div.show img", attr = "src")
   private String imgUrl;
-  @Text("div div div dl dd h1")
+  @Text("div.list div.show h1")
   private String scheduleTitle;
-  @Text("div div div dl dd div:contains(状态)")
+  @Text("div.list div.show p:contains(连载)")
   private String scheduleProc;
-  @Text("div div div dl dd div:contains(年代)")
+  @Text("div.list div.show p:contains(上映)")
   private String scheduleTime;
-  @Text("div div div dl dd div:contains(地区)")
+  //@Text("div.list div.show p:contains(类型)")
   private String scheduleAera;
-  @Text("div div div dl dd div:contains(标签)")
-  private String scheduleLabel;
-  @Text("div div div dl dd div:contains(简介)")
+  //@Text("div.list div.show p:contains(类型)")
+  private String scheduleLabel = "类型：";
+  @Text("div.info")
   private String description;
   @Items
   private List<ScheduleEpisode> scheduleEpisodes;
+
+  @ForEach("div.list div.show p:contains(类型) a")
+  void labels(Element element, int index) {
+    if (index == 0) {
+      scheduleAera = "地区：" + element.text();
+    } else {
+      scheduleLabel += element.text() + " ";
+    }
+  }
 
   public String getImgUrl() {
     try {
@@ -114,10 +125,10 @@ public class ScheduleDetail {
         '}';
   }
 
-  @Selector("div.time_pic.list ul li")
+  @Selector("div#playlists ul li")
   public static class ScheduleEpisode {
 
-    @Text("a em span")
+    @Text("a")
     private String name;
     @Attr(query = "a", attr = "href")
     private String link;

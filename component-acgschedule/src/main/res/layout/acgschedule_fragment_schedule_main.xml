@@ -56,7 +56,7 @@
             android:gravity="center"
             android:text="@string/title_schedule_new" />
 
-          <TextView
+          <!--<TextView
             android:id="@+id/tv_schedule_music"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -65,9 +65,9 @@
             android:drawablePadding="4dp"
             android:gravity="center"
             android:padding="10dp"
-            android:text="音乐电台" />
+            android:text="音乐电台" />-->
 
-          <!--<TextView
+          <TextView
             android:id="@+id/tv_schedule_new"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -76,7 +76,7 @@
             android:drawablePadding="4dp"
             android:drawableTop="@drawable/ic_schedule_period"
             android:gravity="center"
-            android:text="本季新番" />-->
+            android:text="动漫周排行" />
         </android.support.v7.widget.LinearLayoutCompat>
       </android.support.v7.widget.CardView>
 

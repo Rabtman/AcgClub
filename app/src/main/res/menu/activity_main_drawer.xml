@@ -8,15 +8,13 @@
     android:icon="@drawable/nav_collection"
     android:title="@string/nav_collection"
     app:showAsAction="ifRoom" />
-  <!--
 
-    <item
-      android:id="@+id/nav_muisc"
-      android:enabled="true"
-      android:icon="@drawable/nav_music"
-      android:title="@string/nav_music"
-      app:showAsAction="ifRoom" />
-  -->
+  <item
+    android:id="@+id/nav_music"
+    android:enabled="true"
+    android:icon="@drawable/nav_music"
+    android:title="@string/nav_music"
+    app:showAsAction="ifRoom" />
 
   <item
     android:id="@+id/nav_setting"

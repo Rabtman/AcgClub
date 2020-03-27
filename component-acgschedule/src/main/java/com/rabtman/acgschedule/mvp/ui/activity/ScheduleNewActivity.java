@@ -57,7 +57,7 @@ public class ScheduleNewActivity extends BaseActivity<ScheduleNewPresenter> impl
 
   @Override
   protected void onPageRetry(android.view.View v) {
-    mPresenter.getScheduleNew();
+    mPresenter.getScheduleWeekRank();
   }
 
   @Override
@@ -86,7 +86,7 @@ public class ScheduleNewActivity extends BaseActivity<ScheduleNewPresenter> impl
     rcvScheduleNew.setLayoutManager(layoutManager);
     rcvScheduleNew.setAdapter(mAdapter);
 
-    mPresenter.getScheduleNew();
+    mPresenter.getScheduleWeekRank();
   }
 
   @Override

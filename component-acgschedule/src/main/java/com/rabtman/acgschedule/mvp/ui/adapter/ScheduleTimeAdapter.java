@@ -33,7 +33,7 @@ public class ScheduleTimeAdapter extends BaseSectionQuickAdapter<ScheduleTimeIte
   @Override
   protected void convert(BaseViewHolder helper, ScheduleTimeItem item) {
     helper.setText(R.id.schedule_name, item.t.getName())
-        .setText(R.id.schedule_episode, item.t.getEpisode());
-    //.addOnClickListener(R.id.schedule_episode);
+        .setText(R.id.schedule_episode, item.t.getEpisode())
+        .addOnClickListener(R.id.schedule_episode);
   }
 }

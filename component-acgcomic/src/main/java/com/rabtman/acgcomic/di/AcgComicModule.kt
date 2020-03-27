@@ -1,13 +1,13 @@
 package com.rabtman.acgcomic.di
 
 import com.rabtman.acgcomic.mvp.DmzjComicContract
-import com.rabtman.acgcomic.mvp.OacgComicContract
-import com.rabtman.acgcomic.mvp.OacgComicDetailContract
-import com.rabtman.acgcomic.mvp.OacgComicEpisodeDetailContract
+import com.rabtman.acgcomic.mvp.QiMIaoComicEpisodeDetailContract
+import com.rabtman.acgcomic.mvp.QiMiaoComicContract
+import com.rabtman.acgcomic.mvp.QiMiaoComicDetailContract
 import com.rabtman.acgcomic.mvp.model.DmzjComicModel
-import com.rabtman.acgcomic.mvp.model.OacgComicDetailModel
-import com.rabtman.acgcomic.mvp.model.OacgComicEpisodeDetailModel
-import com.rabtman.acgcomic.mvp.model.OacgComicModel
+import com.rabtman.acgcomic.mvp.model.QiMiaoComicDetailModel
+import com.rabtman.acgcomic.mvp.model.QiMiaoComicEpisodeDetailModel
+import com.rabtman.acgcomic.mvp.model.QiMiaoComicModel
 import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.di.scope.FragmentScope
 import dagger.Module
@@ -33,49 +33,49 @@ class DmzjComicModule(private val view: DmzjComicContract.View) {
 }
 
 @Module
-class OacgComicModule(private val view: OacgComicContract.View) {
+class QiMiaoComicModule(private val view: QiMiaoComicContract.View) {
 
     @FragmentScope
     @Provides
-    internal fun providerOacgComicView(): OacgComicContract.View {
+    internal fun providerOacgComicView(): QiMiaoComicContract.View {
         return this.view
     }
 
     @FragmentScope
     @Provides
-    internal fun providerOacgComicModel(model: OacgComicModel): OacgComicContract.Model {
+    internal fun providerOacgComicModel(model: QiMiaoComicModel): QiMiaoComicContract.Model {
         return model
     }
 }
 
 @Module
-class OacgComicDetailModule(private val view: OacgComicDetailContract.View) {
+class QiMiaoComicDetailModule(private val view: QiMiaoComicDetailContract.View) {
 
     @ActivityScope
     @Provides
-    internal fun providerOacgComicDetailView(): OacgComicDetailContract.View {
+    internal fun providerOacgComicDetailView(): QiMiaoComicDetailContract.View {
         return this.view
     }
 
     @ActivityScope
     @Provides
-    internal fun providerOacgComicDetailModel(model: OacgComicDetailModel): OacgComicDetailContract.Model {
+    internal fun providerOacgComicDetailModel(model: QiMiaoComicDetailModel): QiMiaoComicDetailContract.Model {
         return model
     }
 }
 
 @Module
-class OacgComicEpisodeDetailModule(private val view: OacgComicEpisodeDetailContract.View) {
+class QiMiaoComicEpisodeDetailModule(private val view: QiMIaoComicEpisodeDetailContract.View) {
 
     @ActivityScope
     @Provides
-    internal fun providerOacgComicEpisodeDetailView(): OacgComicEpisodeDetailContract.View {
+    internal fun providerOacgComicEpisodeDetailView(): QiMIaoComicEpisodeDetailContract.View {
         return this.view
     }
 
     @ActivityScope
     @Provides
-    internal fun providerOacgComicEpisodeDetailModel(model: OacgComicEpisodeDetailModel): OacgComicEpisodeDetailContract.Model {
+    internal fun providerOacgComicEpisodeDetailModel(model: QiMiaoComicEpisodeDetailModel): QiMIaoComicEpisodeDetailContract.Model {
         return model
     }
 }

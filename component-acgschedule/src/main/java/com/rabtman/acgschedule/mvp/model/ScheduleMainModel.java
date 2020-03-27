@@ -1,12 +1,9 @@
 package com.rabtman.acgschedule.mvp.model;
 
-import android.text.TextUtils;
 import com.fcannizzaro.jsoup.annotations.JP;
 import com.rabtman.acgschedule.base.constant.HtmlConstant;
 import com.rabtman.acgschedule.mvp.contract.ScheduleMainContract;
 import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo;
-import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleBanner;
-import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleWeek;
 import com.rabtman.common.base.mvp.BaseModel;
 import com.rabtman.common.di.scope.FragmentScope;
 import com.rabtman.common.integration.IRepositoryManager;
@@ -15,7 +12,6 @@ import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.annotations.NonNull;
-import java.util.Iterator;
 import javax.inject.Inject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -36,12 +32,12 @@ public class ScheduleMainModel extends BaseModel implements ScheduleMainContract
     return Flowable.create(new FlowableOnSubscribe<DilidiliInfo>() {
       @Override
       public void subscribe(@NonNull FlowableEmitter<DilidiliInfo> e) throws Exception {
-        Element html = Jsoup.connect(HtmlConstant.DILIDILI_URL).get();
+        Element html = Jsoup.connect(HtmlConstant.YHDM_M_URL).get();
         if (html == null) {
           e.onError(new Throwable("element html is null"));
         } else {
           DilidiliInfo dilidiliInfo = JP.from(html, DilidiliInfo.class);
-          Iterator<ScheduleWeek> scheudleWeekIterator = dilidiliInfo.getScheduleWeek().iterator();
+          /*Iterator<ScheduleWeek> scheudleWeekIterator = dilidiliInfo.getScheduleWeek().iterator();
           while (scheudleWeekIterator.hasNext()) {
             ScheduleWeek scheduleWeek = scheudleWeekIterator.next();
             Iterator<ScheduleWeek.ScheduleItem> scheduleItemIterator = scheduleWeek
@@ -62,7 +58,7 @@ public class ScheduleMainModel extends BaseModel implements ScheduleMainContract
                 !scheudleBanner.getAnimeLink().contains("anime")) {
               scheudleBannerIterator.remove();
             }
-          }
+          }*/
           e.onNext(dilidiliInfo);
           e.onComplete();
         }

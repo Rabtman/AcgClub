@@ -63,8 +63,10 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
   MZBannerView bannerSchedule;
   @BindView(R2.id.tv_schedule_time)
   TextView tvScheduleTime;
-  @BindView(id.tv_schedule_music)
-  TextView tvScheduleMusic;
+  /*@BindView(id.tv_schedule_music)
+  TextView tvScheduleMusic;*/
+  @BindView(id.tv_schedule_new)
+  TextView tvScheduleNew;
   @BindView(R2.id.layout_schedule_recommand)
   RelativeLayout layoutScheduleRecommand;
   @BindView(R2.id.rcv_schedule_recommand)
@@ -141,11 +143,20 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
       }
     });
     //音乐电台
-    tvScheduleMusic.setOnClickListener(new OnClickListener() {
+    /*tvScheduleMusic.setOnClickListener(new OnClickListener() {
       @Override
       public void onClick(android.view.View v) {
         RouterUtils.getInstance()
             .build(RouterConstants.PATH_MUSIC_RANDOM)
+            .navigation();
+      }
+    });*/
+    //往季新番
+    tvScheduleNew.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(android.view.View v) {
+        RouterUtils.getInstance()
+            .build(RouterConstants.PATH_SCHEDULE_NEW)
             .navigation();
       }
     });
@@ -207,7 +218,7 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
   }
 
   private void startToScheduleDetail(String url) {
-    if (url.contains("anime")) {
+    if (url.contains("show")) {
       Intent detailIntent = new Intent(getContext(), ScheduleDetailActivity.class);
       detailIntent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL, url);
       startActivity(detailIntent);
@@ -220,7 +231,7 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
   public void start2ScheduleVideo(String videoUrl) {
     Intent intent = new Intent(mContext, ScheduleVideoActivity.class);
     intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL,
-        videoUrl.startsWith("http") ? videoUrl : HtmlConstant.DILIDILI_URL + videoUrl);
+        videoUrl.startsWith("http") ? videoUrl : HtmlConstant.YHDM_M_URL + videoUrl);
     startActivity(intent);
   }
 }

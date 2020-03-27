@@ -30,7 +30,7 @@ public class ScheduleVideoPresenter extends
       return;
     }
     if (!videoUrl.contains("http")) {
-      videoUrl = HtmlConstant.DILIDILI_URL + videoUrl;
+      videoUrl = HtmlConstant.YHDM_M_URL + videoUrl;
     }
     final String finalVideoUrl = videoUrl;
     addSubscribe(

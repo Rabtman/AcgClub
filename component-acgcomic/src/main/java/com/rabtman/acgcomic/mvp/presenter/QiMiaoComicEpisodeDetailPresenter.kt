@@ -1,9 +1,9 @@
 package com.rabtman.acgcomic.mvp.presenter
 
-import com.rabtman.acgcomic.mvp.OacgComicEpisodeDetailContract
+import com.rabtman.acgcomic.mvp.QiMIaoComicEpisodeDetailContract
 import com.rabtman.acgcomic.mvp.model.dto.ComicReadRecord
-import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisodePage
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
+import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicEpisodeDetail
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
@@ -16,48 +16,48 @@ import javax.inject.Inject
  * @author Rabtman
  */
 @ActivityScope
-class OacgComicEpisodeDetailPresenter @Inject
-constructor(model: OacgComicEpisodeDetailContract.Model,
-            rootView: OacgComicEpisodeDetailContract.View) : BasePresenter<OacgComicEpisodeDetailContract.Model, OacgComicEpisodeDetailContract.View>(model, rootView) {
+class QiMiaoComicEpisodeDetailPresenter @Inject
+constructor(model: QiMIaoComicEpisodeDetailContract.Model,
+            rootView: QiMIaoComicEpisodeDetailContract.View) : BasePresenter<QiMIaoComicEpisodeDetailContract.Model, QiMIaoComicEpisodeDetailContract.View>(model, rootView) {
     //当前漫画id
     private var curComicId = "-1"
     //当前话对应的位置
     private var curChapterPos = 0
     //当前话
-    private var curIndex = 0
+    private var curIndex = ""
     //上一话
-    private var preIndex = 0
+    private var preIndex = ""
     //下一话
-    private var nextIndex = 0
+    private var nextIndex = ""
 
-    fun setIntentData(comicId: String, comicChapterPos: Int, comicChapterIndex: String) {
-        curComicId = comicId
+    fun setIntentData(detailUrl: String, comicChapterPos: Int, episodeUrl: String) {
+        curComicId = detailUrl
         curChapterPos = comicChapterPos
-        curIndex = comicChapterIndex.toInt()
+        curIndex = episodeUrl
     }
 
     /**
      * 加载上一话
      */
     fun getPreEpisodeDetail() {
-        getEpisodeDetail(--curChapterPos, preIndex)
+        getEpisodeDetail(preIndex)
     }
 
     /**
      * 加载下一话
      */
     fun getNextEpisodeDetail() {
-        getEpisodeDetail(++curChapterPos, nextIndex)
+        getEpisodeDetail(nextIndex)
     }
 
     /**
      * 加载漫画详细内容
      */
-    private fun getEpisodeDetail(chapterPos: Int, chapterIndex: Int) {
+    private fun getEpisodeDetail(episodeUrl: String) {
         addSubscribe(
-                mModel.getEpisodeDetail(curComicId.toInt(), chapterIndex)
-                        .compose(RxUtil.rxSchedulerHelper<OacgComicEpisodePage>())
-                        .subscribeWith(object : CommonSubscriber<OacgComicEpisodePage>(mView) {
+                mModel.getEpisodeDetail(episodeUrl)
+                        .compose(RxUtil.rxSchedulerHelper<QiMiaoComicEpisodeDetail>())
+                        .subscribeWith(object : CommonSubscriber<QiMiaoComicEpisodeDetail>(mView) {
                             override fun onStart() {
                                 super.onStart()
                                 mView.showLoading()
@@ -68,19 +68,19 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
                             }
 
                             override fun onError(e: Throwable?) {
-                                curChapterPos -= (chapterIndex - curIndex)
+                                //curChapterPos -= (chapterIndex - curIndex)
                                 super.onError(e)
                                 mView.hideLoading()
                             }
 
-                            override fun onNext(comicEpisodePage: OacgComicEpisodePage) {
-                                if (curIndex != chapterIndex) { //改变章节，则更新数据库记录
+                            override fun onNext(episodeDetail: QiMiaoComicEpisodeDetail) {
+                                /*if (curIndex != chapterIndex) { //改变章节，则更新数据库记录
                                     updateScheduleReadRecord(chapterPos, 0)
-                                }
-                                preIndex = comicEpisodePage.preIndex.toInt()
-                                curIndex = comicEpisodePage.currIndex.toInt()
-                                nextIndex = comicEpisodePage.nextIndex.toInt()
-                                mView.showEpisodeDetail(comicEpisodePage, 0)
+                                }*/
+                                preIndex = episodeDetail.preEpisode
+                                curIndex = episodeUrl
+                                nextIndex = episodeDetail.nextEpisode
+                                mView.showEpisodeDetail(episodeDetail, 0)
                             }
                         })
         )
@@ -93,8 +93,8 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
         addSubscribe(
                 Flowable.zip(
                         mModel.getComicCacheByChapter(curComicId, curChapterPos),
-                        mModel.getEpisodeDetail(curComicId.toInt(), curIndex),
-                        BiFunction<ComicCache, OacgComicEpisodePage, ComicReadRecord> { comicCache, pageData ->
+                        mModel.getEpisodeDetail(curIndex),
+                        BiFunction<ComicCache, QiMiaoComicEpisodeDetail, ComicReadRecord> { comicCache, pageData ->
                             ComicReadRecord(pageData, comicCache)
                         }
                 ).compose(RxUtil.rxSchedulerHelper())
@@ -115,9 +115,9 @@ constructor(model: OacgComicEpisodeDetailContract.Model,
 
                             override fun onNext(comicReadRecord: ComicReadRecord) {
                                 val pageData = comicReadRecord.pageData
-                                preIndex = pageData.preIndex.toInt()
-                                curIndex = pageData.currIndex.toInt()
-                                nextIndex = pageData.nextIndex.toInt()
+                                preIndex = pageData.preEpisode
+                                curIndex = pageData.nextEpisode
+                                nextIndex = pageData.nextEpisode
                                 mView.showEpisodeDetail(pageData, comicReadRecord.cache.pagePos)
                             }
                         })

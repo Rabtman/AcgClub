@@ -13,6 +13,7 @@ import android.view.View;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseQuickAdapter.OnItemChildClickListener;
 import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.R2;
@@ -138,7 +139,7 @@ public class ScheduleTimeActivity extends SimpleActivity {
       }
     });
     //item子项点击事件
-    /*mAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+    mAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
       @Override
       public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
         if (view.getId() == R.id.schedule_episode) {
@@ -150,7 +151,7 @@ public class ScheduleTimeActivity extends SimpleActivity {
           startActivity(intent);
         }
       }
-    });*/
+    });
     mLayoutManager = new LinearLayoutManager(mContext);
     mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
     rcvScheduleTime.setLayoutManager(mLayoutManager);

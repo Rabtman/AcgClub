@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="160dp"
+  android:clipChildren="false"
+  android:clipToPadding="false">
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_alignParentBottom="true"
+    android:layout_gravity="bottom"
+    android:layout_margin="8dp"
+    android:background="@drawable/background_common_shadow"
+    android:orientation="horizontal">
+
+    <ImageView
+      android:id="@+id/img_qimiao_comic"
+      android:layout_width="160dp"
+      android:layout_height="120dp"
+      android:layout_gravity="bottom"
+      android:layout_marginLeft="10dp"
+      android:layout_marginBottom="10dp"
+      android:background="@drawable/background_round_shadow"
+      android:padding="1dp"
+      android:scaleType="centerCrop" />
+
+    <RelativeLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_gravity="bottom"
+      android:layout_weight="1"
+      android:padding="8dp">
+
+      <TextView
+        android:id="@+id/tv_qimiao_comic_title"
+        style="@style/TextAppearance.AppCompat.Body1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="4dp"
+        android:maxLines="2"
+        android:minLines="2"
+        tools:text="逆转英雄" />
+
+      <TextView
+        android:id="@+id/tv_qimiao_comic_author"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_qimiao_comic_title"
+        android:layout_marginLeft="8dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="瑛麒动漫/一锋" />
+
+
+      <TextView
+        android:id="@+id/tv_qimiao_comic_now"
+        style="@style/TextAppearance.AppCompat.Caption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_qimiao_comic_author"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:minLines="1"
+        android:textColor="@color/colorPrimaryDark"
+        tools:text="第三十五话 绝境重生战（上）" />
+
+    </RelativeLayout>
+  </LinearLayout>
+</FrameLayout>

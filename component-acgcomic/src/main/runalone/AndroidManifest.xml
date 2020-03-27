@@ -34,11 +34,11 @@
     </activity>
 
     <activity
-      android:name=".mvp.ui.activity.OacgComicDetailActivity"
+      android:name=".mvp.ui.activity.QiMiaoComicDetailActivity"
       android:screenOrientation="portrait" />
 
     <activity
-      android:name=".mvp.ui.activity.OacgComicReadActivity"
+      android:name=".mvp.ui.activity.QiMiaoComicReadActivity"
       android:screenOrientation="portrait" />
 
     <meta-data

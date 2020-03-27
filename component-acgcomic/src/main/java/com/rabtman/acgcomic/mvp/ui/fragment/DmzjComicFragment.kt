@@ -162,11 +162,11 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
         return contentView
     }
 
-    override fun showComicInfos(comicInfos: List<DmzjComicItem>) {
+    override fun showComicInfo(comicInfos: List<DmzjComicItem>) {
         mDmzjComicItemAdapter?.setNewData(comicInfos)
     }
 
-    override fun showMoreComicInfos(comicInfos: List<DmzjComicItem>, canLoadMore: Boolean) {
+    override fun showMoreComicInfo(comicInfos: List<DmzjComicItem>, canLoadMore: Boolean) {
         mDmzjComicItemAdapter?.addData(comicInfos)
         mDmzjComicItemAdapter?.loadMoreComplete()
         if (!canLoadMore) {

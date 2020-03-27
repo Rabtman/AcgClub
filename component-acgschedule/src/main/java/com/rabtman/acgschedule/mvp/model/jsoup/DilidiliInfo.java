@@ -7,7 +7,7 @@ import com.fcannizzaro.jsoup.annotations.interfaces.Selector;
 import com.fcannizzaro.jsoup.annotations.interfaces.Text;
 import java.util.List;
 
-@Selector("div.main")
+@Selector("body")
 public class DilidiliInfo {
 
   @Items
@@ -64,22 +64,18 @@ public class DilidiliInfo {
         '}';
   }
 
-  @Selector("div#slider ul li[class~=elmnt?] a")
+  @Selector("div.swipe ul li")
   public static class ScheduleBanner {
 
-    @Attr(query = "a", attr = "style")
+    @Attr(query = "a img", attr = "src")
     private String imgUrl;
+    @Text("a p")
     private String name;
     @Attr(query = "a", attr = "href")
     private String animeLink;
 
     public String getImgUrl() {
-      try {
-        return imgUrl.substring(imgUrl.lastIndexOf("(") + 1, imgUrl.lastIndexOf(".") + 4);
-      } catch (Exception e) {
-        e.printStackTrace();
-        return "";
-      }
+      return imgUrl;
     }
 
     public void setImgUrl(String imgUrl) {
@@ -161,21 +157,21 @@ public class DilidiliInfo {
     }
   }
 
-  @Selector("div.book.article a")
+  @Selector("div.list ul li")
   public static class ScheduleRecent {
 
-    @Attr(query = "figure div", attr = "style")
+    @Attr(query = "div.imgblock", attr = "style")
     private String imgUrl;
-    @Text("figure figcaption p:nth-child(1)")
+    @Text("a.itemtext")
     private String name;
-    @Text("figure figcaption p:nth-child(2)")
+    @Text("div.itemimgtext")
     private String desc;
-    @Attr(query = "a", attr = "href")
+    @Attr(query = "div.itemimg a", attr = "href")
     private String animeLink;
 
     public String getImgUrl() {
       try {
-        return imgUrl.substring(imgUrl.lastIndexOf("(") + 1, imgUrl.lastIndexOf(".") + 4);
+        return imgUrl.substring(imgUrl.lastIndexOf("http"), imgUrl.lastIndexOf(".") + 4);
       } catch (Exception e) {
         e.printStackTrace();
         return "";

@@ -1,15 +1,17 @@
 package com.rabtman.acgschedule.mvp.model.jsoup;
 
 import com.fcannizzaro.jsoup.annotations.interfaces.Attr;
+import com.fcannizzaro.jsoup.annotations.interfaces.ForEach;
 import com.fcannizzaro.jsoup.annotations.interfaces.Items;
 import com.fcannizzaro.jsoup.annotations.interfaces.Selector;
 import com.fcannizzaro.jsoup.annotations.interfaces.Text;
 import java.util.List;
+import org.jsoup.nodes.Element;
 
 /**
  * @author Rabtman
  */
-@Selector("main")
+@Selector("div.area")
 public class ScheduleNew {
 
   @Items
@@ -31,29 +33,29 @@ public class ScheduleNew {
         '}';
   }
 
-  @Selector("div ul#episode_list li")
+  @Selector("div.pics ul li")
   public static class ScheduleNewItem {
 
-    @Attr(query = "a div", attr = "style")
+    @Attr(query = "a img", attr = "src")
     private String imgUrl;
-    @Text("a p.ac")
+    @Text("h2 a")
     private String title;
-    @Text("a p.kandian span:containsOwn(看点)")
+    @Text("span:containsOwn(状态)")
     private String spot;
-    @Text("a p.kandian span:containsOwn(类型)")
-    private String type;
-    @Text("a p.jianjie")
+    //@Text("a p.kandian span:containsOwn(类型)")
+    private String type = "类型：";
+    @Text("p")
     private String desc;
     @Attr(query = "a", attr = "href")
     private String animeLink;
 
+    @ForEach("span:containsOwn(类型) a")
+    void labels(Element element, int index) {
+      type += element.text() + " ";
+    }
+
     public String getImgUrl() {
-      try {
-        return imgUrl.substring(imgUrl.lastIndexOf("(") + 1, imgUrl.lastIndexOf(".") + 4);
-      } catch (Exception e) {
-        e.printStackTrace();
-        return "";
-      }
+      return imgUrl;
     }
 
     public void setImgUrl(String imgUrl) {

@@ -11,8 +11,8 @@ import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.base.constant.IntentConstant
 import com.rabtman.acgcomic.base.constant.SystemConstant
 import com.rabtman.acgcomic.mvp.model.dao.ComicDAO
-import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
+import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicItem
 import com.rabtman.acgcomic.mvp.ui.adapter.ComicCollectionAdapter
 import com.rabtman.common.base.SimpleFragment
 import com.rabtman.common.base.widget.loadsir.EmptyCollectionCallback
@@ -44,10 +44,10 @@ class ComicCollectionFragment : SimpleFragment() {
         mAdapter.setOnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as ComicCache?
             RouterUtils.getInstance()
-                    .build(RouterConstants.PATH_COMIC_OACG_DETAIL)
+                    .build(RouterConstants.PATH_COMIC_QIMIAO_DETAIL)
                     .withParcelable(
-                            IntentConstant.OACG_COMIC_ITEM,
-                            Gson().fromJson(item?.comicDetailJson, OacgComicItem::class.java)
+                            IntentConstant.QIMIAO_COMIC_ITEM,
+                            Gson().fromJson(item?.comicDetailJson, QiMiaoComicItem::class.java)
                     )
                     .navigation()
         }

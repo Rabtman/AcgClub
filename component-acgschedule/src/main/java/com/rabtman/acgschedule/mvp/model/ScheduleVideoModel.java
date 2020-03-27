@@ -13,7 +13,6 @@ import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
 import io.reactivex.annotations.NonNull;
 import javax.inject.Inject;
-import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
@@ -39,10 +38,7 @@ public class ScheduleVideoModel extends BaseModel implements ScheduleVideoContra
         }else {
           ScheduleVideo scheduleVideo = JP.from(html, ScheduleVideo.class);
           if (!TextUtils.isEmpty(scheduleVideo.getVideoHtml())) {
-            JSONObject videoJson = new JSONObject(scheduleVideo.getVideoHtml()
-                .substring(scheduleVideo.getVideoHtml().indexOf("{"),
-                    scheduleVideo.getVideoHtml().indexOf("}") + 1));
-            scheduleVideo.setVideoUrl(videoJson.getString("url"));
+            scheduleVideo.setVideoUrl("http://tup.yhdm.tv/?m=1&vid=" + scheduleVideo.getVideoUrl());
           }
           /*StringBuilder scheduleVideoHtmlBuilder = new StringBuilder();
           scheduleVideoHtmlBuilder.append(HtmlConstant.SCHEDULE_VIDEO_CSS);

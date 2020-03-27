@@ -1,7 +1,11 @@
 package com.rabtman.acgcomic.mvp
 
-import com.rabtman.acgcomic.mvp.model.entity.*
+import com.rabtman.acgcomic.mvp.model.entity.DmzjComicItem
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
+import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicDetail
+import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicEpisodeDetail
+import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicItem
+import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicPage
 import com.rabtman.common.base.mvp.IModel
 import com.rabtman.common.base.mvp.IView
 import io.reactivex.Flowable
@@ -14,26 +18,26 @@ import io.reactivex.Flowable
 interface DmzjComicContract {
 
     interface View : IView {
-        fun showComicInfos(comicInfos: List<DmzjComicItem>)
+        fun showComicInfo(comicInfos: List<DmzjComicItem>)
 
-        fun showMoreComicInfos(comicInfos: List<DmzjComicItem>, canLoadMore: Boolean)
+        fun showMoreComicInfo(comicInfos: List<DmzjComicItem>, canLoadMore: Boolean)
 
         fun onLoadMoreFail()
     }
 
     interface Model : IModel {
-        fun getComicInfos(selected: String): Flowable<List<DmzjComicItem>>
+        fun getComicInfo(selected: String): Flowable<List<DmzjComicItem>>
     }
 }
 
-interface OacgComicContract {
+interface QiMiaoComicContract {
 
     interface View : IView {
-        fun showComicInfos(comicInfos: List<OacgComicItem>?)
+        fun showComicInfo(comicInfos: List<QiMiaoComicItem>?)
 
-        fun showMoreComicInfos(comicInfos: List<OacgComicItem>?, canLoadMore: Boolean?)
+        fun showMoreComicInfo(comicInfos: List<QiMiaoComicItem>?, canLoadMore: Boolean)
 
-        fun showSearchComicInfos(comicInfos: List<OacgComicItem>?)
+        fun showSearchComicInfo(comicInfos: List<QiMiaoComicItem>?, canLoadMore: Boolean)
 
         fun resetComicMenu()
 
@@ -41,16 +45,16 @@ interface OacgComicContract {
     }
 
     interface Model : IModel {
-        fun getComicInfos(themeId: Int, pageNo: Int): Flowable<OacgComicPage>
+        fun getComicInfo(keyword: String, pageNo: Int, isSearch: Boolean): Flowable<QiMiaoComicPage>
 
-        fun getSearchComicInfos(keyword: String): Flowable<OacgComicPage>
+        fun getSearchComicInfo(keyword: String, pageNo: Int): Flowable<QiMiaoComicPage>
     }
 }
 
-interface OacgComicDetailContract {
+interface QiMiaoComicDetailContract {
 
     interface View : IView {
-        fun showComicDetail(comicInfos: List<OacgComicEpisode>?)
+        fun showComicDetail(comicDetail: QiMiaoComicDetail)
 
         fun showComicCacheStatus(comicCache: ComicCache)
 
@@ -58,24 +62,24 @@ interface OacgComicDetailContract {
     }
 
     interface Model : IModel {
-        fun getComicDetail(comicId: Int): Flowable<List<OacgComicEpisode>>
+        fun getComicDetail(detailUrl: String): Flowable<QiMiaoComicDetail>
 
         fun getComicCacheById(comicId: String): Flowable<ComicCache>
 
-        fun collectComic(comicItem: OacgComicItem, isAdd: Boolean): Flowable<ComicCache>
+        fun collectComic(comicItem: QiMiaoComicItem, isAdd: Boolean): Flowable<ComicCache>
 
         fun updateComicLastChapter(comicId: String, lastChapterPos: Int): Flowable<ComicCache>
     }
 }
 
-interface OacgComicEpisodeDetailContract {
+interface QiMIaoComicEpisodeDetailContract {
 
     interface View : IView {
-        fun showEpisodeDetail(episodePage: OacgComicEpisodePage, lastPagePos: Int)
+        fun showEpisodeDetail(episodePage: QiMiaoComicEpisodeDetail, lastPagePos: Int)
     }
 
     interface Model : IModel {
-        fun getEpisodeDetail(comicId: Int, chapterIndex: Int): Flowable<OacgComicEpisodePage>
+        fun getEpisodeDetail(episodeUrl: String): Flowable<QiMiaoComicEpisodeDetail>
 
         fun getComicCacheByChapter(comicId: String, chapterPos: Int): Flowable<ComicCache>
 

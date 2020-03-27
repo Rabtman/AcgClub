@@ -1,12 +1,12 @@
 package com.rabtman.acgcomic.mvp.presenter
 
 import com.rabtman.acgcomic.R
-import com.rabtman.acgcomic.mvp.OacgComicDetailContract
-import com.rabtman.acgcomic.mvp.OacgComicDetailContract.Model
-import com.rabtman.acgcomic.mvp.OacgComicDetailContract.View
-import com.rabtman.acgcomic.mvp.model.entity.OacgComicEpisode
-import com.rabtman.acgcomic.mvp.model.entity.OacgComicItem
+import com.rabtman.acgcomic.mvp.QiMiaoComicDetailContract
+import com.rabtman.acgcomic.mvp.QiMiaoComicDetailContract.Model
+import com.rabtman.acgcomic.mvp.QiMiaoComicDetailContract.View
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
+import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicDetail
+import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicItem
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
@@ -18,18 +18,18 @@ import javax.inject.Inject
  * @author Rabtman
  */
 @ActivityScope
-class OacgComicDetailPresenter @Inject
-constructor(model: OacgComicDetailContract.Model,
-            rootView: OacgComicDetailContract.View) : BasePresenter<Model, View>(model, rootView) {
+class QiMiaoComicDetailPresenter @Inject
+constructor(model: QiMiaoComicDetailContract.Model,
+            rootView: QiMiaoComicDetailContract.View) : BasePresenter<Model, View>(model, rootView) {
 
-    private var currentComicEpisodes: List<OacgComicEpisode>? = null
+    private var currentComicDetail: QiMiaoComicDetail? = null
     private var currentComicCache: ComicCache = ComicCache()
 
-    fun getOacgComicDetail(comicId: String) {
+    fun getComicDetail(detailUrl: String) {
         addSubscribe(
-                mModel.getComicDetail(comicId.toInt())
+                mModel.getComicDetail(detailUrl)
                         .compose(RxUtil.rxSchedulerHelper())
-                        .subscribeWith(object : CommonSubscriber<List<OacgComicEpisode>>(mView) {
+                        .subscribeWith(object : CommonSubscriber<QiMiaoComicDetail>(mView) {
                             override fun onComplete() {
                                 mView.hideLoading()
                             }
@@ -39,9 +39,9 @@ constructor(model: OacgComicDetailContract.Model,
                                 mView.showPageError()
                             }
 
-                            override fun onNext(comicEpisodes: List<OacgComicEpisode>) {
-                                currentComicEpisodes = comicEpisodes
-                                mView.showComicDetail(comicEpisodes)
+                            override fun onNext(comicDetail: QiMiaoComicDetail) {
+                                currentComicDetail = comicDetail
+                                mView.showComicDetail(comicDetail)
                                 mView.showPageContent()
                                 if (currentComicCache.chapterPos != -1) {
                                     mView.showComicCacheStatus(currentComicCache)
@@ -73,14 +73,14 @@ constructor(model: OacgComicDetailContract.Model,
      */
     fun getCurrentComicCache(comicId: String, isManualClick: Boolean) {
         if (currentComicCache.comicId.isNotEmpty() && isManualClick) {
-            currentComicEpisodes?.let { comicEpisodes ->
+            /*currentComicDetail?.let { comicEpisodes ->
                 mView.showComicCacheStatus(currentComicCache)
                 mView.start2ComicRead(
                         comicId,
                         currentComicCache.chapterPos,
                         comicEpisodes[currentComicCache.chapterPos].orderIdx
                 )
-            }
+            }*/
         } else {
             addSubscribe(
                     mModel.getComicCacheById(comicId)
@@ -92,15 +92,15 @@ constructor(model: OacgComicDetailContract.Model,
                                 }
 
                                 override fun onComplete() {
-                                    currentComicEpisodes?.let { comicEpisodes ->
+                                    currentComicDetail?.let { comicEpisodes ->
                                         mView.showComicCacheStatus(currentComicCache)
-                                        if (isManualClick) {
+                                        /*if (isManualClick) {
                                             mView.start2ComicRead(
                                                     comicId,
                                                     currentComicCache.chapterPos,
                                                     comicEpisodes[currentComicCache.chapterPos].orderIdx
                                             )
-                                        }
+                                        }*/
                                     }
                                 }
 
@@ -117,9 +117,9 @@ constructor(model: OacgComicDetailContract.Model,
     /**
      * 漫画收藏、取消
      */
-    fun collectOrCancelComic(comicInfo: OacgComicItem, isCollected: Boolean) {
+    fun collectOrCancelComic(comicItem: QiMiaoComicItem, isCollected: Boolean) {
         addSubscribe(
-                mModel.collectComic(comicInfo, isCollected.not())
+                mModel.collectComic(comicItem, isCollected.not())
                         .compose(RxUtil.rxSchedulerHelper())
                         .subscribe({
                             currentComicCache.isCollect = isCollected.not()

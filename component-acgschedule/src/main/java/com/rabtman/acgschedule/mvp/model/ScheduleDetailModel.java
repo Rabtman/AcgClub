@@ -42,7 +42,7 @@ public class ScheduleDetailModel extends BaseModel implements ScheduleDetailCont
       public void subscribe(@NonNull FlowableEmitter<ScheduleDetail> e) throws Exception {
         String scheduleLink = url;
         if (!url.contains("http")) {
-          scheduleLink = HtmlConstant.DILIDILI_URL + url;
+          scheduleLink = HtmlConstant.YHDM_M_URL + url;
         }
         Element html = Jsoup.connect(scheduleLink).get();
         if (html == null) {

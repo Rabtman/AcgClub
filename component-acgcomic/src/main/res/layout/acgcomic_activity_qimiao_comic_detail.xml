@@ -26,7 +26,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-          android:id="@+id/img_oacg_comic_title_bg"
+          android:id="@+id/img_qimiao_comic_title_bg"
           android:layout_width="match_parent"
           android:layout_height="280dp"
           android:scaleType="centerCrop" />
@@ -57,7 +57,7 @@
             app:cardUseCompatPadding="true">
 
             <ImageView
-              android:id="@+id/img_oacg_comic_detail"
+              android:id="@+id/img_qimiao_comic_detail"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:scaleType="centerCrop"
@@ -65,7 +65,7 @@
           </android.support.v7.widget.CardView>
 
           <TextView
-            android:id="@+id/tv_oacg_comic_detail_spot"
+            android:id="@+id/tv_qimiao_comic_detail_spot"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -78,63 +78,30 @@
             tools:text="标签：百合|恋爱|日常|肉番|日常" />
 
           <TextView
-            android:id="@+id/tv_oacg_comic_detail_proc"
+            android:id="@+id/tv_qimiao_comic_detail_proc"
             style="@style/TextAppearance.AppCompat.Body1"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_above="@id/tv_oacg_comic_detail_spot"
+            android:layout_above="@id/tv_qimiao_comic_detail_spot"
             android:layout_toRightOf="@id/img_card"
             tools:text="更新至 37话" />
 
-
           <TextView
-            android:id="@+id/tv_oacg_comic_detail_popluar"
+            android:id="@+id/tv_qimiao_comic_detail_author"
             style="@style/TextAppearance.AppCompat.Body1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_above="@id/tv_oacg_comic_detail_proc"
-            android:layout_toRightOf="@id/img_card"
-            tools:text="人气：348932" />
-
-          <TextView
-            android:id="@+id/tv_oacg_comic_detail_painter"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_above="@id/tv_oacg_comic_detail_popluar"
+            android:layout_above="@id/tv_qimiao_comic_detail_proc"
             android:layout_toRightOf="@id/img_card"
             tools:text="撒的后" />
-
-          <TextView
-            android:id="@+id/tv_oacg_comic_detail_author_divider"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_alignTop="@id/tv_oacg_comic_detail_painter"
-            android:layout_toRightOf="@id/tv_oacg_comic_detail_painter"
-            android:text="/" />
-
-          <TextView
-            android:id="@+id/tv_oacg_comic_detail_script"
-            style="@style/TextAppearance.AppCompat.Body1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_alignTop="@id/tv_oacg_comic_detail_painter"
-            android:layout_toRightOf="@id/tv_oacg_comic_detail_author_divider"
-            tools:text="撒的后" />
-
 
           <android.support.v7.widget.CardView
-            android:id="@+id/btn_oacg_comic_read"
+            android:id="@+id/btn_qimiao_comic_read"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginLeft="8dp"
@@ -148,7 +115,7 @@
             app:elevation="16dp">
 
             <TextView
-              android:id="@+id/tv_oacg_comic_read"
+              android:id="@+id/tv_qimiao_comic_read"
               android:layout_width="wrap_content"
               android:layout_height="match_parent"
               android:layout_gravity="center"
@@ -175,7 +142,7 @@
           android:gravity="center_vertical">
 
           <ImageView
-            android:id="@+id/btn_oacg_comic_like"
+            android:id="@+id/btn_qimiao_comic_like"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/toolbar_height"
             android:layout_alignParentRight="true"
@@ -189,7 +156,7 @@
             style="@style/Base.TextAppearance.AppCompat.Widget.ActionBar.Title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/toolbar_height"
-            android:layout_toLeftOf="@id/btn_oacg_comic_like"
+            android:layout_toLeftOf="@id/btn_qimiao_comic_like"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
@@ -246,7 +213,7 @@
             android:background="@color/colorPrimary" />
 
           <com.ms.square.android.expandabletextview.ExpandableTextView xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/tv_oacg_comic_detail_description"
+            android:id="@+id/tv_qimiao_comic_detail_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/view_left_line_description"
@@ -312,18 +279,18 @@
             android:background="@color/colorPrimary" />
 
           <android.support.v7.widget.RecyclerView
-            android:id="@+id/rcv_oacg_comic_detail"
+            android:id="@+id/rcv_qimiao_comic_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/view_left_line_episode"
             android:padding="8dp" />
 
           <TextView
-            android:id="@+id/btn_oacg_comic_detail_more"
+            android:id="@+id/btn_qimiao_comic_detail_more"
             android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/rcv_oacg_comic_detail"
+            android:layout_below="@id/rcv_qimiao_comic_detail"
             android:layout_centerHorizontal="true"
             android:padding="8dp"
             android:text="查看更多"

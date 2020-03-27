@@ -24,9 +24,9 @@ public class RouterConstants {
   public static final String PATH_SCHEDULE_DETAIL = "/acgschedule/detail";
   public static final String PATH_SCHEDULE_COLLECTION = "/acgschedule/collection";
   //acgcomic
-  public static final String PATH_COMIC_OACG = "/acgcomic/oacg";
-  public static final String PATH_COMIC_OACG_DETAIL = "/acgcomic/oacg/detail";
-  public static final String PATH_COMIC_OACG_READ = "/acgcomic/oacg/read";
+  public static final String PATH_COMIC_QIMIAO = "/acgcomic/qimiao";
+  public static final String PATH_COMIC_QIMIAO_DETAIL = "/acgcomic/qimiao/detail";
+  public static final String PATH_COMIC_QIMIAO_READ = "/acgcomic/qimiao/read";
   public static final String PATH_COMIC_COLLECTION = "/acgcomic/collection";
   //acgpicture
   public static final String PATH_PICTURE_MAIN = "/acgpicture/main";

@@ -43,10 +43,10 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:minLines="2"
-        tools:text="《哆啦A梦》最新一集\n大雄对静香" />
+        tools:text="《哆啦A梦》最新一集大雄对静香" />
 
       <TextView
-        android:id="@+id/schedule_new_desc"
+        android:id="@+id/schedule_new_spot"
         style="@style/TextAppearance.AppCompat.Caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,10 +54,7 @@
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="8dp"
         android:layout_below="@id/schedule_new_title"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:minLines="2"
-        tools:text="看点：这里是人\n与神的世界" />
+        tools:text="看点：这里是人与神的世界" />
 
       <TextView
         android:id="@+id/schedule_new_type"
@@ -67,13 +64,14 @@
         android:layout_marginTop="2dp"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="8dp"
-        android:layout_below="@id/schedule_new_desc"
+        android:layout_below="@id/schedule_new_spot"
         android:ellipsize="end"
+        android:textStyle="bold"
         android:maxLines="1"
         tools:text="看点：这里是\n人与神的世界" />
 
       <TextView
-        android:id="@+id/schedule_new_spot"
+        android:id="@+id/schedule_new_desc"
         style="@style/TextAppearance.AppCompat.Caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,7 +82,8 @@
         android:ellipsize="end"
         android:maxLines="2"
         android:minLines="2"
-        tools:text="看点：这里是人与神的\n世界" />
+        tools:text="看点：这里是人\n与神的世界" />
+
     </RelativeLayout>
   </LinearLayout>
 </RelativeLayout>

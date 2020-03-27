@@ -23,7 +23,7 @@ buildscript {
         //andResGurad
         //classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.2.12'
         //butterknife
-        classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0-SNAPSHOT'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:9.0.0'
         //kotlin
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         //realm
