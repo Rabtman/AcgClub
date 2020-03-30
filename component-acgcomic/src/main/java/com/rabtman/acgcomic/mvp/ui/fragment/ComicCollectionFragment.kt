@@ -29,7 +29,7 @@ import io.reactivex.subscribers.ResourceSubscriber
 class ComicCollectionFragment : SimpleFragment() {
 
     @BindView(R2.id.rcv_comic_collection)
-    internal lateinit var rcvOacgComicItem: RecyclerView
+    internal lateinit var rcvQiMiaoComicItem: RecyclerView
     private lateinit var mAdapter: ComicCollectionAdapter
     private var mDisposable: Disposable? = null
 
@@ -39,8 +39,8 @@ class ComicCollectionFragment : SimpleFragment() {
 
     override fun initData() {
         mAdapter = ComicCollectionAdapter(appComponent.imageLoader())
-        rcvOacgComicItem.layoutManager = GridLayoutManager(context, 3)
-        rcvOacgComicItem.adapter = mAdapter
+        rcvQiMiaoComicItem.layoutManager = GridLayoutManager(context, 3)
+        rcvQiMiaoComicItem.adapter = mAdapter
         mAdapter.setOnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as ComicCache?
             RouterUtils.getInstance()
@@ -51,13 +51,13 @@ class ComicCollectionFragment : SimpleFragment() {
                     )
                     .navigation()
         }
-        getOacgComicItems()
+        getComicItems()
     }
 
     override fun onResume() {
         super.onResume()
         if (isInited && isVisible) {
-            getOacgComicItems()
+            getComicItems()
         }
     }
 
@@ -73,13 +73,13 @@ class ComicCollectionFragment : SimpleFragment() {
     }
 
     override fun onPageRetry(v: View?) {
-        getOacgComicItems()
+        getComicItems()
     }
 
     /**
      * 获取收藏的所有番剧信息并显示出来
      */
-    private fun getOacgComicItems() {
+    private fun getComicItems() {
         val dao = ComicDAO(
                 appComponent
                         .repositoryManager()

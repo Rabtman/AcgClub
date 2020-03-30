@@ -1,31 +1,52 @@
 package com.rabtman.acgcomic.mvp.ui.adapter
 
+import android.graphics.Bitmap
+import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.rabtman.acgcomic.R
-import com.rabtman.common.imageloader.ImageLoader
-import com.rabtman.common.imageloader.glide.GlideImageConfig
+import com.rabtman.common.imageloader.glide.GlideApp
+import com.rabtman.common.utils.DimenUtils
+import kotlin.math.roundToInt
 
 /**
  * @author Rabtman
  */
 
-class QiMiaoComicReadAdapter(private val imgageLoader: ImageLoader) : BaseQuickAdapter<String, BaseViewHolder>(R.layout.acgcomic_item_oacg_comic_read, null) {
+class QiMiaoComicReadAdapter() : BaseQuickAdapter<String, BaseViewHolder>(R.layout.acgcomic_item_qimiao_comic_read, null) {
+
+    private var screenWidth: Int = 0
+
+    override fun onBindViewHolder(holder: BaseViewHolder?, position: Int) {
+        screenWidth = DimenUtils.getScreenWidth(mContext)
+        super.onBindViewHolder(holder, position)
+    }
 
     override fun convert(helper: BaseViewHolder, item: String) {
-        helper.setText(R.id.tv_oacg_comic_pos, (helper.adapterPosition + 1).toString())
-        //根据屏幕尺寸来缩放加载图片的大小
-        /*val screenWidth = DimenUtils.getScreenWidth(mContext)
-        val layoutRead = helper.getView(R.id.layout_oacg_comic_read) as FrameLayout
-        layoutRead.layoutParams.width = screenWidth
-        layoutRead.layoutParams.height = (screenWidth / (item.pagerPicWidth.toDouble() / item.pagerPicHeight.toDouble())).toInt()*/
+        helper.setText(R.id.tv_qimiao_comic_pos, (helper.adapterPosition + 1).toString())
+        GlideApp.with(mContext)
+                .asBitmap()
+                .load(item)
+                .fallback(R.drawable.ic_launcher_round)
+                .error(R.drawable.ic_launcher_round)
+                .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+                .into(object : SimpleTarget<Bitmap>() {
+                    override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                        helper.getView<TextView>(R.id.tv_qimiao_comic_pos).visibility = View.GONE
+                        val img: ImageView = helper.getView(R.id.img_qimiao_comic_read)
+                        img.setImageBitmap(resource)
+                        val scale = screenWidth.toDouble() / resource.width.toDouble()
+                        val layoutParams = img.layoutParams
+                        layoutParams.width = (resource.width * scale).roundToInt()
+                        layoutParams.height = (resource.height * scale).roundToInt()
+                        img.layoutParams = layoutParams
+                    }
+                })
 
-        imgageLoader.loadImage(mContext,
-                GlideImageConfig
-                        .builder()
-                        .url(item)
-                        .imageView(helper.getView(R.id.img_oacg_comic_read))
-                        .build()
-        )
     }
 }

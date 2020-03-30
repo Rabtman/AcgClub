@@ -18,9 +18,9 @@ import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.base.constant.IntentConstant
 import com.rabtman.acgcomic.di.DaggerQiMiaoComicEpisodeDetailComponent
 import com.rabtman.acgcomic.di.QiMiaoComicEpisodeDetailModule
-import com.rabtman.acgcomic.mvp.QiMIaoComicEpisodeDetailContract
-import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicEpisodeDetail
-import com.rabtman.acgcomic.mvp.presenter.QiMiaoComicEpisodeDetailPresenter
+import com.rabtman.acgcomic.mvp.QiMIaoComicChapterDetailContract
+import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicChapterDetail
+import com.rabtman.acgcomic.mvp.presenter.QiMiaoComicReadPresenter
 import com.rabtman.acgcomic.mvp.ui.adapter.QiMiaoComicReadAdapter
 import com.rabtman.common.base.BaseActivity
 import com.rabtman.common.di.component.AppComponent
@@ -31,7 +31,7 @@ import com.rabtman.router.RouterConstants
  * @author Rabtman
  */
 @Route(path = RouterConstants.PATH_COMIC_QIMIAO_READ)
-class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicEpisodeDetailPresenter>(), QiMIaoComicEpisodeDetailContract.View {
+class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicReadPresenter>(), QiMIaoComicChapterDetailContract.View {
 
     //漫画阅读控制栏
     @BindView(R2.id.layout_comic_top)
@@ -110,7 +110,7 @@ class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicEpisodeDetailPresenter>(
     override fun initData() {
         curComicTitle = intent.getStringExtra(IntentConstant.QIMIAO_COMIC_TITLE)
 
-        qiMiaoComicReadAdapter = QiMiaoComicReadAdapter(mAppComponent.imageLoader())
+        qiMiaoComicReadAdapter = QiMiaoComicReadAdapter()
         qiMiaoComicReadAdapter.setOnItemClickListener { _, _, _ ->
             toogleDisplayPanel()
         }
@@ -171,8 +171,7 @@ class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicEpisodeDetailPresenter>(
         })
 
         mPresenter.setIntentData(intent.getStringExtra(IntentConstant.QIMIAO_COMIC_ID),
-                intent.getIntExtra(IntentConstant.QIMIAO_COMIC_CHAPTERPOS, 0),
-                intent.getStringExtra(IntentConstant.QIMIAO_COMIC_CHAPTERID))
+                intent.getStringExtra(IntentConstant.QIMIAO_COMIC_CHAPTER_ID))
         mPresenter.getEpisodeDetailAndCache()
     }
 
@@ -184,42 +183,41 @@ class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicEpisodeDetailPresenter>(
     @OnClick(R2.id.btn_comic_before)
     fun preComicEpisode() {
         rcvComicContent.stopScroll()
-        mPresenter.getPreEpisodeDetail()
+        mPresenter.getPreChapterDetail()
     }
 
     @OnClick(R2.id.btn_comic_next)
     fun nextComicEpisode() {
         rcvComicContent.stopScroll()
-        mPresenter.getNextEpisodeDetail()
+        mPresenter.getNextChapterDetail()
     }
 
-    override fun showEpisodeDetail(episodeDetail: QiMiaoComicEpisodeDetail, lastPagePos: Int) {
+    override fun showChapterDetail(chapterDetail: QiMiaoComicChapterDetail, lastPagePos: Int) {
         layoutComicBottom.visibility = View.VISIBLE
         //是否存在上一话
-        if (episodeDetail.preEpisode.contains("html")) {
+        if (chapterDetail.preChapterId != "-1") {
             btnComicBefore.visibility = View.VISIBLE
         } else {
             btnComicBefore.visibility = View.INVISIBLE
         }
         //是否存在下一话
-        if (episodeDetail.nextEpisode.contains("html")) {
+        if (chapterDetail.nextChapterId != "-1") {
             btnComicNext.visibility = View.VISIBLE
         } else {
             btnComicNext.visibility = View.INVISIBLE
         }
-        tvComicTitle.text = curComicTitle
-        tvComicTitle.append(" ${curComicTitle}")
-        /*qiMiaoComicReadAdapter.setNewData(episodeDetail.episodes)
-        if (episodeDetail.episodes.isEmpty()) {
+        tvComicTitle.text = chapterDetail.title
+        qiMiaoComicReadAdapter.setNewData(chapterDetail.listImg)
+        if (chapterDetail.listImg.isEmpty()) {
             maxPage = 0
         } else {
-            maxPage = episodeDetail.episodes.size
+            maxPage = chapterDetail.listImg.size
             //每次刷新重置控件
             rcvComicContent.scrollToPosition(lastPagePos)
             seekComicProc.progress = lastPagePos
             seekComicProc.max = maxPage - 1
             tvComicPos.text = (lastPagePos + 1).toString()
-        }*/
+        }
         tvComicCount.text = maxPage.toString()
     }
 

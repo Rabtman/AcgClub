@@ -22,8 +22,8 @@ class HtmlConstant {
         const val DMZJ_URL = "https://m.dmzj.com/"
         const val DMZJ_IMG_URL = "https://images.dmzj.com/"
 
-        const val OACG_URL = "http://comic.oacg.cn/"
-        const val OACG_IMG_URL = "http://gx.cdn.comic.oacg.cn"
+        const val qimiao_URL = "http://comic.oacg.cn/"
+        const val qimiao_IMG_URL = "http://gx.cdn.comic.oacg.cn"
 
         const val QIMIAO_URL = "https://m.qimiaomh.com"
     }
@@ -34,8 +34,8 @@ class IntentConstant {
         const val QIMIAO_COMIC_ITEM = "qimiao_comic_item"
         const val QIMIAO_COMIC_ID = "qimiao_comic_id"
         const val QIMIAO_COMIC_TITLE = "qimiao_comic_title"
-        const val QIMIAO_COMIC_CHAPTERID = "qimiao_comic_chapterid"
-        const val QIMIAO_COMIC_CHAPTERPOS = "qimiao_comic_chapterpos"
+        const val QIMIAO_COMIC_CHAPTER_URL = "qimiao_comic_chapter_url"
+        const val QIMIAO_COMIC_CHAPTER_ID = "qimiao_comic_chapter_id"
     }
 }
 

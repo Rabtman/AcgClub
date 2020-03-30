@@ -2,8 +2,11 @@ package com.rabtman.acgcomic.mvp.model.entity.jsoup
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.fcannizzaro.jsoup.annotations.interfaces.*
-import org.jsoup.nodes.Element
+import com.fcannizzaro.jsoup.annotations.interfaces.Attr
+import com.fcannizzaro.jsoup.annotations.interfaces.Items
+import com.fcannizzaro.jsoup.annotations.interfaces.Selector
+import com.fcannizzaro.jsoup.annotations.interfaces.Text
+import java.util.*
 
 /**
  * @author Rabtman
@@ -50,13 +53,19 @@ data class QiMiaoComicItem(var comicId: String = "",
                            var author: String = "",
                            @Text("a div.li_div.nmain_cl_newc p")
                            var now: String = "",
-                           @Attr(query = "a", attr = "href")
                            var comicLink: String = "") : Parcelable {
+    @Attr(query = "a", attr = "href")
+    fun comicLink(link: String) {
+        comicLink = link
+        comicId = link.substring(link.lastIndexOf("/") + 1, link.lastIndexOf("."))
+    }
+
     override fun toString(): String {
         return "ScheduleNewItem(imgUrl=$imgUrl, title=$title, author=$author, now=$now, comicLink=$comicLink)"
     }
 
     constructor(source: Parcel) : this(
+            source.readString(),
             source.readString(),
             source.readString(),
             source.readString(),
@@ -67,6 +76,7 @@ data class QiMiaoComicItem(var comicId: String = "",
     override fun describeContents() = 0
 
     override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeString(comicId)
         writeString(imgUrl)
         writeString(title)
         writeString(author)
@@ -96,31 +106,55 @@ data class QiMiaoComicDetail(
         @Text("div.nmain_com_p.nmain_com_p2 p")
         var desc: String? = null,
         @Items
-        var comicEpisodes: List<QiMiaoComicEpisode>? = null
+        var comicChapters: List<QiMiaoComicChapter>? = null
 )
 
 @Selector("ul#ncp3_ul li a")
-data class QiMiaoComicEpisode(
-        @Attr(query = "a", attr = "href")
-        var link: String? = null,
+data class QiMiaoComicChapter(
+        var chapterId: String = "",
+        var comicId: String = "",
+        var link: String = "",
         @Text("div.ncp3li_div.ncp3li_title")
-        var name: String? = null,
+        var name: String = "",
         @Text("span.ncp3li_time")
         var date: String? = null
-)
-
-@Selector("div.nmain_conl")
-data class QiMiaoComicEpisodeDetail(
-        //var episodes: ArrayList<String>,
-        @Attr(query = "div.page div.page_div.page_left a", attr = "href")
-        var preEpisode: String = "",
-        @Attr(query = "div.page div.page_div.page_right a", attr = "href")
-        var nextEpisode: String = ""
 ) {
+    @Attr(query = "a", attr = "href")
+    fun comicLink(link: String) {
+        this.link = link
+        val split = link.split("/")
+        this.comicId = split[split.size - 2]
+        val id = split[split.size - 1]
+        this.chapterId = id.substring(0, id.indexOf("."))
+    }
+}
 
-    @ForEach("div.loadimg img")
-    fun getEpisodes(element: Element, index: Int) {
-        //episodes.add(element.attr("data-src"))
-        element.text()
+@Selector("body")
+data class QiMiaoComicChapterDetail(
+        val listImg: MutableList<String> = ArrayList(),
+        //var comicId: String = "",
+        @Text("header h1.h1")
+        var title: String = "",
+        var preChapterId: String = "-1",
+        var nextChapterId: String = "-1"
+) {
+    @Attr(query = "div.nmain_conl div.page div.page_div.page_left a", attr = "href")
+    fun preChapter(link: String) {
+        if (link.contains("html")) {
+            val split = link.split("/")
+            //this.comicId = split[split.size - 2]
+            val id = split[split.size - 1]
+            this.preChapterId = id.substring(0, id.indexOf("."))
+        }
+    }
+
+    @Attr(query = "div.nmain_conl div.page div.page_div.page_right a", attr = "href")
+    fun nextChapter(link: String) {
+        if (link.contains("html")) {
+            val split = link.split("/")
+            //this.comicId = split[split.size - 2]
+            val id = split[split.size - 1]
+            this.nextChapterId = id.substring(0, id.indexOf("."))
+        }
     }
 }

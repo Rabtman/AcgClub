@@ -2,8 +2,8 @@ package com.rabtman.acgcomic.mvp
 
 import com.rabtman.acgcomic.mvp.model.entity.DmzjComicItem
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
+import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicChapterDetail
 import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicDetail
-import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicEpisodeDetail
 import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicItem
 import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicPage
 import com.rabtman.common.base.mvp.IModel
@@ -58,7 +58,7 @@ interface QiMiaoComicDetailContract {
 
         fun showComicCacheStatus(comicCache: ComicCache)
 
-        fun start2ComicRead(id: String, lastChapterPos: Int, lastChapterIndex: String)
+        fun start2ComicRead(id: String, lastChapterId: String)
     }
 
     interface Model : IModel {
@@ -72,14 +72,14 @@ interface QiMiaoComicDetailContract {
     }
 }
 
-interface QiMIaoComicEpisodeDetailContract {
+interface QiMIaoComicChapterDetailContract {
 
     interface View : IView {
-        fun showEpisodeDetail(episodePage: QiMiaoComicEpisodeDetail, lastPagePos: Int)
+        fun showChapterDetail(chapterDetail: QiMiaoComicChapterDetail, lastPagePos: Int)
     }
 
     interface Model : IModel {
-        fun getEpisodeDetail(episodeUrl: String): Flowable<QiMiaoComicEpisodeDetail>
+        fun getChapterDetail(comicId: String, chapterId: String): Flowable<QiMiaoComicChapterDetail>
 
         fun getComicCacheByChapter(comicId: String, chapterPos: Int): Flowable<ComicCache>
 

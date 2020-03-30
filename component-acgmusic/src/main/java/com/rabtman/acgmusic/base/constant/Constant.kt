@@ -12,8 +12,6 @@ class SystemConstant {
 }
 
 class IntentConstant {
-    companion object {
-        const val OACG_COMIC_ITEM = "oacg_comic_item"
-    }
+
 }
 

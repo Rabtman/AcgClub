@@ -19,7 +19,7 @@
       android:focusableInTouchMode="true">
 
       <android.support.v7.widget.AppCompatImageButton
-        android:id="@+id/btn_oacg_comic_search"
+        android:id="@+id/btn_qimiao_comic_search"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginRight="16dp"
@@ -28,31 +28,31 @@
         android:background="@drawable/ic_comic_search" />
 
       <ImageView
-        android:id="@+id/oacg_comic_line"
+        android:id="@+id/qimiao_comic_line"
         android:layout_width="1dp"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        android:layout_toLeftOf="@id/btn_oacg_comic_search"
+        android:layout_toLeftOf="@id/btn_qimiao_comic_search"
         android:background="@color/colorPrimary" />
 
       <android.support.v7.widget.AppCompatImageButton
-        android:id="@+id/btn_oacg_comic_close"
+        android:id="@+id/btn_qimiao_comic_close"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/oacg_comic_line"
+        android:layout_toLeftOf="@id/qimiao_comic_line"
         android:background="@drawable/ic_comic_search_clear"
         android:visibility="invisible"
         tools:visibility="visible" />
 
       <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/et_oacg_comic_keyword"
+        android:id="@+id/et_qimiao_comic_keyword"
         style="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="24dp"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@id/btn_oacg_comic_close"
+        android:layout_toLeftOf="@id/btn_qimiao_comic_close"
         android:background="@null"
         android:hint="漫画名或作者"
         android:maxLines="1"

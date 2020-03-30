@@ -1,11 +1,16 @@
 package com.rabtman.acgcomic.mvp.ui.adapter
 
+import android.graphics.Bitmap
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicItem
 import com.rabtman.common.imageloader.ImageLoader
 import com.rabtman.common.imageloader.glide.GlideImageConfig
+import com.rabtman.common.imageloader.glide.transformations.RoundedCornersTransformation
+import com.rabtman.common.utils.DimenUtils
 
 /**
  * @author Rabtman
@@ -21,6 +26,9 @@ class QiMiaoComicItemAdpater(private val imageLoader: ImageLoader) : BaseQuickAd
                     GlideImageConfig.builder()
                             .url(item?.imgUrl)
                             .imageView(helper.getView(R.id.img_qimiao_comic))
+                            .transformation(
+                                    MultiTransformation<Bitmap>(CenterCrop(),
+                                            RoundedCornersTransformation(DimenUtils.dpToPx(mContext, 4f), 0)))
                             .build()
             )
         }

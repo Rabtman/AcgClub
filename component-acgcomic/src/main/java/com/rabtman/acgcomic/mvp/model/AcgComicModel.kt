@@ -6,14 +6,15 @@ import com.rabtman.acgcomic.api.AcgComicService
 import com.rabtman.acgcomic.base.constant.HtmlConstant
 import com.rabtman.acgcomic.base.constant.SystemConstant
 import com.rabtman.acgcomic.mvp.DmzjComicContract
-import com.rabtman.acgcomic.mvp.QiMIaoComicEpisodeDetailContract
+import com.rabtman.acgcomic.mvp.QiMIaoComicChapterDetailContract
 import com.rabtman.acgcomic.mvp.QiMiaoComicContract
 import com.rabtman.acgcomic.mvp.QiMiaoComicDetailContract
 import com.rabtman.acgcomic.mvp.model.dao.ComicDAO
 import com.rabtman.acgcomic.mvp.model.entity.DmzjComicItem
+import com.rabtman.acgcomic.mvp.model.entity.QiMiaoChapterContent
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
+import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicChapterDetail
 import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicDetail
-import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicEpisodeDetail
 import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicItem
 import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicPage
 import com.rabtman.common.base.mvp.BaseModel
@@ -22,6 +23,7 @@ import com.rabtman.common.di.scope.FragmentScope
 import com.rabtman.common.integration.IRepositoryManager
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
+import io.reactivex.functions.BiFunction
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Element
 import javax.inject.Inject
@@ -97,10 +99,10 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     }
 
     override fun collectComic(comicItem: QiMiaoComicItem, isAdd: Boolean): Flowable<ComicCache> {
-        return DAO.getComicCacheById(comicItem.comicLink)
+        return DAO.getComicCacheById(comicItem.comicId)
                 .flatMap({ comicCache ->
                     if (comicCache.comicDetailJson.isEmpty()) {
-                        comicCache.comicId = comicItem.comicLink
+                        comicCache.comicId = comicItem.comicId
                         comicCache.comicName = comicItem.title
                         comicCache.comicImgUrl = comicItem.imgUrl
                         comicCache.comicDetailJson = Gson().toJson(comicItem)
@@ -112,12 +114,12 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
 
     }
 
-    override fun updateComicLastChapter(comicId: String, lastChapterPos: Int): Flowable<ComicCache> {
+    override fun updateComicLastChapter(comicId: String, lastChapterId: Int): Flowable<ComicCache> {
         return DAO.getComicCacheById(comicId)
                 .flatMap({ comicCache ->
                     //如果不是不是上一次观看的章节，则重置观看的页面位置
-                    if (comicCache.chapterPos != lastChapterPos) {
-                        comicCache.chapterPos = lastChapterPos
+                    if (comicCache.chapterPos != lastChapterId) {
+                        comicCache.chapterPos = lastChapterId
                         comicCache.pagePos = 0
                     }
                     DAO.addComicCache(comicCache)
@@ -127,20 +129,24 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
 
 @ActivityScope
 class QiMiaoComicEpisodeDetailModel @Inject
-constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), QiMIaoComicEpisodeDetailContract.Model {
+constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), QiMIaoComicChapterDetailContract.Model {
     private val DAO = ComicDAO(mRepositoryManager.obtainRealmConfig(SystemConstant.DB_NAME))
 
-    override fun getEpisodeDetail(episodeUrl: String): Flowable<QiMiaoComicEpisodeDetail> {
-        return Flowable.create<QiMiaoComicEpisodeDetail>({ emitter ->
-            val html: Element? = Jsoup.connect(HtmlConstant.QIMIAO_URL + episodeUrl).get()
-            if (html == null) {
-                emitter.onError(Throwable("element html is null"))
-            } else {
-                val episodeDetail: QiMiaoComicEpisodeDetail = JP.from(html, QiMiaoComicEpisodeDetail::class.java)
-                emitter.onNext(episodeDetail)
-                emitter.onComplete()
-            }
-        }, BackpressureStrategy.BUFFER)
+    override fun getChapterDetail(comicId: String, chapterId: String): Flowable<QiMiaoComicChapterDetail> {
+        return Flowable.zip(mRepositoryManager.obtainRetrofitService(AcgComicService::class.java).getQiMiaoChapterContent(comicId, chapterId, Math.random()),
+                Flowable.create<QiMiaoComicChapterDetail>({ emitter ->
+                    val html: Element? = Jsoup.connect(HtmlConstant.QIMIAO_URL + "/manhua/$comicId/$chapterId.html").get()
+                    if (html == null) {
+                        emitter.onError(Throwable("element html is null"))
+                    } else {
+                        val chapterDetail: QiMiaoComicChapterDetail = JP.from(html, QiMiaoComicChapterDetail::class.java)
+                        emitter.onNext(chapterDetail)
+                        emitter.onComplete()
+                    }
+                }, BackpressureStrategy.BUFFER), BiFunction<QiMiaoChapterContent, QiMiaoComicChapterDetail, QiMiaoComicChapterDetail> { content, detail ->
+            detail.listImg.addAll(content.listImg)
+            detail
+        })
     }
 
     override fun getComicCacheByChapter(comicId: String, chapterPos: Int): Flowable<ComicCache> {
