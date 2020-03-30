@@ -1,7 +1,7 @@
 package com.rabtman.acgcomic.di
 
 import com.rabtman.acgcomic.mvp.DmzjComicContract
-import com.rabtman.acgcomic.mvp.QiMIaoComicEpisodeDetailContract
+import com.rabtman.acgcomic.mvp.QiMIaoComicChapterDetailContract
 import com.rabtman.acgcomic.mvp.QiMiaoComicContract
 import com.rabtman.acgcomic.mvp.QiMiaoComicDetailContract
 import com.rabtman.acgcomic.mvp.model.DmzjComicModel
@@ -37,13 +37,13 @@ class QiMiaoComicModule(private val view: QiMiaoComicContract.View) {
 
     @FragmentScope
     @Provides
-    internal fun providerOacgComicView(): QiMiaoComicContract.View {
+    internal fun providerQiMiaoComicView(): QiMiaoComicContract.View {
         return this.view
     }
 
     @FragmentScope
     @Provides
-    internal fun providerOacgComicModel(model: QiMiaoComicModel): QiMiaoComicContract.Model {
+    internal fun providerQiMiaoComicModel(model: QiMiaoComicModel): QiMiaoComicContract.Model {
         return model
     }
 }
@@ -53,29 +53,29 @@ class QiMiaoComicDetailModule(private val view: QiMiaoComicDetailContract.View) 
 
     @ActivityScope
     @Provides
-    internal fun providerOacgComicDetailView(): QiMiaoComicDetailContract.View {
+    internal fun providerQiMiaoComicDetailView(): QiMiaoComicDetailContract.View {
         return this.view
     }
 
     @ActivityScope
     @Provides
-    internal fun providerOacgComicDetailModel(model: QiMiaoComicDetailModel): QiMiaoComicDetailContract.Model {
+    internal fun providerQiMiaoComicDetailModel(model: QiMiaoComicDetailModel): QiMiaoComicDetailContract.Model {
         return model
     }
 }
 
 @Module
-class QiMiaoComicEpisodeDetailModule(private val view: QiMIaoComicEpisodeDetailContract.View) {
+class QiMiaoComicEpisodeDetailModule(private val view: QiMIaoComicChapterDetailContract.View) {
 
     @ActivityScope
     @Provides
-    internal fun providerOacgComicEpisodeDetailView(): QiMIaoComicEpisodeDetailContract.View {
+    internal fun providerQiMiaoComicEpisodeDetailView(): QiMIaoComicChapterDetailContract.View {
         return this.view
     }
 
     @ActivityScope
     @Provides
-    internal fun providerOacgComicEpisodeDetailModel(model: QiMiaoComicEpisodeDetailModel): QiMIaoComicEpisodeDetailContract.Model {
+    internal fun providerQiMiaoComicEpisodeDetailModel(model: QiMiaoComicEpisodeDetailModel): QiMIaoComicChapterDetailContract.Model {
         return model
     }
 }

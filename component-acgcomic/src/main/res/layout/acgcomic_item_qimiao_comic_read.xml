@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:tools="http://schemas.android.com/tools"
-  android:id="@+id/layout_oacg_comic_read"
+  android:id="@+id/layout_qimiao_comic_read"
   android:layout_width="match_parent"
-  android:layout_height="match_parent">
+  android:layout_height="wrap_content">
 
   <TextView
-    android:id="@+id/tv_oacg_comic_pos"
+    android:id="@+id/tv_qimiao_comic_pos"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
@@ -16,7 +16,7 @@
     android:textSize="80sp" />
 
   <ImageView
-    android:id="@+id/img_oacg_comic_read"
+    android:id="@+id/img_qimiao_comic_read"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:src="@drawable/ic_launcher"

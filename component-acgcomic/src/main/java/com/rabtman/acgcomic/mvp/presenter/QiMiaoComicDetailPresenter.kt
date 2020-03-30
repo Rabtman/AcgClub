@@ -54,14 +54,14 @@ constructor(model: QiMiaoComicDetailContract.Model,
     /**
      * 记录上一次漫画观看章节
      *
-     * @param lastChapterPos 上一次观看章节位置
+     * @param lastChapterId 上一次观看章节id
      */
-    fun updateScheduleReadChapter(comicId: String, lastChapterPos: Int) {
+    fun updateScheduleReadChapter(comicId: String, lastChapterId: Int) {
         addSubscribe(
-                mModel.updateComicLastChapter(comicId, lastChapterPos)
+                mModel.updateComicLastChapter(comicId, lastChapterId)
                         .compose(RxUtil.rxSchedulerHelper())
                         .subscribe({
-                            currentComicCache.chapterPos = lastChapterPos
+                            currentComicCache.chapterPos = lastChapterId
                             mView.showComicCacheStatus(currentComicCache)
                         }, { throwable -> throwable.printStackTrace() })
         )
@@ -73,14 +73,16 @@ constructor(model: QiMiaoComicDetailContract.Model,
      */
     fun getCurrentComicCache(comicId: String, isManualClick: Boolean) {
         if (currentComicCache.comicId.isNotEmpty() && isManualClick) {
-            /*currentComicDetail?.let { comicEpisodes ->
-                mView.showComicCacheStatus(currentComicCache)
-                mView.start2ComicRead(
-                        comicId,
-                        currentComicCache.chapterPos,
-                        comicEpisodes[currentComicCache.chapterPos].orderIdx
+            mView.showComicCacheStatus(currentComicCache)
+            currentComicDetail?.comicChapters?.let {
+                mView.start2ComicRead(comicId,
+                        if (currentComicCache.chapterPos == 0) {
+                            it[it.size - 1].chapterId
+                        } else {
+                            currentComicCache.chapterPos.toString()
+                        }
                 )
-            }*/
+            }
         } else {
             addSubscribe(
                     mModel.getComicCacheById(comicId)
@@ -94,13 +96,9 @@ constructor(model: QiMiaoComicDetailContract.Model,
                                 override fun onComplete() {
                                     currentComicDetail?.let { comicEpisodes ->
                                         mView.showComicCacheStatus(currentComicCache)
-                                        /*if (isManualClick) {
-                                            mView.start2ComicRead(
-                                                    comicId,
-                                                    currentComicCache.chapterPos,
-                                                    comicEpisodes[currentComicCache.chapterPos].orderIdx
-                                            )
-                                        }*/
+                                        if (isManualClick) {
+                                            mView.start2ComicRead(comicId, currentComicCache.chapterPos.toString())
+                                        }
                                     }
                                 }
 

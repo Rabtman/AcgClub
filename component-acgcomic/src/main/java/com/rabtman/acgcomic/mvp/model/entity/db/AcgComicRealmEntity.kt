@@ -13,7 +13,7 @@ import io.realm.annotations.PrimaryKey
  * @param comicName 漫画名
  * @param comicImgUrl 漫画封面地址
  * @param comicDetailJson 漫画详细内容json
- * @param comicSource 漫画来源,当前来源有：oacg
+ * @param comicSource 漫画来源,当前来源有：qimiao
  * @param isCollect 是否收藏
  * @param chapterPos 历史章节位置
  * @param pagePos 历史章节观看的页面位置

@@ -109,7 +109,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
       loadMultipleRootFragment(R.id.main_content,
           0,
           getTargetFragment(RouterConstants.PATH_SCHEDULE_MAIN),
-          //getTargetFragment(RouterConstants.PATH_COMIC_OACG),
+          getTargetFragment(RouterConstants.PATH_COMIC_QIMIAO),
           getTargetFragment(RouterConstants.PATH_PICTURE_MAIN),
           getTargetFragment(RouterConstants.PATH_ACGNEWS_MAIN));
     }
@@ -123,10 +123,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             showFragment = RouterConstants.PATH_SCHEDULE_MAIN;
             title = getString(R.string.nav_schedule);
             break;
-          /*case R.id.nav_comic:
-            showFragment = RouterConstants.PATH_COMIC_OACG;
+          case R.id.nav_comic:
+            showFragment = RouterConstants.PATH_COMIC_QIMIAO;
             title = getString(R.string.nav_comic);
-            break;*/
+            break;
           case R.id.nav_news:
             showFragment = RouterConstants.PATH_ACGNEWS_MAIN;
             title = getString(R.string.nav_news);

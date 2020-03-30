@@ -67,7 +67,7 @@ public class ScheduleNewActivity extends BaseActivity<ScheduleNewPresenter> impl
 
   @Override
   protected void initData() {
-    setToolBar(toolbar, "本季新番");
+    setToolBar(toolbar, "动漫周排行");
 
     mAdapter = new ScheduleNewAdapter(mAppComponent.imageLoader());
     mAdapter.setOnItemClickListener(new OnItemClickListener() {

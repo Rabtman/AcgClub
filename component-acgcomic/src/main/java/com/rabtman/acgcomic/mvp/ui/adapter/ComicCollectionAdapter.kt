@@ -6,7 +6,6 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.rabtman.acgcomic.R
-import com.rabtman.acgcomic.base.constant.HtmlConstant
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.common.imageloader.ImageLoader
 import com.rabtman.common.imageloader.glide.GlideImageConfig
@@ -25,7 +24,7 @@ class ComicCollectionAdapter(private val mImageLoader: ImageLoader) : BaseQuickA
         mImageLoader.loadImage(mContext,
                 GlideImageConfig
                         .builder()
-                        .url(HtmlConstant.OACG_IMG_URL + item.comicImgUrl)
+                        .url(item.comicImgUrl)
                         .transformation(
                                 MultiTransformation<Bitmap>(CenterCrop(),
                                         RoundedCornersTransformation(DimenUtils.dpToPx(mContext, 4f), 0)))

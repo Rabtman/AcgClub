@@ -50,15 +50,15 @@ public class AcgCollectionActivity extends SimpleActivity {
       scheduleCollection = new NullFragment();
     }
     //漫画收藏
-    /*SimpleFragment comicCollection = (SimpleFragment) RouterUtils.getInstance()
+    SimpleFragment comicCollection = (SimpleFragment) RouterUtils.getInstance()
         .build(RouterConstants.PATH_COMIC_COLLECTION)
         .navigation();
     if (comicCollection == null) {
       comicCollection = new NullFragment();
-    }*/
+    }
 
     fragments.add(scheduleCollection);
-    //fragments.add(comicCollection);
+    fragments.add(comicCollection);
 
     mAdapter = new AcgCollectionPageAdapter(getSupportFragmentManager(), fragments);
     mViewPager.setAdapter(mAdapter);

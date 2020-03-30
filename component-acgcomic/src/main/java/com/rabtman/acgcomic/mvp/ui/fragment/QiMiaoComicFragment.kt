@@ -112,8 +112,8 @@ class QiMiaoComicFragment : BaseFragment<QiMiaoComicPresenter>(), QiMiaoComicCon
     //初始化内容布局
     private fun initContentView(): View {
         val contentView = layoutInflater.inflate(R.layout.acgcomic_view_qimiao_comic_content, null)
-        mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_oacg_comic)
-        mRcvComicMain = contentView.findViewById(R.id.rcv_oacg_comic)
+        mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_qimiao_comic)
+        mRcvComicMain = contentView.findViewById(R.id.rcv_qimiao_comic)
         mQiMiaoComicItemAdapter = QiMiaoComicItemAdpater(appComponent.imageLoader())
         mQiMiaoComicItemAdapter.setHeaderView(headerSearchView)
         //加载更多
@@ -141,9 +141,9 @@ class QiMiaoComicFragment : BaseFragment<QiMiaoComicPresenter>(), QiMiaoComicCon
 
     private fun initHeaderView(): View {
         headerSearchView = layoutInflater.inflate(R.layout.acgcomic_view_qimiao_comic_search, null)
-        val etKeyword: AppCompatEditText = headerSearchView.findViewById(R.id.et_oacg_comic_keyword)
-        val btnClear: AppCompatImageButton = headerSearchView.findViewById(R.id.btn_oacg_comic_close)
-        val btnSearch: AppCompatImageButton = headerSearchView.findViewById(R.id.btn_oacg_comic_search)
+        val etKeyword: AppCompatEditText = headerSearchView.findViewById(R.id.et_qimiao_comic_keyword)
+        val btnClear: AppCompatImageButton = headerSearchView.findViewById(R.id.btn_qimiao_comic_close)
+        val btnSearch: AppCompatImageButton = headerSearchView.findViewById(R.id.btn_qimiao_comic_search)
 
         //监听搜索框输入情况
         etKeyword.addTextChangedListener(object : TextWatcher {
