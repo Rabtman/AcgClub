@@ -31,18 +31,6 @@
 
 （API已停止提供服务）
 
-## 近期羊毛
-
-* 支付宝扫一扫红包
-
-  ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/zhifubao.jpg)
-
-* [GitHub用户在 2019-02-04 那一周账号有 15 个以上 followers且保留有当时的 SSH / PGP 私钥](https://zhuanlan.zhihu.com/p/108215705?utm_source=wechat_session&utm_medium=social&utm_oi=32062987829248)
-
-* [度小满（原百度金融）羊毛，点击链接可领取3.6%加息券，建议配合购买1个月的银行理财保本且收益最佳，高达7.9%](https://8.baidu.com/activity/newcomer-reborn201909/newfriend.html?shareCode=836af90c5ad69016aab0cfbdd95e5b87&channel=2)
-
-  ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/duxiaoman.png)
-
 ## 预览
 
 [应用下载体验](https://www.coolapk.com/apk/171021)
