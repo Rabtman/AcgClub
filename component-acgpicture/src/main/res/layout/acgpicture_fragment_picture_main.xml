@@ -5,7 +5,7 @@
   android:layout_height="match_parent"
   android:orientation="vertical">
 
-  <android.support.design.widget.TabLayout
+  <com.google.android.material.tabs.TabLayout
     android:id="@+id/tab_picture"
     android:layout_width="match_parent"
     android:layout_height="@dimen/tab_height"
@@ -15,7 +15,7 @@
     app:tabSelectedTextColor="@color/colorPrimary"
     app:tabTextColor="@color/colorPrimary" />
 
-  <android.support.v4.view.ViewPager
+  <androidx.viewpager.widget.ViewPager
     android:id="@+id/vp_picture"
     android:layout_width="fill_parent"
     android:layout_height="0dp"

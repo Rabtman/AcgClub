@@ -1,13 +1,14 @@
 package com.rabtman.acgschedule.mvp.ui.adapter;
 
-import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 import com.chad.library.adapter.base.BaseSectionQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.base.constant.SystemConstant;
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleTimeItem;
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author Rabtman
@@ -21,19 +22,19 @@ public class ScheduleTimeAdapter extends BaseSectionQuickAdapter<ScheduleTimeIte
   }
 
   @Override
-  protected void convertHead(BaseViewHolder helper, ScheduleTimeItem item) {
+  protected void convert(BaseViewHolder helper, ScheduleTimeItem item) {
+    helper.setText(R.id.schedule_name, item.data.getName())
+        .setText(R.id.schedule_episode, item.data.getEpisode());
+  }
+
+  @Override
+  protected void convertHeader(@NotNull BaseViewHolder helper,
+      @NotNull ScheduleTimeItem item) {
     //标题
     helper.setText(R.id.schedule_time_title, item.header);
     //标题图标
     ((TextView) helper.getView(R.id.schedule_time_title)).setCompoundDrawablesWithIntrinsicBounds(
-        ContextCompat.getDrawable(mContext,
+        ContextCompat.getDrawable(getContext(),
             SystemConstant.SCHEDULE_WEEK_LIST_TITLE_DRAWABLE[item.headerIndex]), null, null, null);
-  }
-
-  @Override
-  protected void convert(BaseViewHolder helper, ScheduleTimeItem item) {
-    helper.setText(R.id.schedule_name, item.t.getName())
-        .setText(R.id.schedule_episode, item.t.getEpisode())
-        .addOnClickListener(R.id.schedule_episode);
   }
 }

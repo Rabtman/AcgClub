@@ -1,8 +1,8 @@
 package com.rabtman.acgcomic.mvp.ui.adapter
 
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicChapter
 
@@ -23,18 +23,18 @@ class QiMiaoComicEpisodeItemAdapter : BaseQuickAdapter<QiMiaoComicChapter, BaseV
     override fun convert(helper: BaseViewHolder, item: QiMiaoComicChapter) {
         helper.setText(R.id.tv_qimiao_comic_episode_name, item.name)
         if (item.chapterId == mLastChapterId) {
-            helper.setBackgroundRes(R.id.tv_qimiao_comic_episode_name, R.drawable.acgcomic_btn_episode_record)
+            helper.setBackgroundResource(R.id.tv_qimiao_comic_episode_name, R.drawable.acgcomic_btn_episode_record)
                     .setTextColor(R.id.tv_qimiao_comic_episode_name,
-                            ContextCompat.getColor(mContext, R.color.colorPrimary))
+                            ContextCompat.getColor(context, R.color.colorPrimary))
         } else {
-            helper.setBackgroundRes(R.id.tv_qimiao_comic_episode_name, R.drawable.acgcomic_btn_episode)
-                    .setTextColor(R.id.tv_qimiao_comic_episode_name, ContextCompat.getColor(mContext, R.color.grey400))
+            helper.setBackgroundResource(R.id.tv_qimiao_comic_episode_name, R.drawable.acgcomic_btn_episode)
+                    .setTextColor(R.id.tv_qimiao_comic_episode_name, ContextCompat.getColor(context, R.color.grey400))
         }
     }
 
     override fun getItemCount(): Int {
-        if (mData != null && mData.size < DEFAULT_ITEM_COUNT) {
-            episodeItemCount = mData.size
+        if (data.size < DEFAULT_ITEM_COUNT) {
+            episodeItemCount = data.size
         }
         return episodeItemCount
     }
@@ -43,7 +43,7 @@ class QiMiaoComicEpisodeItemAdapter : BaseQuickAdapter<QiMiaoComicChapter, BaseV
      * 设置展示的项目数
      */
     fun setItemCount() {
-        this.episodeItemCount = mData.size
+        this.episodeItemCount = data.size
         notifyDataSetChanged()
     }
 

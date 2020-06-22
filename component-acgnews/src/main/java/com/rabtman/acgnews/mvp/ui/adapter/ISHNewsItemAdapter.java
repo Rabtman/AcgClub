@@ -2,7 +2,8 @@ package com.rabtman.acgnews.mvp.ui.adapter;
 
 import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.module.LoadMoreModule;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.rabtman.acgnews.R;
 import com.rabtman.acgnews.mvp.model.entity.SHPostItem;
 import com.rabtman.common.imageloader.ImageLoader;
@@ -13,7 +14,8 @@ import com.rabtman.common.utils.TimeUtils;
  * @author Rabtman
  */
 
-public class ISHNewsItemAdapter extends BaseQuickAdapter<SHPostItem, BaseViewHolder> {
+public class ISHNewsItemAdapter extends BaseQuickAdapter<SHPostItem, BaseViewHolder> implements
+    LoadMoreModule {
 
   private ImageLoader mImageLoader;
 
@@ -27,7 +29,7 @@ public class ISHNewsItemAdapter extends BaseQuickAdapter<SHPostItem, BaseViewHol
   protected void convert(BaseViewHolder helper, SHPostItem item) {
     helper.setText(R.id.news_title, item.getTitle())
         .setText(R.id.news_datetime, TimeUtils.millis2String(item.getTime()));
-    mImageLoader.loadImage(mContext,
+    mImageLoader.loadImage(getContext(),
         GlideImageConfig
             .builder()
             .url(item.getThumb())

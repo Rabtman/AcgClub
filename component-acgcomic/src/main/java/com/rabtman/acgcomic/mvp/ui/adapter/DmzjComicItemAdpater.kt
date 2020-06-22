@@ -1,7 +1,7 @@
 package com.rabtman.acgcomic.mvp.ui.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.base.constant.HtmlConstant
 import com.rabtman.acgcomic.mvp.model.entity.DmzjComicItem
@@ -13,11 +13,11 @@ import com.rabtman.common.imageloader.glide.GlideImageConfig
  */
 class DmzjComicItemAdpater(private val imageLoader: ImageLoader) : BaseQuickAdapter<DmzjComicItem, BaseViewHolder>(R.layout.acgcomic_item_dmzj_comic, null) {
 
-    override fun convert(helper: BaseViewHolder?, item: DmzjComicItem?) {
+    override fun convert(helper: BaseViewHolder, item: DmzjComicItem) {
         if (helper != null) {
             helper.setText(R.id.tv_comic_name, item?.name)
                     .setText(R.id.tv_comic_update, item?.lastUpdateChapterName)
-            imageLoader.loadImage(mContext,
+            imageLoader.loadImage(context,
                     GlideImageConfig
                             .builder()
                             .url(HtmlConstant.DMZJ_IMG_URL + item?.cover)

@@ -145,6 +145,7 @@ dependencies {
     api rootProject.ext.dependencies["dagger2"]
     annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     api rootProject.ext.dependencies["butterknife"]
+    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     //umeng
     api rootProject.ext.dependencies["umeng"]
     //canary

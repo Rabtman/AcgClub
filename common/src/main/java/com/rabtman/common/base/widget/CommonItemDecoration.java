@@ -1,8 +1,8 @@
 package com.rabtman.common.base.widget;
 
 import android.graphics.Rect;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import androidx.recyclerview.widget.RecyclerView;
 import com.rabtman.common.utils.SizeUtils;
 
 public class CommonItemDecoration extends RecyclerView.ItemDecoration {

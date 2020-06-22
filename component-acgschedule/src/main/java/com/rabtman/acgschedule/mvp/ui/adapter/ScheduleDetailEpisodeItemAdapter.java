@@ -1,9 +1,9 @@
 package com.rabtman.acgschedule.mvp.ui.adapter;
 
-import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
+import androidx.core.content.ContextCompat;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail.ScheduleEpisode;
 import java.util.List;
@@ -28,19 +28,21 @@ public class ScheduleDetailEpisodeItemAdapter extends
   protected void convert(BaseViewHolder helper, ScheduleEpisode item) {
     helper.setText(R.id.tv_sd_episode_name, item.getName());
     if (helper.getAdapterPosition() == mLastRecordPos) {
-      helper.setBackgroundRes(R.id.tv_sd_episode_name, R.drawable.acgschedule_btn_episode_record)
+      helper
+          .setBackgroundResource(R.id.tv_sd_episode_name, R.drawable.acgschedule_btn_episode_record)
           .setTextColor(R.id.tv_sd_episode_name,
-              ContextCompat.getColor(mContext, R.color.colorPrimary));
+              ContextCompat.getColor(getContext(), R.color.colorPrimary));
     } else {
-      helper.setBackgroundRes(R.id.tv_sd_episode_name, R.drawable.acgschedule_btn_episode)
-          .setTextColor(R.id.tv_sd_episode_name, ContextCompat.getColor(mContext, R.color.grey400));
+      helper.setBackgroundResource(R.id.tv_sd_episode_name, R.drawable.acgschedule_btn_episode)
+          .setTextColor(R.id.tv_sd_episode_name,
+              ContextCompat.getColor(getContext(), R.color.grey400));
     }
   }
 
   @Override
   public int getItemCount() {
-    if (mData != null && mData.size() < DEFAULT_ITEM_COUNT) {
-      itemCount = mData.size();
+    if (getData().size() < DEFAULT_ITEM_COUNT) {
+      itemCount = getData().size();
     }
     return itemCount;
   }
@@ -49,7 +51,7 @@ public class ScheduleDetailEpisodeItemAdapter extends
    * 设置展示的项目数
    */
   public void setItemCount() {
-    this.itemCount = mData.size();
+    this.itemCount = getData().size();
     notifyDataSetChanged();
   }
 
@@ -66,14 +68,14 @@ public class ScheduleDetailEpisodeItemAdapter extends
       TextView oldView = (TextView) getViewByPosition(mLastRecordPos, R.id.tv_sd_episode_name);
       if (oldView != null) {
         oldView.setBackgroundResource(R.drawable.acgschedule_btn_episode);
-        oldView.setTextColor(ContextCompat.getColor(mContext, R.color.grey400));
+        oldView.setTextColor(ContextCompat.getColor(getContext(), R.color.grey400));
       }
     }
     mLastRecordPos = pos;
     TextView newView = (TextView) getViewByPosition(mLastRecordPos, R.id.tv_sd_episode_name);
     if (newView != null) {
       newView.setBackgroundResource(R.drawable.acgschedule_btn_episode_record);
-      newView.setTextColor(ContextCompat.getColor(mContext, R.color.colorPrimary));
+      newView.setTextColor(ContextCompat.getColor(getContext(), R.color.colorPrimary));
     }
   }
 }

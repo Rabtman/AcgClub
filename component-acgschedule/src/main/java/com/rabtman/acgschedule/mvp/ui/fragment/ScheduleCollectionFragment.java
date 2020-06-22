@@ -1,12 +1,12 @@
 package com.rabtman.acgschedule.mvp.ui.fragment;
 
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.R2;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
@@ -97,7 +97,7 @@ public class ScheduleCollectionFragment extends SimpleFragment {
         .subscribeWith(new ResourceSubscriber<List<ScheduleCache>>() {
           @Override
           public void onNext(List<ScheduleCache> scheduleCaches) {
-            mAdapter.setNewData(scheduleCaches);
+            mAdapter.setList(scheduleCaches);
             if (scheduleCaches.size() > 0) {
               showPageContent();
             } else {

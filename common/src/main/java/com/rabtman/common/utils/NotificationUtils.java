@@ -1,7 +1,7 @@
 package com.rabtman.common.utils;
 
-import static android.support.v4.app.NotificationCompat.PRIORITY_DEFAULT;
-import static android.support.v4.app.NotificationCompat.VISIBILITY_SECRET;
+import static androidx.core.app.NotificationCompat.PRIORITY_DEFAULT;
+import static androidx.core.app.NotificationCompat.VISIBILITY_SECRET;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -13,9 +13,9 @@ import android.content.ContextWrapper;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
+import androidx.annotation.RequiresApi;
+import androidx.core.app.NotificationCompat;
 
 /**
  * <pre>

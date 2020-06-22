@@ -1,10 +1,10 @@
 package com.rabtman.acgnews.mvp.ui.fragment;
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.google.android.material.tabs.TabLayout;
 import com.rabtman.acgnews.R;
 import com.rabtman.acgnews.R2;
 import com.rabtman.acgnews.mvp.ui.adapter.AcgNewsMainPageAdapter;

@@ -1,8 +1,8 @@
 package com.rabtman.acgpicture.mvp.ui.fragment
 
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.rabtman.acgpicture.R
@@ -53,7 +53,8 @@ class AcgPictureItemFragment : BaseFragment<AcgPictureItemPresenter>(), AcgPictu
     }
 
     override fun initData() {
-        mPresenter.setAcgPictureType(arguments!!.getString(IntentConstant.ACGPICTURE_TYPE, "moeimg"))
+        mPresenter.setAcgPictureType(arguments?.getString(IntentConstant.ACGPICTURE_TYPE, "moeimg")
+                ?: "moeimg")
         mAdapter = AcgPictureItemAdapter(appComponent.imageLoader())
         mAdapter.setOnItemClickListener { adapter, view, position ->
             RouterUtils.getInstance()
@@ -66,7 +67,7 @@ class AcgPictureItemFragment : BaseFragment<AcgPictureItemPresenter>(), AcgPictu
         val layoutManager = GridLayoutManager(context, 2)
         rcvAcgItem.layoutManager = layoutManager
 
-        mAdapter.setOnLoadMoreListener({ mPresenter.getMoreAcgPictures() }, rcvAcgItem)
+        mAdapter.loadMoreModule.setOnLoadMoreListener { mPresenter.getMoreAcgPictures() }
         rcvAcgItem.adapter = mAdapter
 
         swipeRefresh.setOnRefreshListener { mPresenter.getAcgPictures() }
@@ -75,20 +76,20 @@ class AcgPictureItemFragment : BaseFragment<AcgPictureItemPresenter>(), AcgPictu
     }
 
     override fun showPictures(picItems: List<AcgPictureItem>) {
-        mAdapter.setNewData(picItems)
+        mAdapter.setList(picItems)
     }
 
     override fun showMorePictures(picItems: List<AcgPictureItem>, canLoadMore: Boolean) {
         if (!canLoadMore) {
-            mAdapter.loadMoreEnd()
+            mAdapter.loadMoreModule.loadMoreEnd()
         } else {
             mAdapter.addData(picItems)
-            mAdapter.loadMoreComplete()
+            mAdapter.loadMoreModule.loadMoreComplete()
         }
     }
 
     override fun onLoadMoreFail() {
-        mAdapter.loadMoreFail()
+        mAdapter.loadMoreModule.loadMoreFail()
     }
 
 }

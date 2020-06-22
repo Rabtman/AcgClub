@@ -1,9 +1,9 @@
 package com.rabtman.acgpicture.mvp.ui.fragment
 
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
-import android.support.v7.widget.StaggeredGridLayoutManager.VERTICAL
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.rabtman.acgpicture.R
@@ -27,6 +27,7 @@ class AnimatePictureFragment : BaseFragment<AnimatePicturePresenter>(), AnimateP
 
     @BindView(R2.id.rcv_animate_item)
     lateinit var rcvAnimateItem: RecyclerView
+
     @BindView(R2.id.swipe_refresh_animate)
     lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var mAdapter: AnimateItemAdapter
@@ -57,7 +58,7 @@ class AnimatePictureFragment : BaseFragment<AnimatePicturePresenter>(), AnimateP
 
         val layoutManager = StaggeredGridLayoutManager(2, VERTICAL)
         rcvAnimateItem?.layoutManager = layoutManager
-        mAdapter.setOnLoadMoreListener({ mPresenter.getMoreAnimatePictures() }, rcvAnimateItem)
+        mAdapter.loadMoreModule.setOnLoadMoreListener { mPresenter.getMoreAnimatePictures() }
         rcvAnimateItem?.adapter = mAdapter
 
         swipeRefresh?.setOnRefreshListener { mPresenter.getAnimatePictures() }
@@ -66,15 +67,15 @@ class AnimatePictureFragment : BaseFragment<AnimatePicturePresenter>(), AnimateP
     }
 
     override fun showAnimatePictures(animatePictureItems: List<AnimatePictureItem>?) {
-        mAdapter.setNewData(animatePictureItems)
+        mAdapter.setList(animatePictureItems)
     }
 
     override fun showMoreAnimatePictures(animatePictureItems: List<AnimatePictureItem>?, canLoadMore: Boolean) {
         if (!canLoadMore) {
-            mAdapter.loadMoreEnd()
+            mAdapter.loadMoreModule.loadMoreEnd()
         } else {
             animatePictureItems?.let { mAdapter.addData(it) }
-            mAdapter.loadMoreComplete()
+            mAdapter.loadMoreModule.loadMoreComplete()
         }
     }
 
@@ -88,7 +89,7 @@ class AnimatePictureFragment : BaseFragment<AnimatePicturePresenter>(), AnimateP
     }
 
     override fun onLoadMoreFail() {
-        mAdapter.loadMoreFail()
+        mAdapter.loadMoreModule.loadMoreFail()
     }
 
 }

@@ -1,9 +1,9 @@
 package com.rabtman.acgschedule.mvp.ui.adapter;
 
-import android.support.annotation.Nullable;
 import android.widget.ImageView;
+import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleRecent;
 import com.rabtman.common.imageloader.ImageLoader;
@@ -27,7 +27,7 @@ public class ScheduleRecentAdapter extends BaseQuickAdapter<ScheduleRecent, Base
   protected void convert(BaseViewHolder helper, ScheduleRecent item) {
     helper.setText(R.id.tv_schedule_recent, item.getName())
         .setText(R.id.tv_schedule_recent_desc, item.getDesc());
-    mImageLoader.loadImage(mContext,
+    mImageLoader.loadImage(getContext(),
         GlideImageConfig
             .builder()
             .url(item.getImgUrl())

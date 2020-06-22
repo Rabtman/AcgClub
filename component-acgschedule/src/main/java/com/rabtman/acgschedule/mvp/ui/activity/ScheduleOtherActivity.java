@@ -1,17 +1,17 @@
 package com.rabtman.acgschedule.mvp.ui.activity;
 
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
-import com.chad.library.adapter.base.BaseQuickAdapter.RequestLoadMoreListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.R2;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
@@ -91,12 +91,12 @@ public class ScheduleOtherActivity extends BaseActivity<ScheduleOtherPresenter> 
         startActivity(intent);
       }
     });
-    mAdapter.setOnLoadMoreListener(new RequestLoadMoreListener() {
+    mAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
       @Override
-      public void onLoadMoreRequested() {
+      public void onLoadMore() {
         mPresenter.getMoreScheduleOther();
       }
-    }, rcvScheduleOther);
+    });
 
     GridLayoutManager layoutManager = new GridLayoutManager(getBaseContext(), 2);
     rcvScheduleOther.addItemDecoration(new CommonItemDecoration(2, CommonItemDecoration.UNIT_DP));
@@ -117,21 +117,21 @@ public class ScheduleOtherActivity extends BaseActivity<ScheduleOtherPresenter> 
   @Override
   public void showScheduleOther(ScheduleOtherPage scheduleOtherPage) {
     toolbar.setTitle(scheduleOtherPage.getTitle());
-    mAdapter.setNewData(scheduleOtherPage.getScheduleOtherItems());
+    mAdapter.setList(scheduleOtherPage.getScheduleOtherItems());
   }
 
   @Override
   public void showMoreScheduleOther(ScheduleOtherPage scheduleOtherPage, boolean canLoadMore) {
     mAdapter.addData(scheduleOtherPage.getScheduleOtherItems());
-    mAdapter.loadMoreComplete();
+    mAdapter.getLoadMoreModule().loadMoreComplete();
     if (!canLoadMore) {
-      mAdapter.loadMoreEnd();
+      mAdapter.getLoadMoreModule().loadMoreEnd();
     }
   }
 
   @Override
   public void onLoadMoreFail() {
-    mAdapter.loadMoreFail();
+    mAdapter.getLoadMoreModule().loadMoreFail();
   }
 
   @Override

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:id="@+id/swipe_refresh_schedule_main"
   android:layout_width="match_parent"
   android:layout_height="wrap_content">
-  <android.support.v4.widget.NestedScrollView
+  <androidx.core.widget.NestedScrollView
     android:id="@+id/scroll_schedule"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -29,7 +29,7 @@
         app:canLoop="true"
         app:open_mz_mode="true" />
 
-      <android.support.v7.widget.CardView
+      <androidx.appcompat.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-45dp"
@@ -78,7 +78,7 @@
             android:gravity="center"
             android:text="动漫周排行" />
         </android.support.v7.widget.LinearLayoutCompat>
-      </android.support.v7.widget.CardView>
+      </androidx.appcompat.widget.CardView>
 
       <RelativeLayout
         android:id="@+id/layout_schedule_recommand"
@@ -99,7 +99,7 @@
           android:text="近期推荐"
           android:textSize="16sp" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/rcv_schedule_recommand"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -137,7 +137,7 @@
           android:text="查看更多"
           android:textSize="12sp" />-->
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
           android:id="@+id/rcv_schedule_recent"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -146,5 +146,5 @@
       </RelativeLayout>
 
     </LinearLayout>
-  </android.support.v4.widget.NestedScrollView>
-</android.support.v4.widget.SwipeRefreshLayout>
+  </androidx.core.widget.NestedScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

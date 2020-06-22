@@ -4,7 +4,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleNew.ScheduleNewItem;
 import com.rabtman.common.imageloader.ImageLoader;
@@ -32,13 +32,13 @@ public class ScheduleNewAdapter extends BaseQuickAdapter<ScheduleNewItem, BaseVi
         .setText(R.id.schedule_new_spot, item.getSpot())
         .setText(R.id.schedule_new_type, item.getType())
         .setText(R.id.schedule_new_desc, item.getDesc());
-    mImageLoader.loadImage(mContext,
+    mImageLoader.loadImage(getContext(),
         GlideImageConfig
             .builder()
             .url(item.getImgUrl())
             .transformation(
                 new MultiTransformation<>(new CenterCrop(),
-                    new RoundedCornersTransformation(DimenUtils.dpToPx(mContext, 4), 0)))
+                    new RoundedCornersTransformation(DimenUtils.dpToPx(getContext(), 4), 0)))
             .imageView((ImageView) helper.getView(R.id.schedule_new_img))
             .build()
     );

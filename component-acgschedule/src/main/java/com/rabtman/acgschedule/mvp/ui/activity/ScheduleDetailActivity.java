@@ -1,21 +1,21 @@
 package com.rabtman.acgschedule.mvp.ui.activity;
 
 import android.content.Intent;
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.jaeger.library.StatusBarUtil;
 import com.kingja.loadsir.callback.Callback.OnReloadListener;
 import com.kingja.loadsir.core.LoadSir;
@@ -200,7 +200,6 @@ public class ScheduleDetailActivity extends BaseActivity<ScheduleDetailPresenter
       layoutManager.setOrientation(GridLayoutManager.VERTICAL);
       rcvScheduleDetail.setLayoutManager(layoutManager);
       rcvScheduleDetail.setNestedScrollingEnabled(false);
-      episodeItemAdapter.bindToRecyclerView(rcvScheduleDetail);
 
       if (scheduleDetail.getScheduleEpisodes().size()
           > ScheduleDetailEpisodeItemAdapter.DEFAULT_ITEM_COUNT) {

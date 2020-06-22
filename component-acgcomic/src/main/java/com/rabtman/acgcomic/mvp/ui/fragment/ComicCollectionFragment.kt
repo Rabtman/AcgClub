@@ -1,8 +1,8 @@
 package com.rabtman.acgcomic.mvp.ui.fragment
 
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.google.gson.Gson
@@ -89,7 +89,7 @@ class ComicCollectionFragment : SimpleFragment() {
                 .compose(RxUtil.rxSchedulerHelper<List<ComicCache>>())
                 .subscribeWith(object : ResourceSubscriber<List<ComicCache>>() {
                     override fun onNext(comicCacheList: List<ComicCache>) {
-                        mAdapter.setNewData(comicCacheList)
+                        mAdapter.setList(comicCacheList)
                         if (comicCacheList.isNotEmpty()) {
                             showPageContent()
                         } else {

@@ -1,13 +1,12 @@
 package com.rabtman.acgcomic.mvp.ui.fragment
 
-import android.support.v4.content.ContextCompat
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.RadioGroup
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.di.DaggerDmzjComicComponent
@@ -33,6 +32,7 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
     private var mRcvComicMain: RecyclerView? = null
     private var mDmzjComicItemAdapter: DmzjComicItemAdpater? = null
     private val headers = listOf("题材", "读者群", "进度", "地域")
+
     //菜单选项
     private val topic = arrayListOf(
             "全部", "冒险", "欢乐向", "格斗",
@@ -45,12 +45,14 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
     private val status = arrayListOf("全部", "连载", "完结")
     private val area = arrayListOf("全部", "日本", "内地", "欧美", "港台", "韩国", "其他")
     private val sort = arrayListOf("人气", "更新")
+
     //菜单选项适配器
     private var topicAdapter: ComicMenuAdapter? = null
     private var groupAdapter: ComicMenuAdapter? = null
     private var statusAdapter: ComicMenuAdapter? = null
     private var areaAdapter: ComicMenuAdapter? = null
     private var sortAdapter: ComicMenuAdapter? = null
+
     //弹出菜单视图集
     private var popupViews: List<View>? = null
 
@@ -78,13 +80,14 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
         //题材
         val topicView = RecyclerView(mContext)
         topicView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey200))
-        topicAdapter = ComicMenuAdapter(topic)
-        topicAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
-            if (adapter is ComicMenuAdapter) {
-                adapter.setCheckItem(position)
-                mMenuComicMain.setTabText(if (position == 0) headers[0] else topic[position])
-                mMenuComicMain.closeMenu()
-                mPresenter.changeMenuSelected(0, position)
+        topicAdapter = ComicMenuAdapter(topic).apply {
+            this.setOnItemClickListener { adapter, _, position ->
+                if (adapter is ComicMenuAdapter) {
+                    adapter.setCheckItem(position)
+                    mMenuComicMain.setTabText(if (position == 0) headers[0] else topic[position])
+                    mMenuComicMain.closeMenu()
+                    mPresenter.changeMenuSelected(0, position)
+                }
             }
         }
         topicView.layoutManager = GridLayoutManager(mContext, 4)
@@ -92,13 +95,14 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
         //读者群
         val groupView = RecyclerView(mContext)
         groupView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey200))
-        groupAdapter = ComicMenuAdapter(groups)
-        groupAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
-            if (adapter is ComicMenuAdapter) {
-                adapter.setCheckItem(position)
-                mMenuComicMain.setTabText(if (position == 0) headers[1] else groups[position])
-                mMenuComicMain.closeMenu()
-                mPresenter.changeMenuSelected(1, position)
+        groupAdapter = ComicMenuAdapter(groups).apply {
+            this.setOnItemClickListener { adapter, _, position ->
+                if (adapter is ComicMenuAdapter) {
+                    adapter.setCheckItem(position)
+                    mMenuComicMain.setTabText(if (position == 0) headers[1] else groups[position])
+                    mMenuComicMain.closeMenu()
+                    mPresenter.changeMenuSelected(1, position)
+                }
             }
         }
         groupView.layoutManager = GridLayoutManager(mContext, 4)
@@ -106,13 +110,14 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
         //进度
         val statusView = RecyclerView(mContext)
         statusView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey200))
-        statusAdapter = ComicMenuAdapter(status)
-        statusAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
-            if (adapter is ComicMenuAdapter) {
-                adapter.setCheckItem(position)
-                mMenuComicMain.setTabText(if (position == 0) headers[2] else status[position])
-                mMenuComicMain.closeMenu()
-                mPresenter.changeMenuSelected(2, position)
+        statusAdapter = ComicMenuAdapter(status).apply {
+            this.setOnItemClickListener { adapter, _, position ->
+                if (adapter is ComicMenuAdapter) {
+                    adapter.setCheckItem(position)
+                    mMenuComicMain.setTabText(if (position == 0) headers[2] else status[position])
+                    mMenuComicMain.closeMenu()
+                    mPresenter.changeMenuSelected(2, position)
+                }
             }
         }
         statusView.layoutManager = GridLayoutManager(mContext, 4)
@@ -120,13 +125,14 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
         //地域
         val areaView = RecyclerView(mContext)
         areaView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey200))
-        areaAdapter = ComicMenuAdapter(area)
-        areaAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
-            if (adapter is ComicMenuAdapter) {
-                adapter.setCheckItem(position)
-                mMenuComicMain.setTabText(if (position == 0) headers[3] else area[position])
-                mMenuComicMain.closeMenu()
-                mPresenter.changeMenuSelected(3, position)
+        areaAdapter = ComicMenuAdapter(area).apply {
+            this.setOnItemClickListener { adapter, _, position ->
+                if (adapter is ComicMenuAdapter) {
+                    adapter.setCheckItem(position)
+                    mMenuComicMain.setTabText(if (position == 0) headers[3] else area[position])
+                    mMenuComicMain.closeMenu()
+                    mPresenter.changeMenuSelected(3, position)
+                }
             }
         }
         areaView.layoutManager = GridLayoutManager(mContext, 4)
@@ -163,19 +169,19 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
     }
 
     override fun showComicInfo(comicInfos: List<DmzjComicItem>) {
-        mDmzjComicItemAdapter?.setNewData(comicInfos)
+        mDmzjComicItemAdapter?.setList(comicInfos)
     }
 
     override fun showMoreComicInfo(comicInfos: List<DmzjComicItem>, canLoadMore: Boolean) {
         mDmzjComicItemAdapter?.addData(comicInfos)
-        mDmzjComicItemAdapter?.loadMoreComplete()
+        mDmzjComicItemAdapter?.loadMoreModule?.loadMoreComplete()
         if (!canLoadMore) {
-            mDmzjComicItemAdapter?.loadMoreEnd()
+            mDmzjComicItemAdapter?.loadMoreModule?.loadMoreEnd()
         }
     }
 
     override fun onLoadMoreFail() {
-        mDmzjComicItemAdapter?.loadMoreFail()
+        mDmzjComicItemAdapter?.loadMoreModule?.loadMoreFail()
     }
 
 }

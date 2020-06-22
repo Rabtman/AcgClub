@@ -1,19 +1,19 @@
 package com.rabtman.acgcomic.mvp.ui.activity
 
-import android.support.design.widget.AppBarLayout
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.CardView
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.Toolbar
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.CardView
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.OnClick
 import com.alibaba.android.arouter.facade.annotation.Route
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.jaeger.library.StatusBarUtil
 import com.kingja.loadsir.core.LoadSir
 import com.ms.square.android.expandabletextview.ExpandableTextView
@@ -218,7 +218,7 @@ class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(), Qi
 
         //选集内容
         layoutSceduleEpisode.visibility = android.view.View.VISIBLE
-        episodeItemAdpater.setNewData(comicInfo.comicChapters)
+        episodeItemAdpater.setList(comicInfo.comicChapters)
         episodeItemAdpater.setOnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as QiMiaoComicChapter
             mPresenter.updateScheduleReadChapter(currentComicInfo.comicId, item.chapterId.toInt())

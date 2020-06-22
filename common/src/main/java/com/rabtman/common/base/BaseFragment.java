@@ -1,8 +1,8 @@
 package com.rabtman.common.base;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
+import androidx.annotation.Nullable;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.component.AppComponent;
 import javax.inject.Inject;

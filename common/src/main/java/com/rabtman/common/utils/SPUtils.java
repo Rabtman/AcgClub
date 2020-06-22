@@ -2,8 +2,8 @@ package com.rabtman.common.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.v4.util.SimpleArrayMap;
+import androidx.annotation.NonNull;
+import androidx.collection.SimpleArrayMap;
 import com.rabtman.common.BuildConfig;
 import java.util.Collections;
 import java.util.Map;

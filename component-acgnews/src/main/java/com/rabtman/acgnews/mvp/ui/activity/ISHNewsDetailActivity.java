@@ -1,12 +1,12 @@
 package com.rabtman.acgnews.mvp.ui.activity;
 
 import android.content.Intent;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.Toolbar;
-import android.support.v7.widget.Toolbar.OnMenuItemClickListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar.OnMenuItemClickListener;
+import androidx.core.widget.NestedScrollView;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.rabtman.acgnews.R;

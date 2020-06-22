@@ -1,8 +1,5 @@
 package com.rabtman.acgcomic.mvp.ui.activity
 
-import android.support.v7.widget.AppCompatSeekBar
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.TranslateAnimation
@@ -10,6 +7,9 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatSeekBar
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import butterknife.BindView
 import butterknife.OnClick
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -207,7 +207,7 @@ class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicReadPresenter>(), QiMIao
             btnComicNext.visibility = View.INVISIBLE
         }
         tvComicTitle.text = chapterDetail.title
-        qiMiaoComicReadAdapter.setNewData(chapterDetail.listImg)
+        qiMiaoComicReadAdapter.setList(chapterDetail.listImg)
         if (chapterDetail.listImg.isEmpty()) {
             maxPage = 0
         } else {

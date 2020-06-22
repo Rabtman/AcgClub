@@ -1,20 +1,20 @@
 package com.rabtman.acgschedule.mvp.ui.activity;
 
 import android.content.Intent;
-import android.support.design.widget.TabLayout;
-import android.support.design.widget.TabLayout.OnTabSelectedListener;
-import android.support.design.widget.TabLayout.Tab;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.OnScrollListener;
-import android.support.v7.widget.Toolbar;
 import android.util.SparseIntArray;
 import android.view.View;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseQuickAdapter.OnItemChildClickListener;
-import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayout.OnTabSelectedListener;
+import com.google.android.material.tabs.TabLayout.Tab;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.R2;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
@@ -126,14 +126,15 @@ public class ScheduleTimeActivity extends SimpleActivity {
     });
 
     mAdapter = new ScheduleTimeAdapter(scheduleTimeItems);
+    mAdapter.addChildClickViewIds(R.id.schedule_episode);
     //item点击事件
     mAdapter.setOnItemClickListener(new OnItemClickListener() {
       @Override
       public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         ScheduleTimeItem scheduleItem = (ScheduleTimeItem) adapter.getItem(position);
         Intent intent = new Intent(getBaseContext(), ScheduleDetailActivity.class);
-        if (scheduleItem != null && scheduleItem.t != null) {
-          intent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL, scheduleItem.t.getAnimeLink());
+        if (scheduleItem != null && scheduleItem.data != null) {
+          intent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL, scheduleItem.data.getAnimeLink());
         }
         startActivity(intent);
       }
@@ -145,8 +146,9 @@ public class ScheduleTimeActivity extends SimpleActivity {
         if (view.getId() == R.id.schedule_episode) {
           ScheduleTimeItem scheduleItem = (ScheduleTimeItem) adapter.getItem(position);
           Intent intent = new Intent(getBaseContext(), ScheduleVideoActivity.class);
-          if (scheduleItem != null && scheduleItem.t != null) {
-            intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL, scheduleItem.t.getEpisodeLink());
+          if (scheduleItem != null && scheduleItem.data != null) {
+            intent
+                .putExtra(IntentConstant.SCHEDULE_EPISODE_URL, scheduleItem.data.getEpisodeLink());
           }
           startActivity(intent);
         }

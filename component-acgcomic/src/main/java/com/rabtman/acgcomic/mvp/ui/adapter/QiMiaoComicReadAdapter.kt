@@ -8,7 +8,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.rabtman.acgcomic.R
 import com.rabtman.common.imageloader.glide.GlideApp
 import com.rabtman.common.utils.DimenUtils
@@ -22,14 +22,14 @@ class QiMiaoComicReadAdapter() : BaseQuickAdapter<String, BaseViewHolder>(R.layo
 
     private var screenWidth: Int = 0
 
-    override fun onBindViewHolder(holder: BaseViewHolder?, position: Int) {
-        screenWidth = DimenUtils.getScreenWidth(mContext)
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
+        screenWidth = DimenUtils.getScreenWidth(context)
         super.onBindViewHolder(holder, position)
     }
 
     override fun convert(helper: BaseViewHolder, item: String) {
         helper.setText(R.id.tv_qimiao_comic_pos, (helper.adapterPosition + 1).toString())
-        GlideApp.with(mContext)
+        GlideApp.with(context)
                 .asBitmap()
                 .load(item)
                 .fallback(R.drawable.ic_launcher_round)

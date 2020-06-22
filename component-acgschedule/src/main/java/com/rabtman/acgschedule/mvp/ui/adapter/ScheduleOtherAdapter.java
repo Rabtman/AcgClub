@@ -2,7 +2,7 @@ package com.rabtman.acgschedule.mvp.ui.adapter;
 
 import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleOtherPage;
 import com.rabtman.common.imageloader.ImageLoader;
@@ -26,7 +26,7 @@ public class ScheduleOtherAdapter extends
   @Override
   protected void convert(BaseViewHolder helper, ScheduleOtherPage.ScheduleOtherItem item) {
     helper.setText(R.id.tv_schedule_other_title, item.getTitle());
-    mImageLoader.loadImage(mContext,
+    mImageLoader.loadImage(getContext(),
         GlideImageConfig
             .builder()
             .url(item.getImgUrl())

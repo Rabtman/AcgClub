@@ -9,8 +9,8 @@ import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.IBinder
-import android.support.v4.app.NotificationCompat
 import android.widget.RemoteViews
+import androidx.core.app.NotificationCompat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.NotificationTarget
 import com.rabtman.acgmusic.IMusicService

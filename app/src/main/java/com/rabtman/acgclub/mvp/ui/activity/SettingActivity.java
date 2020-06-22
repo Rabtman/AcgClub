@@ -1,10 +1,10 @@
 package com.rabtman.acgclub.mvp.ui.activity;
 
 import android.content.Intent;
-import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.widget.TextView;
+import androidx.appcompat.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.alibaba.android.arouter.facade.annotation.Route;

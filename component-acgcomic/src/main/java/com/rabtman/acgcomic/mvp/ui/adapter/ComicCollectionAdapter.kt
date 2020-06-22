@@ -4,7 +4,7 @@ import android.graphics.Bitmap
 import com.bumptech.glide.load.MultiTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.BaseViewHolder
+import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.common.imageloader.ImageLoader
@@ -21,13 +21,13 @@ class ComicCollectionAdapter(private val mImageLoader: ImageLoader) : BaseQuickA
 
     override fun convert(helper: BaseViewHolder, item: ComicCache) {
         helper.setText(R.id.tv_comic_collection_name, item.comicName)
-        mImageLoader.loadImage(mContext,
+        mImageLoader.loadImage(context,
                 GlideImageConfig
                         .builder()
                         .url(item.comicImgUrl)
                         .transformation(
                                 MultiTransformation<Bitmap>(CenterCrop(),
-                                        RoundedCornersTransformation(DimenUtils.dpToPx(mContext, 4f), 0)))
+                                        RoundedCornersTransformation(DimenUtils.dpToPx(context, 4f), 0)))
                         .imageView(helper.getView(R.id.img_comic_collection))
                         .build()
         )

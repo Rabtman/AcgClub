@@ -1,23 +1,33 @@
 package com.rabtman.acgschedule.mvp.model.entity;
 
-import com.chad.library.adapter.base.entity.SectionEntity;
+import com.chad.library.adapter.base.entity.JSectionEntity;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleWeek.ScheduleItem;
 
 /**
  * @author Rabtman
  */
 
-public class ScheduleTimeItem extends SectionEntity<ScheduleItem> {
+public class ScheduleTimeItem extends JSectionEntity {
 
+  public boolean isHeader;
+  public String header;
   public int headerIndex;
+  public ScheduleItem data;
+
 
   public ScheduleTimeItem(boolean isHeader, String header, int index) {
-    super(isHeader, header);
-    headerIndex = index;
+    this.isHeader = isHeader;
+    this.header = header;
+    this.headerIndex = index;
   }
 
   public ScheduleTimeItem(ScheduleItem scheduleItem, int index) {
-    super(scheduleItem);
+    data = scheduleItem;
     headerIndex = index;
+  }
+
+  @Override
+  public boolean isHeader() {
+    return isHeader;
   }
 }

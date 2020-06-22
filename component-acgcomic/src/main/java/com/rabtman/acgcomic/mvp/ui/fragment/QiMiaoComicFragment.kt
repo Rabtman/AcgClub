@@ -1,14 +1,17 @@
 package com.rabtman.acgcomic.mvp.ui.fragment
 
-import android.support.v4.content.ContextCompat
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.*
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
+import androidx.appcompat.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.R2
 import com.rabtman.acgcomic.base.constant.IntentConstant
@@ -39,6 +42,7 @@ class QiMiaoComicFragment : BaseFragment<QiMiaoComicPresenter>(), QiMiaoComicCon
     private var mLayoutManager: LinearLayoutManager? = null
     private lateinit var mQiMiaoComicItemAdapter: QiMiaoComicItemAdpater
     private val headers = listOf("分类")
+
     //菜单选项
     private val type = arrayListOf(
             "全部", "热血", "恋爱", "青春", "彩虹",
@@ -46,10 +50,13 @@ class QiMiaoComicFragment : BaseFragment<QiMiaoComicPresenter>(), QiMiaoComicCon
             "穿越", "都士", "腹黑", "爆笑",
             "少年", "奇幻", "古风", "妖恋",
             "元气", "治愈", "励志", "日常", "百合")
+
     //菜单选项适配器
     private lateinit var typeAdapter: ComicMenuAdapter
+
     //弹出菜单视图集
     private lateinit var popupViews: List<View>
+
     //头部搜索框
     private lateinit var headerSearchView: View
 
@@ -95,18 +102,19 @@ class QiMiaoComicFragment : BaseFragment<QiMiaoComicPresenter>(), QiMiaoComicCon
         //分类
         val typeView = RecyclerView(mContext)
         typeView.setBackgroundColor(ContextCompat.getColor(mContext, R.color.grey200))
-        typeAdapter = ComicMenuAdapter(type)
-        typeAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, _, position ->
-            if (adapter is ComicMenuAdapter) {
-                adapter.setCheckItem(position)
-                mMenuComicMain.setTabText(if (position == 0) headers[0] else type[position])
-                mMenuComicMain.closeMenu()
-                mPresenter.getComicInfosByMenuSelected(if (position == 0) "" else (position + 6).toString())
+        typeAdapter = ComicMenuAdapter(type).apply {
+            this.setOnItemClickListener { adapter, _, position ->
+                if (adapter is ComicMenuAdapter) {
+                    adapter.setCheckItem(position)
+                    mMenuComicMain.setTabText(if (position == 0) headers[0] else type[position])
+                    mMenuComicMain.closeMenu()
+                    mPresenter.getComicInfosByMenuSelected(if (position == 0) "" else (position + 6).toString())
+                }
             }
+            typeView.layoutManager = GridLayoutManager(mContext, 4)
+            typeView.adapter = typeAdapter
+            popupViews = listOf<View>(typeView)
         }
-        typeView.layoutManager = GridLayoutManager(mContext, 4)
-        typeView.adapter = typeAdapter
-        popupViews = listOf<View>(typeView)
     }
 
     //初始化内容布局
@@ -114,28 +122,28 @@ class QiMiaoComicFragment : BaseFragment<QiMiaoComicPresenter>(), QiMiaoComicCon
         val contentView = layoutInflater.inflate(R.layout.acgcomic_view_qimiao_comic_content, null)
         mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_qimiao_comic)
         mRcvComicMain = contentView.findViewById(R.id.rcv_qimiao_comic)
-        mQiMiaoComicItemAdapter = QiMiaoComicItemAdpater(appComponent.imageLoader())
-        mQiMiaoComicItemAdapter.setHeaderView(headerSearchView)
-        //加载更多
-        mQiMiaoComicItemAdapter.setOnLoadMoreListener({ mPresenter.getMoreComicInfos() }, mRcvComicMain)
-        //点击跳转到漫画详情
-        mQiMiaoComicItemAdapter.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adpater, _, pos ->
-            val comicItem: QiMiaoComicItem = adpater.getItem(pos) as QiMiaoComicItem
-            if (comicItem.comicLink.isNotEmpty()) {
-                RouterUtils.getInstance()
-                        .build(RouterConstants.PATH_COMIC_QIMIAO_DETAIL)
-                        .withParcelable(IntentConstant.QIMIAO_COMIC_ITEM, comicItem)
-                        .navigation()
-            } else {
-                showMsg("找不到该漫画/(ㄒoㄒ)/~~")
+        mQiMiaoComicItemAdapter = QiMiaoComicItemAdpater(appComponent.imageLoader()).apply {
+            this.setOnItemClickListener { adpater, _, pos ->
+                val comicItem: QiMiaoComicItem = adpater.getItem(pos) as QiMiaoComicItem
+                if (comicItem.comicLink.isNotEmpty()) {
+                    RouterUtils.getInstance()
+                            .build(RouterConstants.PATH_COMIC_QIMIAO_DETAIL)
+                            .withParcelable(IntentConstant.QIMIAO_COMIC_ITEM, comicItem)
+                            .navigation()
+                } else {
+                    showMsg("找不到该漫画/(ㄒoㄒ)/~~")
+                }
             }
         }
+        mQiMiaoComicItemAdapter.setHeaderView(headerSearchView)
+        //加载更多
+        mQiMiaoComicItemAdapter.loadMoreModule.setOnLoadMoreListener { mPresenter.getMoreComicInfos() }
         mLayoutManager = LinearLayoutManager(mContext)
         mRcvComicMain?.layoutManager = mLayoutManager
         mRcvComicMain?.adapter = mQiMiaoComicItemAdapter
 
         //下拉刷新
-        mSwipeRefresh?.setOnRefreshListener({ mPresenter.getComicInfos() })
+        mSwipeRefresh?.setOnRefreshListener { mPresenter.getComicInfos() }
         return contentView
     }
 
@@ -188,29 +196,29 @@ class QiMiaoComicFragment : BaseFragment<QiMiaoComicPresenter>(), QiMiaoComicCon
 
     override fun showSearchComicInfo(comicInfos: List<QiMiaoComicItem>?, canLoadMore: Boolean) {
         mRcvComicMain?.scrollToPosition(0)
-        mQiMiaoComicItemAdapter.setNewData(comicInfos)
+        mQiMiaoComicItemAdapter.setList(comicInfos)
         mRcvComicMain?.scrollBy(0, 0)
         if (!canLoadMore) {
-            mQiMiaoComicItemAdapter.loadMoreEnd()
+            mQiMiaoComicItemAdapter.loadMoreModule.loadMoreEnd()
         }
     }
 
     override fun showComicInfo(comicInfos: List<QiMiaoComicItem>?) {
         mRcvComicMain?.scrollToPosition(0)
-        mQiMiaoComicItemAdapter.setNewData(comicInfos)
+        mQiMiaoComicItemAdapter.setList(comicInfos)
         mRcvComicMain?.scrollBy(0, 0)
     }
 
     override fun showMoreComicInfo(comicInfos: List<QiMiaoComicItem>?, canLoadMore: Boolean) {
         comicInfos?.let { mQiMiaoComicItemAdapter.addData(it) }
-        mQiMiaoComicItemAdapter.loadMoreComplete()
+        mQiMiaoComicItemAdapter.loadMoreModule.loadMoreComplete()
         if (!canLoadMore) {
-            mQiMiaoComicItemAdapter.loadMoreEnd()
+            mQiMiaoComicItemAdapter.loadMoreModule.loadMoreEnd()
         }
     }
 
     override fun onLoadMoreFail() {
-        mQiMiaoComicItemAdapter.loadMoreFail()
+        mQiMiaoComicItemAdapter.loadMoreModule.loadMoreFail()
     }
 
 }

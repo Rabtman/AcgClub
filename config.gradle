@@ -3,55 +3,52 @@ ext {
     android = [
             organization     : "${organization}",
             applicationId    : "${organization}.acgclub",
-            compileSdkVersion: 27,
-            buildToolsVersion: "27.0.2",
+            compileSdkVersion: 28,
+            buildToolsVersion: "28.0.0",
             minSdkVersion    : 19,
-            targetSdkVersion : 27,
-            versionCode      : 6,
-            versionName      : "0.4.2",
+            targetSdkVersion : 28,
+            versionCode      : 7,
+            versionName      : "1.0.0",
             resConfigs       : "zh"
     ]
 
     //合并到主程序运行的组件,没有填写的组件则可以独立运行
     merge = [
-            "acgnews",
+            /*"acgnews",
             "acgschedule",
             "acgcomic",
             "acgmusic",
-            "acgpicture",
+            "acgpicture",*/
     ]
 
     def dependVersion = [
             support    : "27.0.2",
             retrofit   : "2.3.0",
             okhttp     : "3.9.0",
-            glide      : "4.6.1",
+            glide      : "4.11.0",
             dagger2    : "2.14.1",
-            butterknife: "8.8.1",
+            butterknife: "10.2.1",
             blockcanary: "1.5.0",
             leakcanary : "1.5.4"
     ]
     dependencies = [
             //base
-            "appcompat-v7"              : "com.android.support:appcompat-v7:${dependVersion.support}",
-            "design"                    : "com.android.support:design:${dependVersion.support}",
-            "cardview-v7"               : "com.android.support:cardview-v7:${dependVersion.support}",
-            "recyclerview-v7"           : "com.android.support:recyclerview-v7:${dependVersion.support}",
-            "constraintlayout"          : "com.android.support.constraint:constraint-layout:1.1.3",
+            "material"        : 'com.google.android.material:material:1.0.0',
+            "constraintlayout": 'androidx.constraintlayout:constraintlayout:1.1.3',
             //ui
-            "dialog"                    : "com.github.hss01248:DialogUtil:master-SNAPSHOT",
-            "toast"                     : "com.github.Dovar66:DToast:1.1.3",
-            "base-rcv-helper"           : "com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34",
-            "html-textview"             : "org.sufficientlysecure:html-textview:3.3",
-            "bottom-bar"                : "com.roughike:bottom-bar:2.3.1",
-            "mz-banner"                 : "com.github.pinguo-zhouwei:MZBannerView:v2.0.1",
+            "dialog"          : "com.github.hss01248:DialogUtil:master-SNAPSHOT",
+            "toast"           : "com.github.Dovar66:DToast:1.1.3",
+            "base-rcv-helper" : "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4",
+            "html-textview"   : "org.sufficientlysecure:html-textview:3.3",
+            "bottom-bar"      : "com.roughike:bottom-bar:2.3.1",
+            "mz-banner"       : "com.github.pinguo-zhouwei:MZBannerView:v2.0.1",
             "materialsearchview"        : "com.miguelcatalan:materialsearchview:1.4.0",
             "statusbarutil"             : "com.jaeger.statusbarutil:library:1.4.0",
-            "loadsir"                   : "com.kingja.loadsir:loadsir:1.3.6",
+            "loadsir"                   : "com.kingja.loadsir:loadsir:1.3.8",
             //other
-            "multidex"                  : "com.android.support:multidex:1.0.2",
+            "multidex"                  : "androidx.multidex:multidex:2.0.0",
             "logger"                    : "com.orhanobut:logger:2.1.1",
-            "fragmentation"             : "me.yokeyword:fragmentation:1.1.9",
+            "fragmentation"             : "me.yokeyword:fragmentationx:1.0.2",
             //bugly
             "crashreport"               : "com.tencent.bugly:crashreport_upgrade:1.3.6",
             "nativecrashreport"         : "com.tencent.bugly:nativecrashreport:3.6.0.1",
@@ -80,8 +77,8 @@ ext {
             "rxcache"                   : "com.github.VictorAlbertos.RxCache:runtime:1.8.3-2.x",
             "rxcache-jolyglot"          : "com.github.VictorAlbertos.Jolyglot:gson:0.0.4",
             //router
-            "router"                    : "com.alibaba:arouter-api:1.3.1",
-            "router-compiler"           : "com.alibaba:arouter-compiler:1.1.4",
+            "router"                    : "com.alibaba:arouter-api:1.5.0",
+            "router-compiler"           : "com.alibaba:arouter-compiler:1.2.2",
             //di
             "butterknife"               : "com.jakewharton:butterknife:${dependVersion.butterknife}",
             "butterknife-compiler"      : "com.jakewharton:butterknife-compiler:${dependVersion.butterknife}",
@@ -91,7 +88,7 @@ ext {
             "annotation"                : "org.glassfish:javax.annotation:10.0-b28",
             //test
             "junit"                     : "junit:junit:4.12",
-            "androidJUnitRunner"        : "android.support.test.runner.AndroidJUnitRunner",
+            "androidJUnitRunner"        : "androidx.test.runner.AndroidJUnitRunner",
             "runner"                    : 'com.android.support.test:runner:0.5',
             "mockito-core"              : "org.mockito:mockito-core:1.+",
             "timber"                    : "com.jakewharton.timber:timber:4.1.2",

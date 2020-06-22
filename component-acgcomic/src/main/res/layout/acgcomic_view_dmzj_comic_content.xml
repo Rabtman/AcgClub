@@ -25,13 +25,13 @@
       android:text="更新" />
   </RadioGroup>
 
-  <android.support.v4.widget.SwipeRefreshLayout
+  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:id="@+id/swipe_refresh_dmzj_comic"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/rcv_dmzj_comic"
       android:layout_width="match_parent"
       android:layout_height="match_parent" />
-  </android.support.v4.widget.SwipeRefreshLayout>
+  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -1,12 +1,10 @@
 package com.rabtman.acgpicture.mvp.ui.fragment
 
-import android.support.v4.widget.SwipeRefreshLayout
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import butterknife.BindView
-import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener
-import com.chad.library.adapter.base.BaseQuickAdapter.RequestLoadMoreListener
 import com.rabtman.acgpicture.R
 import com.rabtman.acgpicture.R2
 import com.rabtman.acgpicture.di.APictureModule
@@ -51,18 +49,12 @@ class APictureFragment : BaseFragment<APicturePresenter>(), APictureContract.Vie
 
     override fun initData() {
         mAdapter = APictureItemAdapter(appComponent.imageLoader())
-        mAdapter.setOnItemClickListener(OnItemClickListener { adapter, view, position ->
-            /*val picInfo = adapter.data[position] as PicInfo
-            val intent = Intent(context, APicDetailActivity::class.java)
-            intent.putExtra(IntentConstant.APIC_DETAIL_TITLE, picInfo.getTitle())
-            intent.putExtra(IntentConstant.APIC_DETAIL_URL, picInfo.getContentLink())
-            startActivity(intent)*/
-        })
+
 
         val layoutManager = GridLayoutManager(context, 2)
         layoutManager.orientation = GridLayoutManager.VERTICAL
         rcvAnimateItem.layoutManager = layoutManager
-        mAdapter.setOnLoadMoreListener(RequestLoadMoreListener { mPresenter.getMoreAcgPicList() }, rcvAnimateItem)
+        mAdapter.loadMoreModule.setOnLoadMoreListener { mPresenter.getMoreAcgPicList() }
         rcvAnimateItem.adapter = mAdapter
 
         swipeRefresh.setOnRefreshListener { mPresenter.getAcgPicList() }
@@ -71,14 +63,14 @@ class APictureFragment : BaseFragment<APicturePresenter>(), APictureContract.Vie
     }
 
     override fun showPictures(picItems: List<APictureItem>) {
-        mAdapter.setNewData(picItems)
+        mAdapter.setList(picItems)
     }
 
     override fun showMorePictures(picItems: List<APictureItem>, canLoadMore: Boolean) {
         mAdapter.addData(picItems)
-        mAdapter.loadMoreComplete()
+        mAdapter.loadMoreModule.loadMoreComplete()
         if (!canLoadMore) {
-            mAdapter.loadMoreEnd()
+            mAdapter.loadMoreModule.loadMoreEnd()
         }
     }
 
@@ -90,6 +82,6 @@ class APictureFragment : BaseFragment<APicturePresenter>(), APictureContract.Vie
     }
 
     override fun onLoadMoreFail() {
-        mAdapter.loadMoreFail()
+        mAdapter.loadMoreModule.loadMoreFail()
     }
 }

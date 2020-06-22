@@ -1,13 +1,13 @@
 package com.rabtman.acgschedule.mvp.ui.activity;
 
 import android.content.Intent;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.R2;
 import com.rabtman.acgschedule.base.constant.IntentConstant;
@@ -91,7 +91,7 @@ public class ScheduleNewActivity extends BaseActivity<ScheduleNewPresenter> impl
 
   @Override
   public void showScheduleNew(ScheduleNew scheduleNew) {
-    mAdapter.setNewData(scheduleNew.getScheduleNewItems());
+    mAdapter.setList(scheduleNew.getScheduleNewItems());
   }
 
 }

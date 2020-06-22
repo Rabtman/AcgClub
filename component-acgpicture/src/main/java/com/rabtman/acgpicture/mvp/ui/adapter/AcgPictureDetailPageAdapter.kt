@@ -1,9 +1,9 @@
 package com.rabtman.acgpicture.mvp.ui.adapter
 
 import android.content.Context
-import android.support.v4.view.PagerAdapter
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager.widget.PagerAdapter
 import com.rabtman.common.base.widget.PinchImageView
 import com.rabtman.common.imageloader.ImageLoader
 import com.rabtman.common.imageloader.glide.GlideImageConfig

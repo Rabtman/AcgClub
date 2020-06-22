@@ -1,14 +1,14 @@
 package com.rabtman.acgnews.mvp.ui.fragment;
 
 import android.content.Intent;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v4.widget.SwipeRefreshLayout.OnRefreshListener;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener;
 import butterknife.BindView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseQuickAdapter.OnItemClickListener;
-import com.chad.library.adapter.base.BaseQuickAdapter.RequestLoadMoreListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.listener.OnLoadMoreListener;
 import com.rabtman.acgnews.R;
 import com.rabtman.acgnews.R2;
 import com.rabtman.acgnews.base.constant.IntentConstant;
@@ -25,8 +25,7 @@ import com.rabtman.common.di.component.AppComponent;
 import java.util.List;
 
 /**
- * @author Rabtman
- * 羁绊资讯
+ * @author Rabtman 羁绊资讯
  */
 public class ZeroFiveNewsFragment extends BaseFragment<ZeroFiveNewsItemPresenter> implements
     View {
@@ -78,12 +77,13 @@ public class ZeroFiveNewsFragment extends BaseFragment<ZeroFiveNewsItemPresenter
     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
     rcvNewsItem.addItemDecoration(new CommonItemDecoration(2, CommonItemDecoration.UNIT_DP));
     rcvNewsItem.setLayoutManager(layoutManager);
-    mAdapter.setOnLoadMoreListener(new RequestLoadMoreListener() {
+    mAdapter.getLoadMoreModule().setOnLoadMoreListener(new OnLoadMoreListener() {
       @Override
-      public void onLoadMoreRequested() {
+      public void onLoadMore() {
+
         mPresenter.getMoreAcgNewsList();
       }
-    }, rcvNewsItem);
+    });
     rcvNewsItem.setAdapter(mAdapter);
 
     swipeRefresh.setOnRefreshListener(new OnRefreshListener() {
@@ -103,15 +103,15 @@ public class ZeroFiveNewsFragment extends BaseFragment<ZeroFiveNewsItemPresenter
 
   @Override
   public void showAcgNews(List<ZeroFiveNews> zeroFiveNewsList) {
-    mAdapter.setNewData(zeroFiveNewsList);
+    mAdapter.setList(zeroFiveNewsList);
   }
 
   @Override
   public void showMoreAcgNews(List<ZeroFiveNews> zeroFiveNewsList, boolean canLoadMore) {
     mAdapter.addData(zeroFiveNewsList);
-    mAdapter.loadMoreComplete();
+    mAdapter.getLoadMoreModule().loadMoreComplete();
     if (!canLoadMore) {
-      mAdapter.loadMoreEnd();
+      mAdapter.getLoadMoreModule().loadMoreEnd();
     }
   }
 
@@ -125,6 +125,6 @@ public class ZeroFiveNewsFragment extends BaseFragment<ZeroFiveNewsItemPresenter
 
   @Override
   public void onLoadMoreFail() {
-    mAdapter.loadMoreFail();
+    mAdapter.getLoadMoreModule().loadMoreFail();
   }
 }

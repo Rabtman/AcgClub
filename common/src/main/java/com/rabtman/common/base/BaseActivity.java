@@ -1,7 +1,7 @@
 package com.rabtman.common.base;
 
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import androidx.appcompat.widget.Toolbar;
 import com.rabtman.common.base.mvp.BasePresenter;
 import com.rabtman.common.di.component.AppComponent;
 import javax.inject.Inject;
