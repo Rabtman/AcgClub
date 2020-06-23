@@ -34,7 +34,7 @@ constructor(model: QiMiaoComicDetailContract.Model,
                                 mView.hideLoading()
                             }
 
-                            override fun onError(e: Throwable?) {
+                            override fun onError(e: Throwable) {
                                 super.onError(e)
                                 mView.showPageError()
                             }

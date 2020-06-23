@@ -1,6 +1,7 @@
 package com.rabtman.acgcomic.mvp.ui.adapter
 
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.rabtman.acgcomic.R
 import com.rabtman.acgcomic.base.constant.HtmlConstant
@@ -11,7 +12,7 @@ import com.rabtman.common.imageloader.glide.GlideImageConfig
 /**
  * @author Rabtman
  */
-class DmzjComicItemAdpater(private val imageLoader: ImageLoader) : BaseQuickAdapter<DmzjComicItem, BaseViewHolder>(R.layout.acgcomic_item_dmzj_comic, null) {
+class DmzjComicItemAdpater(private val imageLoader: ImageLoader) : BaseQuickAdapter<DmzjComicItem, BaseViewHolder>(R.layout.acgcomic_item_dmzj_comic, null), LoadMoreModule {
 
     override fun convert(helper: BaseViewHolder, item: DmzjComicItem) {
         if (helper != null) {

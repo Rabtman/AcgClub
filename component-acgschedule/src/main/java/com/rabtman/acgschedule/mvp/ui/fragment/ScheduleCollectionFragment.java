@@ -41,7 +41,7 @@ public class ScheduleCollectionFragment extends SimpleFragment {
 
   @Override
   protected void initData() {
-    mAdapter = new ScheduleCollectionAdapter(getAppComponent().imageLoader());
+    mAdapter = new ScheduleCollectionAdapter(getMAppComponent().imageLoader());
     rcvScheduleCollection.setLayoutManager(new GridLayoutManager(getContext(), 3));
     rcvScheduleCollection.setAdapter(mAdapter);
     mAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -70,7 +70,7 @@ public class ScheduleCollectionFragment extends SimpleFragment {
   @Override
   public void onResume() {
     super.onResume();
-    if (isInited && isVisible) {
+    if (isInited && isVisibled) {
       getScheduleCollections();
     }
   }
@@ -88,7 +88,7 @@ public class ScheduleCollectionFragment extends SimpleFragment {
    */
   private void getScheduleCollections() {
     ScheduleDAO dao = new ScheduleDAO(
-        getAppComponent()
+        getMAppComponent()
             .repositoryManager()
             .obtainRealmConfig(SystemConstant.DB_NAME)
     );

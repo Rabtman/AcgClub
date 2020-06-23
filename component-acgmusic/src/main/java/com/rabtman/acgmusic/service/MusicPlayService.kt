@@ -354,7 +354,7 @@ class MusicPlayService : Service() {
                         }
                     }
 
-                    override fun onError(e: Throwable?) {
+                    override fun onError(e: Throwable) {
                         super.onError(e)
                         musicStatusListener?.onFail()
                     }

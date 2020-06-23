@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'realm-android'
 apply plugin: 'com.alibaba.arouter'
+apply from:"../base_component_kapt.gradle"
 
 Properties properties = new Properties()
 File localPropertiesFile = project.rootProject.file("local.properties");
@@ -12,6 +13,11 @@ if (localPropertiesFile.exists()) {
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     useLibrary 'org.apache.http.legacy'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
@@ -129,7 +135,7 @@ dependencies {
         exclude module: 'support-annotations'
     }
     api rootProject.ext.dependencies["glide-loader-okhttp3"]
-    annotationProcessor rootProject.ext.dependencies["glide-compiler"]
+    kapt rootProject.ext.dependencies["glide-compiler"]
     //rx
     api rootProject.ext.dependencies["rxjava"]
     api rootProject.ext.dependencies["rxandroid"]
@@ -143,9 +149,7 @@ dependencies {
     api rootProject.ext.dependencies["rxcache-jolyglot"]
     //di
     api rootProject.ext.dependencies["dagger2"]
-    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
     api rootProject.ext.dependencies["butterknife"]
-    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
     //umeng
     api rootProject.ext.dependencies["umeng"]
     //canary
@@ -166,8 +170,8 @@ dependencies {
     api files('libs/umeng_social_shareview.jar')
     api files('libs/umeng_social_tool.jar')
     //godeye
-    implementation 'cn.hikyson.godeye:godeye-core:' + GODEYE_VER
+    /*implementation 'cn.hikyson.godeye:godeye-core:' + GODEYE_VER
     debugImplementation 'cn.hikyson.godeye:godeye-monitor:' + GODEYE_VER
     releaseImplementation 'cn.hikyson.godeye:godeye-monitor-no-op:' + GODEYE_VER
-    implementation 'cn.hikyson.godeye:godeye-toolbox:' + GODEYE_VER
+    implementation 'cn.hikyson.godeye:godeye-toolbox:' + GODEYE_VER*/
 }

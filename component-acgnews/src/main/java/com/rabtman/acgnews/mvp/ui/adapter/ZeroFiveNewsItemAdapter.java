@@ -2,6 +2,7 @@ package com.rabtman.acgnews.mvp.ui.adapter;
 
 import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.rabtman.acgnews.R;
 import com.rabtman.acgnews.mvp.model.jsoup.ZeroFiveNews;
@@ -12,7 +13,9 @@ import com.rabtman.common.imageloader.glide.GlideImageConfig;
  * @author Rabtman
  */
 
-public class ZeroFiveNewsItemAdapter extends BaseQuickAdapter<ZeroFiveNews, BaseViewHolder> {
+public class ZeroFiveNewsItemAdapter extends
+    BaseQuickAdapter<ZeroFiveNews, BaseViewHolder> implements
+    LoadMoreModule {
 
   private ImageLoader mImageLoader;
 

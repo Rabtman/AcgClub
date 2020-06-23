@@ -50,7 +50,7 @@ class QiMiaoComicPresenter
                                 mView.hideLoading()
                             }
 
-                            override fun onError(e: Throwable?) {
+                            override fun onError(e: Throwable) {
                                 super.onError(e)
                                 mView.showPageError()
                             }
@@ -77,7 +77,7 @@ class QiMiaoComicPresenter
                                 mView.showMoreComicInfo(comicPage.comicItems, comicPage.hasMore())
                             }
 
-                            override fun onError(e: Throwable?) {
+                            override fun onError(e: Throwable) {
                                 super.onError(e)
                                 mView.onLoadMoreFail()
                                 pageNo--
@@ -105,7 +105,7 @@ class QiMiaoComicPresenter
                                 mView.hideLoading()
                             }
 
-                            override fun onError(e: Throwable?) {
+                            override fun onError(e: Throwable) {
                                 super.onError(e)
                                 mView.hideLoading()
                             }

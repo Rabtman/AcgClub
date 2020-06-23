@@ -66,7 +66,7 @@ class AcgPictureMainFragment : BaseFragment<AcgPictureMainPresenter>(), AcgPictu
             fragments.add(acgPictureItemFragment)
         }
 
-        mAdapter = AcgPictureMainPageAdapter(fragmentManager, fragments)
+        mAdapter = AcgPictureMainPageAdapter(mActivity.supportFragmentManager, fragments)
         mAdapter.setPictureTypes(types)
         mViewPager.adapter = mAdapter
         mViewPager.offscreenPageLimit = 1

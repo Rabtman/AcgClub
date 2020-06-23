@@ -62,7 +62,7 @@ public class ISHNewsFragment extends BaseFragment<ISHNewsItemPresenter> implemen
 
   @Override
   protected void initData() {
-    mAdapter = new ISHNewsItemAdapter(getAppComponent().imageLoader());
+    mAdapter = new ISHNewsItemAdapter(getMAppComponent().imageLoader());
     mAdapter.setOnItemClickListener(new OnItemClickListener() {
       @Override
       public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {

@@ -64,7 +64,7 @@ constructor(model: QiMIaoComicChapterDetailContract.Model,
                                 mView.hideLoading()
                             }
 
-                            override fun onError(e: Throwable?) {
+                            override fun onError(e: Throwable) {
                                 //curChapterPos -= (chapterIndex - curIndex)
                                 super.onError(e)
                                 mView.hideLoading()
@@ -105,7 +105,7 @@ constructor(model: QiMIaoComicChapterDetailContract.Model,
                                 mView.hideLoading()
                             }
 
-                            override fun onError(e: Throwable?) {
+                            override fun onError(e: Throwable) {
                                 super.onError(e)
                                 mView.hideLoading()
                             }

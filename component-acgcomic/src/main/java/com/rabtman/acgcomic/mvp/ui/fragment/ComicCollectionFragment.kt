@@ -38,7 +38,7 @@ class ComicCollectionFragment : SimpleFragment() {
     }
 
     override fun initData() {
-        mAdapter = ComicCollectionAdapter(appComponent.imageLoader())
+        mAdapter = ComicCollectionAdapter(mAppComponent.imageLoader())
         rcvQiMiaoComicItem.layoutManager = GridLayoutManager(context, 3)
         rcvQiMiaoComicItem.adapter = mAdapter
         mAdapter.setOnItemClickListener { adapter, _, position ->
@@ -56,7 +56,7 @@ class ComicCollectionFragment : SimpleFragment() {
 
     override fun onResume() {
         super.onResume()
-        if (isInited && isVisible) {
+        if (isInited && isVisibled) {
             getComicItems()
         }
     }
@@ -81,7 +81,7 @@ class ComicCollectionFragment : SimpleFragment() {
      */
     private fun getComicItems() {
         val dao = ComicDAO(
-                appComponent
+                mAppComponent
                         .repositoryManager()
                         .obtainRealmConfig(SystemConstant.DB_NAME)
         )
@@ -109,8 +109,6 @@ class ComicCollectionFragment : SimpleFragment() {
     }
 
     override fun showPageEmpty() {
-        if (mLoadService != null) {
-            mLoadService.showCallback(EmptyCollectionCallback::class.java)
-        }
+        mLoadService?.showCallback(EmptyCollectionCallback::class.java)
     }
 }

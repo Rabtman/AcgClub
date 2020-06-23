@@ -1,25 +1,6 @@
 package com.rabtman.common.base;
 
 import android.app.Application;
-import android.content.Context;
-import android.util.ArrayMap;
-import cn.hikyson.android.godeye.toolbox.crash.CrashFileProvider;
-import cn.hikyson.android.godeye.toolbox.rxpermission.RxPermissionRequest;
-import cn.hikyson.godeye.core.GodEye;
-import cn.hikyson.godeye.core.installconfig.BatteryConfig;
-import cn.hikyson.godeye.core.installconfig.CpuConfig;
-import cn.hikyson.godeye.core.installconfig.CrashConfig;
-import cn.hikyson.godeye.core.installconfig.FpsConfig;
-import cn.hikyson.godeye.core.installconfig.HeapConfig;
-import cn.hikyson.godeye.core.installconfig.LeakConfig;
-import cn.hikyson.godeye.core.installconfig.PageloadConfig;
-import cn.hikyson.godeye.core.installconfig.PssConfig;
-import cn.hikyson.godeye.core.installconfig.RamConfig;
-import cn.hikyson.godeye.core.installconfig.SmConfig;
-import cn.hikyson.godeye.core.installconfig.ThreadConfig;
-import cn.hikyson.godeye.core.installconfig.TrafficConfig;
-import cn.hikyson.godeye.core.internal.modules.leakdetector.canary.android.LeakCanary;
-import cn.hikyson.godeye.monitor.GodEyeMonitor;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hss01248.dialog.StyledDialog;
 import com.kingja.loadsir.core.LoadSir;
@@ -53,7 +34,6 @@ import io.reactivex.plugins.RxJavaPlugins;
 import io.realm.Realm;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.inject.Inject;
 
 /**
@@ -138,7 +118,7 @@ public class CommonApplicationLike implements IApplicationLike {
     StyledDialog.init(mApplication);
 
     //leakCanary内存泄露检查
-    LeakCanary.install(mApplication);
+    //LeakCanary.install(mApplication);
 
     //rx全局异常处理
     setRxJavaErrorHandler();
@@ -163,7 +143,7 @@ public class CommonApplicationLike implements IApplicationLike {
     recordVersionCode();
     initX5Web();
     initUShare();
-    installGodEye();
+    //installGodEye();
   }
 
   /**
@@ -190,8 +170,8 @@ public class CommonApplicationLike implements IApplicationLike {
       lifecycle.onTerminate(mApplication);
     }
 
-    LeakCanary.uninstall();
-    GodEyeMonitor.shutDown();
+    //LeakCanary.uninstall();
+    //GodEyeMonitor.shutDown();
   }
 
   //Umeng Share
@@ -202,7 +182,7 @@ public class CommonApplicationLike implements IApplicationLike {
   }
 
   //AndroidGodEye
-  private void installGodEye() {
+  /*private void installGodEye() {
     if (BuildConfig.DEBUG) {
       GodEye.instance().init(mApplication);
       GodEyeMonitor.injectAppInfoConext(new GodEyeMonitor.AppInfoConext() {
@@ -236,7 +216,7 @@ public class CommonApplicationLike implements IApplicationLike {
           .install(new TrafficConfig());
       GodEyeMonitor.work(mApplication);
     }
-  }
+  }*/
 
   private void initX5Web() {
     //x5内核初始化接口

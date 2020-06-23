@@ -2,6 +2,7 @@ package com.rabtman.acgschedule.mvp.ui.adapter;
 
 import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.module.LoadMoreModule;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.rabtman.acgschedule.R;
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleOtherPage;
@@ -13,7 +14,8 @@ import com.rabtman.common.imageloader.glide.GlideImageConfig;
  */
 
 public class ScheduleOtherAdapter extends
-    BaseQuickAdapter<ScheduleOtherPage.ScheduleOtherItem, BaseViewHolder> {
+    BaseQuickAdapter<ScheduleOtherPage.ScheduleOtherItem, BaseViewHolder> implements
+    LoadMoreModule {
 
   private ImageLoader mImageLoader;
 

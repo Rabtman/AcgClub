@@ -185,7 +185,7 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
       LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
       linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
       ScheduleRecommandAdapter scheduleRecommandAdapter = new ScheduleRecommandAdapter(
-          getAppComponent().imageLoader(), dilidiliInfo.getScheduleRecommends());
+          getMAppComponent().imageLoader(), dilidiliInfo.getScheduleRecommends());
       scheduleRecommandAdapter.setOnItemClickListener(new OnItemClickListener() {
         @Override
         public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {
@@ -202,7 +202,7 @@ public class ScheduleMainFragment extends BaseFragment<ScheduleMainPresenter> im
     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
     gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
     ScheduleRecentAdapter scheduleRecentAdapter = new ScheduleRecentAdapter(
-        getAppComponent().imageLoader(), dilidiliInfo.getScheduleRecent());
+        getMAppComponent().imageLoader(), dilidiliInfo.getScheduleRecent());
     scheduleRecentAdapter.setOnItemClickListener(new OnItemClickListener() {
       @Override
       public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {

@@ -23,6 +23,11 @@ android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     useLibrary 'org.apache.http.legacy'
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     defaultConfig {
         applicationId rootProject.ext.android.applicationId
         minSdkVersion rootProject.ext.android.minSdkVersion

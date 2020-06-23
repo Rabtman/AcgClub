@@ -64,7 +64,7 @@ class QiMiaoComicFragment : BaseFragment<QiMiaoComicPresenter>(), QiMiaoComicCon
         return R.layout.acgcomic_view_comic_menu
     }
 
-    override fun setupFragmentComponent(appComponent: AppComponent?) {
+    override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerQiMiaoComicComponent.builder()
                 .appComponent(appComponent)
                 .qiMiaoComicModule(QiMiaoComicModule(this))
@@ -111,10 +111,10 @@ class QiMiaoComicFragment : BaseFragment<QiMiaoComicPresenter>(), QiMiaoComicCon
                     mPresenter.getComicInfosByMenuSelected(if (position == 0) "" else (position + 6).toString())
                 }
             }
-            typeView.layoutManager = GridLayoutManager(mContext, 4)
-            typeView.adapter = typeAdapter
-            popupViews = listOf<View>(typeView)
         }
+        typeView.layoutManager = GridLayoutManager(mContext, 4)
+        typeView.adapter = typeAdapter
+        popupViews = listOf<View>(typeView)
     }
 
     //初始化内容布局
@@ -122,7 +122,7 @@ class QiMiaoComicFragment : BaseFragment<QiMiaoComicPresenter>(), QiMiaoComicCon
         val contentView = layoutInflater.inflate(R.layout.acgcomic_view_qimiao_comic_content, null)
         mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_qimiao_comic)
         mRcvComicMain = contentView.findViewById(R.id.rcv_qimiao_comic)
-        mQiMiaoComicItemAdapter = QiMiaoComicItemAdpater(appComponent.imageLoader()).apply {
+        mQiMiaoComicItemAdapter = QiMiaoComicItemAdpater(mAppComponent.imageLoader()).apply {
             this.setOnItemClickListener { adpater, _, pos ->
                 val comicItem: QiMiaoComicItem = adpater.getItem(pos) as QiMiaoComicItem
                 if (comicItem.comicLink.isNotEmpty()) {

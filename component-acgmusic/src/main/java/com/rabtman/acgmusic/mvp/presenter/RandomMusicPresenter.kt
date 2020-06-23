@@ -23,7 +23,7 @@ class RandomMusicPresenter
                                 }
                             }
 
-                            override fun onError(e: Throwable?) {
+                            override fun onError(e: Throwable) {
                                 super.onError(e)
                                 mView.onLoadMoreFail()
                             }

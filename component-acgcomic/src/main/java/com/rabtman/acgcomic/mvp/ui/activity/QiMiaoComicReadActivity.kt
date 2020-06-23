@@ -74,7 +74,7 @@ class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicReadPresenter>(), QiMIao
     //当前漫画总页数
     private var maxPage = 0
 
-    override fun setupActivityComponent(appComponent: AppComponent?) {
+    override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerQiMiaoComicEpisodeDetailComponent.builder()
                 .appComponent(appComponent)
                 .qiMiaoComicEpisodeDetailModule(QiMiaoComicEpisodeDetailModule(this))
@@ -118,7 +118,7 @@ class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicReadPresenter>(), QiMIao
         rcvComicContent.layoutManager = layoutManager
         rcvComicContent.adapter = qiMiaoComicReadAdapter
         rcvComicContent.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
                 val pos = layoutManager.findFirstVisibleItemPosition()
                 if (maxPage > 0 && maxPage == layoutManager.findLastCompletelyVisibleItemPosition() + 1) {

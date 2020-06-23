@@ -206,7 +206,7 @@ class AcgPictureItemDetailActivity : SimpleActivity() {
                 }, { throwable ->
                     throwable.printStackTrace()
                     if (throwable is ApiException) {
-                        showError(throwable.message)
+                        showError(throwable.message ?: "ApiException")
                     } else {
                         showError(R.string.msg_error_download_picture)
                     }

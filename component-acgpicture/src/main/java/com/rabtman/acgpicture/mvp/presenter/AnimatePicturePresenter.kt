@@ -32,7 +32,7 @@ class AnimatePicturePresenter
                                 mView.hideLoading()
                             }
 
-                            override fun onError(e: Throwable?) {
+                            override fun onError(e: Throwable) {
                                 super.onError(e)
                                 mView.showPageError()
                             }
@@ -59,7 +59,7 @@ class AnimatePicturePresenter
                                         animatePicturePage.pageNumber < animatePicturePage.maxPages)
                             }
 
-                            override fun onError(e: Throwable?) {
+                            override fun onError(e: Throwable) {
                                 super.onError(e)
                                 mView.onLoadMoreFail()
                                 pageIndex--

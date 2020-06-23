@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
@@ -22,4 +22,4 @@
     android:textColor="@android:color/white"
     android:textSize="14sp"
     tools:text="哈哈哈哈哈哈哈" />
-</androidx.appcompat.widget.CardView>
+</androidx.cardview.widget.CardView>

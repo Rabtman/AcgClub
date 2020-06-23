@@ -48,12 +48,12 @@ class AnimatePictureFragment : BaseFragment<AnimatePicturePresenter>(), AnimateP
         return true
     }
 
-    override fun onPageRetry(v: android.view.View) {
+    override fun onPageRetry(v: android.view.View?) {
         mPresenter.getAnimatePictures()
     }
 
     override fun initData() {
-        mAdapter = AnimateItemAdapter(appComponent.imageLoader())
+        mAdapter = AnimateItemAdapter(mAppComponent.imageLoader())
         mAdapter.setOnItemClickListener { adapter, view, position -> }
 
         val layoutManager = StaggeredGridLayoutManager(2, VERTICAL)

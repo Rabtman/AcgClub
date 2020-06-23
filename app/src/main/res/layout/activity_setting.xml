@@ -16,7 +16,7 @@
     android:padding="8dp"
     android:text="常规" />
 
-  <androidx.appcompat.widget.CardView
+  <androidx.cardview.widget.CardView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="12dp"
@@ -25,7 +25,7 @@
     app:cardElevation="2dp"
     app:cardUseCompatPadding="true">
 
-    <android.support.v7.widget.LinearLayoutCompat
+    <androidx.appcompat.widget.LinearLayoutCompat
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
@@ -100,6 +100,6 @@
         android:text="@string/setting_about" />
 
 
-    </android.support.v7.widget.LinearLayoutCompat>
-  </androidx.appcompat.widget.CardView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+  </androidx.cardview.widget.CardView>
 </RelativeLayout>

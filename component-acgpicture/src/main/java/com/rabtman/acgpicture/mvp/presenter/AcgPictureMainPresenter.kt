@@ -27,7 +27,7 @@ class AcgPictureMainPresenter
                                 mView.hideLoading()
                             }
 
-                            override fun onError(e: Throwable?) {
+                            override fun onError(e: Throwable) {
                                 super.onError(e)
                                 mView.hideLoading()
                             }

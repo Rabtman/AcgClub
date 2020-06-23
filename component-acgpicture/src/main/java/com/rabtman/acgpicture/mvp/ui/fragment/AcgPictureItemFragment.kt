@@ -48,14 +48,14 @@ class AcgPictureItemFragment : BaseFragment<AcgPictureItemPresenter>(), AcgPictu
         return true
     }
 
-    override fun onPageRetry(v: android.view.View) {
+    override fun onPageRetry(v: android.view.View?) {
         mPresenter.getAcgPictures()
     }
 
     override fun initData() {
         mPresenter.setAcgPictureType(arguments?.getString(IntentConstant.ACGPICTURE_TYPE, "moeimg")
                 ?: "moeimg")
-        mAdapter = AcgPictureItemAdapter(appComponent.imageLoader())
+        mAdapter = AcgPictureItemAdapter(mAppComponent.imageLoader())
         mAdapter.setOnItemClickListener { adapter, view, position ->
             RouterUtils.getInstance()
                     .build(RouterConstants.PATH_PICTURE_ITEM_DETAIL)

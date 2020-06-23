@@ -62,7 +62,7 @@ class AcgPictureItemPresenter
                                         !pictureItems.isEmpty())
                             }
 
-                            override fun onError(e: Throwable?) {
+                            override fun onError(e: Throwable) {
                                 super.onError(e)
                                 mView.onLoadMoreFail()
                                 pageNo--

@@ -62,7 +62,7 @@ public class ZeroFiveNewsFragment extends BaseFragment<ZeroFiveNewsItemPresenter
 
   @Override
   protected void initData() {
-    mAdapter = new ZeroFiveNewsItemAdapter(getAppComponent().imageLoader());
+    mAdapter = new ZeroFiveNewsItemAdapter(getMAppComponent().imageLoader());
     mAdapter.setOnItemClickListener(new OnItemClickListener() {
       @Override
       public void onItemClick(BaseQuickAdapter adapter, android.view.View view, int position) {

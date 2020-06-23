@@ -8,7 +8,9 @@
     android:allowBackup="true"
     android:label="common"
     android:supportsRtl="true"
-    tools:replace="android:label">
+    android:usesCleartextTraffic="true"
+    tools:replace="android:label"
+    tools:targetApi="m">
 
 
     <!--Umeng Share -->

@@ -50,7 +50,7 @@ class DmzjComicPresenter
                                 mView.hideLoading()
                             }
 
-                            override fun onError(e: Throwable?) {
+                            override fun onError(e: Throwable) {
                                 super.onError(e)
                                 mView.hideLoading()
                             }
@@ -72,7 +72,7 @@ class DmzjComicPresenter
                                 mView.showMoreComicInfo(comicItems, comicItems.isNotEmpty())
                             }
 
-                            override fun onError(e: Throwable?) {
+                            override fun onError(e: Throwable) {
                                 super.onError(e)
                                 mView.onLoadMoreFail()
                                 selected[5] = selected[5]--

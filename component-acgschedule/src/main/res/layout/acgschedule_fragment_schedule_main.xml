@@ -29,7 +29,7 @@
         app:canLoop="true"
         app:open_mz_mode="true" />
 
-      <androidx.appcompat.widget.CardView
+      <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-45dp"
@@ -37,7 +37,7 @@
         android:layout_marginRight="16dp"
         app:cardCornerRadius="30dp"
         app:cardUseCompatPadding="true">
-        <android.support.v7.widget.LinearLayoutCompat
+        <androidx.appcompat.widget.LinearLayoutCompat
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
@@ -77,8 +77,8 @@
             android:drawableTop="@drawable/ic_schedule_period"
             android:gravity="center"
             android:text="动漫周排行" />
-        </android.support.v7.widget.LinearLayoutCompat>
-      </androidx.appcompat.widget.CardView>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+      </androidx.cardview.widget.CardView>
 
       <RelativeLayout
         android:id="@+id/layout_schedule_recommand"

@@ -48,7 +48,7 @@ class APictureFragment : BaseFragment<APicturePresenter>(), APictureContract.Vie
     }
 
     override fun initData() {
-        mAdapter = APictureItemAdapter(appComponent.imageLoader())
+        mAdapter = APictureItemAdapter(mAppComponent.imageLoader())
 
 
         val layoutManager = GridLayoutManager(context, 2)

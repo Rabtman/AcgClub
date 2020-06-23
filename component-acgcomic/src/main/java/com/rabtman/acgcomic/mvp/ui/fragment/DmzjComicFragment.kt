@@ -60,7 +60,7 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
         return R.layout.acgcomic_view_comic_menu
     }
 
-    override fun setupFragmentComponent(appComponent: AppComponent?) {
+    override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerDmzjComicComponent.builder()
                 .appComponent(appComponent)
                 .dmzjComicModule(DmzjComicModule(this))
@@ -159,7 +159,7 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
         mSortGroup = contentView.findViewById(R.id.rg_dmzj_comic)
         mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_dmzj_comic)
         mRcvComicMain = contentView.findViewById(R.id.rcv_dmzj_comic)
-        mDmzjComicItemAdapter = DmzjComicItemAdpater(appComponent.imageLoader())
+        mDmzjComicItemAdapter = DmzjComicItemAdpater(mAppComponent.imageLoader())
         mRcvComicMain?.layoutManager = GridLayoutManager(mContext, 2)
         mRcvComicMain?.adapter = mDmzjComicItemAdapter
 
