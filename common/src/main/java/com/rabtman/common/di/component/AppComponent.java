@@ -6,8 +6,6 @@ import com.rabtman.common.base.CommonApplicationLike;
 import com.rabtman.common.di.module.AppModule;
 import com.rabtman.common.di.module.ClientModule;
 import com.rabtman.common.di.module.GlobeConfigModule;
-import com.rabtman.common.di.module.ImageModule;
-import com.rabtman.common.imageloader.ImageLoader;
 import com.rabtman.common.integration.AppManager;
 import com.rabtman.common.integration.IRepositoryManager;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -19,8 +17,7 @@ import okhttp3.OkHttpClient;
 
 
 @Singleton
-@Component(modules = {AppModule.class, ClientModule.class, ImageModule.class,
-    GlobeConfigModule.class})
+@Component(modules = {AppModule.class, ClientModule.class, GlobeConfigModule.class})
 public interface AppComponent {
 
   Application Application();
@@ -29,9 +26,6 @@ public interface AppComponent {
   IRepositoryManager repositoryManager();
 
   OkHttpClient okHttpClient();
-
-  //图片管理器,用于加载图片的管理类,默认使用glide,使用策略模式,可替换框架
-  ImageLoader imageLoader();
 
   //gson
   Gson gson();

@@ -34,5 +34,5 @@ abstract class BaseApplication : Application() {
     /**
      * 在默认进程中进行操作
      */
-    fun onDefaultProcessCreate() {}
+    open fun onDefaultProcessCreate() {}
 }

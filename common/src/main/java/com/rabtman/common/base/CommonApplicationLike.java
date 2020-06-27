@@ -16,7 +16,6 @@ import com.rabtman.common.di.component.DaggerAppComponent;
 import com.rabtman.common.di.module.AppModule;
 import com.rabtman.common.di.module.ClientModule;
 import com.rabtman.common.di.module.GlobeConfigModule;
-import com.rabtman.common.di.module.ImageModule;
 import com.rabtman.common.integration.ActivityLifecycle;
 import com.rabtman.common.integration.ConfigModule;
 import com.rabtman.common.integration.ManifestParser;
@@ -71,7 +70,6 @@ public class CommonApplicationLike implements IApplicationLike {
         .builder()
         .appModule(new AppModule(mApplication))////提供application
         .clientModule(new ClientModule())//用于提供okhttp和retrofit的单例
-        .imageModule(new ImageModule())//图片加载框架默认使用glide
         .globeConfigModule(getGlobeConfigModule(mApplication, mModules))//全局配置
         .build();
     mAppComponent.inject(this);

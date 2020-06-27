@@ -4,6 +4,8 @@ include ':app'
 include ':common', ':common-res'
 //路由
 include ':router'
+//基础库
+include ':base-libs:ExImgLoader'
 //三方库
 include ':third-party-libs:jsoup-annotations'
 //业务模块
