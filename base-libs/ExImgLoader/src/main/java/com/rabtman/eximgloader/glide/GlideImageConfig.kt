@@ -1,9 +1,9 @@
 package com.rabtman.eximgloader.glide
 
 import android.widget.ImageView
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.rabtman.eximgloader.ImageConfig
 import com.rabtman.eximgloader.ImageLoadListener
+import jp.wasabeef.glide.transformations.BitmapTransformation
 
 /**
  * Glide配置信息

@@ -25,16 +25,16 @@ class ZeroFiveNewsDetailPresenter @Inject constructor(model: ZeroFiveNewsDetailC
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .subscribe { aBoolean ->
                     if (aBoolean) {
-                        mView!!.showShareView()
+                        mView.showShareView()
                     } else {
-                        mView!!.showError(R.string.msg_error_check_permission)
+                        mView.showError(R.string.msg_error_check_permission)
                     }
                 }
     }
 
     fun getNewsDetail(url: String?) {
         if (TextUtils.isEmpty(url)) {
-            mView!!.showError(R.string.msg_error_url_null)
+            mView.showError(R.string.msg_error_url_null)
             return
         }
         addSubscribe(

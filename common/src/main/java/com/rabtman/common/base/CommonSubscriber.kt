@@ -56,15 +56,15 @@ abstract class CommonSubscriber<T> : ResourceSubscriber<T> {
     private fun showError(e: Throwable) {
         if (mView != null) {
             if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
-                mView!!.showError(mErrorMsg)
+                mView?.showError(mErrorMsg)
             } else if (e is ApiException) {
-                mView!!.showError(e.toString())
+                mView?.showError(e.toString())
             } else if (e is HttpException) {
-                mView!!.showError(handleHttpExceptionTips(e))
+                mView?.showError(handleHttpExceptionTips(e))
             } else if (e is SocketTimeoutException) {
-                mView!!.showError(R.string.msg_error_network)
+                mView?.showError(R.string.msg_error_network)
             } else {
-                mView!!.showError(R.string.msg_error_unknown)
+                mView?.showError(R.string.msg_error_unknown)
             }
         } else if (mContext != null) {
             if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {

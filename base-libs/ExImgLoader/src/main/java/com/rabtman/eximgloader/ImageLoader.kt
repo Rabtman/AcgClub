@@ -3,10 +3,10 @@ package com.rabtman.eximgloader
 import android.content.Context
 import android.widget.ImageView
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.rabtman.eximgloader.glide.GlideApp
 import com.rabtman.eximgloader.glide.GlideImageConfig
+import jp.wasabeef.glide.transformations.BitmapTransformation
 import okhttp3.Call
 import okhttp3.OkHttpClient
 
@@ -20,14 +20,13 @@ object ImageLoader {
         }
     }
 
-    @JvmOverloads
-    fun ImageView.loadImage(ctx: Context, url: String?, isCrossFade: Boolean = true, vararg bitmapTransformations: BitmapTransformation, placeholder: Int = 0, errorPic: Int = 0, fallback: Int = 0, imageLoadListener: ImageLoadListener? = null) {
+    fun ImageView.loadImage(ctx: Context, url: String?, vararg transformations: BitmapTransformation, isCrossFade: Boolean = true, placeholder: Int = 0, errorPic: Int = 0, fallback: Int = 0, imageLoadListener: ImageLoadListener? = null) {
         loadImage(ctx,
                 GlideImageConfig.builder()
                         .imageView(this)
                         .url(url)
                         .isCrossFade(isCrossFade)
-                        .transformation(*bitmapTransformations)
+                        .transformation(*transformations)
                         .placeholder(placeholder)
                         .errorPic(errorPic)
                         .fallback(fallback)

@@ -28,7 +28,7 @@ class ISHNewsItemPresenter @Inject constructor(model: ISHNewsContract.Model,
                             }
 
                             override fun onComplete() {
-                                mView!!.hideLoading()
+                                mView.hideLoading()
                             }
 
                             override fun onNext(page: SHPage) {

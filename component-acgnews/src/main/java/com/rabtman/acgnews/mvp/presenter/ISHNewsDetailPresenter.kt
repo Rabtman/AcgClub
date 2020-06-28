@@ -24,16 +24,16 @@ class ISHNewsDetailPresenter @Inject constructor(model: ISHNewsDetailContract.Mo
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .subscribe { aBoolean ->
                     if (aBoolean) {
-                        mView!!.showShareView()
+                        mView.showShareView()
                     } else {
-                        mView!!.showError(R.string.msg_error_check_permission)
+                        mView.showError(R.string.msg_error_check_permission)
                     }
                 }
     }
 
     fun getNewsDetail(postId: Int) {
         if (postId == -1) {
-            mView!!.showError(R.string.msg_error_url_null)
+            mView.showError(R.string.msg_error_url_null)
             return
         }
         addSubscribe(
