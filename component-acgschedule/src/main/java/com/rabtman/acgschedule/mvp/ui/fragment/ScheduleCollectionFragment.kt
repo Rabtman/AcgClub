@@ -26,7 +26,7 @@ import io.reactivex.subscribers.ResourceSubscriber
 @Route(path = RouterConstants.PATH_SCHEDULE_COLLECTION)
 class ScheduleCollectionFragment : SimpleFragment() {
     @BindView(R2.id.rcv_schedule_collection)
-    var rcvScheduleCollection: RecyclerView? = null
+    lateinit var rcvScheduleCollection: RecyclerView
     private var mAdapter: ScheduleCollectionAdapter? = null
     private var mDisposable: Disposable? = null
     override fun getLayoutId(): Int {
@@ -35,8 +35,8 @@ class ScheduleCollectionFragment : SimpleFragment() {
 
     override fun initData() {
         mAdapter = ScheduleCollectionAdapter()
-        rcvScheduleCollection!!.layoutManager = GridLayoutManager(context, 3)
-        rcvScheduleCollection!!.adapter = mAdapter
+        rcvScheduleCollection.layoutManager = GridLayoutManager(context, 3)
+        rcvScheduleCollection.adapter = mAdapter
         mAdapter!!.setOnItemClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as ScheduleCache
             RouterUtils.getInstance()
@@ -44,7 +44,7 @@ class ScheduleCollectionFragment : SimpleFragment() {
                     .withString(IntentConstant.SCHEDULE_DETAIL_URL, item.scheduleUrl)
                     .navigation()
         }
-        scheduleCollections
+        getScheduleCollections()
     }
 
     override fun useLoadSir(): Boolean {
@@ -52,13 +52,13 @@ class ScheduleCollectionFragment : SimpleFragment() {
     }
 
     override fun onPageRetry(v: View?) {
-        scheduleCollections
+        getScheduleCollections()
     }
 
     override fun onResume() {
         super.onResume()
         if (isInited && isVisibled) {
-            scheduleCollections
+            getScheduleCollections()
         }
     }
 
@@ -72,37 +72,34 @@ class ScheduleCollectionFragment : SimpleFragment() {
     /**
      * 获取收藏的所有番剧信息并显示出来
      */
-    private val scheduleCollections: Unit
-        private get() {
-            val dao = ScheduleDAO(
-                    mAppComponent
-                            .repositoryManager()
-                            .obtainRealmConfig(SystemConstant.DB_NAME)
-            )
-            mDisposable = dao.scheduleCollectCaches
-                    .compose(RxUtil.rxSchedulerHelper())
-                    .subscribeWith(object : ResourceSubscriber<List<ScheduleCache>?>() {
-                        override fun onNext(scheduleCaches: List<ScheduleCache>?) {
-                            mAdapter!!.setList(scheduleCaches)
-                            if (scheduleCaches.isNullOrEmpty()) {
-                                showPageEmpty()
-                            } else {
-                                showPageContent()
-                            }
+    private fun getScheduleCollections() {
+        val dao = ScheduleDAO(
+                mAppComponent
+                        .repositoryManager()
+                        .obtainRealmConfig(SystemConstant.DB_NAME)
+        )
+        mDisposable = dao.scheduleCollectCaches
+                .compose(RxUtil.rxSchedulerHelper())
+                .subscribeWith(object : ResourceSubscriber<List<ScheduleCache>?>() {
+                    override fun onNext(scheduleCaches: List<ScheduleCache>?) {
+                        mAdapter!!.setList(scheduleCaches)
+                        if (scheduleCaches.isNullOrEmpty()) {
+                            showPageEmpty()
+                        } else {
+                            showPageContent()
                         }
+                    }
 
-                        override fun onError(t: Throwable) {
-                            showError(R.string.msg_error_data_null)
-                            showPageError()
-                        }
+                    override fun onError(t: Throwable) {
+                        showError(R.string.msg_error_data_null)
+                        showPageError()
+                    }
 
-                        override fun onComplete() {}
-                    })
-        }
+                    override fun onComplete() {}
+                })
+    }
 
     override fun showPageEmpty() {
-        if (mLoadService != null) {
-            mLoadService.showCallback(EmptyCollectionCallback::class.java)
-        }
+        mLoadService?.showCallback(EmptyCollectionCallback::class.java)
     }
 }

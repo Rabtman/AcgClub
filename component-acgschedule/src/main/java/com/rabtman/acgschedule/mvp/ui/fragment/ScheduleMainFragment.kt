@@ -23,7 +23,6 @@ import com.rabtman.acgschedule.mvp.contract.ScheduleMainContract
 import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo
 import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleRecent
 import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleRecommend
-import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleWeek
 import com.rabtman.acgschedule.mvp.presenter.ScheduleMainPresenter
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleDetailActivity
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleTimeActivity
@@ -37,7 +36,6 @@ import com.rabtman.router.RouterConstants
 import com.rabtman.router.RouterUtils
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.zhouwei.mzbanner.MZBannerView
-import java.util.*
 
 /**
  * @author Rabtman
@@ -45,33 +43,33 @@ import java.util.*
 @Route(path = RouterConstants.PATH_SCHEDULE_MAIN)
 class ScheduleMainFragment : BaseFragment<ScheduleMainPresenter>(), ScheduleMainContract.View {
     @BindView(R2.id.swipe_refresh_schedule_main)
-    var swipeRefresh: SwipeRefreshLayout? = null
+    lateinit var swipeRefresh: SwipeRefreshLayout
 
     @BindView(R2.id.layout_schedule_main)
-    var layoutScheduleMain: LinearLayout? = null
+    lateinit var layoutScheduleMain: LinearLayout
 
     @BindView(R2.id.scroll_schedule)
-    var scrollScheduleView: NestedScrollView? = null
+    lateinit var scrollScheduleView: NestedScrollView
 
     @BindView(R2.id.banner_schedule)
-    var bannerSchedule: MZBannerView<DilidiliInfo.ScheduleBanner>? = null
+    lateinit var bannerSchedule: MZBannerView<DilidiliInfo.ScheduleBanner>
 
     @BindView(R2.id.tv_schedule_time)
-    var tvScheduleTime: TextView? = null
+    lateinit var tvScheduleTime: TextView
 
     /*@BindView(id.tv_schedule_music)
   TextView tvScheduleMusic;*/
     @BindView(R2.id.tv_schedule_new)
-    var tvScheduleNew: TextView? = null
+    lateinit var tvScheduleNew: TextView
 
     @BindView(R2.id.layout_schedule_recommand)
-    var layoutScheduleRecommand: RelativeLayout? = null
+    lateinit var layoutScheduleRecommand: RelativeLayout
 
     @BindView(R2.id.rcv_schedule_recommand)
-    var rcvScheduleRecommand: RecyclerView? = null
+    lateinit var rcvScheduleRecommand: RecyclerView
 
     @BindView(R2.id.rcv_schedule_recent)
-    var rcvScheduleRecent: RecyclerView? = null
+    lateinit var rcvScheduleRecent: RecyclerView
     private lateinit var rxPermissions: RxPermissions
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerScheduleMainComponent.builder()
@@ -120,10 +118,10 @@ class ScheduleMainFragment : BaseFragment<ScheduleMainPresenter>(), ScheduleMain
 
     override fun showDilidiliInfo(dilidiliInfo: DilidiliInfo) {
         //放送时间表
-        tvScheduleTime!!.setOnClickListener {
+        tvScheduleTime.setOnClickListener {
             val newIntent = Intent(context, ScheduleTimeActivity::class.java)
             newIntent.putParcelableArrayListExtra(IntentConstant.SCHEDULE_WEEK,
-                    dilidiliInfo.scheduleWeek as ArrayList<ScheduleWeek?>?)
+                    dilidiliInfo.scheduleWeek)
             startActivity(newIntent)
         }
         //音乐电台

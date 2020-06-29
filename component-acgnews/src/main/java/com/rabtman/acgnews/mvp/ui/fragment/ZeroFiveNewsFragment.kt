@@ -24,13 +24,12 @@ import com.rabtman.common.di.component.AppComponent
  * @author Rabtman 羁绊资讯
  */
 class ZeroFiveNewsFragment : BaseFragment<ZeroFiveNewsItemPresenter>(), ZeroFiveNewsContract.View {
-    @kotlin.jvm.JvmField
-    @BindView(R2.id.rcv_news_item)
-    var rcvNewsItem: RecyclerView? = null
 
-    @kotlin.jvm.JvmField
+    @BindView(R2.id.rcv_news_item)
+    lateinit var rcvNewsItem: RecyclerView
+
     @BindView(R2.id.swipe_refresh_news)
-    var swipeRefresh: SwipeRefreshLayout? = null
+    lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var mAdapter: ZeroFiveNewsItemAdapter
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerZeroFiveNewsItemComponent.builder()

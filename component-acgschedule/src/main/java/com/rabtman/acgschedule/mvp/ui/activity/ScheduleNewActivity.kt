@@ -27,13 +27,12 @@ import com.rabtman.router.RouterConstants
  */
 @Route(path = RouterConstants.PATH_SCHEDULE_NEW)
 class ScheduleNewActivity : BaseActivity<ScheduleNewPresenter>(), ScheduleNewContract.View {
-    @JvmField
-    @BindView(R2.id.toolbar)
-    var toolbar: Toolbar? = null
 
-    @JvmField
+    @BindView(R2.id.toolbar)
+    lateinit var toolbar: Toolbar
     @BindView(R2.id.rcv_schedule_new)
-    var rcvScheduleNew: RecyclerView? = null
+    lateinit var rcvScheduleNew: RecyclerView
+
     private var mAdapter: ScheduleNewAdapter? = null
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerScheduleNewComponent.builder()

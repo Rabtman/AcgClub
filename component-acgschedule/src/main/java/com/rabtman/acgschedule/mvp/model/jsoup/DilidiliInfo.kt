@@ -17,7 +17,7 @@ class DilidiliInfo {
 
     //追番时间表
     @Items
-    var scheduleWeek: MutableList<ScheduleWeek>? = null
+    var scheduleWeek: ArrayList<ScheduleWeek>? = null
 
     //最近更新
     @Items

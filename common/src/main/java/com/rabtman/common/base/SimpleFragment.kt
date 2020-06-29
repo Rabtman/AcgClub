@@ -25,17 +25,15 @@ abstract class SimpleFragment : SupportFragment(), IView {
     lateinit var mActivity: SimpleActivity
     lateinit var mContext: Context
 
-    @JvmField
     var isInited = false
 
-    @JvmField
     protected var isVisibled = false
 
-    @JvmField
     protected var mLoadService: LoadService<*>? = null
     private var mSwipeRefreshLayout: SwipeRefreshLayout? = null
     private var mLoadingDialog: Dialog? = null
     private var mUnBinder: Unbinder? = null
+
     override fun onAttach(context: Context) {
         mActivity = context as SimpleActivity
         mContext = context

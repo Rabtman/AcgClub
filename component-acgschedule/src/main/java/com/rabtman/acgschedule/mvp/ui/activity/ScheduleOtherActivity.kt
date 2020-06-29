@@ -30,13 +30,14 @@ import com.rabtman.router.RouterConstants
 @Route(path = RouterConstants.PATH_SCHEDULE_OTHER)
 class ScheduleOtherActivity : BaseActivity<ScheduleOtherPresenter>(), ScheduleOtherContract.View {
     @BindView(R2.id.toolbar)
-    var toolbar: Toolbar? = null
+    lateinit var toolbar: Toolbar
 
     @BindView(R2.id.swipe_schedule_other)
-    var swipeRefresh: SwipeRefreshLayout? = null
+    lateinit var swipeRefresh: SwipeRefreshLayout
 
     @BindView(R2.id.rcv_schedule_other)
-    var rcvScheduleOther: RecyclerView? = null
+    lateinit var rcvScheduleOther: RecyclerView
+
     private var mAdapter: ScheduleOtherAdapter? = null
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerScheduleOtherComponent.builder()

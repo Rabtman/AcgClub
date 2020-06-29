@@ -27,10 +27,10 @@ import com.tencent.smtt.sdk.QbSdk
 @Route(path = RouterConstants.PATH_SCHEDULE_VIDEO)
 class ScheduleVideoActivity : BaseActivity<ScheduleVideoPresenter>(), ScheduleVideoContract.View {
     @BindView(R2.id.webview)
-    var webView: X5VideoWebView? = null
+    lateinit var webView: X5VideoWebView
 
     @BindView(R2.id.progress_video)
-    var progressVideo: ProgressBar? = null
+    lateinit var progressVideo: ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         super.onCreate(savedInstanceState)

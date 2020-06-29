@@ -215,11 +215,10 @@ class ScheduleDetailActivity : BaseActivity<ScheduleDetailPresenter>(), Schedule
         mPresenter.collectOrCancelSchedule((isCollected as Boolean))
     }
 
-    @get:OnClick(R2.id.btn_schedule_detail_read)
-    val nextVideo: Unit
-        get() {
-            mPresenter.getCurrentScheduleCache(rxPermissions, true)
-        }
+    @OnClick(R2.id.btn_schedule_detail_read)
+    fun getNextVideo() {
+        mPresenter.getCurrentScheduleCache(rxPermissions, true)
+    }
 
     override fun showScheduleCacheStatus(scheduleCache: ScheduleCache?) {
         if (scheduleCache == null) {

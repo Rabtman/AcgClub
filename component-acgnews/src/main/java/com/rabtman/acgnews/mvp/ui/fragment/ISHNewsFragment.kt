@@ -24,13 +24,12 @@ import com.rabtman.common.di.component.AppComponent
  * @author Rabtman 鼠绘资讯
  */
 class ISHNewsFragment : BaseFragment<ISHNewsItemPresenter>(), ISHNewsContract.View {
-    @kotlin.jvm.JvmField
     @BindView(R2.id.rcv_news_item)
-    var rcvNewsItem: RecyclerView? = null
+    lateinit var rcvNewsItem: RecyclerView
 
-    @kotlin.jvm.JvmField
     @BindView(R2.id.swipe_refresh_news)
-    var swipeRefresh: SwipeRefreshLayout? = null
+    lateinit var swipeRefresh: SwipeRefreshLayout
+
     private lateinit var mAdapter: ISHNewsItemAdapter
     override fun setupFragmentComponent(appComponent: AppComponent) {
         DaggerISHNewsItemComponent.builder()

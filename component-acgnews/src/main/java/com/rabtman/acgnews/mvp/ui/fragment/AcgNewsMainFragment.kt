@@ -17,13 +17,13 @@ import java.util.*
  */
 @Route(path = RouterConstants.PATH_ACGNEWS_MAIN)
 class AcgNewsMainFragment : SimpleFragment() {
-    @kotlin.jvm.JvmField
-    @BindView(R2.id.tab_news)
-    var mTabLayout: TabLayout? = null
 
-    @kotlin.jvm.JvmField
+    @BindView(R2.id.tab_news)
+    lateinit var mTabLayout: TabLayout
+
+
     @BindView(R2.id.vp_news)
-    var mViewPager: ViewPager? = null
+    lateinit var mViewPager: ViewPager
     var fragments: MutableList<Fragment> = ArrayList()
     var mAdapter: AcgNewsMainPageAdapter? = null
     override fun getLayoutId(): Int {
