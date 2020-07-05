@@ -4,7 +4,7 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.rabtman.acgschedule.R
-import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleRecent
+import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleInfo.ScheduleRecent
 import com.rabtman.eximgloader.ImageLoader.loadImage
 
 /**

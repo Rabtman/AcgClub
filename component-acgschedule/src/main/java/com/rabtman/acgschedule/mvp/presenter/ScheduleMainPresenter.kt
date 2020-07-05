@@ -3,7 +3,7 @@ package com.rabtman.acgschedule.mvp.presenter
 import android.Manifest.permission
 import com.rabtman.acgschedule.R
 import com.rabtman.acgschedule.mvp.contract.ScheduleMainContract
-import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo
+import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleInfo
 import com.rabtman.common.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.FragmentScope
@@ -17,11 +17,11 @@ import javax.inject.Inject
 @FragmentScope
 class ScheduleMainPresenter @Inject constructor(model: ScheduleMainContract.Model,
                                                 rootView: ScheduleMainContract.View) : BasePresenter<ScheduleMainContract.Model, ScheduleMainContract.View>(model, rootView) {
-    fun getDilidiliInfo() {
+    fun getScheduleInfo() {
         addSubscribe(
-                mModel.getDilidiliInfo()
+                mModel.getScheduleInfo()
                         .compose(RxUtil.rxSchedulerHelper())
-                        .subscribeWith(object : CommonSubscriber<DilidiliInfo>(mView) {
+                        .subscribeWith(object : CommonSubscriber<ScheduleInfo>(mView) {
                             override fun onComplete() {
                                 mView.hideLoading()
                             }
@@ -31,8 +31,8 @@ class ScheduleMainPresenter @Inject constructor(model: ScheduleMainContract.Mode
                                 mView.showPageError()
                             }
 
-                            override fun onNext(dilidiliInfo: DilidiliInfo) {
-                                mView.showDilidiliInfo(dilidiliInfo)
+                            override fun onNext(scheduleInfo: ScheduleInfo) {
+                                mView.showScheduleInfo(scheduleInfo)
                                 mView.showPageContent()
                             }
                         })

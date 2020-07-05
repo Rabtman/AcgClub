@@ -24,7 +24,7 @@ class ScheduleVideoPresenter @Inject constructor(model: ScheduleVideoContract.Mo
         }
 
         val finalVideoUrl = if (!videoUrl.contains("http")) {
-            HtmlConstant.YHDM_M_URL + videoUrl
+            HtmlConstant.SCHEDULE_M_URL + videoUrl
         } else {
             videoUrl
         }

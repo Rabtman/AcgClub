@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rabtman.acgschedule.R
-import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleBanner
+import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleInfo.ScheduleBanner
 import com.rabtman.eximgloader.ImageLoader.loadImage
 import com.youth.banner.adapter.BannerAdapter
 

@@ -21,7 +21,7 @@ class ScheduleNewPresenter @Inject constructor(model: ScheduleNewContract.Model,
     fun getScheduleWeekRank() {
         //String url = getScheduleNewUrl();
         addSubscribe(
-                mModel.getScheduleNew(HtmlConstant.YHDM_URL)
+                mModel.getScheduleNew(HtmlConstant.SCHEDULE_URL)
                         .compose(RxUtil.rxSchedulerHelper())
                         .subscribeWith(object : CommonSubscriber<ScheduleNew>(mView) {
                             override fun onComplete() {
@@ -47,7 +47,7 @@ class ScheduleNewPresenter @Inject constructor(model: ScheduleNewContract.Model,
 
     //获取往季最近新番列表地址
     private fun getScheduleNewUrl(): String {
-        val urlBuilder = StringBuilder(HtmlConstant.YHDM_URL).append("/")
+        val urlBuilder = StringBuilder(HtmlConstant.SCHEDULE_URL).append("/")
         val cal = Calendar.getInstance()
         cal.timeInMillis = System.currentTimeMillis()
         val month = cal[Calendar.MONTH] + 1 - 3

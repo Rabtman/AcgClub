@@ -6,7 +6,7 @@ import com.fcannizzaro.jsoup.annotations.interfaces.Selector
 import com.fcannizzaro.jsoup.annotations.interfaces.Text
 
 @Selector("body")
-class DilidiliInfo {
+class ScheduleInfo {
     //轮播栏信息
     @Items
     var scheduleBanners: MutableList<ScheduleBanner>? = null
@@ -24,7 +24,7 @@ class DilidiliInfo {
     var scheduleRecent: MutableList<ScheduleRecent>? = null
 
     override fun toString(): String {
-        return "DilidiliInfo{" +
+        return "ScheduleInfo{" +
                 "scheudleBanners=" + scheduleBanners +
                 ", scheduleRecommands=" + scheduleRecommends +
                 ", scheduleWeek=" + scheduleWeek +

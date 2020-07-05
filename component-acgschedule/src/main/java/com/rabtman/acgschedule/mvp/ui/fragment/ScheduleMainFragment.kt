@@ -20,9 +20,9 @@ import com.rabtman.acgschedule.base.constant.IntentConstant
 import com.rabtman.acgschedule.di.component.DaggerScheduleMainComponent
 import com.rabtman.acgschedule.di.module.ScheduleMainModule
 import com.rabtman.acgschedule.mvp.contract.ScheduleMainContract
-import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo
-import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleRecent
-import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleRecommend
+import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleInfo
+import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleInfo.ScheduleRecent
+import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleInfo.ScheduleRecommend
 import com.rabtman.acgschedule.mvp.presenter.ScheduleMainPresenter
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleDetailActivity
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleTimeActivity
@@ -52,7 +52,7 @@ class ScheduleMainFragment : BaseFragment<ScheduleMainPresenter>(), ScheduleMain
     lateinit var scrollScheduleView: NestedScrollView
 
     @BindView(R2.id.banner_schedule)
-    lateinit var bannerSchedule: Banner<DilidiliInfo.ScheduleBanner, ScheduleBannerAdapter>
+    lateinit var bannerSchedule: Banner<ScheduleInfo.ScheduleBanner, ScheduleBannerAdapter>
 
     @BindView(R2.id.tv_schedule_time)
     lateinit var tvScheduleTime: TextView
@@ -87,11 +87,11 @@ class ScheduleMainFragment : BaseFragment<ScheduleMainPresenter>(), ScheduleMain
     override fun initData() {
         swipeRefresh.setOnRefreshListener {
             bannerSchedule.stop()
-            mPresenter.getDilidiliInfo()
+            mPresenter.getScheduleInfo()
         }
         setSwipeRefreshLayout(swipeRefresh)
         rxPermissions = RxPermissions(mActivity)
-        mPresenter.getDilidiliInfo()
+        mPresenter.getScheduleInfo()
     }
 
     override fun onResume() {
@@ -113,15 +113,15 @@ class ScheduleMainFragment : BaseFragment<ScheduleMainPresenter>(), ScheduleMain
     }
 
     override fun onPageRetry(v: View?) {
-        mPresenter.getDilidiliInfo()
+        mPresenter.getScheduleInfo()
     }
 
-    override fun showDilidiliInfo(dilidiliInfo: DilidiliInfo) {
+    override fun showScheduleInfo(scheduleInfo: ScheduleInfo) {
         //放送时间表
         tvScheduleTime.setOnClickListener {
             val newIntent = Intent(context, ScheduleTimeActivity::class.java)
             newIntent.putParcelableArrayListExtra(IntentConstant.SCHEDULE_WEEK,
-                    dilidiliInfo.scheduleWeek)
+                    scheduleInfo.scheduleWeek)
             startActivity(newIntent)
         }
         //音乐电台
@@ -140,7 +140,7 @@ class ScheduleMainFragment : BaseFragment<ScheduleMainPresenter>(), ScheduleMain
                     .navigation()
         }
         //轮播栏
-        dilidiliInfo.scheduleBanners?.let { scheduleBanners ->
+        scheduleInfo.scheduleBanners?.let { scheduleBanners ->
             if (scheduleBanners.isNullOrEmpty()) {
                 bannerSchedule.setVisibility(View.GONE)
             } else {
@@ -154,7 +154,7 @@ class ScheduleMainFragment : BaseFragment<ScheduleMainPresenter>(), ScheduleMain
         }
 
         //近期推荐
-        dilidiliInfo.scheduleRecommends?.let { scheduleRecommends ->
+        scheduleInfo.scheduleRecommends?.let { scheduleRecommends ->
             if (scheduleRecommends.isNullOrEmpty()) {
                 layoutScheduleRecommand.visibility = View.GONE
             } else {
@@ -169,7 +169,7 @@ class ScheduleMainFragment : BaseFragment<ScheduleMainPresenter>(), ScheduleMain
         }
 
         //最近更新
-        val scheduleRecentAdapter = ScheduleRecentAdapter(dilidiliInfo.scheduleRecent)
+        val scheduleRecentAdapter = ScheduleRecentAdapter(scheduleInfo.scheduleRecent)
         scheduleRecentAdapter.setOnItemClickListener { adapter, view, position ->
             val scheduleRecent = adapter.getItem(position) as ScheduleRecent
             startToScheduleDetail(scheduleRecent.animeLink)
@@ -193,7 +193,7 @@ class ScheduleMainFragment : BaseFragment<ScheduleMainPresenter>(), ScheduleMain
     override fun start2ScheduleVideo(videoUrl: String) {
         val intent = Intent(mContext, ScheduleVideoActivity::class.java)
         intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL,
-                if (videoUrl.startsWith("http")) videoUrl else HtmlConstant.YHDM_M_URL + videoUrl)
+                if (videoUrl.startsWith("http")) videoUrl else HtmlConstant.SCHEDULE_M_URL + videoUrl)
         startActivity(intent)
     }
 }

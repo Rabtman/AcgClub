@@ -28,12 +28,7 @@ class ScheduleVideoModel @Inject constructor(repositoryManager: IRepositoryManag
                 if (!TextUtils.isEmpty(scheduleVideo.videoHtml)) {
                     scheduleVideo.videoUrl = "http://tup.yhdm.tv/?m=1&vid=" + scheduleVideo.videoUrl
                 }
-                /*StringBuilder scheduleVideoHtmlBuilder = new StringBuilder();
-          scheduleVideoHtmlBuilder.append(HtmlConstant.SCHEDULE_VIDEO_CSS);
-          scheduleVideoHtmlBuilder.append("<div class=\"player_main\" style=\"position: relative;\"> ");
-          scheduleVideoHtmlBuilder.append(scheduleVideo.getVideoHtml());
-          scheduleVideoHtmlBuilder.append("</div>");
-          scheduleVideo.setVideoHtml(scheduleVideoHtmlBuilder.toString());*/e.onNext(scheduleVideo)
+                e.onNext(scheduleVideo)
                 e.onComplete()
             }
         }, BackpressureStrategy.BUFFER)

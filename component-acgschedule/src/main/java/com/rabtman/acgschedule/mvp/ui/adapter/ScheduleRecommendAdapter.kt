@@ -4,7 +4,7 @@ import android.widget.ImageView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.rabtman.acgschedule.R
-import com.rabtman.acgschedule.mvp.model.jsoup.DilidiliInfo.ScheduleRecommend
+import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleInfo.ScheduleRecommend
 import com.rabtman.common.utils.DimenUtils
 import com.rabtman.eximgloader.ImageLoader.loadImage
 import jp.wasabeef.glide.transformations.CropTransformation

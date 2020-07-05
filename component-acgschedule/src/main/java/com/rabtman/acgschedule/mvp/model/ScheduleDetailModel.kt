@@ -29,7 +29,7 @@ class ScheduleDetailModel @Inject constructor(repositoryManager: IRepositoryMana
         return Flowable.create({ e ->
             var scheduleLink = url
             if (!url.contains("http")) {
-                scheduleLink = HtmlConstant.YHDM_M_URL + url
+                scheduleLink = HtmlConstant.SCHEDULE_M_URL + url
             }
             val html: Element? = Jsoup.connect(scheduleLink).get()
             if (html == null) {
