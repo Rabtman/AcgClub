@@ -125,7 +125,7 @@ abstract class SimpleActivity : SupportActivity(), IView {
         showMsg(getString(stringId))
     }
 
-    override fun showMsg(message: String) {
+    override fun showMsg(message: String?) {
         ToastUtil.show(mContext, message)
     }
 
@@ -133,7 +133,7 @@ abstract class SimpleActivity : SupportActivity(), IView {
         showError(getString(stringId))
     }
 
-    override fun showError(message: String) {
+    override fun showError(message: String?) {
         hideLoading()
         ToastUtil.show(mContext, message)
     }

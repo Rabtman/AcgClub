@@ -29,7 +29,7 @@ class ScheduleVideoPresenter @Inject constructor(model: ScheduleVideoContract.Mo
             videoUrl
         }
         addSubscribe(
-                mModel.getScheduleVideo(videoUrl)
+                mModel.getScheduleVideo(finalVideoUrl)
                         .compose(RxUtil.rxSchedulerHelper())
                         .subscribeWith(object : CommonSubscriber<ScheduleVideo>(mView) {
                             override fun onComplete() {

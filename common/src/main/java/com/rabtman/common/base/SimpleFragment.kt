@@ -144,7 +144,7 @@ abstract class SimpleFragment : SupportFragment(), IView {
         showMsg(getString(stringId))
     }
 
-    override fun showMsg(message: String) {
+    override fun showMsg(message: String?) {
         ToastUtil.show(mContext, message)
     }
 
@@ -152,7 +152,7 @@ abstract class SimpleFragment : SupportFragment(), IView {
         showError(getString(stringId))
     }
 
-    override fun showError(message: String) {
+    override fun showError(message: String?) {
         hideLoading()
         ToastUtil.show(mContext, message)
     }

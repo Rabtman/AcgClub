@@ -21,7 +21,7 @@ import javax.inject.Inject
  * @author Rabtman
  */
 @ActivityScope
-class ScheduleDetailModel @Inject constructor(repositoryManager: IRepositoryManager?) : BaseModel(repositoryManager), ScheduleDetailContract.Model {
+class ScheduleDetailModel @Inject constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), ScheduleDetailContract.Model {
     private val DAO = ScheduleDAO(
             mRepositoryManager.obtainRealmConfig(SystemConstant.DB_NAME))
 

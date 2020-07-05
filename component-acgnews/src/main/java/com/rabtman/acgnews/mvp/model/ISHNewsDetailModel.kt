@@ -16,7 +16,7 @@ import javax.inject.Inject
  * @author Rabtman
  */
 @ActivityScope
-class ISHNewsDetailModel @Inject constructor(repositoryManager: IRepositoryManager?) : BaseModel(repositoryManager), ISHNewsDetailContract.Model {
+class ISHNewsDetailModel @Inject constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), ISHNewsDetailContract.Model {
     override fun getAcgNewsDetail(postId: Int): Flowable<SHPostDetail> {
         return mRepositoryManager.obtainRetrofitService(AcgNewsService::class.java)
                 .getISHNewsDetail(postId)

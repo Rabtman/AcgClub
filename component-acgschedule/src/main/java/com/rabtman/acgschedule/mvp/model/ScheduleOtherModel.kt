@@ -16,7 +16,7 @@ import javax.inject.Inject
  * @author Rabtman
  */
 @ActivityScope
-class ScheduleOtherModel @Inject constructor(repositoryManager: IRepositoryManager?) : BaseModel(repositoryManager), ScheduleOtherContract.Model {
+class ScheduleOtherModel @Inject constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), ScheduleOtherContract.Model {
     override fun getScheduleOtherPage(url: String): Flowable<ScheduleOtherPage> {
         return Flowable.create({ e ->
             val html: Element? = Jsoup.connect(url).get()

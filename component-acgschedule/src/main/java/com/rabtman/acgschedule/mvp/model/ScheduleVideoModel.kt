@@ -17,7 +17,7 @@ import javax.inject.Inject
  * @author Rabtman
  */
 @ActivityScope
-class ScheduleVideoModel @Inject constructor(repositoryManager: IRepositoryManager?) : BaseModel(repositoryManager), ScheduleVideoContract.Model {
+class ScheduleVideoModel @Inject constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), ScheduleVideoContract.Model {
     override fun getScheduleVideo(url: String): Flowable<ScheduleVideo> {
         return Flowable.create({ e ->
             val html: Element? = Jsoup.connect(url).get()

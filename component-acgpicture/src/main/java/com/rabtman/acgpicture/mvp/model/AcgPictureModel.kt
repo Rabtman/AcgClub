@@ -69,11 +69,11 @@ constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager
     override fun getAPictures(url: String): Flowable<APicturePage> {
         return mRepositoryManager.obtainRetrofitService(AcgPictureService::class.java)
                 .getParseResponse(url)
-                .map({ body ->
+                .map { body ->
                     val element = Jsoup.parse(body.string()).body()
                     val page = JP.from<APicturePage>(element, APicturePage::class.java)
                     LogUtil.d("a-picture size:" + page.items?.size)
                     page
-                })
+                }
     }
 }

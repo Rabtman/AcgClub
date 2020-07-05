@@ -17,7 +17,7 @@ import javax.inject.Inject
  * @author Rabtman
  */
 @FragmentScope
-class ScheduleMainModel @Inject constructor(repositoryManager: IRepositoryManager?) : BaseModel(repositoryManager), ScheduleMainContract.Model {
+class ScheduleMainModel @Inject constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), ScheduleMainContract.Model {
     override fun getScheduleInfo(): Flowable<ScheduleInfo> {
         return Flowable.create({ e ->
             val html: Element? = Jsoup.connect(HtmlConstant.SCHEDULE_M_URL).get()

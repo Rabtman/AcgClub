@@ -79,7 +79,7 @@ class ScheduleDetailActivity : BaseActivity<ScheduleDetailPresenter>(), Schedule
     lateinit var tvScheduleDetailTime: TextView
 
     @BindView(R2.id.tv_schedule_detail_area)
-    lateinit var tvScheduleDetailAera: TextView
+    lateinit var tvScheduleDetailArea: TextView
 
     @BindView(R2.id.tv_schedule_detail_proc)
     lateinit var tvScheduleDetailProc: TextView
@@ -91,10 +91,10 @@ class ScheduleDetailActivity : BaseActivity<ScheduleDetailPresenter>(), Schedule
     lateinit var tvScheduleDetailDescription: ExpandableTextView
 
     @BindView(R2.id.layout_description)
-    lateinit var layoutSceduleDescription: CardView
+    lateinit var layoutScheduleDescription: CardView
 
     @BindView(R2.id.layout_episode)
-    lateinit var layoutSceduleEpisode: CardView
+    lateinit var layoutScheduleEpisode: CardView
 
     @BindView(R2.id.rcv_schedule_detail)
     lateinit var rcvScheduleDetail: RecyclerView
@@ -166,32 +166,32 @@ class ScheduleDetailActivity : BaseActivity<ScheduleDetailPresenter>(), Schedule
             tvScheduleDetailProc.setText(R.string.acgschedule_label_schedule_no_proc)
         }
 
-        tvScheduleDetailAera.text = scheduleDetail.scheduleAera ?: ""
+        tvScheduleDetailArea.text = scheduleDetail.scheduleAera ?: ""
         //番剧介绍
         scheduleDetail.description?.takeIf { it.isNotBlank() }?.let {
             tvScheduleDetailDescription.text = it.replace("简介：", "")
         } ?: run {
-            layoutSceduleDescription.visibility = View.GONE
+            layoutScheduleDescription.visibility = View.GONE
         }
 
         //选集
-        if (scheduleDetail.scheduleEpisodes != null
-                && scheduleDetail.scheduleEpisodes?.size ?: 0 > 1) {
-            layoutSceduleEpisode.visibility = View.VISIBLE
+        scheduleDetail.scheduleEpisodes?.takeIf { it.isNotEmpty() }?.let { scheduleEpisodes ->
+            layoutScheduleEpisode.visibility = View.VISIBLE
             btnScheduleDetailRead.visibility = View.VISIBLE
-            episodeItemAdapter = ScheduleDetailEpisodeItemAdapter(scheduleDetail.scheduleEpisodes).apply {
-                setOnItemClickListener { adapter, view, position ->
+            episodeItemAdapter = ScheduleDetailEpisodeItemAdapter(scheduleEpisodes).apply {
+                setOnItemClickListener { adapter, _, position ->
                     val scheduleEpisode = adapter.data[position] as ScheduleEpisode
                     mPresenter.updateScheduleReadRecord(position)
                     mPresenter.checkPermission2ScheduleVideo(rxPermissions, scheduleEpisode.link)
                 }
+                rcvScheduleDetail.adapter = this
             }
             val layoutManager = GridLayoutManager(this, 4).apply {
                 orientation = GridLayoutManager.VERTICAL
             }
             rcvScheduleDetail.layoutManager = layoutManager
             rcvScheduleDetail.isNestedScrollingEnabled = false
-            if (scheduleDetail.scheduleEpisodes?.size ?: 0 > ScheduleDetailEpisodeItemAdapter.DEFAULT_ITEM_COUNT) {
+            if (scheduleEpisodes.size > ScheduleDetailEpisodeItemAdapter.DEFAULT_ITEM_COUNT) {
                 btnScheduleDetailMore.visibility = View.VISIBLE
             }
         }

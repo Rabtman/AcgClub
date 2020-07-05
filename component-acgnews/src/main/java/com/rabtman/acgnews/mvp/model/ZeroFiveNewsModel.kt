@@ -16,7 +16,7 @@ import javax.inject.Inject
  * @author Rabtman
  */
 @FragmentScope
-class ZeroFiveNewsModel @Inject constructor(repositoryManager: IRepositoryManager?) : BaseModel(repositoryManager), ZeroFiveNewsContract.Model {
+class ZeroFiveNewsModel @Inject constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), ZeroFiveNewsContract.Model {
     override fun getAcgNews(typeUrl: String?): Flowable<ZeroFiveNewsPage> {
         return Flowable.create({ e ->
             val html: Element? = Jsoup.connect(typeUrl).get()

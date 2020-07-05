@@ -17,7 +17,7 @@ import javax.inject.Inject
  * @author Rabtman
  */
 @FragmentScope
-class ISHNewsModel @Inject constructor(repositoryManager: IRepositoryManager?) : BaseModel(repositoryManager), ISHNewsContract.Model {
+class ISHNewsModel @Inject constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), ISHNewsContract.Model {
     override fun getAcgNews(pageIndex: Int): Flowable<SHPage> {
         return mRepositoryManager.obtainRetrofitService(AcgNewsService::class.java)
                 .getISHNews(pageIndex, 15, 3)

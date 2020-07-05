@@ -14,7 +14,7 @@ class SystemConstant {
         //val ACG_PICTURE_TITLE: Array<String> = arrayOf("萌图", "Cosplay", "动漫星空")
         //val ACG_PICTURE_TYPE: Array<String> = arrayOf("moeimg", "cosplay", "gamersky")
         //图片保存路径
-        const val ACGPICTURE_PATH = SystemConstant.pathRoot + "/pictures"
+        const val ACGPICTURE_PATH = "${SystemConstant.pathRoot}/pictures"
     }
 }
 
