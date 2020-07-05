@@ -17,16 +17,17 @@ import javax.inject.Inject
 @ActivityScope
 class ScheduleVideoPresenter @Inject constructor(model: ScheduleVideoContract.Model,
                                                  rootView: ScheduleVideoContract.View) : BasePresenter<ScheduleVideoContract.Model, ScheduleVideoContract.View>(model, rootView) {
-    fun getScheduleVideo(videoUrl: String) {
-        var videoUrl = videoUrl
-        if (TextUtils.isEmpty(videoUrl)) {
+    fun getScheduleVideo(videoUrl: String?) {
+        if (videoUrl.isNullOrBlank()) {
             mView.showError("视频链接不见了/(ㄒoㄒ)/~~")
             return
         }
-        if (!videoUrl.contains("http")) {
-            videoUrl = HtmlConstant.YHDM_M_URL + videoUrl
+
+        val finalVideoUrl = if (!videoUrl.contains("http")) {
+            HtmlConstant.YHDM_M_URL + videoUrl
+        } else {
+            videoUrl
         }
-        val finalVideoUrl = videoUrl
         addSubscribe(
                 mModel.getScheduleVideo(videoUrl)
                         .compose(RxUtil.rxSchedulerHelper())

@@ -77,17 +77,18 @@ class ScheduleVideoActivity : BaseActivity<ScheduleVideoPresenter>(), ScheduleVi
           //onBackPressedSupport();
         }
       }
-    });*/mPresenter?.getScheduleVideo(intent.getStringExtra(IntentConstant.SCHEDULE_EPISODE_URL))
+    });*/
+        mPresenter.getScheduleVideo(intent.getStringExtra(IntentConstant.SCHEDULE_EPISODE_URL))
     }
 
     override fun onBackPressedSupport() {
-        webView?.takeIf { it.canGoBack() }?.goBack() ?: run {
+        webView.takeIf { it.canGoBack() }?.goBack() ?: run {
             super.onBackPressedSupport()
         }
     }
 
     override fun onDestroy() {
-        webView?.destroy()
+        webView.destroy()
         super.onDestroy()
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
     }
@@ -95,17 +96,17 @@ class ScheduleVideoActivity : BaseActivity<ScheduleVideoPresenter>(), ScheduleVi
     override fun onConfigurationChanged(newConfig: Configuration) {
         try {
             super.onConfigurationChanged(newConfig)
-            if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            /*if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             } else if (resources.configuration.orientation
                     == Configuration.ORIENTATION_PORTRAIT) {
-            }
+            }*/
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
     override fun hideLoading() {
-        progressVideo?.visibility = View.GONE
+        progressVideo.visibility = View.GONE
     }
 
     override fun showScheduleVideo(videoUrl: String?, isVideo: Boolean) {
@@ -116,6 +117,6 @@ class ScheduleVideoActivity : BaseActivity<ScheduleVideoPresenter>(), ScheduleVi
       finish();*/
             requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
-        webView?.loadUrl(videoUrl)
+        webView.loadUrl(videoUrl)
     }
 }

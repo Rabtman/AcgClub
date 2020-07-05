@@ -20,14 +20,12 @@
       android:visibility="invisible"
       tools:visibility="visible">
 
-      <com.zhouwei.mzbanner.MZBannerView
+      <com.youth.banner.Banner
         android:id="@+id/banner_schedule"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:paddingBottom="50dp"
-        android:background="@color/colorPrimary"
-        app:canLoop="true"
-        app:open_mz_mode="true" />
+        android:background="@color/colorPrimary" />
 
       <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

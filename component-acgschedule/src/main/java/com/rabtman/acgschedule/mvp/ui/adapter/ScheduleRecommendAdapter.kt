@@ -13,7 +13,7 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 /**
  * @author Rabtman
  */
-class ScheduleRecommandAdapter(data: MutableList<ScheduleRecommend>?) : BaseQuickAdapter<ScheduleRecommend, BaseViewHolder>(R.layout.acgschedule_item_schedule_recommand, data) {
+class ScheduleRecommendAdapter(data: MutableList<ScheduleRecommend>?) : BaseQuickAdapter<ScheduleRecommend, BaseViewHolder>(R.layout.acgschedule_item_schedule_recommand, data) {
 
     override fun convert(helper: BaseViewHolder, item: ScheduleRecommend) {
         helper.setText(R.id.tv_schedule_recommand, item.name)

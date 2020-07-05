@@ -51,7 +51,7 @@ class ScheduleNewActivity : BaseActivity<ScheduleNewPresenter>(), ScheduleNewCon
     }
 
     override fun onPageRetry(v: View?) {
-        mPresenter.scheduleWeekRank
+        mPresenter.getScheduleWeekRank()
     }
 
     override fun registerTarget(): Any? {
@@ -59,7 +59,7 @@ class ScheduleNewActivity : BaseActivity<ScheduleNewPresenter>(), ScheduleNewCon
     }
 
     override fun initData() {
-        setToolBar(toolbar!!, "动漫周排行")
+        setToolBar(toolbar, "动漫周排行")
         mAdapter = ScheduleNewAdapter().apply {
             setOnItemClickListener { adapter, view, position ->
                 val scheduleNewItem = adapter.data[position] as ScheduleNewItem
@@ -70,13 +70,13 @@ class ScheduleNewActivity : BaseActivity<ScheduleNewPresenter>(), ScheduleNewCon
         }
         val layoutManager = LinearLayoutManager(baseContext)
         layoutManager.orientation = LinearLayoutManager.VERTICAL
-        rcvScheduleNew!!.addItemDecoration(CommonItemDecoration(2, CommonItemDecoration.UNIT_DP))
-        rcvScheduleNew!!.layoutManager = layoutManager
-        rcvScheduleNew!!.adapter = mAdapter
-        mPresenter.scheduleWeekRank
+        rcvScheduleNew.addItemDecoration(CommonItemDecoration(2, CommonItemDecoration.UNIT_DP))
+        rcvScheduleNew.layoutManager = layoutManager
+        rcvScheduleNew.adapter = mAdapter
+        mPresenter.getScheduleWeekRank()
     }
 
     override fun showScheduleNew(scheduleNew: ScheduleNew?) {
-        mAdapter?.setList(scheduleNew!!.scheduleNewItems)
+        mAdapter?.setList(scheduleNew?.scheduleNewItems)
     }
 }

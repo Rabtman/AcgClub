@@ -27,15 +27,15 @@ import com.rabtman.acgschedule.mvp.presenter.ScheduleMainPresenter
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleDetailActivity
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleTimeActivity
 import com.rabtman.acgschedule.mvp.ui.activity.ScheduleVideoActivity
-import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleBannerViewHolder
+import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleBannerAdapter
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleRecentAdapter
-import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleRecommandAdapter
+import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleRecommendAdapter
 import com.rabtman.common.base.BaseFragment
 import com.rabtman.common.di.component.AppComponent
 import com.rabtman.router.RouterConstants
 import com.rabtman.router.RouterUtils
 import com.tbruyelle.rxpermissions2.RxPermissions
-import com.zhouwei.mzbanner.MZBannerView
+import com.youth.banner.Banner
 
 /**
  * @author Rabtman
@@ -52,7 +52,7 @@ class ScheduleMainFragment : BaseFragment<ScheduleMainPresenter>(), ScheduleMain
     lateinit var scrollScheduleView: NestedScrollView
 
     @BindView(R2.id.banner_schedule)
-    lateinit var bannerSchedule: MZBannerView<DilidiliInfo.ScheduleBanner>
+    lateinit var bannerSchedule: Banner<DilidiliInfo.ScheduleBanner, ScheduleBannerAdapter>
 
     @BindView(R2.id.tv_schedule_time)
     lateinit var tvScheduleTime: TextView
@@ -85,26 +85,26 @@ class ScheduleMainFragment : BaseFragment<ScheduleMainPresenter>(), ScheduleMain
 
     @SuppressLint("ClickableViewAccessibility")
     override fun initData() {
-        swipeRefresh!!.setOnRefreshListener {
-            bannerSchedule!!.pause()
+        swipeRefresh.setOnRefreshListener {
+            bannerSchedule.stop()
             mPresenter.getDilidiliInfo()
         }
         setSwipeRefreshLayout(swipeRefresh)
-        rxPermissions = RxPermissions(activity!!)
+        rxPermissions = RxPermissions(mActivity)
         mPresenter.getDilidiliInfo()
     }
 
     override fun onResume() {
         super.onResume()
-        if (bannerSchedule!!.visibility == View.VISIBLE) {
-            bannerSchedule!!.start()
+        if (bannerSchedule.visibility == View.VISIBLE) {
+            bannerSchedule.start()
         }
     }
 
     override fun onPause() {
         super.onPause()
-        if (bannerSchedule!!.visibility == View.VISIBLE) {
-            bannerSchedule!!.pause()
+        if (bannerSchedule.visibility == View.VISIBLE) {
+            bannerSchedule.stop()
         }
     }
 
@@ -134,51 +134,54 @@ class ScheduleMainFragment : BaseFragment<ScheduleMainPresenter>(), ScheduleMain
       }
     });*/
         //往季新番
-        tvScheduleNew!!.setOnClickListener {
+        tvScheduleNew.setOnClickListener {
             RouterUtils.getInstance()
                     .build(RouterConstants.PATH_SCHEDULE_NEW)
                     .navigation()
         }
         //轮播栏
-        if (dilidiliInfo.scheduleBanners != null && dilidiliInfo.scheduleBanners!!.size > 0) {
-            bannerSchedule!!.setIndicatorVisible(false)
-            bannerSchedule!!.setBannerPageClickListener { view, i -> startToScheduleDetail(dilidiliInfo.scheduleBanners!![i].animeLink) }
-            bannerSchedule!!.setPages(dilidiliInfo.scheduleBanners) { ScheduleBannerViewHolder() }
-            bannerSchedule!!.start()
-        } else {
-            bannerSchedule!!.setVisibility(View.GONE)
-        }
-        //近期推荐
-        if (dilidiliInfo.scheduleRecommends != null
-                && dilidiliInfo.scheduleRecommends!!.size > 0) {
-            val linearLayoutManager = LinearLayoutManager(context)
-            linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
-            val scheduleRecommandAdapter = ScheduleRecommandAdapter(dilidiliInfo.scheduleRecommends)
-            scheduleRecommandAdapter.setOnItemClickListener { adapter, view, position ->
-                val scheduleRecommend = adapter.getItem(position) as ScheduleRecommend
-                startToScheduleDetail(scheduleRecommend.animeLink)
+        dilidiliInfo.scheduleBanners?.let { scheduleBanners ->
+            if (scheduleBanners.isNullOrEmpty()) {
+                bannerSchedule.setVisibility(View.GONE)
+            } else {
+                bannerSchedule.setAdapter(ScheduleBannerAdapter(scheduleBanners))
+                        .setBannerGalleryMZ(16)
+                        .setOnBannerListener { _, pos ->
+                            startToScheduleDetail(scheduleBanners[pos].animeLink)
+                        }
+                bannerSchedule.start()
             }
-            rcvScheduleRecommand!!.layoutManager = linearLayoutManager
-            rcvScheduleRecommand!!.adapter = scheduleRecommandAdapter
-        } else {
-            layoutScheduleRecommand!!.visibility = View.GONE
         }
+
+        //近期推荐
+        dilidiliInfo.scheduleRecommends?.let { scheduleRecommends ->
+            if (scheduleRecommends.isNullOrEmpty()) {
+                layoutScheduleRecommand.visibility = View.GONE
+            } else {
+                val scheduleRecommendAdapter = ScheduleRecommendAdapter(scheduleRecommends)
+                scheduleRecommendAdapter.setOnItemClickListener { adapter, _, position ->
+                    val scheduleRecommend = adapter.getItem(position) as ScheduleRecommend
+                    startToScheduleDetail(scheduleRecommend.animeLink)
+                }
+                rcvScheduleRecommand.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                rcvScheduleRecommand.adapter = scheduleRecommendAdapter
+            }
+        }
+
         //最近更新
-        val gridLayoutManager = GridLayoutManager(context, 2)
-        gridLayoutManager.orientation = GridLayoutManager.VERTICAL
         val scheduleRecentAdapter = ScheduleRecentAdapter(dilidiliInfo.scheduleRecent)
         scheduleRecentAdapter.setOnItemClickListener { adapter, view, position ->
             val scheduleRecent = adapter.getItem(position) as ScheduleRecent
             startToScheduleDetail(scheduleRecent.animeLink)
         }
-        rcvScheduleRecent!!.layoutManager = gridLayoutManager
-        rcvScheduleRecent!!.adapter = scheduleRecentAdapter
-        rcvScheduleRecent!!.isNestedScrollingEnabled = false
-        layoutScheduleMain!!.visibility = View.VISIBLE
+        rcvScheduleRecent.layoutManager = GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false)
+        rcvScheduleRecent.adapter = scheduleRecentAdapter
+        rcvScheduleRecent.isNestedScrollingEnabled = false
+        layoutScheduleMain.visibility = View.VISIBLE
     }
 
     private fun startToScheduleDetail(url: String?) {
-        if (url!!.contains("show")) {
+        if (url?.contains("show") == true) {
             val detailIntent = Intent(context, ScheduleDetailActivity::class.java)
             detailIntent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL, url)
             startActivity(detailIntent)

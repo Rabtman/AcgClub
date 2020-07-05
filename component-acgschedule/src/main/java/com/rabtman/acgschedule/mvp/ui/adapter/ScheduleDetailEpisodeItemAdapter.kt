@@ -17,8 +17,7 @@ class ScheduleDetailEpisodeItemAdapter(data: MutableList<ScheduleEpisode>?) : Ba
     override fun convert(helper: BaseViewHolder, item: ScheduleEpisode) {
         helper.setText(R.id.tv_sd_episode_name, item.name)
         if (helper.adapterPosition == mLastRecordPos) {
-            helper
-                    .setBackgroundResource(R.id.tv_sd_episode_name, R.drawable.acgschedule_btn_episode_record)
+            helper.setBackgroundResource(R.id.tv_sd_episode_name, R.drawable.acgschedule_btn_episode_record)
                     .setTextColor(R.id.tv_sd_episode_name,
                             ContextCompat.getColor(context, R.color.colorPrimary))
         } else {
@@ -49,9 +48,6 @@ class ScheduleDetailEpisodeItemAdapter(data: MutableList<ScheduleEpisode>?) : Ba
      * @param pos 最近一次观看记录的位置
      */
     fun setRecordPos(pos: Int) {
-        if (recyclerView == null) {
-            return
-        }
         if (mLastRecordPos != -1) {
             val oldView = getViewByPosition(mLastRecordPos, R.id.tv_sd_episode_name) as TextView?
             if (oldView != null) {

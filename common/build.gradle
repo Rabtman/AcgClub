@@ -60,7 +60,7 @@ dependencies {
         exclude module: 'appcompat-v7'
         exclude module: 'support-annotations'
     }
-    api(rootProject.ext.dependencies["mz-banner"]) {
+    api(rootProject.ext.dependencies["banner"]) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
         exclude module: 'support-annotations'

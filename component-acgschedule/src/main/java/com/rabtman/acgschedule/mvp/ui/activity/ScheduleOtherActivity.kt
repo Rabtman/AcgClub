@@ -56,7 +56,7 @@ class ScheduleOtherActivity : BaseActivity<ScheduleOtherPresenter>(), ScheduleOt
     }
 
     override fun onPageRetry(v: View?) {
-        mPresenter!!.getScheduleOther()
+        mPresenter.getScheduleOther()
     }
 
     override fun registerTarget(): Any? {
@@ -64,60 +64,57 @@ class ScheduleOtherActivity : BaseActivity<ScheduleOtherPresenter>(), ScheduleOt
     }
 
     override fun initData() {
-        setToolBar(toolbar!!, "")
+        setToolBar(toolbar, "")
         val scheduleOtherUrl = intent.getStringExtra(IntentConstant.SCHEDULE_DETAIL_URL)
         if (TextUtils.isEmpty(scheduleOtherUrl)) {
             showError(R.string.msg_error_url_null)
             return
         }
-        mAdapter = ScheduleOtherAdapter()
-        mAdapter!!.setOnItemClickListener { adapter, view, position ->
-            val scheduleOtherItem = adapter
-                    .data[position] as ScheduleOtherItem
-            val intent = Intent(baseContext, ScheduleVideoActivity::class.java)
-            intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL, scheduleOtherItem.videolLink)
-            startActivity(intent)
+        mAdapter = ScheduleOtherAdapter().apply {
+            setOnItemClickListener { adapter, view, position ->
+                val scheduleOtherItem = adapter.data[position] as ScheduleOtherItem
+                val intent = Intent(baseContext, ScheduleVideoActivity::class.java)
+                intent.putExtra(IntentConstant.SCHEDULE_EPISODE_URL, scheduleOtherItem.videolLink)
+                startActivity(intent)
+            }
+            loadMoreModule.setOnLoadMoreListener { mPresenter.getMoreScheduleOther() }
         }
-        mAdapter!!.loadMoreModule.setOnLoadMoreListener { mPresenter!!.getMoreScheduleOther() }
+
         val layoutManager = GridLayoutManager(baseContext, 2)
-        rcvScheduleOther!!.addItemDecoration(CommonItemDecoration(2, CommonItemDecoration.UNIT_DP))
-        rcvScheduleOther!!.layoutManager = layoutManager
-        rcvScheduleOther!!.adapter = mAdapter
-        swipeRefresh!!.setOnRefreshListener { mPresenter!!.getScheduleOther() }
-        mPresenter!!.setCurScheduleOtherUrl(scheduleOtherUrl)
-        mPresenter!!.getScheduleOther()
+        rcvScheduleOther.addItemDecoration(CommonItemDecoration(2, CommonItemDecoration.UNIT_DP))
+        rcvScheduleOther.layoutManager = layoutManager
+        rcvScheduleOther.adapter = mAdapter
+        swipeRefresh.setOnRefreshListener { mPresenter.getScheduleOther() }
+        mPresenter.setCurScheduleOtherUrl(scheduleOtherUrl)
+        mPresenter.getScheduleOther()
     }
 
     override fun showScheduleOther(scheduleOtherPage: ScheduleOtherPage?) {
-        toolbar!!.title = scheduleOtherPage!!.title
-        mAdapter!!.setList(scheduleOtherPage.scheduleOtherItems)
+        toolbar.title = scheduleOtherPage?.title
+        mAdapter?.setList(scheduleOtherPage?.scheduleOtherItems)
     }
 
     override fun showMoreScheduleOther(scheduleOtherPage: ScheduleOtherPage?, canLoadMore: Boolean) {
-        mAdapter!!.addData(scheduleOtherPage!!.scheduleOtherItems!!)
-        mAdapter!!.loadMoreModule.loadMoreComplete()
+        scheduleOtherPage?.scheduleOtherItems?.let { mAdapter?.addData(it) }
+        mAdapter?.loadMoreModule?.loadMoreComplete()
         if (!canLoadMore) {
-            mAdapter!!.loadMoreModule.loadMoreEnd()
+            mAdapter?.loadMoreModule?.loadMoreEnd()
         }
     }
 
     override fun onLoadMoreFail() {
-        mAdapter!!.loadMoreModule.loadMoreFail()
+        mAdapter?.loadMoreModule?.loadMoreFail()
     }
 
     override fun showLoading() {
-        if (swipeRefresh != null) {
-            if (!swipeRefresh!!.isRefreshing) {
-                swipeRefresh!!.isRefreshing = true
-            }
-        } else {
-            super.showLoading()
+        if (!swipeRefresh.isRefreshing) {
+            swipeRefresh.isRefreshing = true
         }
     }
 
     override fun hideLoading() {
-        if (swipeRefresh != null && swipeRefresh!!.isRefreshing) {
-            swipeRefresh!!.isRefreshing = false
+        if (swipeRefresh.isRefreshing) {
+            swipeRefresh.isRefreshing = false
         }
         super.hideLoading()
     }

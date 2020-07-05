@@ -84,7 +84,7 @@ class ScheduleTimeActivity : SimpleActivity() {
                 setOnItemClickListener { adapter, view, position ->
                     adapter.getItem(position)?.let { scheduleItem ->
                         scheduleItem as ScheduleTimeItem
-                        val intent = Intent(baseContext, ScheduleVideoActivity::class.java)
+                        val intent = Intent(baseContext, ScheduleDetailActivity::class.java)
                         intent.putExtra(IntentConstant.SCHEDULE_DETAIL_URL, scheduleItem.data?.animeLink
                                 ?: "")
                         startActivity(intent)
@@ -116,16 +116,16 @@ class ScheduleTimeActivity : SimpleActivity() {
                             val fistVisibleItemPos = layoutManager.findFirstVisibleItemPosition()
                             val lastVisibleItemPos = layoutManager.findLastVisibleItemPosition()
                             if (adapter.itemCount > 0) {
-                                val scheduleTimeItem = adapter.getItem(fistVisibleItemPos)
+                                val scheduleTimeItem = adapter.getItemOrNull(fistVisibleItemPos)
                                 if (scheduleTimeItem != null && scheduleTimeItem.isHeader
                                         && currentHeaderPosition != fistVisibleItemPos) {
                                     currentHeaderPosition = fistVisibleItemPos
                                     tabScheduleTime.getTabAt(scheduleTimeItem.headerIndex)?.select()
                                 } else if (lastVisibleItemPos == adapter.itemCount - 1) {
-                                    val lastScheduleTimeItem = adapter.getItem(lastVisibleItemPos)
-                                            ?: return
-                                    currentHeaderPosition = headerArray[lastScheduleTimeItem.headerIndex]
-                                    tabScheduleTime.getTabAt(lastScheduleTimeItem.headerIndex)?.select()
+                                    adapter.getItemOrNull(lastVisibleItemPos)?.let { lastScheduleTimeItem ->
+                                        currentHeaderPosition = headerArray[lastScheduleTimeItem.headerIndex]
+                                        tabScheduleTime.getTabAt(lastScheduleTimeItem.headerIndex)?.select()
+                                    }
                                 }
                             }
                         }
