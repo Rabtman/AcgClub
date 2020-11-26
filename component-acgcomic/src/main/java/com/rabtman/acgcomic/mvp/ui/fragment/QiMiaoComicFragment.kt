@@ -122,7 +122,7 @@ class QiMiaoComicFragment : BaseFragment<QiMiaoComicPresenter>(), QiMiaoComicCon
         val contentView = layoutInflater.inflate(R.layout.acgcomic_view_qimiao_comic_content, null)
         mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_qimiao_comic)
         mRcvComicMain = contentView.findViewById(R.id.rcv_qimiao_comic)
-        mQiMiaoComicItemAdapter = QiMiaoComicItemAdpater(mAppComponent.imageLoader()).apply {
+        mQiMiaoComicItemAdapter = QiMiaoComicItemAdpater().apply {
             this.setOnItemClickListener { adpater, _, pos ->
                 val comicItem: QiMiaoComicItem = adpater.getItem(pos) as QiMiaoComicItem
                 if (comicItem.comicLink.isNotEmpty()) {

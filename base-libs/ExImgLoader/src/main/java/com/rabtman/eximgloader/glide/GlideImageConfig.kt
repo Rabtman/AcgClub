@@ -20,6 +20,7 @@ class GlideImageConfig private constructor(builder: Builder) : ImageConfig() {
     val cacheStrategy: Int
     val transformation: Array<out BitmapTransformation>?
     val isCrossFade: Boolean
+    val isCenterCrop: Boolean
     val fallback: Int
     val size: IntArray?
 
@@ -38,6 +39,7 @@ class GlideImageConfig private constructor(builder: Builder) : ImageConfig() {
         var listener: ImageLoadListener? = null
         var size: IntArray? = null
         var isCrossFade = true
+        var isCenterCrop = false
 
         fun url(url: String?): Builder {
             this.url = url
@@ -66,6 +68,11 @@ class GlideImageConfig private constructor(builder: Builder) : ImageConfig() {
 
         fun cacheStrategy(cacheStrategy: Int): Builder {
             this.cacheStrategy = cacheStrategy
+            return this
+        }
+
+        fun isCenterCrop(isCenterCrop: Boolean): Builder {
+            this.isCenterCrop = isCenterCrop
             return this
         }
 
@@ -108,6 +115,7 @@ class GlideImageConfig private constructor(builder: Builder) : ImageConfig() {
         errorPic = builder.errorPic
         fallback = builder.fallback
         isCrossFade = builder.isCrossFade
+        isCenterCrop = builder.isCenterCrop
         cacheStrategy = builder.cacheStrategy
         transformation = builder.transformation
         size = builder.size

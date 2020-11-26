@@ -34,10 +34,10 @@ import com.rabtman.common.base.widget.loadsir.EmptyCallback
 import com.rabtman.common.base.widget.loadsir.PlaceholderCallback
 import com.rabtman.common.base.widget.loadsir.RetryCallback
 import com.rabtman.common.di.component.AppComponent
-import com.rabtman.common.imageloader.glide.GlideImageConfig
-import com.rabtman.common.imageloader.glide.transformations.BlurTransformation
+import com.rabtman.eximgloader.ImageLoader.loadImage
 import com.rabtman.router.RouterConstants
 import com.rabtman.router.RouterUtils
+import jp.wasabeef.glide.transformations.BlurTransformation
 
 /**
  * @author Rabtman
@@ -47,36 +47,52 @@ class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(), Qi
 
     @BindView(R2.id.toolbar)
     lateinit internal var mToolBar: Toolbar
+
     @BindView(R2.id.toolbar_title)
     lateinit internal var mToolBarTitle: TextView
+
     @BindView(R2.id.app_bar)
     lateinit internal var appBar: AppBarLayout
+
     @BindView(R2.id.btn_qimiao_comic_like)
     lateinit internal var btnQiMiaoComicLike: ImageView
+
     @BindView(R2.id.btn_qimiao_comic_read)
     lateinit internal var btnQiMiaoComicRead: CardView
+
     @BindView(R2.id.tv_qimiao_comic_read)
     lateinit internal var tvQiMiaoComicRead: TextView
+
     @BindView(R2.id.btn_qimiao_comic_detail_more)
     lateinit internal var btnQiMiaoComicDetailMore: TextView
+
     @BindView(R2.id.collapsing_toolbar)
     lateinit internal var collapsingToolbarLayout: CollapsingToolbarLayout
+
     @BindView(R2.id.img_qimiao_comic_title_bg)
     lateinit internal var imgScheduleTitleBg: ImageView
+
     @BindView(R2.id.img_qimiao_comic_detail)
     lateinit internal var imgQiMiaoComicDetail: ImageView
+
     @BindView(R2.id.tv_qimiao_comic_detail_author)
     lateinit internal var tvQiMiaoComicDetailAuthor: TextView
+
     @BindView(R2.id.tv_qimiao_comic_detail_proc)
     lateinit internal var tvQiMiaoComicDetailProc: TextView
+
     @BindView(R2.id.tv_qimiao_comic_detail_spot)
     lateinit internal var tvQiMiaoComicDetailSpot: TextView
+
     @BindView(R2.id.tv_qimiao_comic_detail_description)
     lateinit internal var tvQiMiaoComicDetailDescription: ExpandableTextView
+
     @BindView(R2.id.layout_description)
     lateinit internal var layoutSceduleDescription: CardView
+
     @BindView(R2.id.layout_episode)
     lateinit internal var layoutSceduleEpisode: CardView
+
     @BindView(R2.id.rcv_qimiao_comic_detail)
     lateinit internal var rcvQiMiaoComicDetail: RecyclerView
 
@@ -188,22 +204,9 @@ class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(), Qi
     override fun showComicDetail(comicInfo: QiMiaoComicDetail) {
         mToolBarTitle.text = comicInfo.title
         //模糊背景
-        mAppComponent.imageLoader().loadImage(mContext,
-                GlideImageConfig
-                        .builder()
-                        .url(comicInfo.imgUrl)
-                        .transformation(BlurTransformation(25, 2))
-                        .imageView(imgScheduleTitleBg)
-                        .build()
-        )
+        imgScheduleTitleBg.loadImage(mContext, comicInfo.imgUrl, BlurTransformation(25, 2))
         //番剧展示图
-        mAppComponent.imageLoader().loadImage(mContext,
-                GlideImageConfig
-                        .builder()
-                        .url(comicInfo.imgUrl)
-                        .imageView(imgQiMiaoComicDetail)
-                        .build()
-        )
+        imgQiMiaoComicDetail.loadImage(mContext, comicInfo.imgUrl)
         tvQiMiaoComicDetailSpot.text = comicInfo.labels
         tvQiMiaoComicDetailAuthor.text = comicInfo.author
 

@@ -38,7 +38,7 @@ class ComicCollectionFragment : SimpleFragment() {
     }
 
     override fun initData() {
-        mAdapter = ComicCollectionAdapter(mAppComponent.imageLoader())
+        mAdapter = ComicCollectionAdapter()
         rcvQiMiaoComicItem.layoutManager = GridLayoutManager(context, 3)
         rcvQiMiaoComicItem.adapter = mAdapter
         mAdapter.setOnItemClickListener { adapter, _, position ->

@@ -82,7 +82,7 @@ class ISHNewsFragment : BaseFragment<ISHNewsItemPresenter>(), ISHNewsContract.Vi
         }
     }
 
-    override fun showError(message: String) {
+    override fun showError(message: String?) {
         if (swipeRefresh!!.isRefreshing) {
             swipeRefresh!!.isRefreshing = false
         }

@@ -35,9 +35,9 @@ class AcgNewsMainFragment : SimpleFragment() {
         fragments.add(zeroFiveFragment)
         val ishNewsFragment = ISHNewsFragment()
         fragments.add(ishNewsFragment)
-        mAdapter = AcgNewsMainPageAdapter(fragmentManager, fragments)
-        mViewPager!!.adapter = mAdapter
-        mViewPager!!.offscreenPageLimit = 1
-        mTabLayout!!.setupWithViewPager(mViewPager)
+        mAdapter = fragmentManager?.let { AcgNewsMainPageAdapter(it, fragments) }
+        mViewPager.adapter = mAdapter
+        mViewPager.offscreenPageLimit = 1
+        mTabLayout.setupWithViewPager(mViewPager)
     }
 }

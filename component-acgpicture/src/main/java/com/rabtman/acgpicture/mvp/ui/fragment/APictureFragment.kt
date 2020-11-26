@@ -23,6 +23,7 @@ class APictureFragment : BaseFragment<APicturePresenter>(), APictureContract.Vie
 
     @BindView(R2.id.rcv_animate_item)
     lateinit var rcvAnimateItem: RecyclerView
+
     @BindView(R2.id.swipe_refresh_animate)
     lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var mAdapter: APictureItemAdapter
@@ -48,7 +49,7 @@ class APictureFragment : BaseFragment<APicturePresenter>(), APictureContract.Vie
     }
 
     override fun initData() {
-        mAdapter = APictureItemAdapter(mAppComponent.imageLoader())
+        mAdapter = APictureItemAdapter()
 
 
         val layoutManager = GridLayoutManager(context, 2)
@@ -74,7 +75,7 @@ class APictureFragment : BaseFragment<APicturePresenter>(), APictureContract.Vie
         }
     }
 
-    override fun showError(message: String) {
+    override fun showError(message: String?) {
         if (swipeRefresh.isRefreshing) {
             swipeRefresh.isRefreshing = false
         }

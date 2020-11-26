@@ -20,10 +20,10 @@ import com.rabtman.acgmusic.api.AcgMusicService
 import com.rabtman.acgmusic.mvp.model.entity.MusicInfo
 import com.rabtman.acgmusic.mvp.ui.activity.AcgMusicActivity
 import com.rabtman.common.base.CommonSubscriber
-import com.rabtman.common.imageloader.glide.GlideApp
 import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxUtil
 import com.rabtman.common.utils.Utils
+import com.rabtman.eximgloader.glide.GlideApp
 import io.reactivex.Flowable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

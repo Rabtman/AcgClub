@@ -6,23 +6,16 @@ import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.rabtman.acgpicture.R
 import com.rabtman.acgpicture.mvp.model.entity.AcgPictureItem
-import com.rabtman.common.imageloader.ImageLoader
-import com.rabtman.common.imageloader.glide.GlideImageConfig
+import com.rabtman.eximgloader.ImageLoader.loadImage
 
 /**
  * @author Rabtman
  */
 
-class AcgPictureItemAdapter(private val mImageLoader: ImageLoader) : BaseQuickAdapter<AcgPictureItem, BaseViewHolder>(R.layout.acgpicture_item_acg, null), LoadMoreModule {
+class AcgPictureItemAdapter() : BaseQuickAdapter<AcgPictureItem, BaseViewHolder>(R.layout.acgpicture_item_acg, null), LoadMoreModule {
 
     override fun convert(helper: BaseViewHolder, item: AcgPictureItem) {
         helper.setText(R.id.tv_acgpicture_title, item.title)
-        mImageLoader.loadImage(context,
-                GlideImageConfig
-                        .builder()
-                        .url(item.thumbnail)
-                        .imageView(helper.getView(R.id.img_acgpicture_thumbnail) as ImageView)
-                        .build()
-        )
+        helper.getViewOrNull<ImageView>(R.id.img_acgpicture_thumbnail)?.loadImage(context, item.thumbnail)
     }
 }

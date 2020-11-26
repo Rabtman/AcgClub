@@ -11,7 +11,7 @@ import com.rabtman.acgnews.base.constant.SystemConstant
  * @Description:
  * @date 2016/11/23
  */
-class AcgNewsMainPageAdapter(fragmentManager: FragmentManager?,
+class AcgNewsMainPageAdapter(fragmentManager: FragmentManager,
                              private val fragments: List<Fragment>) : FragmentPagerAdapter(fragmentManager) {
     override fun getItem(position: Int): Fragment {
         return fragments[position]

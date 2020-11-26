@@ -20,7 +20,7 @@ object ImageLoader {
         }
     }
 
-    fun ImageView.loadImage(ctx: Context, url: String?, vararg transformations: BitmapTransformation, isCrossFade: Boolean = true, placeholder: Int = 0, errorPic: Int = 0, fallback: Int = 0, imageLoadListener: ImageLoadListener? = null) {
+    fun ImageView.loadImage(ctx: Context, url: String?, vararg transformations: BitmapTransformation, isCenterCrop: Boolean = false, isCrossFade: Boolean = true, placeholder: Int = 0, errorPic: Int = 0, fallback: Int = 0, imageLoadListener: ImageLoadListener? = null) {
         loadImage(ctx,
                 GlideImageConfig.builder()
                         .imageView(this)
@@ -48,6 +48,10 @@ object ImageLoader {
                 2 -> diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 3 -> diskCacheStrategy(DiskCacheStrategy.DATA)
                 4 -> diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            }
+
+            if (config.isCenterCrop) {
+                centerCrop()
             }
             if (config.isCrossFade) {
                 transition(DrawableTransitionOptions.withCrossFade())

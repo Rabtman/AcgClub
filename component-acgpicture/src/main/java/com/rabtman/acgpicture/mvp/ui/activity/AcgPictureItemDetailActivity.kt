@@ -29,9 +29,13 @@ import com.rabtman.common.utils.FileUtils
 import com.rabtman.common.utils.LogUtil
 import com.rabtman.router.RouterConstants
 import com.tbruyelle.rxpermissions2.RxPermissions
+import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import zlc.season.rxdownload2.RxDownload
+import zlc.season.rxdownload4.delete
+import zlc.season.rxdownload4.download
+import zlc.season.rxdownload4.file
+import zlc.season.rxdownload4.task.Task
 import java.io.File
 
 /**
@@ -42,28 +46,35 @@ class AcgPictureItemDetailActivity : SimpleActivity() {
 
     @BindView(R2.id.layout_picture_top)
     lateinit var layoutPictureTop: RelativeLayout
+
     @BindView(R2.id.btn_picture_back)
     lateinit var btnPictureBack: ImageView
+
     @BindView(R2.id.tv_picture_title)
     lateinit var tvPictureTitle: TextView
+
     @BindView(R2.id.layout_picture_bottom)
     lateinit var layoutPictureBottom: FrameLayout
+
     @BindView(R2.id.btn_picture_download)
     lateinit var btnPictureDownload: ImageView
+
     @BindView(R2.id.vp_acgpicture_item)
     lateinit var vpAcgItem: ViewPager
     private var mAcgPictureItem: AcgPictureItem? = null
     private var mAdapter: AcgPictureDetailPageAdapter? = null
+
     /**
      * 控件栏的显示状态
      */
     private var mVisible: Boolean = false
+
     /**
      * 动画时间
      */
     private val UI_ANIMATION_DELAY = 200
     private lateinit var rxPermissions: RxPermissions
-    private lateinit var rxDownload: RxDownload
+
     /**
      * 当前图片位置
      */
@@ -97,12 +108,10 @@ class AcgPictureItemDetailActivity : SimpleActivity() {
 
     override fun initData() {
         rxPermissions = RxPermissions(this)
-        rxDownload = RxDownload.getInstance(this)
         mAcgPictureItem = intent.getParcelableExtra(IntentConstant.ACGPICTURE_ITEM)
         mAcgPictureItem?.let { it ->
             tvPictureTitle.text = it.title
-            mAdapter = AcgPictureDetailPageAdapter(this,
-                    mAppComponent.imageLoader(), it.imgUrls)
+            mAdapter = AcgPictureDetailPageAdapter(this, it.imgUrls)
             displayDownloadButton(it.imgUrls[0])
 
         }
@@ -167,9 +176,8 @@ class AcgPictureItemDetailActivity : SimpleActivity() {
         if (TextUtils.isEmpty(imgUrl)) {
             return -2
         }
-        val files = rxDownload.getRealFiles(imgUrl)
-        if (files != null) {
-            return if (FileUtils.isFileExists(files[0])) {
+        imgUrl.file().let {
+            if (FileUtils.isFileExists(it)) {
                 1
             } else {
                 -1
@@ -187,7 +195,7 @@ class AcgPictureItemDetailActivity : SimpleActivity() {
             return
         }
 
-        rxDownload.deleteServiceDownload(imgUrl, true)
+        imgUrl.delete()
 
         val imgName = imgUrl.substring(imgUrl.lastIndexOf("/") + 1, imgUrl.lastIndexOf(".")) + ".jpg"
         val dir = FileUtils.getStorageFilePath(SystemConstant.ACGPICTURE_PATH).absolutePath
@@ -199,10 +207,13 @@ class AcgPictureItemDetailActivity : SimpleActivity() {
                     }
                 })
                 .observeOn(Schedulers.io())
-                .compose(rxDownload.transform(imgUrl, imgName, dir))
+                .toFlowable(BackpressureStrategy.BUFFER)
+                .flatMap {
+                    Task(imgUrl, saveName = imgName, savePath = dir).download()
+                }
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ status ->
-                    LogUtil.d("img download status:" + status.percent)
+                    LogUtil.d("img download status:" + status)
                 }, { throwable ->
                     throwable.printStackTrace()
                     if (throwable is ApiException) {

@@ -53,7 +53,7 @@ class AnimatePictureFragment : BaseFragment<AnimatePicturePresenter>(), AnimateP
     }
 
     override fun initData() {
-        mAdapter = AnimateItemAdapter(mAppComponent.imageLoader())
+        mAdapter = AnimateItemAdapter()
         mAdapter.setOnItemClickListener { adapter, view, position -> }
 
         val layoutManager = StaggeredGridLayoutManager(2, VERTICAL)

@@ -5,8 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import com.rabtman.common.base.widget.PinchImageView
-import com.rabtman.common.imageloader.ImageLoader
-import com.rabtman.common.imageloader.glide.GlideImageConfig
+import com.rabtman.eximgloader.ImageLoader.loadImage
 import java.util.*
 
 /**
@@ -14,7 +13,6 @@ import java.util.*
  */
 
 class AcgPictureDetailPageAdapter(private val mContext: Context,
-                                  private val mImageLoader: ImageLoader,
                                   val imgUrls: List<String>) : PagerAdapter() {
 
     private val viewCache = LinkedList<PinchImageView>()
@@ -47,12 +45,7 @@ class AcgPictureDetailPageAdapter(private val mContext: Context,
                 pinchImageViewListener?.onClick(v, position)
             }
         }
-        mImageLoader.loadImage(mContext,
-                GlideImageConfig
-                        .builder()
-                        .url(imgUrls[position])
-                        .imageView(piv)
-                        .build())
+        piv.loadImage(mContext, imgUrls[position])
         container.addView(piv)
         return piv
     }
@@ -65,12 +58,7 @@ class AcgPictureDetailPageAdapter(private val mContext: Context,
 
     override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
         val piv = `object` as PinchImageView
-        mImageLoader.loadImage(mContext,
-                GlideImageConfig
-                        .builder()
-                        .url(imgUrls[position])
-                        .imageView(piv)
-                        .build())
+        piv.loadImage(mContext, imgUrls[position])
     }
 
     interface PinchImageViewListener {

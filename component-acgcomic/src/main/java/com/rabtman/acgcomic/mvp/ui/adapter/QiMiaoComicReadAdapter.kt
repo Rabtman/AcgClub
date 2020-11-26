@@ -10,8 +10,8 @@ import com.bumptech.glide.request.transition.Transition
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.rabtman.acgcomic.R
-import com.rabtman.common.imageloader.glide.GlideApp
 import com.rabtman.common.utils.DimenUtils
+import com.rabtman.eximgloader.glide.GlideApp
 import kotlin.math.roundToInt
 
 /**

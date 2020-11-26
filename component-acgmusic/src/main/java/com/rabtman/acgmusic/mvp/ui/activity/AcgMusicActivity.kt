@@ -17,10 +17,9 @@ import com.rabtman.acgmusic.R
 import com.rabtman.acgmusic.mvp.model.entity.MusicInfo
 import com.rabtman.acgmusic.service.MusicPlayService
 import com.rabtman.common.base.SimpleActivity
-import com.rabtman.common.imageloader.glide.GlideImageConfig
-import com.rabtman.common.imageloader.glide.transformations.CircleTransformation
 import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxUtil
+import com.rabtman.eximgloader.ImageLoader.loadImage
 import com.rabtman.router.RouterConstants
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
@@ -205,30 +204,22 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
         tv_music_cur_time.text = "00:00"
 
         //模糊背景
-        mAppComponent.imageLoader().loadImage(mContext,
-                GlideImageConfig
-                        .builder()
-                        .url(info.res.animeInfo.bg.ifEmpty { info.res.animeInfo.logo })
-                        //.url("http://i2.tiimg.com/669018/8444917812b84d81.jpg")
-                        .fallback(R.drawable.acgmusic_shape_default_bg)
-                        .errorPic(R.drawable.acgmusic_shape_default_bg)
-                        .transformation(
-                                BlurTransformation(15, 6)
-                        )
-                        .imageView(image_music_bg)
-                        .build()
+        image_music_bg.loadImage(
+                mContext,
+                info.res.animeInfo.bg.ifEmpty { info.res.animeInfo.logo },
+                BlurTransformation(15, 6),
+                fallback = R.drawable.acgmusic_shape_default_bg,
+                errorPic = R.drawable.acgmusic_shape_default_bg
         )
+
         //音乐展示图
         image_music_logo.reset()
-        mAppComponent.imageLoader().loadImage(mContext,
-                GlideImageConfig
-                        .builder()
-                        .url(info.res.animeInfo.logo)
-                        .fallback(R.drawable.ic_launcher_round)
-                        .errorPic(R.drawable.ic_launcher_round)
-                        .transformation(CircleTransformation())
-                        .imageView(image_music_logo)
-                        .build()
+        image_music_logo.loadImage(
+                mContext,
+                info.res.animeInfo.logo,
+                isCenterCrop = true,
+                fallback = R.drawable.ic_launcher_round,
+                errorPic = R.drawable.ic_launcher_round
         )
     }
 

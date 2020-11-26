@@ -159,7 +159,7 @@ class DmzjComicFragment : BaseFragment<DmzjComicPresenter>(), DmzjComicContract.
         mSortGroup = contentView.findViewById(R.id.rg_dmzj_comic)
         mSwipeRefresh = contentView.findViewById(R.id.swipe_refresh_dmzj_comic)
         mRcvComicMain = contentView.findViewById(R.id.rcv_dmzj_comic)
-        mDmzjComicItemAdapter = DmzjComicItemAdpater(mAppComponent.imageLoader())
+        mDmzjComicItemAdapter = DmzjComicItemAdpater()
         mRcvComicMain?.layoutManager = GridLayoutManager(mContext, 2)
         mRcvComicMain?.adapter = mDmzjComicItemAdapter
 
