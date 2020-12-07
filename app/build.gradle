@@ -1,9 +1,6 @@
 apply plugin: 'com.android.application'
-//apply plugin: 'com.antfortune.freeline'
 //VasDolly
 apply plugin: 'channel'
-//bugly tinker
-apply from: 'tinker-support.gradle'
 //andResGuard
 //apply from: 'and-res-guard.gradle'
 //arouter
@@ -80,6 +77,9 @@ android {
             minifyEnabled false
             signingConfig signingConfigs.rabtman
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            ndk {
+                abiFilters 'armeabi-v7a', 'x86'
+            }
         }
 
         release {
@@ -151,7 +151,6 @@ dependencies {
     //bugly
     implementation rootProject.ext.dependencies["crashreport"]
     implementation rootProject.ext.dependencies["nativecrashreport"]
-    implementation rootProject.ext.dependencies["tinker"]
     //VasDolly
     api rootProject.ext.dependencies["vasdolly"]
 }
