@@ -5,7 +5,9 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.text.TextUtils;
+
 import androidx.multidex.MultiDex;
+
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.leon.channel.helper.ChannelReaderUtil;
 import com.rabtman.acgclub.BuildConfig;
@@ -14,7 +16,6 @@ import com.rabtman.common.utils.SystemUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.BuglyStrategy;
 import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.beta.tinker.TinkerManager;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
 
@@ -33,10 +34,10 @@ public class AcgClubApp extends Application {
     mCommonApplicationLike.onCreate();
 
     boolean defaultProcess = SystemUtils.getCurProcessName()
-        .equals(getApplication().getPackageName());
+            .equals(getPackageName());
 
     //获取渠道包值
-    String channel = ChannelReaderUtil.getChannel(getApplication());
+    String channel = ChannelReaderUtil.getChannel(this);
     if (!TextUtils.isEmpty(channel)) {
       mChannel = channel;
     }
@@ -47,8 +48,8 @@ public class AcgClubApp extends Application {
     strategy.setAppPackageName(BuildConfig.APPLICATION_ID);
     strategy.setAppVersion(BuildConfig.VERSION_NAME);
     strategy.setUploadProcess(defaultProcess);
-    Bugly.init(getApplication(), BuildConfig.BUGLY_APP_ID, BuildConfig.APP_DEBUG, strategy);
-    Bugly.setIsDevelopmentDevice(getApplication(), BuildConfig.APP_DEBUG);
+    Bugly.init(this, BuildConfig.BUGLY_APP_ID, BuildConfig.APP_DEBUG, strategy);
+    Bugly.setIsDevelopmentDevice(this, BuildConfig.APP_DEBUG);
 
     if (defaultProcess) {
       mCommonApplicationLike.onDefaultProcessCreate();
@@ -57,13 +58,13 @@ public class AcgClubApp extends Application {
   }
 
   @Override
-  public void onBaseContextAttached(Context base) {
-    super.onBaseContextAttached(base);
+  protected void attachBaseContext(Context base) {
+    super.attachBaseContext(base);
     MultiDex.install(base);
     Beta.installTinker(this);
 
     if (mCommonApplicationLike == null) {
-      mCommonApplicationLike = new CommonApplicationLike(TinkerManager.getApplication());
+      mCommonApplicationLike = new CommonApplicationLike(this);
     }
   }
 
@@ -75,7 +76,7 @@ public class AcgClubApp extends Application {
 
   @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
   public void registerActivityLifecycleCallback(Application.ActivityLifecycleCallbacks callbacks) {
-    getApplication().registerActivityLifecycleCallbacks(callbacks);
+    registerActivityLifecycleCallbacks(callbacks);
   }
 
   /**
@@ -85,8 +86,8 @@ public class AcgClubApp extends Application {
     //umeng初始化
     MobclickAgent
         .startWithConfigure(
-            new UMAnalyticsConfig(getApplication(), com.rabtman.common.BuildConfig.UMENG_APP_KEY,
-                mChannel));
+                new UMAnalyticsConfig(this, com.rabtman.common.BuildConfig.UMENG_APP_KEY,
+                        mChannel));
     initFeedback();
 
   }
@@ -94,6 +95,6 @@ public class AcgClubApp extends Application {
   //阿里用户反馈
   private void initFeedback() {
     FeedbackAPI
-        .init(getApplication(), BuildConfig.FEEDBACK_APP_KEY, BuildConfig.FEEDBACK_APP_SECRET);
+            .init(this, BuildConfig.FEEDBACK_APP_KEY, BuildConfig.FEEDBACK_APP_SECRET);
   }
 }
