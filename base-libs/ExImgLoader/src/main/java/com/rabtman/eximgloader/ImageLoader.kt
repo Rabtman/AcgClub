@@ -20,12 +20,13 @@ object ImageLoader {
         }
     }
 
-    fun ImageView.loadImage(ctx: Context, url: String?, vararg transformations: BitmapTransformation, isCenterCrop: Boolean = false, isCrossFade: Boolean = true, placeholder: Int = 0, errorPic: Int = 0, fallback: Int = 0, imageLoadListener: ImageLoadListener? = null) {
+    fun ImageView.loadImage(ctx: Context, url: String?, vararg transformations: BitmapTransformation, isCenterCrop: Boolean = false, isCircleCrop: Boolean = false, isCrossFade: Boolean = true, placeholder: Int = 0, errorPic: Int = 0, fallback: Int = 0, imageLoadListener: ImageLoadListener? = null) {
         loadImage(ctx,
                 GlideImageConfig.builder()
                         .imageView(this)
                         .url(url)
                         .isCrossFade(isCrossFade)
+                        .isCircleCrop(isCircleCrop)
                         .transformation(*transformations)
                         .placeholder(placeholder)
                         .errorPic(errorPic)
@@ -55,6 +56,9 @@ object ImageLoader {
             }
             if (config.isCrossFade) {
                 transition(DrawableTransitionOptions.withCrossFade())
+            }
+            if (config.isCircleCrop) {
+                circleCrop()
             }
             //glide用它来改变图形的形状
             config.transformation?.let {

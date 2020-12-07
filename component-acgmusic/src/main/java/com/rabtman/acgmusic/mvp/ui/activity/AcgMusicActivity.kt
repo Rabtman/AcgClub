@@ -218,6 +218,7 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
                 mContext,
                 info.res.animeInfo.logo,
                 isCenterCrop = true,
+                isCircleCrop = true,
                 fallback = R.drawable.ic_launcher_round,
                 errorPic = R.drawable.ic_launcher_round
         )
