@@ -3,6 +3,7 @@ package com.rabtman.eximgloader.glide
 import android.widget.ImageView
 import com.rabtman.eximgloader.ImageConfig
 import com.rabtman.eximgloader.ImageLoadListener
+import com.rabtman.eximgloader.glide.progress.OnProgressListener
 import jp.wasabeef.glide.transformations.BitmapTransformation
 
 /**
@@ -24,9 +25,11 @@ class GlideImageConfig private constructor(builder: Builder) : ImageConfig() {
     val isCircleCrop: Boolean
     val fallback: Int
     val size: IntArray?
+    val onProgressListener: OnProgressListener?
 
     class Builder {
         var url: String? = null
+        var drawableId = 0
         var imageView: ImageView? = null
         var placeholder = 0
         var errorPic = 0
@@ -42,9 +45,15 @@ class GlideImageConfig private constructor(builder: Builder) : ImageConfig() {
         var isCrossFade = true
         var isCenterCrop = false
         var isCircleCrop = false
+        var onProgressListener: OnProgressListener? = null
 
         fun url(url: String?): Builder {
             this.url = url
+            return this
+        }
+
+        fun drawableId(drawableId: Int): Builder {
+            this.drawableId = drawableId
             return this
         }
 
@@ -93,8 +102,27 @@ class GlideImageConfig private constructor(builder: Builder) : ImageConfig() {
             return this
         }
 
+        inline fun listener(
+                crossinline loadFail: (target: ImageView?, e: Exception?) -> Unit = { _, _ -> },
+                crossinline loadReady: (target: ImageView?) -> Unit = {}
+        ) = listener(object : ImageLoadListener {
+            override fun loadFail(target: ImageView?, e: Exception?) = loadFail(target, e)
+            override fun loadReady(target: ImageView?) = loadReady(target)
+        })
+
         fun listener(listener: ImageLoadListener?): Builder {
             this.listener = listener
+            return this
+        }
+
+        inline fun progressListener(
+                crossinline onProgress: (isComplete: Boolean, percentage: Int, bytesRead: Long, totalBytes: Long) -> Unit = { _, _, _, _ -> }
+        ) = progressListener(object : OnProgressListener {
+            override fun onProgress(isComplete: Boolean, percentage: Int, bytesRead: Long, totalBytes: Long) = onProgress(isComplete, percentage, bytesRead, totalBytes)
+        })
+
+        fun progressListener(onProgressListener: OnProgressListener?): Builder {
+            this.onProgressListener = onProgressListener
             return this
         }
 
@@ -117,8 +145,10 @@ class GlideImageConfig private constructor(builder: Builder) : ImageConfig() {
     init {
         url = builder.url
         imageView = builder.imageView
+        drawableId = builder.drawableId
         placeholder = builder.placeholder
         listener = builder.listener
+        onProgressListener = builder.onProgressListener
         errorPic = builder.errorPic
         fallback = builder.fallback
         isCrossFade = builder.isCrossFade
