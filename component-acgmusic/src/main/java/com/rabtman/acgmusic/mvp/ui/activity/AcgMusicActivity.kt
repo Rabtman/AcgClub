@@ -204,24 +204,20 @@ class AcgMusicActivity : SimpleActivity(), View.OnClickListener {
         tv_music_cur_time.text = "00:00"
 
         //模糊背景
-        image_music_bg.loadImage(
-                mContext,
-                info.res.animeInfo.bg.ifEmpty { info.res.animeInfo.logo },
-                BlurTransformation(15, 6),
-                fallback = R.drawable.acgmusic_shape_default_bg,
-                errorPic = R.drawable.acgmusic_shape_default_bg
-        )
+        image_music_bg.loadImage(info.res.animeInfo.bg.ifEmpty { info.res.animeInfo.logo }) {
+            fallback = R.drawable.acgmusic_shape_default_bg
+            errorPic = R.drawable.acgmusic_shape_default_bg
+            transformation(BlurTransformation(15, 6))
+        }
 
         //音乐展示图
         image_music_logo.reset()
-        image_music_logo.loadImage(
-                mContext,
-                info.res.animeInfo.logo,
-                isCenterCrop = true,
-                isCircleCrop = true,
-                fallback = R.drawable.ic_launcher_round,
-                errorPic = R.drawable.ic_launcher_round
-        )
+        image_music_logo.loadImage(info.res.animeInfo.logo) {
+            isCenterCrop = true
+            isCircleCrop = true
+            fallback = R.drawable.ic_launcher_round
+            errorPic = R.drawable.ic_launcher_round
+        }
     }
 
     override fun onClick(view: View?) {

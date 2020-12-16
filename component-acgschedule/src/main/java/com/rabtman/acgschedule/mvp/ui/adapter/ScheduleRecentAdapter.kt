@@ -16,7 +16,7 @@ class ScheduleRecentAdapter(data: MutableList<ScheduleRecent>?) : BaseQuickAdapt
         helper.setText(R.id.tv_schedule_recent, item.name)
                 .setText(R.id.tv_schedule_recent_desc, item.desc)
 
-        helper.getView<ImageView>(R.id.img_schedule_recent).loadImage(context, item.getImgUrl())
+        helper.getView<ImageView>(R.id.img_schedule_recent).loadImage(item.getImgUrl())
     }
 
 }

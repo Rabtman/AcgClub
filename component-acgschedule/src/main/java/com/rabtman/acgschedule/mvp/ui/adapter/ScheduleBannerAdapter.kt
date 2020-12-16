@@ -26,7 +26,7 @@ class ScheduleBannerAdapter(data: MutableList<ScheduleBanner>) : BannerAdapter<S
     }
 
     override fun onBindView(holder: BannerViewHolder, scheudleBanner: ScheduleBanner, position: Int, size: Int) {
-        ctx?.let { holder.bannerImg.loadImage(it, scheudleBanner.imgUrl) }
+        holder.bannerImg.loadImage(scheudleBanner.imgUrl)
         holder.bannerTitle.text = scheudleBanner.name
     }
 

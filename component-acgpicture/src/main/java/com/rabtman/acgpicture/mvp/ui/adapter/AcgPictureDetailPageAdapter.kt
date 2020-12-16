@@ -45,7 +45,7 @@ class AcgPictureDetailPageAdapter(private val mContext: Context,
                 pinchImageViewListener?.onClick(v, position)
             }
         }
-        piv.loadImage(mContext, imgUrls[position])
+        piv.loadImage(imgUrls[position])
         container.addView(piv)
         return piv
     }
@@ -58,7 +58,7 @@ class AcgPictureDetailPageAdapter(private val mContext: Context,
 
     override fun setPrimaryItem(container: ViewGroup, position: Int, `object`: Any) {
         val piv = `object` as PinchImageView
-        piv.loadImage(mContext, imgUrls[position])
+        piv.loadImage(imgUrls[position])
     }
 
     interface PinchImageViewListener {

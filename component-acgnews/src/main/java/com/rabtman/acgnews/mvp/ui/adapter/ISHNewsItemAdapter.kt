@@ -16,6 +16,6 @@ class ISHNewsItemAdapter : BaseQuickAdapter<SHPostItem, BaseViewHolder>(R.layout
     override fun convert(helper: BaseViewHolder, item: SHPostItem) {
         helper.setText(R.id.news_title, item.title)
                 .setText(R.id.news_datetime, TimeUtils.millis2String(item.time))
-        helper.getView<ImageView>(R.id.news_img).loadImage(context, item.thumb)
+        helper.getView<ImageView>(R.id.news_img).loadImage(item.thumb)
     }
 }

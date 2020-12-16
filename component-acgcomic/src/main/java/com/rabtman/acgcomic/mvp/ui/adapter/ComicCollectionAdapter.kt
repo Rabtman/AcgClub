@@ -19,7 +19,9 @@ class ComicCollectionAdapter() : BaseQuickAdapter<ComicCache, BaseViewHolder>(R.
 
     override fun convert(helper: BaseViewHolder, item: ComicCache) {
         helper.setText(R.id.tv_comic_collection_name, item.comicName)
-        helper.getViewOrNull<ImageView>(R.id.img_comic_collection)?.loadImage(context, item.comicImgUrl, CropTransformation(0, 0), RoundedCornersTransformation(DimenUtils.dpToPx(context, 4f), 0))
+        helper.getViewOrNull<ImageView>(R.id.img_comic_collection)?.loadImage(item.comicImgUrl) {
+            transformation(CropTransformation(0, 0), RoundedCornersTransformation(DimenUtils.dpToPx(context, 4f), 0))
+        }
 
     }
 }

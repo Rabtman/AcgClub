@@ -18,8 +18,9 @@ class ScheduleRecommendAdapter(data: MutableList<ScheduleRecommend>?) : BaseQuic
     override fun convert(helper: BaseViewHolder, item: ScheduleRecommend) {
         helper.setText(R.id.tv_schedule_recommand, item.name)
         helper.getView<ImageView>(R.id.img_schedule_recommand)
-                .loadImage(context, item.getImgUrl(),
-                        CropTransformation(0, 0), RoundedCornersTransformation(DimenUtils.dpToPx(context, 20f), 0))
+                .loadImage(item.getImgUrl()) {
+                    transformation(CropTransformation(0, 0), RoundedCornersTransformation(DimenUtils.dpToPx(context, 20f), 0))
+                }
     }
 
 }

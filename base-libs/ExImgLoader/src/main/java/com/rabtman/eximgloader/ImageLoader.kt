@@ -14,7 +14,6 @@ import com.rabtman.eximgloader.glide.GlideApp
 import com.rabtman.eximgloader.glide.GlideImageConfig
 import com.rabtman.eximgloader.glide.progress.GlideImageViewTarget
 import com.rabtman.eximgloader.glide.progress.ProgressManager
-import jp.wasabeef.glide.transformations.BitmapTransformation
 import okhttp3.Call
 import okhttp3.OkHttpClient
 
@@ -42,22 +41,6 @@ object ImageLoader {
                 .url(url)
                 .apply(builder)
                 .build())
-    }
-
-    fun ImageView.loadImage(ctx: Context, url: String?, vararg transformations: BitmapTransformation, isCenterCrop: Boolean = false, isCircleCrop: Boolean = false, isCrossFade: Boolean = true, placeholder: Int = 0, errorPic: Int = 0, fallback: Int = 0, imageLoadListener: ImageLoadListener? = null) {
-        loadImage(ctx,
-                GlideImageConfig.builder()
-                        .imageView(this)
-                        .url(url)
-                        .isCrossFade(isCrossFade)
-                        .isCircleCrop(isCircleCrop)
-                        .transformation(*transformations)
-                        .placeholder(placeholder)
-                        .errorPic(errorPic)
-                        .fallback(fallback)
-                        .listener(imageLoadListener)
-                        .build()
-        )
     }
 
     fun loadImage(context: Context?, config: GlideImageConfig) {

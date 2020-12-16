@@ -16,6 +16,6 @@ class AcgPictureItemAdapter() : BaseQuickAdapter<AcgPictureItem, BaseViewHolder>
 
     override fun convert(helper: BaseViewHolder, item: AcgPictureItem) {
         helper.setText(R.id.tv_acgpicture_title, item.title)
-        helper.getViewOrNull<ImageView>(R.id.img_acgpicture_thumbnail)?.loadImage(context, item.thumbnail)
+        helper.getViewOrNull<ImageView>(R.id.img_acgpicture_thumbnail)?.loadImage(item.thumbnail)
     }
 }

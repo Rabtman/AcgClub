@@ -16,6 +16,6 @@ class AnimateItemAdapter() : BaseQuickAdapter<AnimatePictureItem, BaseViewHolder
 
 
     override fun convert(helper: BaseViewHolder, item: AnimatePictureItem) {
-        helper.getViewOrNull<ImageView>(R.id.img_animate)?.loadImage(context, item.smallPreview)
+        helper.getViewOrNull<ImageView>(R.id.img_animate)?.loadImage(item.smallPreview)
     }
 }

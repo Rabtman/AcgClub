@@ -18,6 +18,6 @@ class APictureItemAdapter() : BaseQuickAdapter<APictureItem, BaseViewHolder>(R.l
     override fun convert(helper: BaseViewHolder, item: APictureItem) {
         helper.setText(R.id.pic_title, item.title)
                 .setText(R.id.pic_count, item.count)
-        helper.getViewOrNull<ImageView>(R.id.pic_img)?.loadImage(context, item.thumbUrl)
+        helper.getViewOrNull<ImageView>(R.id.pic_img)?.loadImage(item.thumbUrl)
     }
 }

@@ -18,7 +18,8 @@ class ScheduleCollectionAdapter() : BaseQuickAdapter<ScheduleCache, BaseViewHold
     override fun convert(helper: BaseViewHolder, item: ScheduleCache) {
 
         helper.setText(R.id.tv_schedule_collection_name, item.name)
-        helper.getView<ImageView>(R.id.img_schedule_collection)
-                .loadImage(context, item.imgUrl, CropTransformation(0, 0), RoundedCornersTransformation(DimenUtils.dpToPx(context, 4f), 0))
+        helper.getView<ImageView>(R.id.img_schedule_collection).loadImage(item.imgUrl) {
+            transformation(CropTransformation(0, 0), RoundedCornersTransformation(DimenUtils.dpToPx(context, 4f), 0))
+        }
     }
 }

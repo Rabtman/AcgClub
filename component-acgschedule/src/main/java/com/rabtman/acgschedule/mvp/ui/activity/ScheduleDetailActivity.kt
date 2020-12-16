@@ -154,9 +154,11 @@ class ScheduleDetailActivity : BaseActivity<ScheduleDetailPresenter>(), Schedule
         }
         mToolBarTitle.text = scheduleDetail.scheduleTitle ?: ""
         //模糊背景
-        imgScheduleTitleBg.loadImage(mContext, scheduleDetail.getImgUrl(), BlurTransformation(25, 2))
+        imgScheduleTitleBg.loadImage(scheduleDetail.getImgUrl()) {
+            transformation(BlurTransformation(25, 2))
+        }
         //番剧展示图
-        imgScheduleDetailIcon.loadImage(mContext, scheduleDetail.getImgUrl())
+        imgScheduleDetailIcon.loadImage(scheduleDetail.getImgUrl())
         tvScheduleDetailLabel.text = scheduleDetail.scheduleLabel
         tvScheduleDetailTime.text = scheduleDetail.scheduleTime
 

@@ -20,7 +20,9 @@ class QiMiaoComicItemAdpater() : BaseQuickAdapter<QiMiaoComicItem, BaseViewHolde
         helper.setText(R.id.tv_qimiao_comic_title, item?.title)
                 .setText(R.id.tv_qimiao_comic_author, item?.author)
                 .setText(R.id.tv_qimiao_comic_now, item?.now)
-        helper.getViewOrNull<ImageView>(R.id.img_qimiao_comic)?.loadImage(context, item?.imgUrl, CropTransformation(0, 0), RoundedCornersTransformation(DimenUtils.dpToPx(context, 4f), 0))
+        helper.getViewOrNull<ImageView>(R.id.img_qimiao_comic)?.loadImage(item?.imgUrl) {
+            transformation(CropTransformation(0, 0), RoundedCornersTransformation(DimenUtils.dpToPx(context, 4f), 0))
+        }
     }
 
 }

@@ -204,9 +204,11 @@ class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(), Qi
     override fun showComicDetail(comicInfo: QiMiaoComicDetail) {
         mToolBarTitle.text = comicInfo.title
         //模糊背景
-        imgScheduleTitleBg.loadImage(mContext, comicInfo.imgUrl, BlurTransformation(25, 2))
+        imgScheduleTitleBg.loadImage(comicInfo.imgUrl) {
+            transformation(BlurTransformation(25, 2))
+        }
         //番剧展示图
-        imgQiMiaoComicDetail.loadImage(mContext, comicInfo.imgUrl)
+        imgQiMiaoComicDetail.loadImage(comicInfo.imgUrl)
         tvQiMiaoComicDetailSpot.text = comicInfo.labels
         tvQiMiaoComicDetailAuthor.text = comicInfo.author
 

@@ -18,7 +18,7 @@ class DmzjComicItemAdpater() : BaseQuickAdapter<DmzjComicItem, BaseViewHolder>(R
         if (helper != null) {
             helper.setText(R.id.tv_comic_name, item?.name)
                     .setText(R.id.tv_comic_update, item?.lastUpdateChapterName)
-            helper.getViewOrNull<ImageView>(R.id.img_comic)?.loadImage(context, HtmlConstant.DMZJ_IMG_URL + item?.cover)
+            helper.getViewOrNull<ImageView>(R.id.img_comic)?.loadImage(HtmlConstant.DMZJ_IMG_URL + item?.cover)
         }
     }
 

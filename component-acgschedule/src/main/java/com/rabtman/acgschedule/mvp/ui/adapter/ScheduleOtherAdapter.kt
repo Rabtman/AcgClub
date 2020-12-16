@@ -15,6 +15,6 @@ class ScheduleOtherAdapter() : BaseQuickAdapter<ScheduleOtherItem, BaseViewHolde
 
     override fun convert(helper: BaseViewHolder, item: ScheduleOtherItem) {
         helper.setText(R.id.tv_schedule_other_title, item.title)
-        helper.getView<ImageView>(R.id.img_schedule_other).loadImage(context, item.imgUrl)
+        helper.getView<ImageView>(R.id.img_schedule_other).loadImage(item.imgUrl)
     }
 }

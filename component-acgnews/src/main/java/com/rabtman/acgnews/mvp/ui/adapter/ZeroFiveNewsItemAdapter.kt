@@ -15,6 +15,6 @@ class ZeroFiveNewsItemAdapter : BaseQuickAdapter<ZeroFiveNews, BaseViewHolder>(R
     override fun convert(helper: BaseViewHolder, item: ZeroFiveNews) {
         helper.setText(R.id.news_title, item.title)
                 .setText(R.id.news_datetime, item.dateTime)
-        helper.getView<ImageView>(R.id.news_img).loadImage(context, item.imgUrl)
+        helper.getView<ImageView>(R.id.news_img).loadImage(item.imgUrl)
     }
 }

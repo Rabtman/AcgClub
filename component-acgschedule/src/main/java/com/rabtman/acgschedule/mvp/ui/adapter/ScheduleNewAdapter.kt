@@ -22,7 +22,8 @@ class ScheduleNewAdapter() : BaseQuickAdapter<ScheduleNewItem, BaseViewHolder>(R
                 .setText(R.id.schedule_new_desc, item.desc)
 
         helper.getView<ImageView>(R.id.schedule_new_img)
-                .loadImage(context, item.imgUrl,
-                        CropTransformation(0, 0), RoundedCornersTransformation(DimenUtils.dpToPx(context, 4f), 0))
+                .loadImage(item.imgUrl) {
+                    transformation(CropTransformation(0, 0), RoundedCornersTransformation(DimenUtils.dpToPx(context, 4f), 0))
+                }
     }
 }
