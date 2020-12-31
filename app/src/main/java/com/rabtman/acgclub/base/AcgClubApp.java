@@ -15,7 +15,6 @@ import com.rabtman.common.base.CommonApplicationLike;
 import com.rabtman.common.utils.SystemUtils;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.BuglyStrategy;
-import com.tencent.bugly.beta.Beta;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.analytics.MobclickAgent.UMAnalyticsConfig;
 
@@ -61,7 +60,6 @@ public class AcgClubApp extends Application {
   protected void attachBaseContext(Context base) {
     super.attachBaseContext(base);
     MultiDex.install(base);
-    Beta.installTinker(this);
 
     if (mCommonApplicationLike == null) {
       mCommonApplicationLike = new CommonApplicationLike(this);
