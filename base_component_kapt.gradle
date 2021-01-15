@@ -12,7 +12,7 @@ kapt {
 dependencies {
     api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     //di
-    kapt rootProject.ext.dependencies["dagger2-compiler"]
-    kapt rootProject.ext.dependencies["butterknife-compiler"]
-    kapt rootProject.ext.dependencies["router-compiler"]
+    kapt Libs.dagger2_compiler
+    kapt Libs.butterknife_compiler
+    kapt Libs.router_compiler
 }

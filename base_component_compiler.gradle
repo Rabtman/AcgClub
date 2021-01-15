@@ -3,8 +3,8 @@ apply plugin: 'realm-android'
 android {
     dependencies {
         //di
-        annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
-        annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-        annotationProcessor rootProject.ext.dependencies["router-compiler"]
+        annotationProcessor Libs.dagger2_compiler
+        annotationProcessor Libs.butterknife_compiler
+        annotationProcessor Libs.router_compiler
     }
 }

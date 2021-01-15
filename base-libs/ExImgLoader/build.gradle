@@ -4,12 +4,12 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    compileSdkVersion App.compileSdkVersion
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        minSdkVersion App.minSdkVersion
+        targetSdkVersion App.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
     }
@@ -24,12 +24,16 @@ android {
 dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     //image
-    api rootProject.ext.dependencies["glide"]
-    api(rootProject.ext.dependencies["glide-transformations"]) {
+    api(Libs.glide){
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
-    api rootProject.ext.dependencies["glide-loader-okhttp3"]
-    kapt rootProject.ext.dependencies["glide-compiler"]
+    api(Libs.glide_transformations) {
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+        exclude module: 'annotation'
+    }
+    api Libs.glide_loader_okhttp3
+    kapt Libs.glide_compiler
 }

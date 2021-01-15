@@ -1,15 +1,12 @@
-apply from: "config.gradle"
-
 buildscript {
-    ext.kotlin_version = '1.4.20'
-    ext.realm_version = '5.0.1'
-
     repositories {
+        mavenCentral()
         google()
         jcenter()
         maven { url "https://jitpack.io" }
         // TODO remove after butterknife 9 graduates to stable
-        maven { name 'Sonatype SNAPSHOTs'; url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        maven { name 'Sonatype SNAPSHOTs';
+            url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     }
 
     dependencies {
@@ -23,13 +20,20 @@ buildscript {
         //butterknife
         classpath 'com.jakewharton:butterknife-gradle-plugin:10.2.1'
         //kotlin
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${DepVer.kotlin_version}"
         //realm
-        classpath "io.realm:realm-gradle-plugin:$realm_version"
+        classpath "io.realm:realm-gradle-plugin:${DepVer.realm_version}"
         //arouter
         classpath "com.alibaba:arouter-register:1.0.2"
     }
 }
+
+/*configurations.all {
+    all*.exclude group:'com.squareup.okhttp3'
+    resolutionStrategy {
+        force Libs.okhttp
+    }
+}*/
 
 allprojects {
     repositories {

@@ -1,11 +1,11 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    compileSdkVersion App.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        minSdkVersion App.minSdkVersion
+        targetSdkVersion App.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
     }
@@ -21,11 +21,12 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //base ui
-    api rootProject.ext.dependencies["material"]
-    api rootProject.ext.dependencies["constraintlayout"]
-    api(rootProject.ext.dependencies["base-rcv-helper"]) {
+    api Libs.material
+    api Libs.refreshlayout
+    api Libs.constraintlayout
+    api(Libs.base_rcv_helper) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
 }

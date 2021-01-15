@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'realm-android'
 apply plugin: 'com.alibaba.arouter'
-apply from:"../base_component_kapt.gradle"
+apply from: "../base_component_kapt.gradle"
 
 Properties properties = new Properties()
 File localPropertiesFile = project.rootProject.file("local.properties");
@@ -11,7 +11,7 @@ if (localPropertiesFile.exists()) {
 
 
 android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    compileSdkVersion App.compileSdkVersion
     useLibrary 'org.apache.http.legacy'
 
     compileOptions {
@@ -20,17 +20,17 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        minSdkVersion App.minSdkVersion
+        targetSdkVersion App.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
 
         //app version code
-        buildConfigField "int", "appVerCode", "" + rootProject.ext.android.versionCode + ""
+        buildConfigField "int", "appVerCode", "" + App.versionCode + ""
         //app version name
-        buildConfigField "String", "appVerName", "\"" + rootProject.ext.android.versionName + "\""
+        buildConfigField "String", "appVerName", "\"" + App.versionName + "\""
         //application id
-        buildConfigField "String", "applicationId", "\"" + rootProject.ext.android.applicationId + "\""
+        buildConfigField "String", "applicationId", "\"" + App.applicationId + "\""
         //umeng app key
         buildConfigField "String", "UMENG_APP_KEY", properties.getProperty("umengAppKey", "\"\"")
         //umeng share
@@ -55,109 +55,110 @@ dependencies {
     //router
     api project(":router")
     //ui
-    api(rootProject.ext.dependencies["dialog"]) {
+    api(Libs.dialog) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
-    api(rootProject.ext.dependencies["banner"]) {
+
+    api(Libs.banner) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
-    api(rootProject.ext.dependencies["bottom-bar"]) {
+    api(Libs.bottom_bar) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
-    api(rootProject.ext.dependencies["toast"]) {
+    api(Libs.toast) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
-    api(rootProject.ext.dependencies["materialsearchview"]) {
+    api(Libs.materialsearchview) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
-    api(rootProject.ext.dependencies["statusbarutil"]) {
+    api(Libs.statusbarutil) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
-    api(rootProject.ext.dependencies["html-textview"]) {
+    api(Libs.html_textview) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
-    api(rootProject.ext.dependencies["loadsir"]) {
+    api(Libs.loadsir) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
     api('com.zzhoujay.richtext:richtext:2.5.2') {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
     api('com.ms-square:expandableTextView:0.1.4') {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
     //test
-    testImplementation rootProject.ext.dependencies["junit"]
+    testImplementation Libs.junit
     //jsoup
     api project(':third-party-libs:jsoup-annotations')
     //other
-    api rootProject.ext.dependencies["multidex"]
-    api rootProject.ext.dependencies["logger"]
-    api(rootProject.ext.dependencies["fragmentation"]) {
+    api Libs.multidex
+    api Libs.logger
+    api(Libs.fragmentation) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
-    api rootProject.ext.dependencies["jsoup"]
-    api rootProject.ext.dependencies["crashreport"]
+    api Libs.jsoup
+    api Libs.crashreport
     //json
-    api rootProject.ext.dependencies["gson"]
+    api Libs.gson
     //network
-    api rootProject.ext.dependencies["retrofit"]
-    api rootProject.ext.dependencies["retrofit-converter-gson"]
-    api rootProject.ext.dependencies["retrofit-adapter-rxjava2"]
-    api rootProject.ext.dependencies["okhttp"]
-    api rootProject.ext.dependencies["okhttp-logging-interceptor"]
+    api Libs.retrofit
+    api Libs.retrofit_converter_gson
+    api Libs.retrofit_adapter_rxjava2
+    api Libs.okhttp
+    api Libs.okhttp_logging_interceptor
     //image
     api project(':base-libs:ExImgLoader')
-    /*api rootProject.ext.dependencies["glide"]
-    api(rootProject.ext.dependencies["glide-transformations"]) {
+    /*api Libs.glide"]
+    api(Libs.glide-transformations) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
-    api rootProject.ext.dependencies["glide-loader-okhttp3"]
-    kapt rootProject.ext.dependencies["glide-compiler"]*/
+    api Libs.glide-loader-okhttp3"]
+    kapt Libs.glide-compiler"]*/
     //rx
-    api rootProject.ext.dependencies["rxjava"]
-    api rootProject.ext.dependencies["rxandroid"]
-    api rootProject.ext.dependencies["rxdownload"]
-    api(rootProject.ext.dependencies["rxpermissions2"]) {
+    api Libs.rxjava
+    api Libs.rxandroid
+    api Libs.rxdownload
+    api(Libs.rxpermissions2) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
-    api rootProject.ext.dependencies["rxcache"]
-    api rootProject.ext.dependencies["rxcache-jolyglot"]
+    api Libs.rxcache
+    api Libs.rxcache_jolyglot
     //di
-    api rootProject.ext.dependencies["dagger2"]
-    api rootProject.ext.dependencies["butterknife"]
+    api Libs.dagger2
+    api Libs.butterknife
     //umeng
-    api rootProject.ext.dependencies["umeng"]
+    api Libs.umeng
     //canary
-    /*debugImplementation rootProject.ext.dependencies["blockcanary-android"]
-    releaseImplementation rootProject.ext.dependencies["blockcanary-no-op"]
-    debugImplementation rootProject.ext.dependencies["leakcanary-android"]
-    releaseImplementation rootProject.ext.dependencies["leakcanary-no-op"]*/
+    /*debugImplementation Libs.blockcanary_android
+    releaseImplementation Libs.blockcanary_no_op
+    debugImplementation Libs.leakcanary_android
+    releaseImplementation Libs.leakcanary_no_op*/
     //x5内核
     api files('libs/tbs_sdk.jar')
     //Umeng Share

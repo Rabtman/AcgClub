@@ -25,7 +25,7 @@ tinkerSupport {
     // 编译补丁包时，必需指定基线版本的apk，默认值为空
     // 如果为空，则表示不是进行补丁包的编译
     // @{link tinkerPatch.oldApk }
-    baseApk = "${bakPath}/${baseApkDir}/${rootProject.ext.android.applicationId}_base_v${rootProject.ext.android.versionName}.apk"
+    baseApk = "${bakPath}/${baseApkDir}/${App.applicationId}_base_v${App.versionName}.apk"
 
     // 对应tinker插件applyMapping
     baseApkProguardMapping = "${bakPath}/${baseApkDir}/app-release-mapping.txt"
@@ -37,7 +37,7 @@ tinkerSupport {
     // tinkerId个人命名方式：
     // 基准包： base-版本号
     // 补丁包： patch1-版本号、patch2-版本号...
-    tinkerId = "base-" + rootProject.ext.android.versionName
+    tinkerId = "base-" + App.versionName
 
     // 构建多渠道补丁时使用
     //buildAllFlavorsDir = "${bakPath}/${baseApkDir}"

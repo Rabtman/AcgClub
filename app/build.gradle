@@ -17,7 +17,7 @@ if (localPropertiesFile.exists()) {
  * 项目命令行打包指令：gradle assembleRelease rebuildChannel
  */
 android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    compileSdkVersion App.compileSdkVersion
     useLibrary 'org.apache.http.legacy'
 
     compileOptions {
@@ -26,16 +26,16 @@ android {
     }
 
     defaultConfig {
-        applicationId rootProject.ext.android.applicationId
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
-        resConfigs rootProject.ext.android.resConfigs
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
-        testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
+        applicationId App.applicationId
+        minSdkVersion App.minSdkVersion
+        targetSdkVersion App.targetSdkVersion
+        resConfigs App.resConfigs
+        versionCode App.versionCode
+        versionName App.versionName
+        testInstrumentationRunner Libs.androidJUnitRunner
 
         multiDexEnabled true
-        renderscriptTargetApi rootProject.ext.android.targetSdkVersion
+        renderscriptTargetApi App.targetSdkVersion
         renderscriptSupportModeEnabled true
 
         ndk {
@@ -116,7 +116,7 @@ channel {
 //根据已有基础包重新生成多渠道包
 rebuildChannel {
     //baseDebugApk = 已有Debug APK
-    baseReleaseApk = new File(project.buildDir, "outputs/apk/release/com.rabtman.acgclub_base_v${rootProject.ext.android.versionName}.apk")
+    baseReleaseApk = new File(project.buildDir, "outputs/apk/release/com.rabtman.acgclub_base_v${App.versionName}.apk")
     //默认为new File(project.buildDir, "rebuildChannel/debug")
     //debugOutputDir = Debug渠道包输出目录
     //默认为new File(project.buildDir, "rebuildChannel/release")
@@ -128,8 +128,7 @@ repositories {
         dirs 'libs'
     }
 }
-
-rootProject.ext.merge.each { c ->
+App.components.each {c->
     if (c) {
         project.dependencies.add("implementation", project.project(':component-' + c))
     }
@@ -140,17 +139,17 @@ dependencies {
     implementation project(':common')
 
     //di
-    annotationProcessor rootProject.ext.dependencies["dagger2-compiler"]
-    annotationProcessor rootProject.ext.dependencies["butterknife-compiler"]
-    annotationProcessor rootProject.ext.dependencies["router-compiler"]
+    annotationProcessor Libs.dagger2_compiler
+    annotationProcessor Libs.butterknife_compiler
+    annotationProcessor Libs.router_compiler
     //阿里用户反馈
     implementation 'com.aliyun.ams:alicloud-android-feedback:3.1.0@aar'
     implementation 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
     implementation 'com.aliyun.ams:alicloud-android-ut:5.1.0'
     implementation 'com.aliyun.ams:alicloud-android-utils:1.0.3'
     //bugly
-    implementation rootProject.ext.dependencies["crashreport"]
-    implementation rootProject.ext.dependencies["nativecrashreport"]
+    implementation Libs.crashreport
+    implementation Libs.nativecrashreport
     //VasDolly
-    api rootProject.ext.dependencies["vasdolly"]
+    api Libs.vasdolly
 }

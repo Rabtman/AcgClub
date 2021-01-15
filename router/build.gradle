@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    compileSdkVersion App.compileSdkVersion
     useLibrary 'org.apache.http.legacy'
 
     defaultConfig {
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        minSdkVersion App.minSdkVersion
+        targetSdkVersion App.targetSdkVersion
         versionCode 1
         versionName "1.0.0"
     }
@@ -19,9 +19,9 @@ android {
 }
 
 dependencies {
-    api(rootProject.ext.dependencies["router"]){
+    api(Libs.router){
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
-        exclude module: 'support-annotations'
+        exclude module: 'annotation'
     }
 }
