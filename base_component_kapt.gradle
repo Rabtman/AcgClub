@@ -10,7 +10,7 @@ kapt {
 }
 
 dependencies {
-    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-reflect:${DepVer.kotlin_version}"
     //di
     kapt Libs.dagger2_compiler
     kapt Libs.butterknife_compiler

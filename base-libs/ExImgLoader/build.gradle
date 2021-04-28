@@ -22,7 +22,7 @@ android {
 }
 
 dependencies {
-    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${DepVer.kotlin_version}"
     //image
     api(Libs.glide){
         exclude module: 'support-v4'

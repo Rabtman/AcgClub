@@ -11,11 +11,11 @@ object App {
 
     //合并到主程序运行的组件,没有填写的组件则可以独立运行
     val components = arrayOf<String>(
-            /*"acgnews"
+            "acgnews",
             "acgschedule",
             "acgcomic",
             "acgmusic",
-            "acgpicture",*/
+            "acgpicture"
     )
 }
 
