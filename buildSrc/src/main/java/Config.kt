@@ -3,7 +3,7 @@ object App {
     val applicationId = "${organization}.acgclub"
     val compileSdkVersion = 28
     val buildToolsVersion = "28.0.0"
-    val minSdkVersion = 19
+    val minSdkVersion = 21
     val targetSdkVersion = 28
     val versionCode = 7
     val versionName = "1.0.0"
@@ -23,9 +23,9 @@ object App {
 object DepVer {
     val kotlin_version = "1.4.21"
     val realm_version = "5.0.1"
-    val retrofit = "2.3.0"
-    val okhttp = "3.12.6"
-    val glide = "4.11.0"
+    val retrofit = "2.9.0"
+    val okhttp = "4.9.1"
+    val glide = "4.12.0"
     val dagger2 = "2.14.1"
     val butterknife = "10.2.1"
     val blockcanary = "1.5.0"

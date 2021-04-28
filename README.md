@@ -37,7 +37,7 @@
 
 ![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/qr-code.png)
 
-![](https://img.shields.io/badge/Android-4.4%20or%20above-brightgreen.svg)
+![](https://img.shields.io/badge/Android-5.0%20or%20above-brightgreen.svg)
 
 
 
@@ -49,7 +49,7 @@
 
 ### 项目环境
 
-![](https://img.shields.io/badge/Android%20Studio-3.1.2-blue.svg)   ![](https://img.shields.io/badge/gradle-4.4-brightgreen.svg)    ![](https://img.shields.io/badge/kotlin-1.2.21-orange.svg)   ![](https://img.shields.io/badge/compileVersion-26-ff69b4.svg)
+![](https://img.shields.io/badge/Android%20Studio-4.1.3-blue.svg)   ![](https://img.shields.io/badge/gradle-6.5-brightgreen.svg)    ![](https://img.shields.io/badge/kotlin-1.4.21-orange.svg)   ![](https://img.shields.io/badge/compileVersion-28-ff69b4.svg)
 
 ### 项目结构
 
