@@ -4,7 +4,7 @@ object App {
     val compileSdkVersion = 28
     val buildToolsVersion = "28.0.0"
     val minSdkVersion = 21
-    val targetSdkVersion = 28
+    val targetSdkVersion = 30
     val versionCode = 7
     val versionName = "1.0.0"
     val resConfigs = "zh"
@@ -21,7 +21,7 @@ object App {
 
 
 object DepVer {
-    val kotlin_version = "1.4.21"
+    val kotlin_version = "1.4.32"
     val realm_version = "5.0.1"
     val retrofit = "2.9.0"
     val okhttp = "4.9.1"

@@ -43,9 +43,9 @@ open class BasePresenter<M : IModel, V : IView>(val mModel: M, val mView: V) : I
     }
 
     protected fun <U> addRxBusSubscribe(eventType: Class<U>, act: Consumer<U>) {
-        mCompositeDisposable?.add(RxBus.getDefault().toDefaultFlowable(eventType, act)) ?: run {
+        mCompositeDisposable?.add(RxBus.default.toDefaultFlowable(eventType, act)) ?: run {
             mCompositeDisposable = CompositeDisposable().apply {
-                add(RxBus.getDefault().toDefaultFlowable(eventType, act))
+                add(RxBus.default.toDefaultFlowable(eventType, act))
             }
         }
     }
