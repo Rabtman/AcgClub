@@ -1,69 +1,43 @@
-package com.rabtman.common.integration;
+package com.rabtman.common.integration
 
-import static com.rabtman.common.integration.AppManager.IS_NOT_ADD_ACTIVITY_LIST;
-
-import android.app.Activity;
-import android.app.Application;
-import android.os.Bundle;
-import com.hss01248.dialog.ActivityStackManager;
-import javax.inject.Inject;
-import javax.inject.Singleton;
+import android.app.Activity
+import android.app.Application.ActivityLifecycleCallbacks
+import android.os.Bundle
+import com.hss01248.dialog.ActivityStackManager
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @Singleton
-public class ActivityLifecycle implements Application.ActivityLifecycleCallbacks {
+class ActivityLifecycle @Inject constructor(private val mAppManager: AppManager) :
+    ActivityLifecycleCallbacks {
 
-  private AppManager mAppManager;
+    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle) {
+        //如果intent包含了此字段,并且为true说明不加入到list
+        // 默认为false,如果不需要管理(比如不需要在退出所有activity(killAll)时，退出此activity就在intent加此字段为true)
+        val isNotAdd =
+            activity.intent?.getBooleanExtra(AppManager.IS_NOT_ADD_ACTIVITY_LIST, false) ?: false
 
-  @Inject
-  public ActivityLifecycle(AppManager appManager) {
-    this.mAppManager = appManager;
-  }
-
-  @Override
-  public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-    //如果intent包含了此字段,并且为true说明不加入到list
-    // 默认为false,如果不需要管理(比如不需要在退出所有activity(killAll)时，退出此activity就在intent加此字段为true)
-    boolean isNotAdd = false;
-    if (activity.getIntent() != null) {
-      isNotAdd = activity.getIntent().getBooleanExtra(IS_NOT_ADD_ACTIVITY_LIST, false);
+        if (!isNotAdd) {
+            mAppManager.addActivity(activity)
+        }
+        ActivityStackManager.getInstance().addActivity(activity)
     }
 
-    if (!isNotAdd) {
-      mAppManager.addActivity(activity);
+    override fun onActivityStarted(activity: Activity) {}
+    override fun onActivityResumed(activity: Activity) {
+        mAppManager.currentActivity = activity
     }
-    ActivityStackManager.getInstance().addActivity(activity);
-  }
 
-  @Override
-  public void onActivityStarted(Activity activity) {
-
-  }
-
-  @Override
-  public void onActivityResumed(Activity activity) {
-    mAppManager.setCurrentActivity(activity);
-  }
-
-  @Override
-  public void onActivityPaused(Activity activity) {
-    if (mAppManager.getCurrentActivity() == activity) {
-      mAppManager.setCurrentActivity(null);
+    override fun onActivityPaused(activity: Activity) {
+        if (mAppManager.currentActivity === activity) {
+            mAppManager.currentActivity = null
+        }
     }
-  }
 
-  @Override
-  public void onActivityStopped(Activity activity) {
-
-  }
-
-  @Override
-  public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-  }
-
-  @Override
-  public void onActivityDestroyed(Activity activity) {
-    mAppManager.removeActivity(activity);
-    ActivityStackManager.getInstance().removeActivity(activity);
-  }
+    override fun onActivityStopped(activity: Activity) {}
+    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+    override fun onActivityDestroyed(activity: Activity) {
+        mAppManager.removeActivity(activity)
+        ActivityStackManager.getInstance().removeActivity(activity)
+    }
 }

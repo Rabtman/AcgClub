@@ -1,43 +1,38 @@
-package com.rabtman.common.integration;
+package com.rabtman.common.integration
 
-import android.content.Context;
-import io.realm.RealmConfiguration;
+import io.realm.RealmConfiguration
 
 /**
  * @author Rabtman
  */
+interface IRepositoryManager {
+    /**
+     * 注入RetrofitService,在[ConfigModule.registerComponents]中进行注入
+     */
+    fun injectRetrofitService(vararg services: Class<*>)
 
-public interface IRepositoryManager {
+    /**
+     * 注入CacheService,在[ConfigModule.registerComponents]中进行注入
+     */
+    fun injectCacheService(vararg services: Class<*>)
 
-  /**
-   * 注入RetrofitService,在{@link ConfigModule#registerComponents(Context, IRepositoryManager)}中进行注入
-   */
-  void injectRetrofitService(Class<?>... services);
+    /**
+     * 注入RealmConfigs,在[ConfigModule.registerComponents]中进行注入
+     */
+    fun injectRealmConfigs(vararg realmConfigurations: RealmConfiguration)
 
-  /**
-   * 注入CacheService,在{@link ConfigModule#registerComponents(Context, IRepositoryManager)}中进行注入
-   */
-  void injectCacheService(Class<?>... services);
+    /**
+     * 根据传入的Class获取对应的Retrift service
+     */
+    fun <T> obtainRetrofitService(service: Class<T>): T
 
-  /**
-   * 注入RealmConfigs,在{@link ConfigModule#registerComponents(Context, IRepositoryManager)}中进行注入
-   */
-  void injectRealmConfigs(RealmConfiguration... realmConfigurations);
+    /**
+     * 根据传入的Class获取对应的RxCache service
+     */
+    fun <T> obtainCacheService(cache: Class<T>): T
 
-
-  /**
-   * 根据传入的Class获取对应的Retrift service
-   */
-  <T> T obtainRetrofitService(Class<T> service);
-
-  /**
-   * 根据传入的Class获取对应的RxCache service
-   */
-  <T> T obtainCacheService(Class<T> cache);
-
-  /**
-   * 根据传入的RealmFileName获取对应的Realm配置
-   */
-  RealmConfiguration obtainRealmConfig(String realmFileName);
-
+    /**
+     * 根据传入的RealmFileName获取对应的Realm配置
+     */
+    fun obtainRealmConfig(realmFileName: String): RealmConfiguration?
 }

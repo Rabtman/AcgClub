@@ -24,7 +24,7 @@ data class QiMiaoComicPage(
 
     constructor(source: Parcel) : this(
             source.createTypedArrayList(QiMiaoComicItem.CREATOR),
-            source.readString()
+            source.readString() ?: ""
     )
 
     override fun describeContents() = 0
@@ -65,12 +65,12 @@ data class QiMiaoComicItem(var comicId: String = "",
     }
 
     constructor(source: Parcel) : this(
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString()
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: ""
     )
 
     override fun describeContents() = 0

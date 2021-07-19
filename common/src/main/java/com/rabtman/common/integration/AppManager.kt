@@ -7,7 +7,6 @@ import android.app.ActivityManager
 import android.app.Application
 import android.content.Context
 import android.content.Intent
-import android.text.TextUtils
 import android.view.View
 import com.google.android.material.snackbar.Snackbar
 import com.rabtman.common.bus.AppManagerEvent
@@ -28,12 +27,7 @@ class AppManager @Inject constructor(private var mApplication: Application?) {
 
     private val mAppManagerEventFlowable: Flowable<AppManagerEvent> =
         default.toFlowable(AppManagerEvent::class.java)
-    /**
-     * 获得当前在前台的activity
-     */
-    /**
-     * 将在前台的activity保存
-     */
+
     //当前在前台的activity
     var currentActivity: Activity? = null
 
@@ -48,10 +42,11 @@ class AppManager @Inject constructor(private var mApplication: Application?) {
                 override fun onNext(appManagerEvent: AppManagerEvent) {
                     when (appManagerEvent.type) {
                         AppManagerEvent.START_ACTIVITY -> dispatchStart(appManagerEvent.msg)
-                        AppManagerEvent.SHOW_SNACK_BAR -> if (appManagerEvent.msg is String && TextUtils
-                                .isEmpty(appManagerEvent.msg as String)
-                        ) {
-                            showSnackbar(appManagerEvent.msg as String)
+                        AppManagerEvent.SHOW_SNACK_BAR -> {
+                            (appManagerEvent.msg as? String)?.takeIf { it.isNotBlank() }
+                                ?.let { msg ->
+                                    showSnackbar(msg)
+                                }
                         }
                         AppManagerEvent.KILL_ALL -> killAll()
                         AppManagerEvent.APP_EXIT -> AppExit()
@@ -75,27 +70,23 @@ class AppManager @Inject constructor(private var mApplication: Application?) {
     /**
      * 使用snackbar显示内容
      */
-    fun showSnackbar(message: String?) {
-        if (currentActivity == null) {
-            LogUtil.w("mCurrentActivity == null when showSnackbar(String,boolean)")
-            return
+    fun showSnackbar(message: String) {
+        currentActivity?.apply {
+            val view = window.decorView.findViewById<View>(R.id.content)
+            Snackbar.make(view, message, Snackbar.LENGTH_SHORT).show()
         }
-        val view = currentActivity!!.window.decorView.findViewById<View>(R.id.content)
-        Snackbar.make(view, message!!, Snackbar.LENGTH_SHORT).show()
     }
 
     /**
      * 让在前台的activity,打开下一个activity
      */
     fun startActivity(intent: Intent) {
-        if (currentActivity == null) {
+        currentActivity?.startActivity(intent) ?: run {
             LogUtil.w("mCurrentActivity == null when startActivity(Intent)")
             //如果没有前台的activity就使用new_task模式启动activity
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            mApplication!!.startActivity(intent)
-            return
+            mApplication?.startActivity(intent)
         }
-        currentActivity!!.startActivity(intent)
     }
 
     /**

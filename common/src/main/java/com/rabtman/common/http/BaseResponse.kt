@@ -1,10 +1,11 @@
-package com.rabtman.common.http;
+package com.rabtman.common.http
 
 /**
  * @author Rabtman
  */
-public class BaseResponse<T> {
+class BaseResponse<T> {
+    var message: String? = null
 
-  public String message;
-  public T data;
+    @JvmField
+    var data: T? = null
 }

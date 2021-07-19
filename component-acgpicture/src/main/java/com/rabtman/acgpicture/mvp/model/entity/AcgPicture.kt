@@ -100,11 +100,11 @@ data class AcgPictureItem(
         @SerializedName("type") val type: String = ""
 ) : Parcelable {
     constructor(source: Parcel) : this(
-            source.createStringArrayList(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString()
+        source.createStringArrayList(),
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: ""
     )
 
     override fun describeContents() = 0

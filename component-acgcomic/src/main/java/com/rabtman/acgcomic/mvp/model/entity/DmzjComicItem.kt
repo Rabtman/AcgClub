@@ -33,24 +33,24 @@ data class DmzjComicItem(
         @SerializedName("num") val num: String = ""
 ) : Parcelable {
     constructor(source: Parcel) : this(
-            source.readInt(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readInt(),
-            source.readInt(),
-            source.readInt(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readInt(),
-            source.readInt(),
-            source.readInt(),
-            source.readString()
+        source.readInt(),
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readInt(),
+        source.readInt(),
+        source.readInt(),
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readInt(),
+        source.readInt(),
+        source.readInt(),
+        source.readString() ?: ""
     )
 
     override fun describeContents() = 0

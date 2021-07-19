@@ -23,9 +23,9 @@ data class MusicInfo(
     }
 
     constructor(source: Parcel) : this(
-            source.readInt(),
-            source.readString(),
-            source.readParcelable<Res>(Res::class.java.classLoader)
+        source.readInt(),
+        source.readString() ?: "",
+        source.readParcelable<Res>(Res::class.java.classLoader)
     )
 
     override fun describeContents() = 0
@@ -38,7 +38,7 @@ data class MusicInfo(
 
     fun readFromParcel(dest: Parcel) {
         code = dest.readInt()
-        msg = dest.readString()
+        msg = dest.readString() ?: ""
         res = dest.readParcelable<Res>(Res::class.java.classLoader)
     }
 
@@ -74,14 +74,14 @@ data class Res(
     }
 
     constructor(source: Parcel) : this(
-            source.readParcelable<AnimeInfo>(AnimeInfo::class.java.classLoader),
-            source.readInt(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            1 == source.readInt(),
-            source.readString(),
-            source.readString()
+        source.readParcelable<AnimeInfo>(AnimeInfo::class.java.classLoader),
+        source.readInt(),
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        1 == source.readInt(),
+        source.readString() ?: "",
+        source.readString() ?: ""
     )
 
     override fun describeContents() = 0
@@ -100,12 +100,12 @@ data class Res(
     fun readFromParcel(dest: Parcel) {
         animeInfo = dest.readParcelable<AnimeInfo>(AnimeInfo::class.java.classLoader)
         atime = dest.readInt()
-        author = dest.readString()
-        id = dest.readString()
-        playUrl = dest.readString()
+        author = dest.readString() ?: ""
+        id = dest.readString() ?: ""
+        playUrl = dest.readString() ?: ""
         recommend = 1 == dest.readInt()
-        title = dest.readString()
-        type = dest.readString()
+        title = dest.readString() ?: ""
+        type = dest.readString() ?: ""
     }
 
     companion object {
@@ -140,14 +140,14 @@ data class AnimeInfo(
     }
 
     constructor(source: Parcel) : this(
-            source.readInt(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readString(),
-            source.readInt(),
-            source.readString(),
-            source.readInt()
+        source.readInt(),
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readString() ?: "",
+        source.readInt(),
+        source.readString() ?: "",
+        source.readInt()
     )
 
     override fun describeContents() = 0
@@ -165,12 +165,12 @@ data class AnimeInfo(
 
     fun readFromParcel(dest: Parcel) {
         atime = dest.readInt()
-        bg = dest.readString()
-        desc = dest.readString()
-        id = dest.readString()
-        logo = dest.readString()
+        bg = dest.readString() ?: ""
+        desc = dest.readString() ?: ""
+        id = dest.readString() ?: ""
+        logo = dest.readString() ?: ""
         month = dest.readInt()
-        title = dest.readString()
+        title = dest.readString() ?: ""
         year = dest.readInt()
     }
 

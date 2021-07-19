@@ -28,11 +28,11 @@ class ZeroFiveNews : Parcelable {
 
     constructor() {}
     protected constructor(`in`: Parcel) {
-        imgUrl = `in`.readString()
-        title = `in`.readString()
-        description = `in`.readString()
-        dateTime = `in`.readString()
-        contentLink = `in`.readString()
+        imgUrl = `in`.readString() ?: ""
+        title = `in`.readString() ?: ""
+        description = `in`.readString() ?: ""
+        dateTime = `in`.readString() ?: ""
+        contentLink = `in`.readString() ?: ""
     }
 
     override fun toString(): String {

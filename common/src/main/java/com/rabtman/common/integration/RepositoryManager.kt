@@ -1,90 +1,74 @@
-package com.rabtman.common.integration;
+package com.rabtman.common.integration
 
-import android.content.Context;
-import io.realm.RealmConfiguration;
-import io.rx_cache2.internal.RxCache;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import retrofit2.Retrofit;
+import io.realm.RealmConfiguration
+import io.rx_cache2.internal.RxCache
+import retrofit2.Retrofit
+import javax.inject.Inject
+import javax.inject.Singleton
 
 /**
  * 用来管理网络请求层,以及数据缓存层,以后可以添加数据库请求层
- * 需要在{@link ConfigModule}的实现类中先inject需要的服务
+ * 需要在[ConfigModule]的实现类中先inject需要的服务
  * Created by jess on 13/04/2017 09:52
  * Contact with jess.yan.effort@gmail.com
  */
 @Singleton
-public class RepositoryManager implements IRepositoryManager {
+class RepositoryManager @Inject constructor(
+    private val mRetrofit: Retrofit,
+    private val mRxCache: RxCache
+) : IRepositoryManager {
+    private val mRetrofitServiceCache: MutableMap<String, Any> = mutableMapOf()
+    private val mCacheServiceCache: MutableMap<String, Any> = mutableMapOf()
+    private val mRealmConfigs: MutableMap<String, RealmConfiguration> = mutableMapOf()
 
-  private final Map<String, Object> mRetrofitServiceCache = new LinkedHashMap<>();
-  private final Map<String, Object> mCacheServiceCache = new LinkedHashMap<>();
-  private final Map<String, RealmConfiguration> mRealmConfigs = new LinkedHashMap<>();
-  private Retrofit mRetrofit;
-  private RxCache mRxCache;
-
-  @Inject
-  public RepositoryManager(Retrofit retrofit, RxCache rxCache) {
-    this.mRetrofit = retrofit;
-    this.mRxCache = rxCache;
-  }
-
-  /**
-   * 注入RetrofitService,在{@link ConfigModule#registerComponents(Context, IRepositoryManager)}中进行注入
-   */
-  @Override
-  public void injectRetrofitService(Class<?>... services) {
-    for (Class<?> service : services) {
-      if (mRetrofitServiceCache.containsKey(service.getName())) {
-        continue;
-      }
-      mRetrofitServiceCache.put(service.getName(), mRetrofit.create(service));
+    /**
+     * 注入RetrofitService,在[ConfigModule.registerComponents]中进行注入
+     */
+    override fun injectRetrofitService(vararg services: Class<*>) {
+        for (service in services) {
+            if (mRetrofitServiceCache.containsKey(service.name)) {
+                continue
+            }
+            mRetrofitServiceCache[service.name] = mRetrofit.create(service)
+        }
     }
 
-  }
-
-  /**
-   * 注入CacheService,在{@link ConfigModule#registerComponents(Context, IRepositoryManager)}中进行注入
-   */
-  @Override
-  public void injectCacheService(Class<?>... services) {
-    for (Class<?> service : services) {
-      if (mCacheServiceCache.containsKey(service.getName())) {
-        continue;
-      }
-      mCacheServiceCache.put(service.getName(), mRxCache.using(service));
+    /**
+     * 注入CacheService,在[ConfigModule.registerComponents]中进行注入
+     */
+    override fun injectCacheService(vararg services: Class<*>) {
+        for (service in services) {
+            if (mCacheServiceCache.containsKey(service.name)) {
+                continue
+            }
+            mCacheServiceCache[service.name] = mRxCache.using(service)
+        }
     }
-  }
 
-  @Override
-  public void injectRealmConfigs(RealmConfiguration... realmConfigurations) {
-    for (RealmConfiguration realmConfiguration : realmConfigurations) {
-      if (mRealmConfigs.containsKey(realmConfiguration.getRealmFileName())) {
-        continue;
-      }
-      mRealmConfigs.put(realmConfiguration.getRealmFileName(), realmConfiguration);
+    override fun injectRealmConfigs(vararg realmConfigurations: RealmConfiguration) {
+        for (realmConfiguration in realmConfigurations) {
+            if (mRealmConfigs.containsKey(realmConfiguration.realmFileName)) {
+                continue
+            }
+            mRealmConfigs[realmConfiguration.realmFileName] = realmConfiguration
+        }
     }
-  }
 
-  /**
-   * 根据传入的Class获取对应的Retrift service
-   */
-  @Override
-  public <T> T obtainRetrofitService(Class<T> service) {
-    return (T) mRetrofitServiceCache.get(service.getName());
-  }
+    /**
+     * 根据传入的Class获取对应的Retrift service
+     */
+    override fun <T> obtainRetrofitService(service: Class<T>): T {
+        return mRetrofitServiceCache[service.name] as T
+    }
 
-  /**
-   * 根据传入的Class获取对应的RxCache service
-   */
-  @Override
-  public <T> T obtainCacheService(Class<T> cache) {
-    return (T) mCacheServiceCache.get(cache.getName());
-  }
+    /**
+     * 根据传入的Class获取对应的RxCache service
+     */
+    override fun <T> obtainCacheService(cache: Class<T>): T {
+        return mCacheServiceCache[cache.name] as T
+    }
 
-  @Override
-  public RealmConfiguration obtainRealmConfig(String realmFileName) {
-    return mRealmConfigs.get(realmFileName);
-  }
+    override fun obtainRealmConfig(realmFileName: String): RealmConfiguration? {
+        return mRealmConfigs[realmFileName]
+    }
 }

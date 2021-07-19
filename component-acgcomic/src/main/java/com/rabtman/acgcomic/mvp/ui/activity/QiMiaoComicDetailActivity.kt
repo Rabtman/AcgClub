@@ -43,7 +43,8 @@ import jp.wasabeef.glide.transformations.BlurTransformation
  * @author Rabtman
  */
 @Route(path = RouterConstants.PATH_COMIC_QIMIAO_DETAIL)
-class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(), QiMiaoComicDetailContract.View {
+class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(),
+    QiMiaoComicDetailContract.View {
 
     @BindView(R2.id.toolbar)
     lateinit internal var mToolBar: Toolbar
@@ -97,14 +98,14 @@ class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(), Qi
     lateinit internal var rcvQiMiaoComicDetail: RecyclerView
 
     private lateinit var currentComicInfo: QiMiaoComicItem
-    private lateinit var episodeItemAdpater: QiMiaoComicEpisodeItemAdapter
+    private lateinit var episodeItemAdapter: QiMiaoComicEpisodeItemAdapter
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerQiMiaoComicDetailComponent.builder()
-                .appComponent(appComponent)
-                .qiMiaoComicDetailModule(QiMiaoComicDetailModule(this))
-                .build()
-                .inject(this)
+            .appComponent(appComponent)
+            .qiMiaoComicDetailModule(QiMiaoComicDetailModule(this))
+            .build()
+            .inject(this)
     }
 
     override fun getLayoutId(): Int {
@@ -127,24 +128,25 @@ class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(), Qi
         setToolBar(mToolBar, "")
         collapsingToolbarLayout.isTitleEnabled = false
 
-        currentComicInfo = intent.getParcelableExtra(IntentConstant.QIMIAO_COMIC_ITEM)
+        currentComicInfo =
+            intent.getParcelableExtra(IntentConstant.QIMIAO_COMIC_ITEM) ?: QiMiaoComicItem()
 
-        episodeItemAdpater = QiMiaoComicEpisodeItemAdapter()
+        episodeItemAdapter = QiMiaoComicEpisodeItemAdapter()
         mPresenter.getComicDetail(currentComicInfo.comicLink)
     }
 
     private fun initPageStatus() {
         mLoadService = LoadSir.Builder()
-                .addCallback(PlaceholderCallback())
-                .addCallback(EmptyCallback())
-                .addCallback(RetryCallback())
-                .setDefaultCallback(PlaceholderCallback::class.java)
-                .build()
-                .register(this, { _ ->
-                    currentComicInfo?.let { it ->
-                        mPresenter.getComicDetail(it.comicLink)
-                    }
-                })
+            .addCallback(PlaceholderCallback())
+            .addCallback(EmptyCallback())
+            .addCallback(RetryCallback())
+            .setDefaultCallback(PlaceholderCallback::class.java)
+            .build()
+            .register(this, { _ ->
+                currentComicInfo?.let { it ->
+                    mPresenter.getComicDetail(it.comicLink)
+                }
+            })
     }
 
     @OnClick(R2.id.btn_qimiao_comic_like)
@@ -164,7 +166,7 @@ class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(), Qi
 
     @OnClick(R2.id.btn_qimiao_comic_detail_more)
     fun loadMoreEpisode() {
-        episodeItemAdpater.setItemCount()
+        episodeItemAdapter.setItemCount()
         btnQiMiaoComicDetailMore.visibility = View.GONE
     }
 
@@ -173,27 +175,27 @@ class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(), Qi
         if (btnQiMiaoComicLike.tag != comicCache.isCollect) {
             btnQiMiaoComicLike.tag = comicCache.isCollect
             btnQiMiaoComicLike.setImageDrawable(
-                    ContextCompat.getDrawable(
-                            baseContext,
-                            if (comicCache.isCollect) {
-                                R.drawable.ic_heart_solid
-                            } else {
-                                R.drawable.ic_heart
-                            }
-                    )
+                ContextCompat.getDrawable(
+                    baseContext,
+                    if (comicCache.isCollect) {
+                        R.drawable.ic_heart_solid
+                    } else {
+                        R.drawable.ic_heart
+                    }
+                )
             )
         }
         //更新历史观看记录
-        if (episodeItemAdpater.data.isNotEmpty()) {
+        if (episodeItemAdapter.data.isNotEmpty()) {
             if (comicCache.chapterPos == 0 && comicCache.pagePos == 0) {
                 tvQiMiaoComicRead.text = getString(R.string.acgcomic_label_comic_start)
             } else {
-                episodeItemAdpater.setRecordPos(comicCache.chapterPos.toString())
-                episodeItemAdpater.data.map {
+                episodeItemAdapter.setRecordPos(comicCache.chapterPos.toString())
+                episodeItemAdapter.data.map {
                     if (comicCache.chapterPos.toString() == it.chapterId) {
                         tvQiMiaoComicRead.text = String.format(
-                                getString(R.string.acgcomic_label_comic_continue),
-                                it.name
+                            getString(R.string.acgcomic_label_comic_continue),
+                            it.name
                         )
                     }
                 }
@@ -223,8 +225,8 @@ class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(), Qi
 
         //选集内容
         layoutSceduleEpisode.visibility = android.view.View.VISIBLE
-        episodeItemAdpater.setList(comicInfo.comicChapters)
-        episodeItemAdpater.setOnItemClickListener { adapter, _, position ->
+        episodeItemAdapter.setList(comicInfo.comicChapters)
+        episodeItemAdapter.setOnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as QiMiaoComicChapter
             mPresenter.updateScheduleReadChapter(currentComicInfo.comicId, item.chapterId.toInt())
             start2ComicRead(currentComicInfo.comicId, item.chapterId)
@@ -232,7 +234,7 @@ class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(), Qi
         val layoutManager = GridLayoutManager(this, 2)
         layoutManager.orientation = GridLayoutManager.VERTICAL
         rcvQiMiaoComicDetail.layoutManager = layoutManager
-        rcvQiMiaoComicDetail.adapter = episodeItemAdpater
+        rcvQiMiaoComicDetail.adapter = episodeItemAdapter
         rcvQiMiaoComicDetail.isNestedScrollingEnabled = false
 
         //番剧介绍
@@ -246,10 +248,10 @@ class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(), Qi
 
     override fun start2ComicRead(id: String, lastChapterId: String) {
         RouterUtils.getInstance()
-                .build(RouterConstants.PATH_COMIC_QIMIAO_READ)
-                .withString(IntentConstant.QIMIAO_COMIC_ID, id)
-                .withString(IntentConstant.QIMIAO_COMIC_TITLE, currentComicInfo.title)
-                .withString(IntentConstant.QIMIAO_COMIC_CHAPTER_ID, lastChapterId)
-                .navigation()
+            .build(RouterConstants.PATH_COMIC_QIMIAO_READ)
+            .withString(IntentConstant.QIMIAO_COMIC_ID, id)
+            .withString(IntentConstant.QIMIAO_COMIC_TITLE, currentComicInfo.title)
+            .withString(IntentConstant.QIMIAO_COMIC_CHAPTER_ID, lastChapterId)
+            .navigation()
     }
 }

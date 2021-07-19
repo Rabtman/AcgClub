@@ -13,12 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.rabtman.common.di.scope;
+package com.rabtman.common.di.scope
 
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
-import java.lang.annotation.Retention;
-import javax.inject.Scope;
+import javax.inject.Scope
 
 /**
  * A scoping annotation to permit objects whose lifetime should
@@ -26,7 +23,5 @@ import javax.inject.Scope;
  * correct component.
  */
 @Scope
-@Retention(RUNTIME)
-public @interface FragmentScope {
-
-}
+@kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
+annotation class FragmentScope

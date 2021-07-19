@@ -75,15 +75,32 @@ object Utils {
         return "gif" == getPathFormat(url)
     }
 
-    fun getTextBitmap(context: Context, width: Int, height: Int, radius: Int, text: String?, textSize: Int, @ColorRes bgColor: Int): Bitmap {
+    fun getTextBitmap(
+        context: Context,
+        width: Int,
+        height: Int,
+        radius: Int,
+        text: String,
+        textSize: Int,
+        @ColorRes bgColor: Int
+    ): Bitmap {
         var radius = radius
         radius = dp2px(context, radius.toFloat())
-        val bitmap = Bitmap.createBitmap(dp2px(context, width.toFloat()), dp2px(context, height.toFloat()), Bitmap.Config.ARGB_8888)
+        val bitmap = Bitmap.createBitmap(
+            dp2px(context, width.toFloat()),
+            dp2px(context, height.toFloat()),
+            Bitmap.Config.ARGB_8888
+        )
         val canvas = Canvas(bitmap)
         val rect = RectF(0F, 0F, canvas.width.toFloat(), canvas.height.toFloat())
         val paint = Paint(Paint.ANTI_ALIAS_FLAG)
         paint.color = context.resources.getColor(bgColor)
-        canvas.drawRoundRect(RectF(0F, 0F, rect.width(), rect.height()), radius.toFloat(), radius.toFloat(), paint)
+        canvas.drawRoundRect(
+            RectF(0F, 0F, rect.width(), rect.height()),
+            radius.toFloat(),
+            radius.toFloat(),
+            paint
+        )
         paint.color = Color.WHITE
         paint.textSize = dp2px(context, textSize.toFloat()).toFloat()
         paint.textAlign = Paint.Align.CENTER
@@ -93,8 +110,26 @@ object Utils {
         return bitmap
     }
 
-    fun getTextDrawable(context: Context, width: Int, height: Int, radius: Int, text: String?, textSize: Int, @ColorRes bgColor: Int): Drawable {
-        return BitmapDrawable(getTextBitmap(context, width, height, radius, text, textSize, bgColor))
+    fun getTextDrawable(
+        context: Context,
+        width: Int,
+        height: Int,
+        radius: Int,
+        text: String,
+        textSize: Int,
+        @ColorRes bgColor: Int
+    ): Drawable {
+        return BitmapDrawable(
+            getTextBitmap(
+                context,
+                width,
+                height,
+                radius,
+                text,
+                textSize,
+                bgColor
+            )
+        )
     }
 
     fun isEmpty(collection: Collection<*>?): Boolean {

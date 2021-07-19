@@ -4,7 +4,7 @@ object App {
     val compileSdkVersion = 28
     val buildToolsVersion = "28.0.0"
     val minSdkVersion = 21
-    val targetSdkVersion = 30
+    val targetSdkVersion = 28
     val versionCode = 7
     val versionName = "1.0.0"
     val resConfigs = "zh"
@@ -26,7 +26,7 @@ object DepVer {
     val retrofit = "2.9.0"
     val okhttp = "4.9.1"
     val glide = "4.12.0"
-    val dagger2 = "2.14.1"
+    val dagger2 = "2.37"
     val butterknife = "10.2.1"
     val blockcanary = "1.5.0"
     val leakcanary = "1.5.4"
@@ -75,7 +75,7 @@ object Libs {
 
     //image
     val glide = "com.github.bumptech.glide:glide:${DepVer.glide}"
-    val glide_transformations = "jp.wasabeef:glide-transformations:3.1.1"
+    val glide_transformations = "jp.wasabeef:glide-transformations:4.3.0"
     val glide_compiler = "com.github.bumptech.glide:compiler:${DepVer.glide}"
     val glide_loader_okhttp3 = "com.github.bumptech.glide:okhttp3-integration:${DepVer.glide}"
 

@@ -31,55 +31,71 @@ import com.rabtman.router.RouterConstants
  * @author Rabtman
  */
 @Route(path = RouterConstants.PATH_COMIC_QIMIAO_READ)
-class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicReadPresenter>(), QiMIaoComicChapterDetailContract.View {
+class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicReadPresenter>(),
+    QiMIaoComicChapterDetailContract.View {
 
     //漫画阅读控制栏
     @BindView(R2.id.layout_comic_top)
     lateinit var layoutComicTop: RelativeLayout
+
     @BindView(R2.id.btn_comic_back)
     lateinit var btnComicBack: ImageView
+
     @BindView(R2.id.tv_comic_title)
     lateinit var tvComicTitle: TextView
+
     @BindView(R2.id.layout_comic_bottom)
     lateinit var layoutComicBottom: RelativeLayout
+
     @BindView(R2.id.btn_comic_before)
     lateinit var btnComicBefore: ImageView
+
     @BindView(R2.id.btn_comic_next)
     lateinit var btnComicNext: ImageView
+
     @BindView(R2.id.seekbar_comic_proc)
     lateinit var seekComicProc: AppCompatSeekBar
+
     @BindView(R2.id.tv_comic_count)
     lateinit var tvComicCount: TextView
+
     @BindView(R2.id.tv_comic_pos)
     lateinit var tvComicPos: TextView
+
     @BindView(R2.id.tv_comic_pos_tip)
     lateinit var tvComicPosTip: TextView
+
     /**
      * 控制栏的显示状态
      */
     private var mVisible: Boolean = false
+
     /**
      * 动画时间
      */
     private val UI_ANIMATION_DELAY = 200
+
     //漫画内容
     @BindView(R2.id.rcv_qimiao_comic_content)
     lateinit var rcvComicContent: RecyclerView
     lateinit var layoutManager: LinearLayoutManager
     private lateinit var qiMiaoComicReadAdapter: QiMiaoComicReadAdapter
+
     //当前漫画名称
     private var curComicTitle = ""
+
     //当前漫画页面下标
     private var curPagePos = 0
+
     //当前漫画总页数
     private var maxPage = 0
 
     override fun setupActivityComponent(appComponent: AppComponent) {
         DaggerQiMiaoComicEpisodeDetailComponent.builder()
-                .appComponent(appComponent)
-                .qiMiaoComicEpisodeDetailModule(QiMiaoComicEpisodeDetailModule(this))
-                .build()
-                .inject(this)
+            .appComponent(appComponent)
+            .qiMiaoComicEpisodeDetailModule(QiMiaoComicEpisodeDetailModule(this))
+            .build()
+            .inject(this)
     }
 
     override fun getLayoutId(): Int {
@@ -108,7 +124,7 @@ class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicReadPresenter>(), QiMIao
     }
 
     override fun initData() {
-        curComicTitle = intent.getStringExtra(IntentConstant.QIMIAO_COMIC_TITLE)
+        curComicTitle = intent.getStringExtra(IntentConstant.QIMIAO_COMIC_TITLE) ?: ""
 
         qiMiaoComicReadAdapter = QiMiaoComicReadAdapter()
         qiMiaoComicReadAdapter.setOnItemClickListener { _, _, _ ->
@@ -170,8 +186,10 @@ class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicReadPresenter>(), QiMIao
 
         })
 
-        mPresenter.setIntentData(intent.getStringExtra(IntentConstant.QIMIAO_COMIC_ID),
-                intent.getStringExtra(IntentConstant.QIMIAO_COMIC_CHAPTER_ID))
+        mPresenter.setIntentData(
+            intent.getStringExtra(IntentConstant.QIMIAO_COMIC_ID),
+            intent.getStringExtra(IntentConstant.QIMIAO_COMIC_CHAPTER_ID)
+        )
         mPresenter.getEpisodeDetailAndCache()
     }
 
@@ -239,15 +257,17 @@ class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicReadPresenter>(), QiMIao
      */
     internal fun showPanel() {
         val translateAnimation = TranslateAnimation(
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 1.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f)
+            Animation.RELATIVE_TO_SELF, 0.0f,
+            Animation.RELATIVE_TO_SELF, 0.0f,
+            Animation.RELATIVE_TO_SELF, 1.0f,
+            Animation.RELATIVE_TO_SELF, 0.0f
+        )
         val translateAnimation1 = TranslateAnimation(
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, -1.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f)
+            Animation.RELATIVE_TO_SELF, 0.0f,
+            Animation.RELATIVE_TO_SELF, 0.0f,
+            Animation.RELATIVE_TO_SELF, -1.0f,
+            Animation.RELATIVE_TO_SELF, 0.0f
+        )
         translateAnimation.duration = UI_ANIMATION_DELAY.toLong()
         translateAnimation1.duration = UI_ANIMATION_DELAY.toLong()
         layoutComicTop.animation = translateAnimation1
@@ -261,15 +281,17 @@ class QiMiaoComicReadActivity : BaseActivity<QiMiaoComicReadPresenter>(), QiMIao
      */
     internal fun hidePanel() {
         val translateAnimation = TranslateAnimation(
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, -1.0f)
+            Animation.RELATIVE_TO_SELF, 0.0f,
+            Animation.RELATIVE_TO_SELF, 0.0f,
+            Animation.RELATIVE_TO_SELF, 0.0f,
+            Animation.RELATIVE_TO_SELF, -1.0f
+        )
         val translateAnimation1 = TranslateAnimation(
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 0.0f,
-                Animation.RELATIVE_TO_SELF, 1.0f)
+            Animation.RELATIVE_TO_SELF, 0.0f,
+            Animation.RELATIVE_TO_SELF, 0.0f,
+            Animation.RELATIVE_TO_SELF, 0.0f,
+            Animation.RELATIVE_TO_SELF, 1.0f
+        )
         translateAnimation.duration = UI_ANIMATION_DELAY.toLong()
         translateAnimation1.duration = UI_ANIMATION_DELAY.toLong()
         layoutComicTop.animation = translateAnimation

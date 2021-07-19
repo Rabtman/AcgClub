@@ -1,7 +1,5 @@
-package com.rabtman.common.http;
+package com.rabtman.common.http
 
-
-public interface BaseServiceManager {
-
-  void onDestory();
+interface BaseServiceManager {
+    fun onDestroy()
 }

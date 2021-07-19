@@ -22,8 +22,7 @@ import javax.inject.Inject
  */
 @ActivityScope
 class ScheduleDetailModel @Inject constructor(repositoryManager: IRepositoryManager) : BaseModel(repositoryManager), ScheduleDetailContract.Model {
-    private val DAO = ScheduleDAO(
-            mRepositoryManager.obtainRealmConfig(SystemConstant.DB_NAME))
+    private val DAO = ScheduleDAO(mRepositoryManager.obtainRealmConfig(SystemConstant.DB_NAME))
 
     override fun getScheduleDetail(url: String): Flowable<ScheduleDetail> {
         return Flowable.create({ e ->
