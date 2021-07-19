@@ -50,7 +50,9 @@ class AcgComicConfig : ConfigModule {
         })
     }
 
-    override fun injectActivityLifecycle(context: Context,
-                                         lifecycles: List<ActivityLifecycleCallbacks>) {
+    override fun injectActivityLifecycle(
+        context: Context,
+        lifecycles: MutableList<ActivityLifecycleCallbacks>
+    ) {
     }
 }

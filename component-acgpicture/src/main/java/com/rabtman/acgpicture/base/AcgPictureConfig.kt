@@ -35,7 +35,9 @@ class AcgPictureConfig : ConfigModule {
     override fun injectAppLifecycle(context: Context, lifecycles: MutableList<Lifecycle>) {
     }
 
-    override fun injectActivityLifecycle(context: Context,
-                                         lifecycles: List<ActivityLifecycleCallbacks>) {
+    override fun injectActivityLifecycle(
+        context: Context,
+        lifecycles: MutableList<ActivityLifecycleCallbacks>
+    ) {
     }
 }

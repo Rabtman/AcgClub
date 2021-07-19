@@ -17,8 +17,15 @@ class AcgNewsConfig : ConfigModule {
         repositoryManager.injectRetrofitService(AcgNewsService::class.java)
     }
 
-    override fun injectAppLifecycle(context: Context, lifecycles: List<CommonApplicationLike.Lifecycle>) {}
-    override fun injectActivityLifecycle(context: Context,
-                                         lifecycles: List<ActivityLifecycleCallbacks>) {
+    override fun injectAppLifecycle(
+        context: Context,
+        lifecycles: MutableList<CommonApplicationLike.Lifecycle>
+    ) {
+    }
+
+    override fun injectActivityLifecycle(
+        context: Context,
+        lifecycles: MutableList<ActivityLifecycleCallbacks>
+    ) {
     }
 }
