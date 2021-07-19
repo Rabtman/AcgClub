@@ -48,9 +48,8 @@ class CommonApplicationLike(private var mApplication: Application) : IApplicatio
 
     private val mModules: List<ConfigModule> = ManifestParser(mApplication).parse()
 
-    @JvmField
     @Inject
-    var mActivityLifecycle: ActivityLifecycle? = null
+    lateinit var mActivityLifecycle: ActivityLifecycle
     private lateinit var mAppComponent: AppComponent
     private val mLifecycles = ArrayList<Lifecycle>()
 
@@ -147,10 +146,7 @@ class CommonApplicationLike(private var mApplication: Application) : IApplicatio
     }
 
     fun onTerminate() {
-        if (mActivityLifecycle != null) {
-            mApplication.unregisterActivityLifecycleCallbacks(mActivityLifecycle)
-        }
-        mActivityLifecycle = null
+        mApplication.unregisterActivityLifecycleCallbacks(mActivityLifecycle)
         for (lifecycle in mLifecycles) {
             lifecycle.onTerminate(mApplication)
         }

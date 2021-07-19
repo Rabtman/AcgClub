@@ -11,7 +11,7 @@ import javax.inject.Singleton
 class ActivityLifecycle @Inject constructor(private val mAppManager: AppManager) :
     ActivityLifecycleCallbacks {
 
-    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle) {
+    override fun onActivityCreated(activity: Activity, savedInstanceState: Bundle?) {
         //如果intent包含了此字段,并且为true说明不加入到list
         // 默认为false,如果不需要管理(比如不需要在退出所有activity(killAll)时，退出此activity就在intent加此字段为true)
         val isNotAdd =
@@ -35,7 +35,7 @@ class ActivityLifecycle @Inject constructor(private val mAppManager: AppManager)
     }
 
     override fun onActivityStopped(activity: Activity) {}
-    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+    override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle?) {}
     override fun onActivityDestroyed(activity: Activity) {
         mAppManager.removeActivity(activity)
         ActivityStackManager.getInstance().removeActivity(activity)
