@@ -39,7 +39,7 @@ class ScheduleCollectionFragment : SimpleFragment() {
         rcvScheduleCollection.adapter = mAdapter
         mAdapter!!.setOnItemClickListener { adapter, view, position ->
             val item = adapter.getItem(position) as ScheduleCache
-            RouterUtils.getInstance()
+            RouterUtils.instance
                     .build(RouterConstants.PATH_SCHEDULE_DETAIL)
                     .withString(IntentConstant.SCHEDULE_DETAIL_URL, item.scheduleUrl)
                     .navigation()

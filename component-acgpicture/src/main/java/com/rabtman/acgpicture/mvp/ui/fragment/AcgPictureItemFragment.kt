@@ -57,7 +57,7 @@ class AcgPictureItemFragment : BaseFragment<AcgPictureItemPresenter>(), AcgPictu
                 ?: "moeimg")
         mAdapter = AcgPictureItemAdapter()
         mAdapter.setOnItemClickListener { adapter, view, position ->
-            RouterUtils.getInstance()
+            RouterUtils.instance
                     .build(RouterConstants.PATH_PICTURE_ITEM_DETAIL)
                     .withParcelable(IntentConstant.ACGPICTURE_ITEM,
                             adapter.data[position] as AcgPictureItem)

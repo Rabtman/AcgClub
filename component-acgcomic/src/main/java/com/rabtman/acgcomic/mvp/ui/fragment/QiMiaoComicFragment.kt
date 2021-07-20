@@ -126,7 +126,7 @@ class QiMiaoComicFragment : BaseFragment<QiMiaoComicPresenter>(), QiMiaoComicCon
             this.setOnItemClickListener { adpater, _, pos ->
                 val comicItem: QiMiaoComicItem = adpater.getItem(pos) as QiMiaoComicItem
                 if (comicItem.comicLink.isNotEmpty()) {
-                    RouterUtils.getInstance()
+                    RouterUtils.instance
                             .build(RouterConstants.PATH_COMIC_QIMIAO_DETAIL)
                             .withParcelable(IntentConstant.QIMIAO_COMIC_ITEM, comicItem)
                             .navigation()

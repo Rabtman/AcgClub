@@ -247,7 +247,7 @@ class QiMiaoComicDetailActivity : BaseActivity<QiMiaoComicDetailPresenter>(),
     }
 
     override fun start2ComicRead(id: String, lastChapterId: String) {
-        RouterUtils.getInstance()
+        RouterUtils.instance
             .build(RouterConstants.PATH_COMIC_QIMIAO_READ)
             .withString(IntentConstant.QIMIAO_COMIC_ID, id)
             .withString(IntentConstant.QIMIAO_COMIC_TITLE, currentComicInfo.title)

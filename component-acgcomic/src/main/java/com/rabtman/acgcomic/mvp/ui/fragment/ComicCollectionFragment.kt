@@ -43,7 +43,7 @@ class ComicCollectionFragment : SimpleFragment() {
         rcvQiMiaoComicItem.adapter = mAdapter
         mAdapter.setOnItemClickListener { adapter, _, position ->
             val item = adapter.getItem(position) as ComicCache?
-            RouterUtils.getInstance()
+            RouterUtils.instance
                     .build(RouterConstants.PATH_COMIC_QIMIAO_DETAIL)
                     .withParcelable(
                             IntentConstant.QIMIAO_COMIC_ITEM,

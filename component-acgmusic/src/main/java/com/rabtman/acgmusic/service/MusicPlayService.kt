@@ -364,11 +364,11 @@ class MusicPlayService : Service() {
 
     companion object {
         fun startService() {
-            Utils.getApp().startService(Intent(Utils.getApp(), MusicPlayService::class.java))
+            Utils.app.startService(Intent(Utils.app, MusicPlayService::class.java))
         }
 
         fun stopService() {
-            Utils.getApp().stopService(Intent(Utils.getApp(), MusicPlayService::class.java))
+            Utils.app.stopService(Intent(Utils.app, MusicPlayService::class.java))
         }
     }
 }

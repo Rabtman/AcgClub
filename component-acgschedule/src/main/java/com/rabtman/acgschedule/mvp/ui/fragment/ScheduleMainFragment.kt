@@ -135,7 +135,7 @@ class ScheduleMainFragment : BaseFragment<ScheduleMainPresenter>(), ScheduleMain
     });*/
         //往季新番
         tvScheduleNew.setOnClickListener {
-            RouterUtils.getInstance()
+            RouterUtils.instance
                     .build(RouterConstants.PATH_SCHEDULE_NEW)
                     .navigation()
         }
