@@ -9,7 +9,9 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
-import android.widget.ImageView;
+
+import androidx.appcompat.widget.AppCompatImageView;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.Queue;
  *
  * @author clifford
  */
-public class PinchImageView extends ImageView {
+public class PinchImageView extends AppCompatImageView {
 
   ////////////////////////////////配置参数////////////////////////////////
 
@@ -109,7 +111,7 @@ public class PinchImageView extends ImageView {
   private List<OuterMatrixChangedListener> mOuterMatrixChangedListenersCopy;
   /**
    * mOuterMatrixChangedListeners的修改锁定
-   *
+   * <p>
    * 当进入dispatchOuterMatrixChanged方法时,被加1,退出前被减1
    *
    * @see #dispatchOuterMatrixChanged()
@@ -119,7 +121,7 @@ public class PinchImageView extends ImageView {
   private int mDispatchOuterMatrixChangedLock;
   /**
    * mask修改的动画
-   *
+   * <p>
    * 和图片的动画相互独立.
    *
    * @see #zoomMaskTo(RectF, long)
@@ -128,7 +130,7 @@ public class PinchImageView extends ImageView {
   /**
    * 在单指模式下:
    * 记录上一次手指的位置,用于计算新的位置和上一次位置的差值.
-   *
+   * <p>
    * 双指模式下:
    * 记录两个手指的中点,作为和mScaleCenter绑定的点.
    * 这个绑定可以保证mScaleCenter无论如何都会跟随这个中点.
@@ -140,7 +142,7 @@ public class PinchImageView extends ImageView {
   private PointF mLastMovePoint = new PointF();
   /**
    * 缩放模式下图片的缩放中点.
-   *
+   * <p>
    * 为其指代的点经过innerMatrix变换之后的值.
    * 其指代的点在手势过程中始终跟随mLastMovePoint.
    * 通过双指缩放时,其为缩放中心点.
@@ -152,7 +154,7 @@ public class PinchImageView extends ImageView {
   private PointF mScaleCenter = new PointF();
   /**
    * 缩放模式下的基础缩放比例
-   *
+   * <p>
    * 为外层缩放值除以开始缩放时两指距离.
    * 其值乘上最新的两指之间距离为最新的图片缩放比例.
    *
@@ -162,7 +164,7 @@ public class PinchImageView extends ImageView {
   private float mScaleBase = 0;
   /**
    * 图片缩放动画
-   *
+   * <p>
    * 缩放模式把图片的位置大小超出限制之后触发.
    * 双击图片放大或缩小时触发.
    * 手动调用outerMatrixTo触发.
@@ -180,45 +182,45 @@ public class PinchImageView extends ImageView {
   private FlingAnimator mFlingAnimator;
   /**
    * 常用手势处理
-   *
+   * <p>
    * 在onTouchEvent末尾被执行.
    */
   private GestureDetector mGestureDetector = new GestureDetector(PinchImageView.this.getContext(),
-      new GestureDetector.SimpleOnGestureListener() {
+          new GestureDetector.SimpleOnGestureListener() {
 
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-          //只有在单指模式结束之后才允许执行fling
-          if (mPinchMode == PINCH_MODE_FREE && !(mScaleAnimator != null && mScaleAnimator
-              .isRunning())) {
-            fling(velocityX, velocityY);
-          }
-          return true;
-        }
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+              //只有在单指模式结束之后才允许执行fling
+              if (mPinchMode == PINCH_MODE_FREE && !(mScaleAnimator != null && mScaleAnimator
+                      .isRunning())) {
+                fling(velocityX, velocityY);
+              }
+              return true;
+            }
 
-        public void onLongPress(MotionEvent e) {
-          //触发长按
-          if (mOnLongClickListener != null) {
-            mOnLongClickListener.onLongClick(PinchImageView.this);
-          }
-        }
+            public void onLongPress(MotionEvent e) {
+              //触发长按
+              if (mOnLongClickListener != null) {
+                mOnLongClickListener.onLongClick(PinchImageView.this);
+              }
+            }
 
-        public boolean onDoubleTap(MotionEvent e) {
-          //当手指快速第二次按下触发,此时必须是单指模式才允许执行doubleTap
-          if (mPinchMode == PINCH_MODE_SCROLL && !(mScaleAnimator != null && mScaleAnimator
-              .isRunning())) {
-            doubleTap(e.getX(), e.getY());
-          }
-          return true;
-        }
+            public boolean onDoubleTap(MotionEvent e) {
+              //当手指快速第二次按下触发,此时必须是单指模式才允许执行doubleTap
+              if (mPinchMode == PINCH_MODE_SCROLL && !(mScaleAnimator != null && mScaleAnimator
+                      .isRunning())) {
+                doubleTap(e.getX(), e.getY());
+              }
+              return true;
+            }
 
-        public boolean onSingleTapConfirmed(MotionEvent e) {
-          //触发点击
-          if (mOnClickListener != null) {
-            mOnClickListener.onClick(PinchImageView.this);
-          }
-          return true;
-        }
-      });
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+              //触发点击
+              if (mOnClickListener != null) {
+                mOnClickListener.onClick(PinchImageView.this);
+              }
+              return true;
+            }
+          });
 
   ////////////////////////////////公共状态设置////////////////////////////////
 
@@ -253,7 +255,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * 获取外部变换矩阵.
-   *
+   * <p>
    * 外部变换矩阵记录了图片手势操作的最终结果,是相对于图片fit center状态的变换.
    * 默认值为单位矩阵,此时图片为fit center状态.
    *
@@ -271,7 +273,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * 获取内部变换矩阵.
-   *
+   * <p>
    * 内部变换矩阵是原图到fit center状态的变换,当原图尺寸变化或者控件大小变化都会发生改变
    * 当尚未布局或者原图不存在时,其值无意义.所以在调用前需要确保前置条件有效,否则将影响计算结果.
    *
@@ -287,7 +289,7 @@ public class PinchImageView extends ImageView {
     if (isReady()) {
       //原图大小
       RectF tempSrc = MathUtils
-          .rectFTake(0, 0, getDrawable().getIntrinsicWidth(), getDrawable().getIntrinsicHeight());
+              .rectFTake(0, 0, getDrawable().getIntrinsicWidth(), getDrawable().getIntrinsicHeight());
       //控件大小
       RectF tempDst = MathUtils.rectFTake(0, 0, getWidth(), getHeight());
       //计算fit center矩阵
@@ -301,7 +303,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * 获取图片总变换矩阵.
-   *
+   * <p>
    * 总变换矩阵为内部变换矩阵x外部变换矩阵,决定了原图到所见最终状态的变换
    * 当尚未布局或者原图不存在时,其值无意义.所以在调用前需要确保前置条件有效,否则将影响计算结果.
    *
@@ -320,7 +322,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * 获取当前变换后的图片位置和尺寸
-   *
+   * <p>
    * 当尚未布局或者原图不存在时,其值无意义.所以在调用前需要确保前置条件有效,否则将影响计算结果.
    *
    * @param rectF 用于填充结果的对象
@@ -423,12 +425,12 @@ public class PinchImageView extends ImageView {
 
   /**
    * 执行当前outerMatrix到指定outerMatrix渐变的动画
-   *
+   * <p>
    * 调用此方法会停止正在进行中的手势以及手势动画.
    * 当duration为0时,outerMatrix值会被立即设置而不会启动动画.
    *
    * @param endMatrix 动画目标矩阵
-   * @param duration 动画持续时间
+   * @param duration  动画持续时间
    * @see #getOuterMatrix(Matrix)
    */
   public void outerMatrixTo(Matrix endMatrix, long duration) {
@@ -453,12 +455,12 @@ public class PinchImageView extends ImageView {
 
   /**
    * 执行当前mask到指定mask的变化动画
-   *
+   * <p>
    * 调用此方法不会停止手势以及手势相关动画,但会停止正在进行的mask动画.
    * 当前mask为null时,则不执行动画立即设置为目标mask.
    * 当duration为0时,立即将当前mask设置为目标mask,不会执行动画.
    *
-   * @param mask 动画目标mask
+   * @param mask     动画目标mask
    * @param duration 动画持续时间
    * @see #getMask()
    */
@@ -487,7 +489,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * 重置所有状态
-   *
+   * <p>
    * 重置位置到fit center状态,清空mask,停止所有手势,停止所有动画.
    * 但不清空drawable,以及事件绑定相关数据.
    */
@@ -531,7 +533,7 @@ public class PinchImageView extends ImageView {
       if (mOuterMatrixChangedListenersCopy == null) {
         if (mOuterMatrixChangedListeners != null) {
           mOuterMatrixChangedListenersCopy = new ArrayList<OuterMatrixChangedListener>(
-              mOuterMatrixChangedListeners);
+                  mOuterMatrixChangedListeners);
         } else {
           mOuterMatrixChangedListenersCopy = new ArrayList<OuterMatrixChangedListener>();
         }
@@ -560,7 +562,7 @@ public class PinchImageView extends ImageView {
       if (mOuterMatrixChangedListenersCopy == null) {
         if (mOuterMatrixChangedListeners != null) {
           mOuterMatrixChangedListenersCopy = new ArrayList<OuterMatrixChangedListener>(
-              mOuterMatrixChangedListeners);
+                  mOuterMatrixChangedListeners);
         }
       }
       if (mOuterMatrixChangedListenersCopy != null) {
@@ -573,7 +575,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * 触发外部矩阵修改事件
-   *
+   * <p>
    * 需要在每次给外部矩阵设置值时都调用此方法.
    *
    * @see #mOuterMatrix
@@ -608,7 +610,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * 获取图片最大可放大的比例
-   *
+   * <p>
    * 如果放大大于这个比例则不被允许.
    * 在双手缩放过程中如果图片放大比例大于这个值,手指释放将回弹到这个比例.
    * 在双击放大过程中不允许放大比例大于这个值.
@@ -624,7 +626,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * 计算双击之后图片接下来应该被缩放的比例
-   *
+   * <p>
    * 如果值大于getMaxScale或者小于fit center尺寸，则实际使用取边界值.
    * 通过覆盖此方法可以定制不同的图片被双击时使用不同的放大策略.
    *
@@ -676,15 +678,15 @@ public class PinchImageView extends ImageView {
 
   /**
    * 判断当前情况是否能执行手势相关计算
-   *
+   * <p>
    * 包括:是否有图片,图片是否有尺寸,控件是否有尺寸.
    *
    * @return 是否能执行手势相关计算
    */
   private boolean isReady() {
     return getDrawable() != null && getDrawable().getIntrinsicWidth() > 0
-        && getDrawable().getIntrinsicHeight() > 0
-        && getWidth() > 0 && getHeight() > 0;
+            && getDrawable().getIntrinsicHeight() > 0
+            && getWidth() > 0 && getHeight() > 0;
   }
 
   @Override
@@ -744,10 +746,10 @@ public class PinchImageView extends ImageView {
         } else if (mPinchMode == PINCH_MODE_SCALE && event.getPointerCount() > 1) {
           //两个缩放点间的距离
           float distance = MathUtils
-              .getDistance(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
+                  .getDistance(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
           //保存缩放点中点
           float[] lineCenter = MathUtils
-              .getCenterPoint(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
+                  .getCenterPoint(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
           mLastMovePoint.set(lineCenter[0], lineCenter[1]);
           //处理缩放
           scale(mScaleCenter, mScaleBase, distance, mLastMovePoint);
@@ -761,7 +763,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * 让图片移动一段距离
-   *
+   * <p>
    * 不能移动超过可移动范围,超过了就到可移动范围边界为止.
    *
    * @param xDiff 移动距离
@@ -832,7 +834,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * 记录缩放前的一些信息
-   *
+   * <p>
    * 保存基础缩放值.
    * 保存图片缩放中点.
    *
@@ -852,7 +854,7 @@ public class PinchImageView extends ImageView {
     //因为后续的计算都是基于图片是fit center状态下进行变换
     //所以需要把两手指中点除以外层变换矩阵得到mScaleCenter
     float[] center = MathUtils
-        .inverseMatrixPoint(MathUtils.getCenterPoint(x1, y1, x2, y2), mOuterMatrix);
+            .inverseMatrixPoint(MathUtils.getCenterPoint(x1, y1, x2, y2), mOuterMatrix);
     mScaleCenter.set(center[0], center[1]);
   }
 
@@ -860,9 +862,9 @@ public class PinchImageView extends ImageView {
    * 对图片按照一些手势信息进行缩放
    *
    * @param scaleCenter mScaleCenter
-   * @param scaleBase mScaleBase
-   * @param distance 手指两点之间距离
-   * @param lineCenter 手指两点之间中点
+   * @param scaleBase   mScaleBase
+   * @param distance    手指两点之间距离
+   * @param lineCenter  手指两点之间中点
    * @see #mScaleCenter
    * @see #mScaleBase
    */
@@ -887,7 +889,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * 双击后放大或者缩小
-   *
+   * <p>
    * 将图片缩放比例缩放到nextScale指定的值.
    * 但nextScale值不能大于最大缩放值不能小于fit center情况下的缩放值.
    * 将双击的点尽量移动到控件中心.
@@ -932,7 +934,7 @@ public class PinchImageView extends ImageView {
     Matrix testMatrix = MathUtils.matrixTake(innerMatrix);
     testMatrix.postConcat(animEnd);
     RectF testBound = MathUtils
-        .rectFTake(0, 0, getDrawable().getIntrinsicWidth(), getDrawable().getIntrinsicHeight());
+            .rectFTake(0, 0, getDrawable().getIntrinsicWidth(), getDrawable().getIntrinsicHeight());
     testMatrix.mapRect(testBound);
     //修正位置
     float postX = 0;
@@ -967,7 +969,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * 当缩放操作结束动画
-   *
+   * <p>
    * 如果图片超过边界,找到最近的位置动画恢复.
    * 如果图片缩放尺寸超过最大值或者最小值,找到最近的值动画恢复.
    */
@@ -1010,7 +1012,7 @@ public class PinchImageView extends ImageView {
     Matrix testMatrix = MathUtils.matrixTake(currentMatrix);
     testMatrix.postScale(scalePost, scalePost, mLastMovePoint.x, mLastMovePoint.y);
     RectF testBound = MathUtils
-        .rectFTake(0, 0, getDrawable().getIntrinsicWidth(), getDrawable().getIntrinsicHeight());
+            .rectFTake(0, 0, getDrawable().getIntrinsicWidth(), getDrawable().getIntrinsicHeight());
     //获取缩放修正后的图片方框
     testMatrix.mapRect(testBound);
     //检测缩放修正后位置有无超出，如果超出进行位置修正
@@ -1054,10 +1056,10 @@ public class PinchImageView extends ImageView {
 
   /**
    * 执行惯性动画
-   *
+   * <p>
    * 动画在遇到不能移动就停止.
    * 动画速度衰减到很小就停止.
-   *
+   * <p>
    * 其中参数速度单位为 像素/秒
    *
    * @param vx x方向速度
@@ -1096,7 +1098,7 @@ public class PinchImageView extends ImageView {
 
     /**
      * 外部矩阵变化回调
-     *
+     * <p>
      * 外部矩阵的任何变化后都收到此回调.
      * 外部矩阵变化后,总变化矩阵,图片的展示位置都将发生变化.
      *
@@ -1109,7 +1111,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * 对象池
-   *
+   * <p>
    * 防止频繁new对象产生内存抖动.
    * 由于对象池最大长度限制,如果吞度量超过对象池容量,仍然会发生抖动.
    * 此时需要增大对象池容量,但是会占用更多内存.
@@ -1140,7 +1142,7 @@ public class PinchImageView extends ImageView {
 
     /**
      * 获取一个空闲的对象
-     *
+     * <p>
      * 如果对象池为空,则对象池自己会new一个返回.
      * 如果对象池内有对象,则取一个已存在的返回.
      * take出来的对象用完要记得调用given归还.
@@ -1161,7 +1163,7 @@ public class PinchImageView extends ImageView {
 
     /**
      * 归还对象池内申请的对象
-     *
+     * <p>
      * 如果归还的对象数量超过对象池容量,那么归还的对象就会被丢弃.
      *
      * @param obj 归还的对象
@@ -1183,7 +1185,7 @@ public class PinchImageView extends ImageView {
 
     /**
      * 重置对象
-     *
+     * <p>
      * 把对象数据清空到就像刚创建的一样.
      *
      * @param obj 需要被重置的对象
@@ -1355,7 +1357,7 @@ public class PinchImageView extends ImageView {
 
     /**
      * 计算点除以矩阵的值
-     *
+     * <p>
      * matrix.mapPoints(unknownPoint) -> point
      * 已知point和matrix,求unknownPoint的值.
      *
@@ -1379,7 +1381,7 @@ public class PinchImageView extends ImageView {
 
     /**
      * 计算两个矩形之间的变换矩阵
-     *
+     * <p>
      * unknownMatrix.mapRect(to, from)
      * 已知from矩形和to矩形,求unknownMatrix
      *
@@ -1402,13 +1404,13 @@ public class PinchImageView extends ImageView {
      * 计算图片在某个ImageView中的显示矩形
      *
      * @param container ImageView的Rect
-     * @param srcWidth 图片的宽度
+     * @param srcWidth  图片的宽度
      * @param srcHeight 图片的高度
      * @param scaleType 图片在ImageView中的ScaleType
-     * @param result 图片应该在ImageView中展示的矩形
+     * @param result    图片应该在ImageView中展示的矩形
      */
     public static void calculateScaledRectInContainer(RectF container, float srcWidth,
-        float srcHeight, ScaleType scaleType, RectF result) {
+                                                      float srcHeight, ScaleType scaleType, RectF result) {
       if (container == null || result == null) {
         return;
       }
@@ -1426,7 +1428,7 @@ public class PinchImageView extends ImageView {
         Matrix matrix = matrixTake();
         RectF rect = rectFTake(0, 0, srcWidth, srcHeight);
         matrix.setTranslate((container.width() - srcWidth) * 0.5f,
-            (container.height() - srcHeight) * 0.5f);
+                (container.height() - srcHeight) * 0.5f);
         matrix.mapRect(result, rect);
         rectFGiven(rect);
         matrixGiven(matrix);
@@ -1531,7 +1533,7 @@ public class PinchImageView extends ImageView {
 
   /**
    * mask变换动画
-   *
+   * <p>
    * 将mask从一个rect动画到另外一个rect
    */
   private class MaskAnimator extends ValueAnimator implements ValueAnimator.AnimatorUpdateListener {
@@ -1554,8 +1556,8 @@ public class PinchImageView extends ImageView {
     /**
      * 创建mask变换动画
      *
-     * @param start 动画起始状态
-     * @param end 动画终点状态
+     * @param start    动画起始状态
+     * @param end      动画终点状态
      * @param duration 动画持续时间
      */
     public MaskAnimator(RectF start, RectF end, long duration) {
@@ -1594,12 +1596,12 @@ public class PinchImageView extends ImageView {
 
   /**
    * 惯性动画
-   *
+   * <p>
    * 速度逐渐衰减,每帧速度衰减为原来的FLING_DAMPING_FACTOR,当速度衰减到小于1时停止.
    * 当图片不能移动时,动画停止.
    */
   private class FlingAnimator extends ValueAnimator implements
-      ValueAnimator.AnimatorUpdateListener {
+          ValueAnimator.AnimatorUpdateListener {
 
     /**
      * 速度向量
@@ -1608,7 +1610,7 @@ public class PinchImageView extends ImageView {
 
     /**
      * 创建惯性动画
-     *
+     * <p>
      * 参数单位为 像素/帧
      *
      * @param vectorX 速度向量
@@ -1640,11 +1642,11 @@ public class PinchImageView extends ImageView {
 
   /**
    * 缩放动画
-   *
+   * <p>
    * 在给定时间内从一个矩阵的变化逐渐动画到另一个矩阵的变化
    */
   private class ScaleAnimator extends ValueAnimator implements
-      ValueAnimator.AnimatorUpdateListener {
+          ValueAnimator.AnimatorUpdateListener {
 
     /**
      * 开始矩阵
@@ -1663,11 +1665,11 @@ public class PinchImageView extends ImageView {
 
     /**
      * 构建一个缩放动画
-     *
+     * <p>
      * 从一个矩阵变换到另外一个矩阵
      *
      * @param start 开始矩阵
-     * @param end 结束矩阵
+     * @param end   结束矩阵
      */
     public ScaleAnimator(Matrix start, Matrix end) {
       this(start, end, SCALE_ANIMATOR_DURATION);
@@ -1675,11 +1677,11 @@ public class PinchImageView extends ImageView {
 
     /**
      * 构建一个缩放动画
-     *
+     * <p>
      * 从一个矩阵变换到另外一个矩阵
      *
-     * @param start 开始矩阵
-     * @param end 结束矩阵
+     * @param start    开始矩阵
+     * @param end      结束矩阵
      * @param duration 动画时间
      */
     public ScaleAnimator(Matrix start, Matrix end, long duration) {

@@ -3,7 +3,7 @@ package com.rabtman.acgnews.mvp.presenter
 import com.rabtman.acgnews.base.constant.HtmlConstant
 import com.rabtman.acgnews.mvp.contract.ZeroFiveNewsContract
 import com.rabtman.acgnews.mvp.model.jsoup.ZeroFiveNewsPage
-import com.rabtman.common.base.CommonSubscriber
+import com.rabtman.business.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.FragmentScope
 import com.rabtman.common.utils.RxUtil

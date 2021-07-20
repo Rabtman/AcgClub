@@ -17,10 +17,10 @@ import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleNew
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleNew.ScheduleNewItem
 import com.rabtman.acgschedule.mvp.presenter.ScheduleNewPresenter
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleNewAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.BaseActivity
 import com.rabtman.common.base.widget.CommonItemDecoration
 import com.rabtman.common.di.component.AppComponent
-import com.rabtman.router.RouterConstants
 
 /**
  * @author Rabtman

@@ -30,10 +30,10 @@ import com.rabtman.acgschedule.mvp.ui.activity.ScheduleVideoActivity
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleBannerAdapter
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleRecentAdapter
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleRecommendAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.BaseFragment
 import com.rabtman.common.di.component.AppComponent
-import com.rabtman.router.RouterConstants
-import com.rabtman.router.RouterUtils
+import com.rabtman.common.utils.RouterUtils
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.youth.banner.Banner
 

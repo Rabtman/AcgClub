@@ -22,12 +22,12 @@ import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicItem
 import com.rabtman.acgcomic.mvp.presenter.QiMiaoComicPresenter
 import com.rabtman.acgcomic.mvp.ui.adapter.ComicMenuAdapter
 import com.rabtman.acgcomic.mvp.ui.adapter.QiMiaoComicItemAdpater
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.BaseFragment
 import com.rabtman.common.base.widget.DropDownMenu
 import com.rabtman.common.di.component.AppComponent
+import com.rabtman.common.utils.RouterUtils
 import com.rabtman.common.utils.ToastUtil
-import com.rabtman.router.RouterConstants
-import com.rabtman.router.RouterUtils
 
 
 /**

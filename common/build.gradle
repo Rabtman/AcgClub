@@ -9,7 +9,6 @@ if (localPropertiesFile.exists()) {
     properties.load(localPropertiesFile.newDataInputStream())
 }
 
-
 android {
     compileSdkVersion App.compileSdkVersion
     useLibrary 'org.apache.http.legacy'
@@ -31,15 +30,6 @@ android {
         buildConfigField "String", "appVerName", "\"" + App.versionName + "\""
         //application id
         buildConfigField "String", "applicationId", "\"" + App.applicationId + "\""
-        //umeng app key
-        buildConfigField "String", "UMENG_APP_KEY", properties.getProperty("umengAppKey", "\"\"")
-        //umeng share
-        buildConfigField "String", "SINA_WEIBO_KEY", properties.getProperty("SINA_WEIBO_KEY", "\"\"")
-        buildConfigField "String", "SINA_WEIBO_SECRET", properties.getProperty("SINA_WEIBO_SECRET", "\"\"")
-        buildConfigField "String", "QQ_ZONE_ID", properties.getProperty("QQ_ZONE_ID", "\"\"")
-        buildConfigField "String", "QQ_ZONE_KEY", properties.getProperty("QQ_ZONE_KEY", "\"\"")
-        buildConfigField "String", "WEIXIN_ID", properties.getProperty("WEIXIN_ID", "\"\"")
-        buildConfigField "String", "WEIXIN_KEY", properties.getProperty("WEIXIN_KEY", "\"\"")
     }
     buildTypes {
         release {
@@ -50,17 +40,12 @@ android {
 }
 
 dependencies {
-    //res
-    api project(":common-res")
-    //router
-    api project(":router")
     //ui
     api(Libs.dialog) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
         exclude module: 'annotation'
     }
-
     api(Libs.banner) {
         exclude module: 'support-v4'
         exclude module: 'appcompat-v7'
@@ -108,6 +93,11 @@ dependencies {
     }
     //test
     testImplementation Libs.junit
+    api(Libs.router){
+        exclude module: 'support-v4'
+        exclude module: 'appcompat-v7'
+        exclude module: 'annotation'
+    }
     //jsoup
     api project(':third-party-libs:jsoup-annotations')
     //other
@@ -152,25 +142,13 @@ dependencies {
     //di
     api Libs.dagger2
     api Libs.butterknife
-    //umeng
-    api Libs.umeng
+
     //canary
     /*debugImplementation Libs.blockcanary_android
     releaseImplementation Libs.blockcanary_no_op
     debugImplementation Libs.leakcanary_android
     releaseImplementation Libs.leakcanary_no_op*/
-    //x5内核
-    api files('libs/tbs_sdk.jar')
-    //Umeng Share
-    api files('libs/SocialSDK_QQ_Simplify.jar')
-    api files('libs/SocialSDK_Sina_Simplify.jar')
-    api files('libs/SocialSDK_tencentWB.jar')
-    api files('libs/SocialSDK_WeChat_Simplify.jar')
-    api files('libs/umeng_social_api.jar')
-    api files('libs/umeng_social_net.jar')
-    api files('libs/umeng_social_shareboard.jar')
-    api files('libs/umeng_social_shareview.jar')
-    api files('libs/umeng_social_tool.jar')
+
     //godeye
     /*implementation 'cn.hikyson.godeye:godeye-core:' + GODEYE_VER
     debugImplementation 'cn.hikyson.godeye:godeye-monitor:' + GODEYE_VER

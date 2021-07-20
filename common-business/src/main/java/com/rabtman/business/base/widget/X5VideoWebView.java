@@ -1,4 +1,4 @@
-package com.rabtman.common.base.widget;
+package com.rabtman.business.base.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.widget.Toast;
+
 import com.rabtman.common.utils.LogUtil;
 import com.rabtman.common.utils.WebViewJavaScriptFunction;
 import com.tencent.smtt.export.external.interfaces.ConsoleMessage;
@@ -141,7 +142,7 @@ public class X5VideoWebView extends WebView {
     // webSetting.setRenderPriority(WebSettings.RenderPriority.HIGH);
     webSetting.setCacheMode(WebSettings.LOAD_NO_CACHE);
 
-    this.getView().setOverScrollMode(View.OVER_SCROLL_ALWAYS);
+    this.getView().setOverScrollMode(OVER_SCROLL_ALWAYS);
     this.addJavascriptInterface(new WebViewJavaScriptFunction() {
 
       @Override

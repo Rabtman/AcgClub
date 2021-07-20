@@ -16,8 +16,8 @@ import com.rabtman.acgschedule.base.constant.SystemConstant
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleTimeItem
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleWeek
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleTimeAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.SimpleActivity
-import com.rabtman.router.RouterConstants
 import java.util.*
 
 /**

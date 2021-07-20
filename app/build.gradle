@@ -136,7 +136,7 @@ App.components.each {c->
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':common')
+    implementation project(':common-business')
 
     //di
     annotationProcessor Libs.dagger2_compiler
@@ -145,7 +145,7 @@ dependencies {
     //阿里用户反馈
     implementation 'com.aliyun.ams:alicloud-android-feedback:3.1.0@aar'
     implementation 'com.aliyun.ams:alicloud-android-utdid:1.1.5.3'
-    implementation 'com.aliyun.ams:alicloud-android-ut:5.1.0'
+    implementation 'com.aliyun.ams:alicloud-android-ut:5.4.0'
     implementation 'com.aliyun.ams:alicloud-android-utils:1.0.3'
     //bugly
     implementation Libs.crashreport

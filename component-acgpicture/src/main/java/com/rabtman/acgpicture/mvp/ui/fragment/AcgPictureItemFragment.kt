@@ -14,10 +14,10 @@ import com.rabtman.acgpicture.mvp.AcgPictureContract
 import com.rabtman.acgpicture.mvp.model.entity.AcgPictureItem
 import com.rabtman.acgpicture.mvp.presenter.AcgPictureItemPresenter
 import com.rabtman.acgpicture.mvp.ui.adapter.AcgPictureItemAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.BaseFragment
 import com.rabtman.common.di.component.AppComponent
-import com.rabtman.router.RouterConstants
-import com.rabtman.router.RouterUtils
+import com.rabtman.common.utils.RouterUtils
 
 
 /**

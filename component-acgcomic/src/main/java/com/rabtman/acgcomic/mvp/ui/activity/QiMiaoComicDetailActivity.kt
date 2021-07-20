@@ -29,14 +29,14 @@ import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicDetail
 import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicItem
 import com.rabtman.acgcomic.mvp.presenter.QiMiaoComicDetailPresenter
 import com.rabtman.acgcomic.mvp.ui.adapter.QiMiaoComicEpisodeItemAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.BaseActivity
 import com.rabtman.common.base.widget.loadsir.EmptyCallback
 import com.rabtman.common.base.widget.loadsir.PlaceholderCallback
 import com.rabtman.common.base.widget.loadsir.RetryCallback
 import com.rabtman.common.di.component.AppComponent
+import com.rabtman.common.utils.RouterUtils
 import com.rabtman.eximgloader.ImageLoader.loadImage
-import com.rabtman.router.RouterConstants
-import com.rabtman.router.RouterUtils
 import jp.wasabeef.glide.transformations.BlurTransformation
 
 /**

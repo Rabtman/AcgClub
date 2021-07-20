@@ -8,8 +8,8 @@ import com.google.android.material.tabs.TabLayout
 import com.rabtman.acgnews.R
 import com.rabtman.acgnews.R2
 import com.rabtman.acgnews.mvp.ui.adapter.AcgNewsMainPageAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.SimpleFragment
-import com.rabtman.router.RouterConstants
 import java.util.*
 
 /**

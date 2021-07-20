@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.widget.TextView;
+
 import androidx.appcompat.widget.Toolbar;
-import butterknife.BindView;
-import butterknife.OnClick;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.hss01248.dialog.StyledDialog;
@@ -14,9 +14,12 @@ import com.rabtman.acgclub.BuildConfig;
 import com.rabtman.acgclub.R;
 import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.service.UpdateAppService;
+import com.rabtman.business.router.RouterConstants;
 import com.rabtman.common.base.SimpleActivity;
 import com.rabtman.common.utils.IntentUtils;
-import com.rabtman.router.RouterConstants;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * @author Rabtman

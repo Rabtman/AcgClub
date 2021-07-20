@@ -19,10 +19,10 @@ import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleOtherPage
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleOtherPage.ScheduleOtherItem
 import com.rabtman.acgschedule.mvp.presenter.ScheduleOtherPresenter
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleOtherAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.BaseActivity
 import com.rabtman.common.base.widget.CommonItemDecoration
 import com.rabtman.common.di.component.AppComponent
-import com.rabtman.router.RouterConstants
 
 /**
  * @author Rabtman

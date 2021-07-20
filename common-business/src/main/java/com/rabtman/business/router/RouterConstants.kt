@@ -1,4 +1,4 @@
-package com.rabtman.router
+package com.rabtman.business.router
 
 /**
  * @author Rabtman router相关常量

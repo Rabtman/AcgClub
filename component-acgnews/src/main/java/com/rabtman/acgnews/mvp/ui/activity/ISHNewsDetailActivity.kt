@@ -17,13 +17,12 @@ import com.rabtman.acgnews.mvp.contract.ISHNewsDetailContract
 import com.rabtman.acgnews.mvp.model.entity.SHPostDetail
 import com.rabtman.acgnews.mvp.model.entity.SHPostItem
 import com.rabtman.acgnews.mvp.presenter.ISHNewsDetailPresenter
-import com.rabtman.acgnews.mvp.ui.activity.ISHNewsDetailActivity
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.BaseActivity
 import com.rabtman.common.di.component.AppComponent
 import com.rabtman.common.utils.ExceptionUtils
 import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.TimeUtils
-import com.rabtman.router.RouterConstants
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareAPI

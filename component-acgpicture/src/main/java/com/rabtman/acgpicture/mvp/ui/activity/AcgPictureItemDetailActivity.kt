@@ -23,11 +23,11 @@ import com.rabtman.acgpicture.base.constant.IntentConstant
 import com.rabtman.acgpicture.base.constant.SystemConstant
 import com.rabtman.acgpicture.mvp.model.entity.AcgPictureItem
 import com.rabtman.acgpicture.mvp.ui.adapter.AcgPictureDetailPageAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.SimpleActivity
 import com.rabtman.common.http.ApiException
 import com.rabtman.common.utils.FileUtils
 import com.rabtman.common.utils.LogUtil
-import com.rabtman.router.RouterConstants
 import com.tbruyelle.rxpermissions2.RxPermissions
 import io.reactivex.BackpressureStrategy
 import io.reactivex.android.schedulers.AndroidSchedulers

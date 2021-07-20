@@ -29,13 +29,13 @@ import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail.ScheduleEpisode
 import com.rabtman.acgschedule.mvp.presenter.ScheduleDetailPresenter
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleDetailEpisodeItemAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.BaseActivity
 import com.rabtman.common.base.widget.loadsir.EmptyCallback
 import com.rabtman.common.base.widget.loadsir.PlaceholderCallback
 import com.rabtman.common.base.widget.loadsir.RetryCallback
 import com.rabtman.common.di.component.AppComponent
 import com.rabtman.eximgloader.ImageLoader.loadImage
-import com.rabtman.router.RouterConstants
 import com.tbruyelle.rxpermissions2.RxPermissions
 import jp.wasabeef.glide.transformations.BlurTransformation
 

@@ -19,12 +19,7 @@ import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.SPUtils
 import com.rabtman.common.utils.Utils
 import com.rabtman.common.utils.constant.SPConstants
-import com.tencent.smtt.sdk.QbSdk
-import com.tencent.smtt.sdk.QbSdk.PreInitCallback
-import com.umeng.socialize.Config
-import com.umeng.socialize.PlatformConfig
-import com.umeng.socialize.UMShareAPI
-import com.umeng.socialize.common.QueuedWork
+
 import io.reactivex.plugins.RxJavaPlugins
 import io.realm.Realm
 import java.util.*
@@ -34,17 +29,6 @@ import javax.inject.Inject
  * Common Application的生命周期代理
  */
 class CommonApplicationLike(private var mApplication: Application) : IApplicationLike {
-    companion object {
-        init {
-            //Umeng Share各个平台的配置
-            PlatformConfig.setWeixin(BuildConfig.WEIXIN_ID, BuildConfig.WEIXIN_KEY)
-            PlatformConfig.setSinaWeibo(
-                BuildConfig.SINA_WEIBO_KEY, BuildConfig.SINA_WEIBO_SECRET,
-                "http://sns.whalecloud.com"
-            )
-            PlatformConfig.setQQZone(BuildConfig.QQ_ZONE_ID, BuildConfig.QQ_ZONE_KEY)
-        }
-    }
 
     private val mModules: List<ConfigModule> = ManifestParser(mApplication).parse()
 
@@ -52,11 +36,12 @@ class CommonApplicationLike(private var mApplication: Application) : IApplicatio
     lateinit var mActivityLifecycle: ActivityLifecycle
     private lateinit var mAppComponent: AppComponent
     private val mLifecycles = ArrayList<Lifecycle>()
-
+    private val mActivityLifecycles = ArrayList<Application.ActivityLifecycleCallbacks>()
 
     init {
         for (module in mModules) {
             module.injectAppLifecycle(mApplication, mLifecycles)
+            module.injectActivityLifecycle(mApplication, mActivityLifecycles)
         }
     }
 
@@ -103,12 +88,12 @@ class CommonApplicationLike(private var mApplication: Application) : IApplicatio
         for (lifecycle in mLifecycles) {
             lifecycle.onCreate(mApplication)
         }
+        for (activityLifecycle in mActivityLifecycles) {
+            mApplication.registerActivityLifecycleCallbacks(activityLifecycle)
+        }
 
         //初始化全局dialog
         StyledDialog.init(mApplication)
-
-        //leakCanary内存泄露检查
-        //LeakCanary.install(mApplication);
 
         //rx全局异常处理
         setRxJavaErrorHandler()
@@ -128,9 +113,6 @@ class CommonApplicationLike(private var mApplication: Application) : IApplicatio
 
     fun onDefaultProcessCreate() {
         recordVersionCode()
-        initX5Web()
-        initUShare()
-        //installGodEye();
     }
 
     /**
@@ -138,79 +120,21 @@ class CommonApplicationLike(private var mApplication: Application) : IApplicatio
      * 可以通过这个记录后期做一些新旧版本切换埋点和额外操作
      */
     private fun recordVersionCode() {
-        val hisVerion = SPUtils.getInstance().getInt(SPConstants.APP_VERSION_CODE, -1)
+        val hisVersion = SPUtils.getInstance().getInt(SPConstants.APP_VERSION_CODE, -1)
         val curVersion = BuildConfig.appVerCode
-        if (hisVerion != curVersion) {
+        if (hisVersion != curVersion) {
             SPUtils.getInstance().put(SPConstants.APP_VERSION_CODE, curVersion)
         }
     }
 
     fun onTerminate() {
         mApplication.unregisterActivityLifecycleCallbacks(mActivityLifecycle)
+        for (activityLifecycle in mActivityLifecycles) {
+            mApplication.unregisterActivityLifecycleCallbacks(activityLifecycle)
+        }
         for (lifecycle in mLifecycles) {
             lifecycle.onTerminate(mApplication)
         }
-
-        //LeakCanary.uninstall();
-        //GodEyeMonitor.shutDown();
-    }
-
-    //Umeng Share
-    private fun initUShare() {
-        Config.DEBUG = BuildConfig.DEBUG
-        QueuedWork.isUseThreadPool = false
-        UMShareAPI.init(mApplication, BuildConfig.UMENG_APP_KEY)
-    }
-
-    //AndroidGodEye
-    /*private void installGodEye() {
-    if (BuildConfig.DEBUG) {
-      GodEye.instance().init(mApplication);
-      GodEyeMonitor.injectAppInfoConext(new GodEyeMonitor.AppInfoConext() {
-        @Override
-        public Context getContext() {
-          return mApplication;
-        }
-
-        @Override
-        public Map<String, Object> getAppInfo() {
-          Map<String, Object> appInfo = new ArrayMap<>();
-          appInfo.put("ApplicationID", BuildConfig.applicationId);
-          appInfo.put("VersionName", BuildConfig.appVerName);
-          appInfo.put("VersionCode", BuildConfig.appVerCode);
-          appInfo.put("BuildType", BuildConfig.BUILD_TYPE);
-          return appInfo;
-        }
-      });
-      GodEye.instance()
-          .install(new BatteryConfig(mApplication))
-          .install(new CpuConfig())
-          .install(new CrashConfig(new CrashFileProvider(mApplication)))
-          .install(new FpsConfig(mApplication))
-          .install(new HeapConfig())
-          .install(new LeakConfig(mApplication, new RxPermissionRequest()))
-          .install(new PageloadConfig(mApplication))
-          .install(new PssConfig(mApplication))
-          .install(new RamConfig(mApplication))
-          .install(new SmConfig(mApplication))
-          .install(new ThreadConfig())
-          .install(new TrafficConfig());
-      GodEyeMonitor.work(mApplication);
-    }
-  }*/
-    private fun initX5Web() {
-        //x5内核初始化接口
-        QbSdk.initX5Environment(mApplication, object : PreInitCallback {
-            override fun onViewInitFinished(arg0: Boolean) {
-                // TODO Auto-generated method stub
-                //x5內核初始化完成的回调，为true表示x5内核加载成功，否则表示x5内核加载失败，会自动切换到系统内核。
-                LogUtil.d("onViewInitFinished is $arg0")
-            }
-
-            override fun onCoreInitFinished() {
-                // TODO Auto-generated method stub
-            }
-        })
     }
 
     /**

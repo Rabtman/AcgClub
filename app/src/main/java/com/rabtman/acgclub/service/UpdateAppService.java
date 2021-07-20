@@ -4,7 +4,9 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.text.TextUtils;
+
 import androidx.annotation.Nullable;
+
 import com.hss01248.dialog.StyledDialog;
 import com.hss01248.dialog.interfaces.MyDialogListener;
 import com.rabtman.acgclub.BuildConfig;
@@ -13,7 +15,7 @@ import com.rabtman.acgclub.api.AcgService;
 import com.rabtman.acgclub.base.constant.HtmlConstant;
 import com.rabtman.acgclub.base.constant.IntentConstant;
 import com.rabtman.acgclub.mvp.model.entity.VersionInfo;
-import com.rabtman.common.base.CommonSubscriber;
+import com.rabtman.business.base.CommonSubscriber;
 import com.rabtman.common.utils.IntentUtils;
 import com.rabtman.common.utils.RxUtil;
 import com.rabtman.common.utils.ToastUtil;

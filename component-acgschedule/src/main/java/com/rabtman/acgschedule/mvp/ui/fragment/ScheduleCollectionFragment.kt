@@ -12,11 +12,11 @@ import com.rabtman.acgschedule.base.constant.SystemConstant
 import com.rabtman.acgschedule.mvp.model.dao.ScheduleDAO
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleCache
 import com.rabtman.acgschedule.mvp.ui.adapter.ScheduleCollectionAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.SimpleFragment
 import com.rabtman.common.base.widget.loadsir.EmptyCollectionCallback
+import com.rabtman.common.utils.RouterUtils
 import com.rabtman.common.utils.RxUtil
-import com.rabtman.router.RouterConstants
-import com.rabtman.router.RouterUtils
 import io.reactivex.disposables.Disposable
 import io.reactivex.subscribers.ResourceSubscriber
 

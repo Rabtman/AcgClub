@@ -2,7 +2,7 @@ package com.rabtman.acgcomic.mvp.presenter
 
 import com.rabtman.acgcomic.mvp.DmzjComicContract
 import com.rabtman.acgcomic.mvp.model.entity.DmzjComicItem
-import com.rabtman.common.base.CommonSubscriber
+import com.rabtman.business.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.FragmentScope
 import com.rabtman.common.utils.RxUtil

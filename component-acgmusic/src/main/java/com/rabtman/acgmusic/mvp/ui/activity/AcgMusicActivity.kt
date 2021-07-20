@@ -16,11 +16,11 @@ import com.rabtman.acgmusic.IMusicStatusListener
 import com.rabtman.acgmusic.R
 import com.rabtman.acgmusic.mvp.model.entity.MusicInfo
 import com.rabtman.acgmusic.service.MusicPlayService
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.SimpleActivity
 import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxUtil
 import com.rabtman.eximgloader.ImageLoader.loadImage
-import com.rabtman.router.RouterConstants
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 import io.reactivex.functions.BiFunction

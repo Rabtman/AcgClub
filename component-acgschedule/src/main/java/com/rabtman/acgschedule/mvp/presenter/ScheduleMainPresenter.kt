@@ -4,7 +4,7 @@ import android.Manifest.permission
 import com.rabtman.acgschedule.R
 import com.rabtman.acgschedule.mvp.contract.ScheduleMainContract
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleInfo
-import com.rabtman.common.base.CommonSubscriber
+import com.rabtman.business.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.FragmentScope
 import com.rabtman.common.utils.RxUtil

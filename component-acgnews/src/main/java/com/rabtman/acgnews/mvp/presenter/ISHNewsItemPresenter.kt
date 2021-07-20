@@ -2,7 +2,7 @@ package com.rabtman.acgnews.mvp.presenter
 
 import com.rabtman.acgnews.mvp.contract.ISHNewsContract
 import com.rabtman.acgnews.mvp.model.entity.SHPage
-import com.rabtman.common.base.CommonSubscriber
+import com.rabtman.business.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.FragmentScope
 import com.rabtman.common.utils.RxUtil

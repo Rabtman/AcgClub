@@ -1,4 +1,4 @@
-package com.rabtman.router
+package com.rabtman.common.utils
 
 import com.alibaba.android.arouter.launcher.ARouter
 

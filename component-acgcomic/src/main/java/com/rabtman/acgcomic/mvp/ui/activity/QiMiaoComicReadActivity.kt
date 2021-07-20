@@ -22,9 +22,9 @@ import com.rabtman.acgcomic.mvp.QiMIaoComicChapterDetailContract
 import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicChapterDetail
 import com.rabtman.acgcomic.mvp.presenter.QiMiaoComicReadPresenter
 import com.rabtman.acgcomic.mvp.ui.adapter.QiMiaoComicReadAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.BaseActivity
 import com.rabtman.common.di.component.AppComponent
-import com.rabtman.router.RouterConstants
 
 
 /**

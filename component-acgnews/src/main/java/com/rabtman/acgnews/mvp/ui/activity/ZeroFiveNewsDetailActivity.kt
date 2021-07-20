@@ -17,12 +17,11 @@ import com.rabtman.acgnews.mvp.contract.ZeroFiveNewsDetailContract
 import com.rabtman.acgnews.mvp.model.jsoup.ZeroFiveNews
 import com.rabtman.acgnews.mvp.model.jsoup.ZeroFiveNewsDetail
 import com.rabtman.acgnews.mvp.presenter.ZeroFiveNewsDetailPresenter
-import com.rabtman.acgnews.mvp.ui.activity.ZeroFiveNewsDetailActivity
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.BaseActivity
 import com.rabtman.common.di.component.AppComponent
 import com.rabtman.common.utils.ExceptionUtils
 import com.rabtman.common.utils.LogUtil
-import com.rabtman.router.RouterConstants
 import com.tbruyelle.rxpermissions2.RxPermissions
 import com.umeng.socialize.ShareAction
 import com.umeng.socialize.UMShareAPI

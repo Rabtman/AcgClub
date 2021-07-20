@@ -4,7 +4,7 @@ import android.Manifest
 import com.rabtman.acgnews.R
 import com.rabtman.acgnews.mvp.contract.ISHNewsDetailContract
 import com.rabtman.acgnews.mvp.model.entity.SHPostDetail
-import com.rabtman.common.base.CommonSubscriber
+import com.rabtman.business.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.utils.RxUtil

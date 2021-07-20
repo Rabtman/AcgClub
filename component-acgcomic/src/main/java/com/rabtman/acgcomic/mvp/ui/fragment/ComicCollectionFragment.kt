@@ -14,11 +14,11 @@ import com.rabtman.acgcomic.mvp.model.dao.ComicDAO
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicItem
 import com.rabtman.acgcomic.mvp.ui.adapter.ComicCollectionAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.SimpleFragment
 import com.rabtman.common.base.widget.loadsir.EmptyCollectionCallback
+import com.rabtman.common.utils.RouterUtils
 import com.rabtman.common.utils.RxUtil
-import com.rabtman.router.RouterConstants
-import com.rabtman.router.RouterUtils
 import io.reactivex.disposables.Disposable
 import io.reactivex.subscribers.ResourceSubscriber
 

@@ -7,7 +7,7 @@ import com.rabtman.acgcomic.mvp.QiMiaoComicDetailContract.View
 import com.rabtman.acgcomic.mvp.model.entity.db.ComicCache
 import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicDetail
 import com.rabtman.acgcomic.mvp.model.entity.jsoup.QiMiaoComicItem
-import com.rabtman.common.base.CommonSubscriber
+import com.rabtman.business.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.utils.RxUtil

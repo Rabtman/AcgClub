@@ -2,8 +2,8 @@
 include ':app'
 //基础库
 include ':common', ':common-res'
-//路由
-include ':router'
+//基础业务库
+include ':common-business'
 //基础库
 include ':base-libs:ExImgLoader'
 //三方库

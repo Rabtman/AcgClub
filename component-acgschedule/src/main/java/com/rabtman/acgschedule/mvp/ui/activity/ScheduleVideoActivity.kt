@@ -15,10 +15,10 @@ import com.rabtman.acgschedule.di.component.DaggerScheduleVideoComponent
 import com.rabtman.acgschedule.di.module.ScheduleVideoModule
 import com.rabtman.acgschedule.mvp.contract.ScheduleVideoContract
 import com.rabtman.acgschedule.mvp.presenter.ScheduleVideoPresenter
+import com.rabtman.business.base.widget.X5VideoWebView
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.BaseActivity
-import com.rabtman.common.base.widget.X5VideoWebView
 import com.rabtman.common.di.component.AppComponent
-import com.rabtman.router.RouterConstants
 import com.tencent.smtt.sdk.QbSdk
 
 /**

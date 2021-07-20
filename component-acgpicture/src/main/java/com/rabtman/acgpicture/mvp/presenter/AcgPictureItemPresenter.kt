@@ -2,7 +2,7 @@ package com.rabtman.acgpicture.mvp.presenter
 
 import com.rabtman.acgpicture.mvp.AcgPictureContract
 import com.rabtman.acgpicture.mvp.model.entity.AcgPictureItem
-import com.rabtman.common.base.CommonSubscriber
+import com.rabtman.business.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.FragmentScope
 import com.rabtman.common.utils.RxUtil

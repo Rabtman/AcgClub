@@ -15,9 +15,9 @@ import com.rabtman.acgpicture.mvp.AcgPictureMainContract
 import com.rabtman.acgpicture.mvp.model.entity.AcgPictureType
 import com.rabtman.acgpicture.mvp.presenter.AcgPictureMainPresenter
 import com.rabtman.acgpicture.mvp.ui.adapter.AcgPictureMainPageAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.BaseFragment
 import com.rabtman.common.di.component.AppComponent
-import com.rabtman.router.RouterConstants
 import java.util.*
 
 /**

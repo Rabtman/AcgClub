@@ -19,7 +19,7 @@ import com.rabtman.acgmusic.R
 import com.rabtman.acgmusic.api.AcgMusicService
 import com.rabtman.acgmusic.mvp.model.entity.MusicInfo
 import com.rabtman.acgmusic.mvp.ui.activity.AcgMusicActivity
-import com.rabtman.common.base.CommonSubscriber
+import com.rabtman.business.base.CommonSubscriber
 import com.rabtman.common.utils.LogUtil
 import com.rabtman.common.utils.RxUtil
 import com.rabtman.common.utils.Utils

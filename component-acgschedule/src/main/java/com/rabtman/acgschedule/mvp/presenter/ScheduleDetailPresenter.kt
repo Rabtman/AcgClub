@@ -6,7 +6,7 @@ import com.rabtman.acgschedule.R
 import com.rabtman.acgschedule.mvp.contract.ScheduleDetailContract
 import com.rabtman.acgschedule.mvp.model.entity.ScheduleCache
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleDetail
-import com.rabtman.common.base.CommonSubscriber
+import com.rabtman.business.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.utils.RxUtil

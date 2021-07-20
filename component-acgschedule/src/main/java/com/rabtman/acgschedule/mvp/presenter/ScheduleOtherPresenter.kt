@@ -2,7 +2,7 @@ package com.rabtman.acgschedule.mvp.presenter
 
 import com.rabtman.acgschedule.mvp.contract.ScheduleOtherContract
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleOtherPage
-import com.rabtman.common.base.CommonSubscriber
+import com.rabtman.business.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.utils.RxUtil

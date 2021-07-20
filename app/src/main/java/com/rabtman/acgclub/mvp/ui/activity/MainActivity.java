@@ -9,13 +9,14 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import butterknife.BindView;
+
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener;
@@ -26,16 +27,19 @@ import com.rabtman.acgclub.di.module.MainModule;
 import com.rabtman.acgclub.mvp.contract.MainContract;
 import com.rabtman.acgclub.mvp.presenter.MainPresenter;
 import com.rabtman.acgclub.service.UpdateAppService;
+import com.rabtman.business.base.NullFragment;
+import com.rabtman.business.router.RouterConstants;
 import com.rabtman.common.base.BaseActivity;
-import com.rabtman.common.base.NullFragment;
 import com.rabtman.common.di.component.AppComponent;
 import com.rabtman.common.utils.KeyboardUtils;
+import com.rabtman.common.utils.RouterUtils;
 import com.rabtman.common.utils.constant.StatusBarConstants;
-import com.rabtman.router.RouterConstants;
-import com.rabtman.router.RouterUtils;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnTabSelectListener;
+
 import java.util.HashMap;
+
+import butterknife.BindView;
 import me.yokeyword.fragmentation.SupportFragment;
 
 /**

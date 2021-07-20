@@ -14,9 +14,9 @@ import com.rabtman.acgpicture.mvp.AnimatePictureContract
 import com.rabtman.acgpicture.mvp.model.entity.AnimatePictureItem
 import com.rabtman.acgpicture.mvp.presenter.AnimatePicturePresenter
 import com.rabtman.acgpicture.mvp.ui.adapter.AnimateItemAdapter
+import com.rabtman.business.router.RouterConstants
 import com.rabtman.common.base.BaseFragment
 import com.rabtman.common.di.component.AppComponent
-import com.rabtman.router.RouterConstants
 
 
 /**

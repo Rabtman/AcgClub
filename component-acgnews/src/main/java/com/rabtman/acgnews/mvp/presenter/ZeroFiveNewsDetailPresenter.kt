@@ -5,7 +5,7 @@ import android.text.TextUtils
 import com.rabtman.acgnews.R
 import com.rabtman.acgnews.mvp.contract.ZeroFiveNewsDetailContract
 import com.rabtman.acgnews.mvp.model.jsoup.ZeroFiveNewsDetail
-import com.rabtman.common.base.CommonSubscriber
+import com.rabtman.business.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.utils.RxUtil

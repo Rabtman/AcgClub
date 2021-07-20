@@ -4,7 +4,7 @@ import android.text.TextUtils
 import com.rabtman.acgschedule.base.constant.HtmlConstant
 import com.rabtman.acgschedule.mvp.contract.ScheduleVideoContract
 import com.rabtman.acgschedule.mvp.model.jsoup.ScheduleVideo
-import com.rabtman.common.base.CommonSubscriber
+import com.rabtman.business.base.CommonSubscriber
 import com.rabtman.common.base.mvp.BasePresenter
 import com.rabtman.common.di.scope.ActivityScope
 import com.rabtman.common.utils.LogUtil

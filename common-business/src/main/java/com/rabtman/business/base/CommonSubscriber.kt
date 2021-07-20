@@ -1,8 +1,8 @@
-package com.rabtman.common.base
+package com.rabtman.business.base
 
 import android.content.Context
 import android.text.TextUtils
-import com.rabtman.common.R
+import com.rabtman.business.R
 import com.rabtman.common.base.mvp.IView
 import com.rabtman.common.http.ApiException
 import com.rabtman.common.utils.ToastUtil
@@ -54,38 +54,43 @@ abstract class CommonSubscriber<T> : ResourceSubscriber<T> {
     }
 
     private fun showError(e: Throwable) {
-        if (mView != null) {
+        mView?.let { iView ->
             if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
-                mView?.showError(mErrorMsg)
+                iView.showError(mErrorMsg)
             } else if (e is ApiException) {
-                mView?.showError(e.toString())
+                iView.showError(e.toString())
             } else if (e is HttpException) {
-                mView?.showError(handleHttpExceptionTips(e))
+                iView.showError(handleHttpExceptionTips(e))
             } else if (e is SocketTimeoutException) {
-                mView?.showError(R.string.msg_error_network)
+                iView.showError(R.string.msg_error_network)
             } else {
-                mView?.showError(R.string.msg_error_unknown)
+                iView.showError(R.string.msg_error_unknown)
             }
-        } else if (mContext != null) {
-            if (mErrorMsg != null && !TextUtils.isEmpty(mErrorMsg)) {
-                ToastUtil.show(mContext, mErrorMsg)
-            } else if (e is ApiException) {
-                ToastUtil.show(mContext, e.toString())
-            } else if (e is HttpException) {
-                val resString = handleHttpExceptionTips(e)
-                ToastUtil.show(mContext, mContext!!.getString(resString))
+        } ?: mContext?.let { ctx ->
+            mErrorMsg?.takeIf { it.isNotBlank() }?.let { msg ->
+                ToastUtil.show(ctx, msg)
+            } ?: run {
+                if (e is ApiException) {
+                    ToastUtil.show(ctx, e.toString())
+                } else if (e is HttpException) {
+                    val resString = handleHttpExceptionTips(e)
+                    ToastUtil.show(ctx, ctx.getString(resString))
+                }
             }
         }
     }
 
-    private fun handleHttpExceptionTips(e: Throwable): Int {
-        val code = (e as HttpException).code()
-        return if (code == 429) {
-            R.string.msg_error_too_fast
-        } else if (code == 404) {
-            R.string.msg_error_404
-        } else {
-            R.string.msg_error_network
+    private fun handleHttpExceptionTips(e: HttpException): Int {
+        return when (e.code()) {
+            429 -> {
+                R.string.msg_error_too_fast
+            }
+            404 -> {
+                R.string.msg_error_404
+            }
+            else -> {
+                R.string.msg_error_network
+            }
         }
     }
 }

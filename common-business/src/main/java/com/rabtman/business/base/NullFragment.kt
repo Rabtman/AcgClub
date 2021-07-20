@@ -1,6 +1,7 @@
-package com.rabtman.common.base
+package com.rabtman.business.base
 
-import com.rabtman.common.R
+import com.rabtman.business.R
+import com.rabtman.common.base.SimpleFragment
 
 /**
  * @author Rabtman

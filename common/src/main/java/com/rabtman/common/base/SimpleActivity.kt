@@ -20,7 +20,6 @@ import com.rabtman.common.di.component.AppComponent
 import com.rabtman.common.utils.ToastUtil
 import com.rabtman.common.utils.Utils
 import com.rabtman.common.utils.constant.StatusBarConstants
-import com.umeng.analytics.MobclickAgent
 import me.yokeyword.fragmentation.SupportActivity
 
 abstract class SimpleActivity : SupportActivity(), IView {
@@ -61,16 +60,6 @@ abstract class SimpleActivity : SupportActivity(), IView {
      */
     protected open fun useLoadSir(): Boolean {
         return false
-    }
-
-    override fun onResume() {
-        super.onResume()
-        MobclickAgent.onResume(this)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        MobclickAgent.onPause(this)
     }
 
     override fun onDestroy() {
@@ -139,10 +128,13 @@ abstract class SimpleActivity : SupportActivity(), IView {
     }
 
     protected open fun setStatusBar() {
-        StatusBarUtil.setColor(mContext,
-                ContextCompat.getColor(mContext,
-                        mAppComponent.statusBarAttr()[StatusBarConstants.COLOR] ?: 0),
-                mAppComponent.statusBarAttr()[StatusBarConstants.ALPHA] ?: 0
+        StatusBarUtil.setColor(
+            mContext,
+            ContextCompat.getColor(
+                mContext,
+                mAppComponent.statusBarAttr()[StatusBarConstants.COLOR] ?: 0
+            ),
+            mAppComponent.statusBarAttr()[StatusBarConstants.ALPHA] ?: 0
         )
     }
 
