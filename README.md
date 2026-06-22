@@ -170,19 +170,10 @@ WEIXIN_KEY=""
 * [`AndroidUtilCode`](https://github.com/Blankj/AndroidUtilCode)
 * [`VasDolly`](https://github.com/Tencent/VasDolly)
 
-
-
-## 捐赠
-
-如果认为项目有趣或对你有帮助，欢迎捐赠支持。捐赠金额将用于支付域名和服务器费用，方便为大家提供更好的服务！
-
-![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/pay_alipay.jpg)![](https://github.com/Rabtman/AcgClub/raw/master/screenshots/pay_wxpay.jpg)
-
-
 ## 联系
 
 项目需要完善的地方还有很多，如有BUG或者更好的建议欢迎提出
 
 * [issue](https://github.com/Rabtman/AcgClub/issues)
-* mail：[acgclub@rabtman.com](mailto:acgclub@rabtman.com) 或 [zhangjm05@gmail.com](mailto:zhangjm05@gmail.co)
-* blog：[https://rabtman.com/](https://rabtman.com/)
+* mail：[zhangjm05@gmail.com](mailto:zhangjm05@gmail.com)
+
